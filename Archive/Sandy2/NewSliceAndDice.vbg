@@ -1,0 +1,8 @@
+VBGROUP 5.0
+StartupProject=SandyInstance.vbp
+Project=SandySupport.vbp
+Project=SandyIDEforVB6.vbp
+Project=sadAddin.vbp
+Project=sadRegister.vbp
+Project=sadFile.vbp
+Project=sadDB2Code.vbp

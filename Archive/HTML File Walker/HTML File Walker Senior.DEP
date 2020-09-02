@@ -1,0 +1,20 @@
+[Version]
+Version=1.8.0.30
+
+[HTML File Walker Senior.exe <0009>]
+Dest=$(AppPath)
+Date=7/11/1999
+Time=14:29
+Version=1.8.0.30
+CABFilename=HTML File Walker Senior.CAB
+CABINFFile=HTML File Walker Senior.INF
+Uses1=MSVBVM60.DLL
+Uses2=OLEAUT32.DLL
+Uses3=OLEPRO32.DLL
+Uses4=ASYCFILT.DLL
+Uses5=STDOLE2.TLB
+Uses6=COMCAT.DLL
+Uses7=dao350.dll
+Uses8=COMDLG32.OCX
+Uses9=VSOCX32.OCX
+Uses10=MFTPX.OCX

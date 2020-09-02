@@ -1,0 +1,5 @@
+VBGROUP 5.0
+StartupProject=HTMLSandy.vbp
+Project=..\SliceAndDice\SliceAndDice.vbp
+Project=..\SliceAndDice\sadAddin.vbp
+Project=..\SliceAndDice\sadFile.vbp

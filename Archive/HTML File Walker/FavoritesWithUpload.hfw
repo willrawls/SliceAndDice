@@ -1,0 +1,13 @@
+InputPath = c:\windows\favorites
+OutputFile = favorites.html
+Title = My Favorites
+Exclude = 
+BackgroundPic = aged-paper.jpg
+BackgroundSound = Cursum3.mid
+BrowserPath = C:\Program Files\Internet Explorer\Iexplore.exe
+FTPHost = your.ftphost.com
+Username = username
+Password = password
+RemotePath = .public
+HostPort = 21
+UseLocal = 0

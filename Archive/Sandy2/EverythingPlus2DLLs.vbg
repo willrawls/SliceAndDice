@@ -1,0 +1,9 @@
+VBGROUP 5.0
+Project=sadFile.vbp
+Project=sadAddin.vbp
+StartupProject=SliceAndDice.vbp
+Project=sadDoomClock.vbp
+Project=sadProcessHeader.vbp
+Project=sadRegister.vbp
+Project=sadAutoWebVBCodeDotCom.vbp
+Project=FirmSolutions.vbp

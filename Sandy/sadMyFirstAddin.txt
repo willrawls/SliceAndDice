@@ -1,0 +1,16 @@
+** Command Testing
+** Syntax None
+** Short Displays a message box acknowledging the firing of this command.
+** Examples
+~~Testing
+** Command AnotherOne
+** Syntax None
+** Short Displays a message box acknowledging the firing of this command.
+** Examples
+~~AnotherOne
+** Inline Inline1
+** Syntax None
+** Short Asks for input and returns that result.
+** Examples
+~~Set Testing123=%%Inline1%%
+** End

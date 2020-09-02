@@ -1,0 +1,9 @@
+VBGROUP 5.0
+StartupProject=SliceAndDice.vbp
+Project=sadAddin.vbp
+Project=sadFile.vbp
+Project=sadProcessHeader.vbp
+Project=sadRegister.vbp
+Project=sadSoftCodeWmr.vbp
+Project=F:\Data\Programming 2000\Source\From the Internet\planet source code - vb\Evaluator\sadKTEval.vbp
+Project=sadAutoWebVBCodeDotCom.vbp

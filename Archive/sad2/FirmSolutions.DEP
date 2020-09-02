@@ -1,0 +1,19 @@
+[Version]
+Version=1.8.0.30
+
+[FirmSolutions.ocx <0009>]
+Dest=$(AppPath)
+Date=4/8/1999
+Time=01:04
+Version=1.8.0.30
+CABFilename=FirmSolutions.CAB
+CABINFFile=FirmSolutions.INF
+Uses1=MSVBVM60.DLL
+Uses2=OLEAUT32.DLL
+Uses3=OLEPRO32.DLL
+Uses4=ASYCFILT.DLL
+Uses5=STDOLE2.TLB
+Uses6=COMCAT.DLL
+Uses7=dao350.dll
+Uses8=MSCOMCTL.OCX
+Uses9=MSCOMCT2.OCX

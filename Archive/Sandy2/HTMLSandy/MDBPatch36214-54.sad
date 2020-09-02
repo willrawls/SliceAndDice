@@ -1,0 +1,1350 @@
+!@#$%^&*())(*&^%$#@! PatchFileVersion 1.8.92
+!@#$%^&*())(*&^%$#@! Template Basic - Invert Lines around equal sign
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 9/22/1998 5:36:55 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:56:57 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GetTextSelection TextSelection
+~~ReverseTokens TextSelection TextOut " = "
+~~FirstSelectionLine
+~~DeleteSelection
+%%TextOut%%
+!@#$%^&*())(*&^%$#@! Template Basic - Right click a ListView
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/23/1999 1:50:16 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:51:31 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtBottom
+Private Sub %%Name of ListView object%%_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+    If Button = vbRightButton And Shift = 0 Then
+       If Not %%Name of ListView object%%.HitTest(x, y) Is Nothing Then
+          %%Name of ListView object%%.HitTest(x, y).Selected = True
+          MsgBox "Handle ListItem Clicked here"
+       End If
+    End If
+End Sub
+!@#$%^&*())(*&^%$#@! Template Basic - Right click a TreeView
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:51:55 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtBottom
+Private Sub %%Name of TreeView object%%_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+    Dim NodeClicked As Node
+    
+    If Button = vbRightButton Then
+       Set NodeClicked = %%Name of TreeView object%%.HitTest(x, y)
+       If Not NodeClicked Is Nothing Then
+          MsgBox "Handle NodeCliked here"
+       End If
+    End If
+End Sub
+
+!@#$%^&*())(*&^%$#@! Template Basic - Test
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/23/1999 3:08:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 4:14:06 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GetSelection Selection
+~~LastSelectionLine
+~~Set Choices=1;2;3;4;5
+~~Choose MyChoice Choices
+First time, You choose '%%MyChoice%%'
+~~Set Choose Delimiter= 
+~~Set Choose Default=Blue
+~~Choose MyChoice Red Green Blue
+Second time, You choose '%%MyChoice%%'
+!@#$%^&*())(*&^%$#@! Template Class - CAssocArray
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:52:52 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GotoClass CAssocArray~~
+' ********************************************************************************
+' Class Module      CAssocArray
+'
+' Filename          CAssocArray.cls
+'
+' Copyright         1998 by Firm Solutions
+'                   All rights reserved.
+'
+' Author            William M. Rawls
+'                   Firm Solutions
+'
+' Created On        4/30/1998 1:23 PM
+'
+' Description
+'
+'    The Reality Matrix, Dimention 2 of 3
+'       "Associative array" like abilities
+'
+'    What's "assosiative array" like abilities mean ?
+'       Email = wrawls@firmsolutions.com to find out more.
+'    Web page you ask ?
+'       URL = http://www.firmsolutions.com/RealityMatrix.html
+'    Why does this read like an e-mail ?
+'       Because = It does
+'
+' Revisions
+'
+' <RevisionDate>, <RevisedBy>
+' <Description of Revision>
+'
+' 4/30/1998, William M. Rawls
+' Entered into public domain as freeware. Use at your own risk.
+'
+' ********************************************************************************
+
+Public mCol              As Collection
+Private CurItem          As CAssocItem
+Public Section           As String
+Public ItemDelimiter     As String
+Public KeyValueDelimiter As String
+Public FieldDelimiter    As String
+
+Public Property Get All() As String
+    Static sAllKeyValues As String
+ 
+    For Each CurItem In mCol
+        With CurItem
+             sAllKeyValues = sAllKeyValues + .Key + KeyValueDelimiter + .Value + ItemDelimiter
+        End With
+    Next CurItem
+    Set CurItem = Nothing
+
+    All = sAllKeyValues
+    sAllKeyValues = ""
+End Property
+
+Public Sub Clear()
+    Set mCol = Nothing
+    Set mCol = New Collection
+End Sub
+
+Public Function Add(Key As String, Optional Value As String) As CAssocItem
+       Set CurItem = New CAssocItem
+           With CurItem
+                .Key = Key
+                .Value = Value
+           End With
+           mCol.Add CurItem, Key
+           Set Add = CurItem
+       Set CurItem = Nothing
+End Function
+
+Public Function Column(Optional iCol As Long = 1, Optional ByVal sDelimiter As String) As String
+    Static sColumn As String
+
+    If Len(sDelimiter) = 0 Then sDelimiter = ItemDelimiter
+
+    For Each CurItem In mCol
+        sColumn = sColumn & sDelimiter & CurItem.F(iCol, FieldDelimiter)
+    Next CurItem
+    Set CurItem = Nothing
+
+    Column = Mid$(sColumn, 2)
+    sColumn = ""
+End Function
+
+Public Sub FillList(lstCtrl As Object, Optional sItemToChoose As String = "*NONE*", Optional ByVal iColumn As Integer = 0, Optional ByVal bClearList As Boolean = True)
+    If bClearList Then lstCtrl.Clear
+    
+    If iColumn = 0 Then
+       For Each CurItem In mCol
+           lstCtrl.AddItem CurItem.Key
+       Next CurItem
+    Else
+       For Each CurItem In mCol
+           lstCtrl.AddItem CurItem.F(CLng(iColumn), FieldDelimiter)
+       Next CurItem
+    End If
+    Set CurItem = Nothing
+    
+    If StrComp(sItemToChoose, "*NONE*") <> 0 Then
+       SetListIndex lstCtrl, sItemToChoose
+    End If
+End Sub
+
+Public Sub FillListView(lvwCtrl As Object, Optional bFullLine As Boolean = True)
+    Static lvwX As ListView
+    Static NewItem As ListItem
+    Static SubItems As Integer
+    Static CurSubItem As Integer
+    Static sT As String
+
+    Set lvwX = lvwCtrl
+        lvwX.ListItems.Clear
+        If bFullLine Then ExtendListView lvwX.hWnd
+
+        For Each CurItem In mCol
+            With CurItem
+                 SubItems = iTokenCount(.Value, FieldDelimiter)
+                 If SubItems > 0 Then
+                    sT = sGetToken(.Value, 1, FieldDelimiter)
+                    Set NewItem = lvwX.ListItems.Add(, .Key, .Key, sT, sT)
+                    For CurSubItem = 2 To SubItems
+                        NewItem.SubItems(CurSubItem - 1) = sGetToken(.Value, CurSubItem, FieldDelimiter)
+                    Next CurSubItem
+                 Else
+                    Set NewItem = lvwX.ListItems.Add(, .Key, .Key)
+                 End If
+            End With
+        Next CurItem
+        Set CurItem = Nothing
+        Set NewItem = Nothing
+    Set lvwX = Nothing
+    sT = ""
+End Sub
+
+Public Sub FillListViewColumns(lvwCtrl As Object)
+    Static lvwX As ListView
+    Set lvwX = lvwCtrl
+        With lvwX.ColumnHeaders
+             .Clear
+             For Each CurItem In mCol
+                 .Add , CurItem.Key, CurItem.Key, Val(CurItem.Value)
+             Next CurItem
+             Set CurItem = Nothing
+        End With
+    Set lvwX = Nothing
+End Sub
+
+Public Sub FillTreeNode(tvwToFill As Object, nodCur As Object, sImage As String, bExpanded As Boolean)
+    Dim nodX As Node
+    Dim PrevNode As Node
+    Dim tvwX As TreeView
+    Dim sKey As String
+    Dim sTag As String
+    Dim sIcon As String
+    Dim nChildDelimiter As Integer
+    Dim nEndChildDelimiter As Integer
+
+    Dim NodeStack() As Node
+    ReDim NodeStack(0 To 0) As Node
+
+    nChildDelimiter = Len(ChildDelimiter)
+    nEndChildDelimiter = Len(EndChildDelimiter)
+
+    Set tvwX = tvwToFill
+        Set nodX = nodCur
+            For Each CurItem In mCol
+                sKey = sGetToken(CurItem.Key, 1, IconDelimiter)
+                sIcon = sGetToken(CurItem.Key, 2, IconDelimiter)
+                sTag = sGetToken(sKey, 2, TagDelimiter)
+                sKey = sGetToken(sKey, 1, TagDelimiter)
+                If Len(sIcon) = 0 Then sIcon = sImage
+
+                If nChildDelimiter > 0 Then
+                   If Left$(sKey, nChildDelimiter) = ChildDelimiter Then
+                      sKey = Mid$(sKey, nChildDelimiter + 1)
+                      If Not PrevNode Is Nothing Then
+                         If UBound(NodeStack) > 0 Then
+                            ReDim Preserve NodeStack(1 To UBound(NodeStack) + 1) As Node
+                         Else
+                           ReDim NodeStack(1 To 1) As Node
+                         End If
+                         Set NodeStack(UBound(NodeStack)) = nodX
+                         Set nodX = PrevNode
+                      End If
+                   End If
+                End If
+On Error Resume Next
+                If nodX Is Nothing Then
+                   Set PrevNode = tvwX.Nodes.Add(, , sGetToken(sKey, 1, EndChildDelimiter), sGetToken(sKey, 1, EndChildDelimiter), sGetToken(sIcon, 1, EndChildDelimiter), sGetToken(sIcon, 1, EndChildDelimiter))
+                Else
+                   Set PrevNode = tvwX.Nodes.Add(nodX.Key, tvwChild, nodX.Key & "_" & sGetToken(sKey, 1, EndChildDelimiter), sGetToken(sKey, 1, EndChildDelimiter), sGetToken(sIcon, 1, EndChildDelimiter), sGetToken(sIcon, 1, EndChildDelimiter))
+                End If
+                With PrevNode
+                     .ExpandedImage = sGetToken(sIcon, 1, EndChildDelimiter)
+                     .Expanded = bExpanded
+                     .Tag = sTag
+                End With
+                
+                If nEndChildDelimiter > 0 Then
+                   Do While Right$(sIcon, nEndChildDelimiter) = EndChildDelimiter
+                      sIcon = Left$(sIcon, Len(sIcon) - nEndChildDelimiter)
+                      Set nodX = NodeStack(UBound(NodeStack))
+                      If UBound(NodeStack) > 1 Then
+                         ReDim Preserve NodeStack(1 To UBound(NodeStack) - 1) As Node
+                      Else
+                         ReDim NodeStack(0 To 0) As Node
+                      End If
+                   Loop
+                End If
+            Next CurItem
+        Set CurItem = Nothing
+        Set PrevNode = Nothing
+        Set nodX = Nothing
+    Set tvwX = Nothing
+End Sub
+
+Public Property Get Item(sIndexKey As String) As CAssocItem
+On Error GoTo EH_CAssocArray_Item
+       Set Item = mCol(sIndexKey)
+ 
+EH_CAssocArray_Item_Continue:
+       Exit Property
+ 
+EH_CAssocArray_Item:
+       Set Item = Add(sIndexKey)
+       Err.Clear
+       Resume EH_CAssocArray_Item_Continue
+End Property
+
+Public Property Get Count() As Long
+       Count = mCol.Count
+End Property
+
+
+Public Function Keys(Optional ByVal sDelimiter As String) As String
+    Static sKeys As String
+
+    If Len(sDelimiter) = 0 Then sDelimiter = ItemDelimiter
+
+    For Each CurItem In mCol
+        sKeys = sKeys & sDelimiter & CurItem.Key
+    Next CurItem
+
+    Keys = Mid$(sKeys, 2)
+    sKeys = ""
+End Function
+
+Public Sub ListViewToAll(lvwCtrl As Object)
+    Static CurSubItem As Integer
+    Static sAll As String
+
+    Static lvwX As ListView
+    Static CurListItem As ListItem
+
+    Set lvwX = lvwCtrl
+        Clear
+        sAll = ""
+        For Each CurListItem In lvwX.ListItems
+            With CurListItem
+                 sAll = sAll & ItemDelimiter & .Key & KeyValueDelimiter & .Icon
+                 For CurSubItem = 1 To lvwX.ColumnHeaders.Count - 1
+                     sAll = sAll & FieldDelimiter & .SubItems(CurSubItem)
+                 Next CurSubItem
+                 sAll = Mid$(sAll, Len(FieldDelimiter))
+            End With
+        Next CurListItem
+        All = Mid$(sAll, Len(ItemDelimiter) + 1)
+    Set CurListItem = Nothing
+    Set lvwX = Nothing
+    sAll = ""
+End Sub
+
+Public Sub Remove(sIndexKey As String)
+       mCol.Remove sIndexKey
+End Sub
+
+
+Public Property Get NewEnum() As IUnknown
+       Set NewEnum = mCol.[_NewEnum]
+End Property
+
+
+Public Property Let All(ByVal sAllKeyValues As String)
+    Static sT As String
+    Static sKey As String
+    Static sValue As String
+
+    Clear
+    Do While Len(sAllKeyValues) > 0
+       sT = sGetToken(sAllKeyValues, 1, ItemDelimiter)
+       If InStr(sT, KeyValueDelimiter) > 0 Then
+          sKey = sGetToken(sT, 1, KeyValueDelimiter)
+          sValue = sGetToken(sT, 2, KeyValueDelimiter)
+          Add sKey, sValue
+       Else
+          Add sT
+       End If
+       sAllKeyValues = sAfter(sAllKeyValues, 1, ItemDelimiter)
+    Loop
+
+    sT = ""
+    sKey = ""
+    sValue = ""
+
+End Property
+
+Public Sub TreeToAll(tvwToGet As Object)
+    Dim sAll As String
+
+    Dim CurNode As Node
+    Dim tvwX As TreeView
+
+    Set tvwX = tvwToGet
+        Clear
+        For Each CurNode In tvwX.Nodes
+            With CurNode
+                 If .Parent Is Nothing Then
+                    If Len(.Tag) = 0 Then
+                       sAll = sAll & ItemDelimiter & .Text & IconDelimiter & .Image
+                    Else
+                       sAll = sAll & ItemDelimiter & .Text & TagDelimiter & .Tag & IconDelimiter & .Image
+                    End If
+                    TreeToAll_AddChildren sAll, CurNode
+                 End If
+            End With
+        Next CurNode
+        All = Mid$(sAll, 3)
+        sAll = ""
+    Set CurNode = Nothing
+    Set tvwX = Nothing
+End Sub
+
+Private Sub TreeToAll_AddChildren(sAll As String, CurNode As Node)
+    Dim CurChild As Node
+    Set CurChild = CurNode.Child
+        If Not CurChild Is Nothing Then
+           If Len(CurChild.Tag) = 0 Then
+              sAll = sAll & ItemDelimiter & ChildDelimiter & CurChild.Text & IconDelimiter & CurChild.Image
+           Else
+              sAll = sAll & ItemDelimiter & ChildDelimiter & CurChild.Text & TagDelimiter & CurChild.Tag & IconDelimiter & CurChild.Image
+           End If
+           
+           If Not CurChild.Child Is Nothing Then
+              TreeToAll_AddChildren sAll, CurChild
+           End If
+           
+           Set CurChild = CurChild.Next
+        
+           Do Until CurChild Is Nothing
+              If Len(CurChild.Tag) = 0 Then
+                 sAll = sAll & ItemDelimiter & CurChild.Text & IconDelimiter & CurChild.Image
+              Else
+                 sAll = sAll & ItemDelimiter & CurChild.Text & TagDelimiter & CurChild.Tag & IconDelimiter & CurChild.Image
+              End If
+              If Not CurChild.Child Is Nothing Then
+                 TreeToAll_AddChildren sAll, CurChild
+              End If
+              Set CurChild = CurChild.Next
+           Loop
+           sAll = sAll & EndChildDelimiter
+        End If
+    Set CurChild = Nothing
+End Sub
+
+Private Sub Class_Initialize()
+        Set mCol = New Collection
+        ItemDelimiter = "~"
+        KeyValueDelimiter = "="
+        FieldDelimiter = ","
+End Sub
+
+Private Sub Class_Terminate()
+        Set mCol = Nothing
+End Sub
+
+~~GotoProc NewEnum Get 0~~
+~~ProcAttr Hidden True~~
+~~ProcAttr ID NewEnum~~
+
+~~GotoProc Item Get 0~~
+~~ProcAttr ID Default~~
+
+~~GotoModule modGeneral Module~~
+Option Explicit
+' ***********************************
+' ****** Extend ListView stuff ******
+' ***********************************
+  Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+  Private Const LVM_FIRST = &H1000
+  Private Const LVM_SETEXTENDEDLISTVIEWSTYLE = LVM_FIRST + 54
+  Private Const LVM_GETEXTENDEDLISTVIEWSTYLE = LVM_FIRST + 55
+  Private Const LVS_EX_FULLROWSELECT = &H20
+
+Public Const ChildDelimiter As String = "<CHILD>"
+Public Const EndChildDelimiter As String = "<ENDCHILD>"
+Public Const IconDelimiter As String = "<ICON>"
+Public Const TagDelimiter As String = "<TAG>"
+
+
+' ***********************************************************************************
+' Synopsis          Returns the Nth Token from siAllTokens delimited by sDelim
+'
+' Parameters
+'
+'   siAllTokens                 (I) Required. The string containing all the tokens
+'   iToken                      (I) Optional. The index of the token to return
+'                                   DEFAULT = 1
+'   siDelim                     (I) Optional. The delimiter string that separates
+'                                   the tokens. DEFAULT = " "
+' Description
+'  For the following:
+'    siAllTokens         iToken   sDelim  Returns       Notes
+'   "William M Rawls"    1       " "     "William"      First word
+'   "William M Rawls"    2       " "     "M"            Second word
+'   "William M Rawls"    3       " "     "Rawls"        Third word
+'   "William M Rawls"    4       " "     ""             No forth word
+'   "William M Rawls"    0       " "     ""             Zeroth token is always empty
+'   "William M Rawls"   -1       " "     ""             Negative tokesn always empty
+'   "William M Rawls"    1       ""      ""             No delimiter ? Token empty
+' ***********************************************************************************
+Public Function sGetToken(ByVal siAllTokens As String, Optional ByVal iToken As Integer = 1, Optional ByVal sDelim As String = " ") As String
+    Static iCurTokenLocation As Long ' Character position of the first delimiter string
+    Static nDelim As Integer            ' Length of the delimiter string
+    nDelim = Len(sDelim)
+
+    If iToken < 1 Or nDelim < 1 Then
+     ' Negative or zeroth token or empty delimiter strings mean an empty token
+       Exit Function
+    ElseIf iToken = 1 Then
+     ' Quickly extract the first token
+       iCurTokenLocation = InStr(siAllTokens, sDelim)
+       If iCurTokenLocation > 1 Then
+          sGetToken = Left$(siAllTokens, iCurTokenLocation - 1)
+       ElseIf iCurTokenLocation = 1 Then
+          sGetToken = ""
+       Else
+          sGetToken = siAllTokens
+       End If
+       Exit Function
+    Else
+     ' Find the Nth token
+       Do
+          iCurTokenLocation = InStr(siAllTokens, sDelim)
+          If iCurTokenLocation = 0 Then
+             Exit Function
+          Else
+             siAllTokens = Mid$(siAllTokens, iCurTokenLocation + nDelim)
+          End If
+          iToken = iToken - 1
+       Loop Until iToken = 1
+
+     ' Extract the Nth token (Which is the next token at this point)
+       iCurTokenLocation = InStr(siAllTokens, sDelim)
+       If iCurTokenLocation > 0 Then
+          sGetToken = Left$(siAllTokens, iCurTokenLocation - 1)
+          Exit Function
+       Else
+          sGetToken = siAllTokens
+          Exit Function
+       End If
+    End If
+End Function
+
+'****************************************************************************
+' SetListIndex:
+'
+'   Given a list or combobox and a string to search for, the list entry matching
+'   the string to find will be selected.
+'
+' Parameters:
+'      cboToSearch                         (I) List or Combobox to search
+'      sItemToFind                         (I) Item in list to select
+'
+' Returns
+'      Nothing
+'****************************************************************************
+Public Sub SetListIndex(cboToSearch As Control, ByVal sItemToFind As String)
+    cboToSearch.ListIndex = GetListIndex(cboToSearch, sItemToFind)
+End Sub
+
+Public Function GetListIndex(cboToSearch As Control, ByVal sItemToFind As String) As Integer
+    Static nCurItem As Integer
+
+    If Len(sItemToFind) = 0 Or cboToSearch.ListCount = 0 Then
+       GetListIndex = -1
+       Exit Function
+    End If
+
+    sItemToFind = UCase$(sItemToFind)
+
+    For nCurItem = 0 To cboToSearch.ListCount - 1
+        If StrComp(UCase$(cboToSearch.List(nCurItem)), sItemToFind) = 0 Then
+           GetListIndex = nCurItem
+           Exit Function
+        End If
+    Next nCurItem
+
+End Function
+
+' ********************************************************************************
+' Name              ExtendListView
+'
+' Parameters
+'      lvwIn                         (O)  The ListView to set line selection for
+'
+' Description
+'
+' Sets a ListView object to select an entire line when clicked (instead of just
+' the first column)
+'
+' ********************************************************************************
+Public Sub ExtendListView(hWndListView As Long)
+    Dim style As Long
+    Dim lReturned As Long
+
+    style = SendMessage(hWndListView, LVM_GETEXTENDEDLISTVIEWSTYLE, 0, 0)
+    style = style Or LVS_EX_FULLROWSELECT
+    lReturned = SendMessage(hWndListView, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, style)
+End Sub
+
+' ***********************************************************************************
+' Synopsis          Returns the number of tokens as delimited by siDelim
+'
+' Parameters
+'
+'   siAllTokens                 (I) Required. The string containing all the tokens
+'   siDelim                     (I) Optional. The delimiter string that separates
+'                                   the tokens. DEFAULT = " "
+' Description
+'  For the following:
+'    siAllTokens         sDelim  Returns       Notes
+'   "William M Rawls"    " "     3             "William", "M", and "Rawls"
+'   "William M Rawls"    "iam"   2             "Will" and " M Rawls"
+'   "William M Rawls"    ""      1             No delimiter? String has one token,
+'                                              "William M Rawls"
+'   "1.00.05"            "."     3             "1", "00", and "05"
+' ***********************************************************************************
+Public Function iTokenCount(ByVal siAllTokens As String, Optional ByVal siDelim As String = " ") As Integer
+    Static iCurTokenLocation As Long ' Character position of the first delimiter string
+    Static iTokensSoFar As Integer      ' Used to keep track of how many tokens we've counted so far
+    Static iDelim As Integer            ' Length of the delimiter string
+
+    iDelim = Len(siDelim)
+    If iDelim < 1 Then
+     ' Empty delimiter strings means only one token equal to the string
+       iTokenCount = 1
+       Exit Function
+    ElseIf Len(siAllTokens) = 0 Then
+     ' Empty input string means no tokens
+       Exit Function
+    Else
+     ' Count the number of tokens
+       iTokensSoFar = 0
+       Do
+          iCurTokenLocation = InStr(siAllTokens, siDelim)
+          If iCurTokenLocation = 0 Then
+             iTokenCount = iTokensSoFar + 1 'Abs(Len(siAllTokens) > 0)
+             Exit Function
+          End If
+          iTokensSoFar = iTokensSoFar + 1
+          siAllTokens = Mid$(siAllTokens, iCurTokenLocation + iDelim)
+       Loop
+    End If
+End Function
+
+' *********************************************************************************************
+' Synopsis          Returns everything AFTER the Nth Token from siAllTokens delimited by sDelim
+'
+' Parameters
+'
+'   siAllTokens                 (I) Required. The string containing all the tokens
+'   iToken                      (I) Optional. The index of the token to use as an "after" ref
+'                                   DEFAULT = 1
+'   siDelim                     (I) Optional. The delimiter string that separates
+'                                   the tokens. DEFAULT = " "
+' Description
+'  For the following:
+'    siAllTokens         iToken   sDelim  Returns           Notes
+'   "William M Rawls"    1       " "     "M Rawls"          After the first word
+'   "William M Rawls"    2       " "     "Rawls"            After the second word
+'   "William M Rawls"    3       " "     ""                 After the third word (nothing)
+'   "William M Rawls"    0       " "     "William M Rawls"  After zeroth token is always the input string
+'   "William M Rawls"   -1       " "     "William M Rawls"  Negative tokens act same as zero
+'   "William M Rawls"    1       ""      "William M Rawls"  Same as one
+' *********************************************************************************************
+Public Function sAfter(ByVal siAllTokens As String, Optional ByVal iToken As Integer = 1, Optional ByVal sDelim As String = " ") As String
+    Static iCurTokenLocation As Long ' Character position of the first delimiter string
+    Static nDelim As Integer            ' Length of the delimiter string
+    
+    nDelim = Len(sDelim)
+    If iToken < 1 Or nDelim < 1 Then
+     ' Negative or zeroth token or empty delimiter strings mean an empty token
+       sAfter = siAllTokens
+       Exit Function
+    ElseIf iToken = 1 Then
+     ' Quickly extract the first token
+       iCurTokenLocation = InStr(siAllTokens, sDelim)
+       If iCurTokenLocation > 1 Then
+          sAfter = Mid$(siAllTokens, iCurTokenLocation + nDelim)
+          Exit Function
+       ElseIf iCurTokenLocation = 0 Then
+          sAfter = ""
+          Exit Function
+       Else
+          sAfter = Mid$(siAllTokens, nDelim + 1)
+          Exit Function
+       End If
+    Else
+     ' Find the Nth token
+       Do
+          iCurTokenLocation = InStr(siAllTokens, sDelim)
+          If iCurTokenLocation = 0 Then
+             Exit Function
+          Else
+             siAllTokens = Mid$(siAllTokens, iCurTokenLocation + nDelim)
+          End If
+          iToken = iToken - 1
+       Loop Until iToken = 1
+
+     ' Extract the Nth token (Which is the next token at this point)
+       iCurTokenLocation = InStr(siAllTokens, sDelim)
+       If iCurTokenLocation > 0 Then
+          sAfter = Mid$(siAllTokens, iCurTokenLocation + nDelim)
+          Exit Function
+       Else
+          Exit Function
+       End If
+    End If
+End Function
+
+Public Function sNormalize(sLine As String) As String
+    sNormalize = sReplace(sReplace(sLine, Chr$(13) + Chr$(10), "%$%EOL%$%"), Chr$(9), "%$%TAB%$%")
+End Function
+
+' ********************************************************************************
+' Name              sReplace
+'
+' Parameters
+'      sAll                          (I)  String
+'      sFind                         (I)  String
+'      sReplaceWith                  (I)  String
+'
+' Description
+'
+' Replaces all occurances of one string with another.
+' NOTE: This function does NOT test for re-entrant replacements and could cause
+'       an infinite loop.
+' ********************************************************************************
+Public Function sReplace(ByVal sAll As String, ByVal sFind As String, ByVal sReplaceWith As String) As String
+    Dim iCurFindPos As Long
+    Dim iFind As Integer
+
+    iFind = Len(sFind)
+    iCurFindPos = InStr(sAll, sFind)
+    Do While iCurFindPos > 0
+       If iCurFindPos > 1 Then
+          sAll = Left$(sAll, iCurFindPos - 1) & sReplaceWith & Mid$(sAll, iCurFindPos + iFind)
+       Else
+          sAll = sReplaceWith & Mid$(sAll, iCurFindPos + iFind)
+       End If
+       iCurFindPos = InStr(sAll, sFind)
+    Loop
+    sReplace = sAll
+End Function
+
+Public Function sDenormalize(sLine As String) As String
+    sDenormalize = sReplace(sReplace(sLine, "%$%EOL%$%", Chr$(13) + Chr$(10)), "%$%TAB%$%", Chr$(9))
+End Function
+~~Queue CAssocItem~~
+
+
+!@#$%^&*())(*&^%$#@! Template Class - CAssocArrays
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:52:53 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GotoClass CAssocArrays~~
+' ********************************************************************************
+' Class Module      CAssocArrays
+'
+' Filename          CAssocArrays.cls
+'
+' Copyright         1998 by Firm Solutions
+'                   All rights reserved.
+'
+' Author            William M. Rawls
+'                   Firm Solutions
+'
+' Created On        4/30/1998 1:23 PM
+'
+' Description
+'
+'    The Reality Matrix, Dimension 1 of 3
+'       "INI" like abilities
+'    Reads and writes in "near INI" format (no duplicate strings in a section allowed, 
+'       no duplicate sections in a file, first 3 entries could be special delimiter information)
+'
+' Revisions
+'
+' <RevisionDate>, <RevisedBy>
+' <Description of Revision>
+'
+' 4/30/1998, William M. Rawls
+' Entered into public domain as freeware. Use at your own risk.
+'
+' ********************************************************************************
+Private mCol As Collection
+
+Public Function Add(sKey As String) As CAssocArray
+    Dim objNewMember As CAssocArray
+
+    If Len(sKey) = 0 Then
+       Err.Raise vbObjectError + 0, "CAssocArrays", "Tryed to add an Assoc Array without a key."
+    End If
+
+    Set objNewMember = New CAssocArray
+        objNewMember.Section = sKey
+        mCol.Add objNewMember, sKey
+        Set Add = objNewMember
+    Set objNewMember = Nothing
+End Function
+
+Public Sub Clear()
+    Set mCol = Nothing
+    Set mCol = New Collection
+End Sub
+
+Public Property Get Item(sIndexKey As String) As CAssocArray
+On Error GoTo EH_CAssocArrays_Item
+       Set Item = mCol(sIndexKey)
+
+EH_CAssocArrays_Item_Continue:
+       Exit Property
+
+EH_CAssocArrays_Item:
+       Set Item = Add(sIndexKey)
+       Err.Clear
+       Resume EH_CAssocArrays_Item_Continue
+End Property
+
+Public Property Get Count() As Long
+    Count = mCol.Count
+End Property
+
+Public Sub Load(sFilename As String, Optional bClearFirst As Boolean = True)
+    If Len(sFilename) = 0 Then
+       Err.Raise vbObjectError + 2, "CAssocArrays_LoadAll", "Tryed to load w/o a filename."
+    End If
+
+    Dim fh As Integer
+    Dim sLine As String
+    Dim CurAssocArray As CAssocArray
+
+    fh = FreeFile
+
+    If bClearFirst = True Then
+       Clear
+    End If
+    
+    Open sFilename For Input Access Read As #fh
+         Do Until EOF(fh)
+            Line Input #fh, sLine
+            If Len(sLine) = 0 Then
+             ' Skip it
+            ElseIf Left$(sLine, 1) = "[" Then
+               Set CurAssocArray = Add(Mid$(sLine, 2, Len(sLine) - 2))
+               With CurAssocArray
+                    Line Input #fh, sLine
+                        .ItemDelimiter = sAfter(sDenormalize(sLine), 1, "=")
+                    Line Input #fh, sLine
+                        .KeyValueDelimiter = sAfter(sDenormalize(sLine), 1, "=")
+                    Line Input #fh, sLine
+                        .FieldDelimiter = sAfter(sDenormalize(sLine), 1, "=")
+               End With
+            Else
+               CurAssocArray.Add sGetToken(sLine, 1, "="), sAfter(sLine, 1, "=")
+            End If
+         Loop
+    Close #fh
+    Set CurAssocArray = Nothing
+End Sub
+
+Public Sub Remove(sIndexKey As String)
+    mCol.Remove sIndexKey
+End Sub
+
+Public Property Get NewEnum() As IUnknown
+    Set NewEnum = mCol.[_NewEnum]
+End Property
+
+Public Sub Save(sFilename As String)
+    If Len(sFilename) = 0 Then
+       Err.Raise vbObjectError + 1, "CAssocArrays_SaveAll", "Tryed to save w/o a filename."
+    End If
+
+    Dim fh As Integer
+    Dim CurAssocArray As CAssocArray
+    Dim sOldItem As String
+    Dim sOldKV As String
+
+    fh = FreeFile
+    Open sFilename For Output Access Write As #fh
+         For Each CurAssocArray In mCol
+             With CurAssocArray
+                  sOldItem = .ItemDelimiter
+                  sOldKV = .KeyValueDelimiter
+                  Print #fh, "[" & .Section & "]"
+                  Print #fh, "Delimiter Item=" & sNormalize(.ItemDelimiter)
+                  Print #fh, "Delimiter Key Value=" & sNormalize(.KeyValueDelimiter)
+                  Print #fh, "Delimiter Field=" & sNormalize(.FieldDelimiter)
+                  .ItemDelimiter = Chr$(13) & Chr$(10)
+                  .KeyValueDelimiter = "="
+                  Print #fh, .All
+                  .ItemDelimiter = sOldItem
+                  .KeyValueDelimiter = sOldKV
+             End With
+         Next CurAssocArray
+    Close #fh
+    Set CurAssocArray = Nothing
+End Sub
+
+Private Sub Class_Initialize()
+    Clear
+End Sub
+
+
+Private Sub Class_Terminate()
+    Set mCol = Nothing
+End Sub
+
+~~GotoProc NewEnum Get 0~~
+~~ProcAttr Hidden True~~
+~~ProcAttr ID NewEnum~~
+
+~~GotoProc Item Get 0~~
+~~ProcAttr ID Default~~
+
+~~Queue Class - CAssocArray~~
+
+!@#$%^&*())(*&^%$#@! Template Class - CAssocItem
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:52:57 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GotoModule CAssocItem Class~~
+' ********************************************************************************
+' Class Module      CAssocItem
+'
+' Filename          CAssocItem.cls
+'
+' Copyright         1998 by Firm Solutions
+'                   All rights reserved.
+'
+' Author            William M. Rawls
+'                   Firm Solutions
+'
+' Created On        4/30/1998 1:23 PM
+'
+' Description
+'
+' The Reality Matrix, Dimention 3 of 3
+'
+' Revisions
+'
+' <RevisionDate>, <RevisedBy>
+' <Description of Revision>
+'
+' 4/30/1998, William M. Rawls
+' Entered into public domain as freeware. Use at your own risk.
+'
+' ********************************************************************************
+
+Public Key As String
+Private m_sValue As String
+
+Public Property Let Value( sNewValue As String )
+    m_sValue = sNewValue
+End Property
+
+Public Property Get Value() As String
+    Value = m_sValue
+End Property
+
+'
+' Retrieves the Nth delimited token from the value.
+' If delimiter is ommited, then a space is assumed as the delimiter.
+' NOTE: sGetToken required for proper use
+'
+Public Property Get F(Index As Long, Optional sDelimiter As String = " ") As String
+    F = sGetToken(Value, Index, sDelimiter)
+End Property
+
+~~GotoProc Value Get 0~~
+~~ProcAttr ID Default~~
+
+!@#$%^&*())(*&^%$#@! Template Class - MyType Property - Object Stamp
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 9/29/1998 10:37:04 AM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:53:27 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get MyType() As String
+    MyType = "%%Module Name%%"
+End Property
+
+!@#$%^&*())(*&^%$#@! Template Get/Let Property - Boolean
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/17/1999 12:45:35 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:55:19 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+Private m_s%%Property Name%% As Boolean
+
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get %%Property Name%%() As Boolean
+       %%Property Name%% = m_s%%Property Name%%
+End Property
+
+Public Property Let %%Property Name%%(bData As Boolean )
+       m_s%%Property Name%% = sData
+       Modified = True
+End Property
+
+!@#$%^&*())(*&^%$#@! Template Get/Let Property - General
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 4:19:31 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~Set Choose Delimiter=,
+~~Choose Property Type=Boolean,Integer,Long,String,Currency,Date,Variant
+Private m_%%Property Name%% As %%Property Type%%
+
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get %%Property Name%%() As %%Property Type%%
+       %%Property Name%% = m_%%Property Name%%
+End Property
+
+Public Property Let %%Property Name%%( vData As %%Property Type%% )
+       m_%%Property Name%% = vData
+End Property
+
+!@#$%^&*())(*&^%$#@! Template Get/Let Property - General - Friend Let
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/23/1999 4:27:41 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 4:58:08 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~Set My Choices=Boolean;Integer;Long;String;Currency;Date;Variant
+~~Set My Prefixes=mb;mi;ml;ms;mcur;mdt;mvar
+~~Choose Property Type=My Choices
+~~Set ThePrefix=%%Find::Property Type,My Choices,;%%
+~~Set Prefix=%%Token::My Prefixes,ThePrefix,;%%
+Private %%Prefix%%%%Property Name%% As %%Property Type%%
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get %%Property Name%%() As %%Property Type%%
+       %%Property Name%% = %%Prefix%%%%Property Name%%
+End Property
+
+Friend Property Let %%Property Name%%( %%Prefix%%Data As %%Property Type%% )
+       %%Prefix%%%%Property Name%% = %%Prefix%%Data
+End Property
+!@#$%^&*())(*&^%$#@! Template Get/Let Property - Long
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:55:33 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+Private m_l%%Property Name%% As Long
+
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get %%Property Name%%() As Long
+       %%Property Name%% = m_l%%Property Name%%
+End Property
+
+Public Property Let %%Property Name%%( lData As Long )
+       m_l%%Property Name%% = lData
+       Modified = True
+End Property
+
+!@#$%^&*())(*&^%$#@! Template Get/Let Property - Object
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/23/1999 4:28:55 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 4:34:37 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GetSelection ObjectType
+~~Set OTCount=%%TokenCount::ObjectType%%
+~~Set ObjectType=%%Token::ObjectType,OTCount%%
+~~GotoDeclarations End
+Private mo%%Property Name%% As %%ObjectType%%
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get %%Property Name%%() As %%ObjectType%%
+       %%Property Name%% = mo%%Property Name%%
+End Property
+
+Public Property Let %%Property Name%%( oData As %%ObjectType%% )
+       mo%%Property Name%% = oData
+       Modified = True
+End Property
+
+!@#$%^&*())(*&^%$#@! Template Get/Let Property - String
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:55:21 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+Private m_s%%Property Name%% As String
+
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Property Get %%Property Name%%() As String
+       %%Property Name%% = m_s%%Property Name%%
+End Property
+
+Public Property Let %%Property Name%%( sData As String )
+       m_s%%Property Name%% = sData
+       Modified = True
+End Property
+
+!@#$%^&*())(*&^%$#@! Template Routine - bUserSure
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:56:12 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtTop
+~~GotoModule modGeneral~~
+
+!@#$%^&*())(*&^%$#@! AtBottom
+' ********************************************************************************
+' Name              bUserSure
+'
+' Parameters
+'       sPrompt                      (I)  Opt. Question to ask the user
+'                                         Default = "Are you sure this is what you want to do ?"
+' Description
+'
+' Returns true if the user selects "Yes" from the MsgBox displayed
+'
+' ********************************************************************************
+Public Function bUserSure(Optional ByVal sPrompt As String = "Are you sure this is what you want to do ?", Optional ByVal sTitle As String = "ARE YOU SURE ?") As Boolean
+    bUserSure = (MsgBox(sPrompt, vbYesNo, "ARE YOU SURE ?") = vbYes)
+End Function
+
+!@#$%^&*())(*&^%$#@! Template Token Routine - iFindToken
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 3/30/1998 8:32:05 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 4:44:54 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoModule modGeneral~~
+!@#$%^&*())(*&^%$#@! AtBottom
+Public Function lFindToken(ByVal sAllTokens As String, ByVal sTokenToFind As String, Optional ByVal sDelimiter As String = " ") As Long
+    Dim lTokens As Long
+    Dim l As Long
+
+    lTokens = lTokenCount(sAllTokens, sDelimiter)
+
+    For l = 1 To lTokens
+        If StrComp(UCase(sGetToken(sAllTokens, l, sDelimiter)),UCase(sTokenToFind)) = 0 Then
+           lFindToken = l
+           Exit Function
+        End If
+    Next i
+
+    lFindToken = 0
+End Function
+
+!@#$%^&*())(*&^%$#@! Attributes
+EN* E9FAC8C80988B9D8B82CC8A92FB8F5
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Collection, No Child
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:50:48 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtBottom
+~~Set ShortName=%%Table Name%%
+~~Mid ShortName 10
+~~Set SpacerWidth=25
+Private Function CreateRecord_%%ShortName%%()
+On Error Resume Next
+    Dim sSQL As String
+    Dim sFld As String
+
+    With Parent
+         sSQL = "insert into %%Pure Table Name%% " & Chr(13) & Chr(10) & "(" & sFld & ")" & Chr(13) & Chr(10) & " values (" & sSQL & ");" & Chr(13) & Chr(10)
+
+
+         Err.Clear
+         .dbOracle.Execute sSQL
+         If Err.Number Then
+            MsgBox "Error while creating a record in the '%%Pure Table Name%%' table." & Chr(13) & Chr(9) & "Err #" & Err.Number & Chr(13) & Chr(9) & "Desc:" & Err.Description
+         End If
+    End with
+End Function
+
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - BLOB
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:23:58 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable False
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Boolean
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:50:59 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Byte
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:50:59 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Currency
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:00 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Date
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:00 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Double
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:00 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Integer
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:00 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Long
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:00 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Memo
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:01 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & ",'" & UnknownValue & "'"
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - OLE_COLOR
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:01 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Single
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:01 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & "," & UnknownValue
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - String
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:01 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & ",'" & UnknownValue & "'"
+!@#$%^&*())(*&^%$#@! Template Simple Field Looping - Property - Variant
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 2/22/1999 5:06:14 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 2:51:02 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtCursor
+~~GotoProcEnd CreateRecord_%%ShortName%% -7
+~~StringLength StrLen %%Field Name%%
+~~Eval StrLen=%%SpacerWidth%%-%%StrLen%%
+~~String Spacer %%StrLen%% " "
+         sFld = sFld & ",%%Field Name%%":%%Spacer%%  sSQL = sSQL & ",'" & UnknownValue & "'"
+!@#$%^&*())(*&^%$#@! Template Event Response - Project - Item Added
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 12:00:00 AM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:53:34 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtTop
+This is another test
+buing
+!@#$%^&*())(*&^%$#@! Attributes
+EN* 093B49C9B9A9FAFDC8E988C8D8092CB9F2F5
+!@#$%^&*())(*&^%$#@! Template Event Response - References - Item Removed
+!@#$%^&*())(*&^%$#@! Revision 0
+!@#$%^&*())(*&^%$#@! AlphaDate 10/8/1998 1:54:39 PM
+!@#$%^&*())(*&^%$#@! DeltaDate 2/23/1999 1:53:39 PM
+!@#$%^&*())(*&^%$#@! CodeLocked False
+!@#$%^&*())(*&^%$#@! Undeletable True
+!@#$%^&*())(*&^%$#@! AtTop
+This is a asdftest

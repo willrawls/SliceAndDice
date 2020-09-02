@@ -1,0 +1,99 @@
+[Root]
+Most Recent Package=Dep File - FirmSolutions.ocx
+
+
+[Package|Dep File - FirmSolutions.ocx|Root]
+SubWizProgID=PDWizard.DepPkgSubWiz
+BuildFolder=S:\Projects - Firm Solutions\SliceAndDice
+Controls Design-Time Support=No
+
+[Package|Dep File - FirmSolutions.ocx|Configure DAO ISAMs]
+Applicable=Yes
+Excel=No
+Text=No
+Xbase=No
+Paradox=No
+Lotus=No
+Jet 2.x=No
+
+[Package|Dep File - FirmSolutions.ocx|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Dep File - FirmSolutions.ocx|Files Found]
+
+[Package|Dep File - FirmSolutions.ocx|Files Released]
+
+[Package|Dep File - FirmSolutions.ocx|Missing Dependency Information]
+
+[Package|Dep File - FirmSolutions.ocx|Out-of-Date Dependency Information]
+
+[Package|Dep File - FirmSolutions.ocx|Files Added]
+C:\WINDOWS\SYSTEM\MsStkPrp.dll=This file is needed for usercontrol design-time support.
+
+[Package|Dep File - FirmSolutions.ocx|Files Removed]
+c:\windows\system\msstkprp.dll=
+
+[Package|Dep File - FirmSolutions.ocx|Files In Project]
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=Yes
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=Yes
+C:\WINDOWS\SYSTEM\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=Yes
+C:\WINDOWS\SYSTEM\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM\msrepl35.dll=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=Yes
+C:\WINDOWS\SYSTEM\MSCOMCT2.OCX=Yes
+C:\WINDOWS\SYSTEM\MSSTKPRP.DLL=No
+
+[Package|Dep File - FirmSolutions.ocx|Configure Registry Files]
+Applicable=
+
+[Package|Dep File - FirmSolutions.ocx|Configure Remote Servers]
+Applicable=
+
+[Package|Dep File - FirmSolutions.ocx|Install Locations]
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrepl35.dll=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSCOMCT2.OCX=$(WinSysPath)
+
+[Package|Dep File - FirmSolutions.ocx|Configure Shared Files]
+Applicable=
+
+[Package|Dep File - FirmSolutions.ocx|DepFile]
+DepCabFile=FirmSolutions.CAB
+DepCabRun=FirmSolutions.INF
+
+[Package|Dep File - FirmSolutions.ocx|Package]
+PackageFolder=S:\Projects - Firm Solutions\SliceAndDice
+ProjectFolder=S:\Projects - Firm Solutions\SliceAndDice
+ServerSideCab=
+File1=S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.DEP
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

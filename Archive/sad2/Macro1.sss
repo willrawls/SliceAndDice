@@ -1,0 +1,12 @@
+Sub Main
+	Dim asaX As CAssocArray
+
+	Set asaX = New CAssocArray
+	asaX("X")="12"
+
+	With Sandy
+		.InsertTemplate "~~MsgBox %%X%%", , asaX
+	End With
+
+	Set asaX = Nothing
+End Sub

@@ -1,0 +1,10 @@
+VBGROUP 5.0
+Project=SliceAndDice.vbp
+Project=sadAddin.vbp
+Project=sadFile.vbp
+Project=sadProcessHeader.vbp
+Project=sadRegister.vbp
+Project=sadSoftCodeWmr.vbp
+Project=sadKTEval.vbp
+Project=sadAutoWebVBCodeDotCom.vbp
+StartupProject=SandyShell.vbp

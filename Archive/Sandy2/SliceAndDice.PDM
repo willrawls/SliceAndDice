@@ -1,0 +1,301 @@
+[Root]
+Most Recent Package=Standard Setup Package - Slice and Dice for VB5 (Support files)
+
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=S:\Projects - Firm Solutions\SliceAndDice\Package
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Configure DAO ISAMs]
+Applicable=Yes
+Excel=No
+Text=No
+Xbase=No
+Paradox=No
+Lotus=No
+Jet 2.x=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Files Found]
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Files Released]
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Missing Dependency Information]
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Files Added]
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Files Removed]
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Files In Project]
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.dll=Yes
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=Yes
+C:\WINDOWS\SYSTEM\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=Yes
+C:\WINDOWS\SYSTEM\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM\msrepl35.dll=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=Yes
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=Yes
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=Yes
+C:\WINDOWS\SYSTEM\MSCOMCT2.OCX=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=Yes
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=Yes
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=Yes
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=Yes
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=Yes
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=Yes
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Install Locations]
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.dll=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrepl35.dll=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=$(WinSysPath)
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=$(AppPath)
+C:\WINDOWS\SYSTEM\MSCOMCT2.OCX=$(WinSysPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=$(AppPath)
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Configure Shared Files]
+Applicable=Yes
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.dll=No
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=No
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=No
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=No
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=No
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=No
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=No
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Distribution]
+Type=single
+Size=
+Title=Slice and Dice for Visual Basic 5 - Special Installation
+
+[Package|Standard Setup Package - Slice and Dice for VB5|IconGroups]
+Group0=Slice and Dice
+PrivateGroup0=False
+Parent0=$(Programs)
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Slice and Dice]
+Icon1=http://www.sliceanddice.com/saddoc.html
+Title1=Slice and Dice Documentation
+StartIn1=
+Key1=Icon1
+
+[Package|Standard Setup Package - Slice and Dice for VB5|Package]
+PackageFolder=S:\Projects - Firm Solutions\SliceAndDice\Package
+ProjectFolder=S:\Projects - Firm Solutions\SliceAndDice
+ServerSideCab=
+File1=S:\Projects - Firm Solutions\SliceAndDice\Package\setup.exe
+File2=S:\Projects - Firm Solutions\SliceAndDice\Package\Setup.Lst
+File3=S:\Projects - Firm Solutions\SliceAndDice\Package\SliceAndDice.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=S:\Projects - Firm Solutions\SliceAndDice\fs\sadvb5ev
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Configure DAO ISAMs]
+Applicable=Yes
+Excel=No
+Text=No
+Xbase=No
+Paradox=No
+Lotus=No
+Jet 2.x=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Files Found]
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Files Released]
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Missing Dependency Information]
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Files Added]
+s:\projects - firm solutions\sliceanddice\vb5addintool.exe=
+s:\projects - firm solutions\sliceanddice\sadaddin.dll=
+s:\projects - firm solutions\sliceanddice\sadregister.dll=
+s:\projects - firm solutions\sliceanddice\bookshelf.mdb=
+s:\projects - firm solutions\sliceanddice\sliceanddice.mdb=
+s:\projects - firm solutions\sliceanddice\sadaddin.txt=
+c:\windows\system\msinet.ocx=
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Files Removed]
+s:\projects - firm solutions\sliceanddice\bookshelf.mdb=
+s:\projects - firm solutions\sliceanddice\firmsolutions.ocx=
+s:\projects - firm solutions\sliceanddice\sadaddin.dll=
+s:\projects - firm solutions\sliceanddice\sadaddin.txt=
+s:\projects - firm solutions\sliceanddice\sadregister.dll=
+s:\projects - firm solutions\sliceanddice\sliceanddice.dll=
+s:\projects - firm solutions\sliceanddice\sliceanddice.mdb=
+s:\projects - firm solutions\sliceanddice\vb5addintool.exe=
+u:\ssubtmr.dll=
+u:\firmsolutions.ocx=
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Files In Project]
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.dll=No
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=Yes
+C:\WINDOWS\SYSTEM\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=Yes
+C:\WINDOWS\SYSTEM\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM\msrepl35.dll=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=Yes
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=Yes
+C:\WINDOWS\SYSTEM\MSCOMCT2.OCX=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=No
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=No
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=No
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=No
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=No
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=No
+C:\WINDOWS\SYSTEM\MSINET.OCX=Yes
+U:\SSubTmr.dll=No
+U:\FirmSolutions.ocx=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Install Locations]
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.dll=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrepl35.dll=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=$(WinSysPath)
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=$(AppPath)
+C:\WINDOWS\SYSTEM\MSCOMCT2.OCX=$(WinSysPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=$(AppPath)
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=$(AppPath)
+C:\WINDOWS\SYSTEM\MSINET.OCX=$(WinSysPath)
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Configure Shared Files]
+Applicable=No
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.dll=No
+S:\Projects - Firm Solutions\SliceAndDice\FirmSolutions.ocx=No
+S:\Projects - Firm Solutions\SliceAndDice\VB5AddInTool.EXE=No
+S:\Projects - Firm Solutions\SliceAndDice\Bookshelf.mdb=No
+S:\Projects - Firm Solutions\SliceAndDice\SliceAndDice.mdb=No
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.txt=No
+S:\Projects - Firm Solutions\SliceAndDice\sadAddin.dll=No
+S:\Projects - Firm Solutions\SliceAndDice\sadRegister.dll=No
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Distribution]
+Type=single
+Size=
+Title=Slice and Dice for Visual Basic 5 - Support Files
+
+[Package|Standard Setup Package - Slice and Dice for VB5 (Support files)|Package]
+PackageFolder=S:\Projects - Firm Solutions\SliceAndDice\fs\sadvb5ev
+ProjectFolder=S:\Projects - Firm Solutions\SliceAndDice
+ServerSideCab=
+File1=S:\Projects - Firm Solutions\SliceAndDice\fs\sadvb5ev\setup.exe
+File2=S:\Projects - Firm Solutions\SliceAndDice\fs\sadvb5ev\Setup.Lst
+File3=S:\Projects - Firm Solutions\SliceAndDice\fs\sadvb5ev\SliceAndDice.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

@@ -1,0 +1,164 @@
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+	Slice and Dice, Free and Open (Sandy 1.8.x) 
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+	Official Revision History
+		by William M. Rawls
+
+	For the latest updates, opensource developement, Sandals, etc; Visit:
+		http://www.sliceanddice.com
+
+--------------------------------------------------------------------------------
+Version		Date Released
+--------------------------------------------------------------------------------
+1.8.159		8/14/2000
+
+	1. New Inline SoftCommand:
+
+		%%ChooseDir%%
+			Returns a full path that the user browses to.
+			Offers to cancel insertion if no path is selected.
+	
+
+	
+1.8.156		8/13/2000
+
+	1. Added these awesome new SoftCommands:
+
+	   SliceAndDice.dll
+
+		~~GotoKeyboard
+			Sends output to the keyboard ala SendKeys() vs. the
+			VB IDE or nowhere if run from the System tray. This
+			makes doing multiple ~~SendKeys unnecessary and
+			bring Sandy's clipboard/keyboard handling abilities
+			into the light of day.
+
+		~~GotoClipboard
+			Sends output to the clipboard's text data vs. the
+			VB IDE or nowhere if run from the System tray.
+	   
+		~~GotoMessage
+			Sends output as if ~~ShowMessage had been called.
+
+
+	   sadSoftCoreWmr.dll
+
+		~~ShowMessage
+			Show a read-only multiline message box.
+
+		~~EditMessage X=Y
+			Pauses insertion to allow a static string or the
+			contents of a soft variable to be edited.
+
+
+	2. Added items to the "Externals" pull-down menu
+
+	   sadSoftCoreWmr.dll
+
+		Revision History
+			Does a ~~ShowMessage of the new SandyRevisions.txt
+			file (this file).
+
+
+	3. Attempting to clean up the built-in template editor to be nicer:
+	   a. CTRL-I doesn't deposit a CTRL-I after insertion if you're
+		inside a template when you hit CTRL-I (which you'd have to be).
+
+
+	4. New Global hot keys (available from any Windows app, even games):
+
+	   CTRL + SHIFT +
+		S		Opens main Sandy window
+		E		Pops up the Externals pulldown menu
+		F		Pops up the Favorites pulldown menu
+		R		Repeats the last template insertion
+		1 through 0	Activates the associated template
+				If no template associated, it asks
+				which one, defaulting to the current.
+				Currently, no way to unassociate (ask) once done.
+	   
+	   CTRL+SHIFT+1 to 0 can be deactivated from the Options pulldown menu
+
+	   Currently the others cannot be deactivated and are always associated
+	      with the FIRST loaded instance of Sandy. So if 2 are loaded, only
+	      the FIRST will get the keys.
+
+
+	5. Fixed the OLE-editing features of the main window.
+
+	6. 
+
+
+
+--------------------------------------------------------------------------------
+1.8.155		8/12/2000
+
+	1. Started keeping this version history... 
+	   Yeah, I should have done it long ago, well I'm doing it now.
+
+	2. Fixed the bug that prevented Sandy from detecting the type of VB 
+	   procedure the user requested in such SoftCommands as 
+	   "~~GotoProc NewEnum Get 0". Still not sure when that one creeped in, 
+	   but it's probably been in there for a few months at least.
+	
+	3. Sent new DLLs to programmer reporting the problem who is also working
+	   on "sadSpSql", the first 3rd party Sandal that will allow for limited,
+	   but extremely useful integration and inline SoftCode stored procedure
+	   information/schema "lifting" which is very thrilling since I've only 
+	   been waiting 2 1/2 years for someone to do one without me writing it 
+	   for them.
+
+
+--------------------------------------------------------------------------------
+1.8.115 through 1.8.155
+
+	1. William Rawls takes a much needed vacation, loses his mind, finds it 
+	   again, realizes not working WON'T pay the bills, spends several months
+	   doing stupid stuff, eventually begs a job doing non-VB stuff... Turns
+	   out to be the best thing since it forced him to allow Sandy to run
+	   both inside and outside VB and further allowed him to use it for other
+	   text processing including XML, HTML, ColdFusion, and even Diablo 2
+	   chat string pasting with 100% success.
+
+	2. William remembers why he beleived in Sandy but vows to keep it free
+	   and to stop "preaching" the gospel of Sandy... Still winds up doing
+	   it anyway.
+
+	3. William starts accepting donations (hint hint hint) at 
+	   http://www.sliceanddice.com in the hopes that some wise, rich 
+	   programmer will give William tons of cash to quit his job and work at
+	   home on Slice and Dice full-time thus bringing not only the current
+	   version, but 100's of new features, SoftCommands, templates, and
+	   whole new vistas of usage for Slice and Dice in
+	   and beyond programming.
+
+	4. William returns to Earth and decides to start keeping a revision
+	   history... (big smile)
+
+	5. Finally broke down and gave Sandy a life free from VB or in VB.
+	   "SandyShell" is born. Started writing a second template library
+	   that features 100% non-VB templates that manipulate the clipboard
+	   ( "SandyClipboard" ). Have a lot of clean up work to do 
+
+
+
+--------------------------------------------------------------------------------
+1.8.114		4/10/2000
+
+	1. This was the last commercial version. 
+	   All versions AFTER this are freeware and opensource.
+	   All version up to and INCLUDING 1.8.114 are Copyright 2000 by 
+	   William Miller Rawls.
+
+
+--------------------------------------------------------------------------------
+Pre 1.8.114
+
+	Too many things to name. See complete documentation. Sorry for the
+	sketchy details. More to follow when I have time, money, energy,
+	and drive.
+

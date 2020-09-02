@@ -1,0 +1,26 @@
+ALL FILES WRITTEN BY WILLIAM RAWLS AND FIRM SOLUTIONS
+	ARE COPYRIGHT 2000
+	By Firm Solutions 2000
+	Of Seaside, California, USA
+
+ALL 3rd party programs (3dClipboard, NetClipboard, etc.) 
+	are Copyright by their companies.
+
+I provide them, only because they 
+	are either freeware or shareware
+	and because they have proved very useful to me.
+	
+WARNING all code, files, and anything else are 
+   COMPLETELY UNSUPPORTED 
+   by Firm Solutions, William Rawls, 
+   and may not be supported by the original author.
+   USE AT YOUR OWN RISK.
+
+Having said that,
+   There are some real gems in here, 
+   Don't pass them by.
+
+Even though it's officially unsupported, 
+   Feel free to email any questions on usage, issues, etc.
+   And I'll try my best to help:
+       wrawls@firmsolutions.com

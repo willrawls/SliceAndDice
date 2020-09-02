@@ -1,0 +1,16 @@
+[Version]
+Version=1.0.0.18
+
+[SSubTmr.dll <0009>]
+Dest=$(WinSysPath)
+Date=8/10/1999
+Time=16:16
+Version=1.0.0.18
+CABFilename=SSubTmr.CAB
+CABINFFile=SSubTmr.INF
+Uses1=MSVBVM60.DLL
+Uses2=OLEAUT32.DLL
+Uses3=OLEPRO32.DLL
+Uses4=ASYCFILT.DLL
+Uses5=STDOLE2.TLB
+Uses6=COMCAT.DLL

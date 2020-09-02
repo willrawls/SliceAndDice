@@ -1,0 +1,7 @@
+VBGROUP 5.0
+StartupProject=SliceAndDice.vbp
+Project=sadAddin.vbp
+Project=sadSoftCodeWmr.vbp
+Project=sadFile.vbp
+Project=sadSqlSp\sadSqlSp.vbp
+Project=sadAutoWebVBCodeDotCom.vbp

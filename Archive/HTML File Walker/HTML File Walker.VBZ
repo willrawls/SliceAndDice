@@ -1,0 +1,45 @@
+[SetupWiz]
+VBExe=C:\PROGRAM FILES\PROGRAMMING\MICROSOFT VISUAL BASIC\VB32.EXE
+SetupProj=C:\PROGRAM FILES\PROGRAMMING\MICROSOFT VISUAL BASIC\SETUPKIT\SETUP1\SETUP1.VBP
+BootStrap=C:\PROGRAM FILES\PROGRAMMING\MICROSOFT VISUAL BASIC\SETUPKIT\KITFIL32\SETUP.EXE
+RemoveInstallEXE=C:\PROGRAM FILES\PROGRAMMING\MICROSOFT VISUAL BASIC\SETUPKIT\KITFIL32\ST4UNST.EXE
+CompressToDir=D:\Data\Programming\Will's Pet Projects\HTML File Walker\SetupWiz\
+Protocol1=ncacn_ip_tcp,TCP/IP
+Protocol2=ncacn_nb_nb,NetBIOS over NetBEUI
+Protocol3=ncacn_nb_tcp,NetBIOS over TCP
+Protocol4=ncacn_np,Named Pipes
+Protocol5=ncadg_ipx,Datagram - IPX
+Protocol6=ncacn_spx,SPX
+Protocol7=ncadg_ip_udp,Datagram - UDP
+Protocol8=ncacn_nb_ipx,Netbios over IPX
+
+[Flags]
+AppTitle=HTML File Walker
+DefaultDir=$(ProgramFiles)\filewalk
+MakeFilePath=D:\Data\Programming\Will's Pet Projects\HTML File Walker\filewalk.vbp,0
+Disk Drive=-1
+Disk Type=D:\Data\Programming\Will's Pet Projects\HTML File Walker\sz\
+AppExeName=D:\Data\Programming\Will's Pet Projects\HTML File Walker\HTML File Walker.exe
+Deployment=0
+RemoteProvider=0
+DataAccess=0
+FilesChanged=0
+CheckSum=142550
+
+[Dependencies]
+File1=SETUPKIT.DLL,0,32762
+File2=C:\WINDOWS\SYSTEM\COMDLG32.OCX,0,32764
+
+[Files]
+File1=C:\WINDOWS\SYSTEM\VB40032.DLL,0,$(WinSysPath),,|32767|,-1,-1,0,0,,,0
+File2=C:\WINDOWS\SYSTEM\ven2232.olb,0,$(WinSysPathSysFile),,|32767|,-1,0,0,0,,,0
+File3=C:\WINDOWS\SYSTEM\olepro32.dll,0,$(WinSysPath),$(DLLSelfRegister),|32767|7|,-1,-1,0,0,,,0
+File4=C:\WINDOWS\SYSTEM\msvcrt20.dll,0,$(WinSysPathSysFile),,|32767|,-1,0,0,0,,,0
+File5=C:\WINDOWS\SYSTEM\msvcrt40.dll,0,$(WinSysPath),,|32767|7|,-1,-1,0,0,,,0
+File6=C:\PROGRAM FILES\PROGRAMMING\MICROSOFT VISUAL BASIC\SETUPKIT\KITFIL32\Sys32\ctl3d32.dll,0,$(WinSysPathSysFile),,|32767|,-1,0,0,0,,,0
+File7=C:\WINDOWS\SYSTEM\SETUPKIT.DLL,0,$(WinSysPath),,|32762|,-1,-1,0,0,,,0
+File8=C:\WINDOWS\SYSTEM\COMDLG32.OCX,0,$(WinSysPath),$(DLLSelfRegister),|32764|,-1,-1,0,0,,,0
+File9=C:\WINDOWS\SYSTEM\MFC40.DLL,0,$(WinSysPath),$(DLLSelfRegister),|7|,-1,-1,0,0,,,0
+File10=D:\Data\Programming\Will's Pet Projects\HTML File Walker\HTML File Walker.exe,0,$(AppPath),$(EXESelfRegister),|32766|,-1,0,0,0,,,0
+File11=D:\Data\Programming\Will's Pet Projects\HTML File Walker\aged-paper.jpg,0,$(AppPath),,|32760|,-1,0,0,0,,,0
+File12=D:\Data\Programming\Will's Pet Projects\HTML File Walker\CURSUM3.MID,0,$(AppPath),,|32760|,-1,0,0,0,,,0

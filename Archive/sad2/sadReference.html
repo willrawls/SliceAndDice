@@ -1,0 +1,1838 @@
+<HTML><BODY><TABLE>	<TR>
+		<TD><B><H2>'</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Rem, Remark, Remarks, Comment, Comments, Note, Notes</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>This line is ignored. No processing occurs.</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AbsLine</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves the insertion point to the absolute line number in the current code module.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Where <LineOffset> should be a positive long. Negative longs are treated as positive.<BR>
+Moves the insertion point to an absolute line number in the current code module.<BR>
+Try inserting: "Comment - Code Module"<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~AbsLine 1<BR>
+	Moves to the first line in the module<BR>
+<BR>
+~~AbsLine 23<BR>
+	Moves to the 23rd line in the module<BR>
+<BR>
+~~AbsLine -30<BR>
+	Moves to the 30th line in the module<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AddControl</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Adds a control of the type indicated by the text ProgID to the current form.</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AddFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>IncludeFile, Include</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Adds the contents of the file specicifed at the current code insertion point.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Very useful when you want to generate something or include something from outside the system.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AddFileReference</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>AddFileRef</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>This will insert a reference to a type library given the path to the file.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>Look at "Code Bound Data Forms - Settings"<BR>
+This template includes a reference to the DAO library. You'll probably need to find that file and then<BR>
+change the path to it. You can find the complete path/filename from the VB IDE "References" screen by<BR>
+selecting the reference and then looking in the "Location" string below the list. Sorry for making you work<BR>
+like this, but Microsoft's add-in model won't let me just add a reference using the "nice" name (yet).<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>After</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>sAfter</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns all tokens after Token number TokenNumber (default 1st) relative to the string "Delimiter" (default " ") of SoftVarIn.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set MyLastName=%%After::MyName%%<BR>
+	%%MyLastName%% equals "M Rawls", all tokens after the 1st token (default) of %%MyName%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Append</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Appends the string StringToAppend to SoftVarOut.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>You can imbed the following special strings:<BR>
+$EOL$ to embed a Chr(13) & Chr(10)<BR>
+$13$  to embed a Chr(13)<BR>
+$9$   to embed a Chr(9)<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=Y<BR>
+~~Append X=Z<BR>
+~~Append X=ABC$EOL$123$9$7890<BR>
+~~'   Sets %%X%% to "YZABC" & Chr(13) & Chr(10) & "123" & Chr(9) & "7890"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Asc</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Just like the Asc(Character) VB command. Returns the ascii value of the indicated Character (or 1st char).</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Invalid values are translated to "48" ("0")<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=%%Asc::A%%<BR>
+~~Set X=%%Asc::0%%<BR>
+~~Set X=%%Asc:: %%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AutoSpace</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Logically inserts spaces into a Soft Variable's Value.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>One space is inserted before each capital letter.<BR>
+This is useful if you have a string like "FirstName" and you want the string "First Name".<BR>
+Simple words like "a", "an", "the", "of", "or", etc. are automatically set to lower case.<BR>
+"Id" is automatically set to "ID". <BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Testing=ThisIsATest<BR>
+~~AutoSpace Testing<BR>
+~~'   Sets %%Testing%% to "This is a test"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Before</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>sBefore</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns all tokens before Token number TokenNumber (default 2nd) relative to the string "Delimiter" (default " ") of SoftVarIn.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set MyLastName=%%Before::MyName,3%%<BR>
+	%%MyLastName%% equals "M Rawls", all tokens before the 3rd token of %%MyName%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Block</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Causes the contents of a SoftVarIn to be inserted as a text block.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>This is useful if you want to do processing on an unknown number of lines<BR>
+but still want to allow the template user to undo the results with a single<BR>
+undo operation.<BR>
+<BR>
+NOTE: Works with outputing to a file as a block.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=Something<BR>
+~~Append X=EOL<BR>
+~~Append X=Something else<BR>
+~~Block X<BR>
+~~' Causes two lines to be inserted, but as a single step so only 1 undo needed.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Cancel</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Cancels code insertion if Expr evaluates to anything except "0" or ""</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=1<BR>
+~~Eval X=%%X%%-1<BR>
+~~Cancel %%X%%<BR>
+~~' Template insertion continues running since X equals "0"<BR>
+<BR>
+~~Set X=<BR>
+~~Cancel %%X%%<BR>
+~~' Template insertion continues running since X equals ""<BR>
+<BR>
+~~Set X=1<BR>
+~~Eval X=%%X%%-1<BR>
+~~Cancel %%X%%<BR>
+~~' Template insertion is cancelled since X equals "1", <BR>
+~~'   an expression that evaluated to "True" in the C/C++ <BR>
+~~'   style, that is to say, a non zero value.<BR>
+~~'<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Choose</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Opens the "Choose One" dialog which is populated with Choices and stores the selection in SoftVarOut</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Choices MUST be semi-colon delimited<BR>
+Choices cannot (curently) be numbers<BR>
+Inside a choice, you can include an equal sign plus a description of the item which is for display purposes only.<BR>
+A Description CANNOT have a semi-colon in it.<BR>
+The Delimiter that choose uses to distinguish each item can be set with<BR>
+~~Set ChooseDelimiter=<Your Delimiter Here><BR>
+Example of good delimiters:<BR>
+~~Set ChooseDelimiter=|<BR>
+~~Set ChooseDelimiter=^^^^<BR>
+~~Set ChooseDelimiter=###<BR>
+~~Set ChooseDelimiter=!!<BR>
+~~Set ChooseDelimiter=:<BR>
+~~Set ChooseDelimiter=&&<BR>
+These are just examples. You could just as easily have " M " be a delimiter.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Choose Selection=Red;Green;Blue<BR>
+~~MsgBox You choose %%Selection%%<BR>
+~~Choose Selection=a=Test;b=Another;c=X;d=Y;e=Z;f=Some value;g=Another something;h=A;i=B;j=C<BR>
+~~MsgBox You choose %%Selection%%** '<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Choose</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Opens the "Choose One" dialog which is populated with Choices and returns the selection</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Choices MUST be semi-colon delimited<BR>
+Choices cannot be numbers (curently)<BR>
+Inside a choice, you can include an equal sign plus a description of the item which is for display purposes only.<BR>
+A Description CANNOT have a semi-colon in it.<BR>
+The Delimiter that choose uses to distinguish each item can be set with<BR>
+~~Set ChooseDelimiter=<Your Delimiter Here><BR>
+Example of good delimiters:<BR>
+~~Set ChooseDelimiter=|<BR>
+~~Set ChooseDelimiter=^^^^<BR>
+~~Set ChooseDelimiter=###<BR>
+~~Set ChooseDelimiter=!!<BR>
+~~Set ChooseDelimiter=:<BR>
+~~Set ChooseDelimiter=&&<BR>
+These are just examples. You could just as easily have " M " be a delimiter.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Selection=%%Choose::Red;Green;Blue%%<BR>
+~~MsgBox You choose %%Selection%%<BR>
+<BR>
+~~Set Selection=%%Choose::a=Test;b=Another;c=X;d=Y;e=Z;f=Some value;g=Another something;h=A;i=B;j=C%%<BR>
+~~MsgBox You choose %%Selection%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Chr</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Just like the Chr(AsciiValue) VB command. Returns a one character string with the indicated ascii value.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Invalid values are translated to Chr(48) or "0"<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=%%Chr::13%%<BR>
+~~Set X=%%Chr::23%%<BR>
+~~Set X=%%Chr::126%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>CloseWindow</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Close, CloseCode</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Closes the current code/GUI window in the VB IDE</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care, great for multi-project find/replace<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>CloseWindows</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Closes all code/GUI windows in the VB IDE.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care, great for multi-project find/replace<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Coda</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>LoopWhile, LoopUntil</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Causes everything between ~~StartCoda and ~~Coda to be repeated until Expression is "0" or ""</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>~~LoopWhile True<BR>
+~~Coda True<BR>
+~~LoopUntil False<BR>
+	In other words, LoopWhile and Coda repeat if Exression is not "0" or "" <BR>
+	while LoopUntil repeats if Expression is "0" or ""<BR>
+<BR>
+	There can only be ONLY Coda,LoopWhile,LoopUntil structure in a template (for now)<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetSelection sProcess<BR>
+~~Set sProcess=%%Replace::sProcess,EOL,$$EOL$$%%<BR>
+~~StartCoda<BR>
+~~Set CurrField=%%Token::sProcess,2%%<BR>
+~~MsgBox Current Field = %%CurrField%%<BR>
+~~'<BR>
+~~Set sProcess=%%After::sProcess,1,$$EOL$$%%<BR>
+~~Set lProcess=%%Length::sProcess%%<BR>
+~~Coda %%lProcess%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>CommentedParameters</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Params</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Takes the current procedure, and generates a comment block of each input/output parameter</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Outputs one comment prefixed (') line for each parameter in the current procedure, <BR>
+or "'     None" if none are there.<BR>
+Great for procedure comment blocks !<BR>
+Try inserting: "Comment Block - Procedure"<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Inserted at the current point of insertion<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Decide</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>YesNo, YesNoCancel, AskUser</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Asks the user Question and stores 1 if the user presses 'Yes', 0 if 'No'</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>If the user presses 'Cancel', template insertion stops <BR>
+as if the ~~Cancel 1 command had been executed<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Decide X=Is it raining outside ?<BR>
+~~If %%X%%<BR>
+~~MsgBox It's raining !<BR>
+~~Else<BR>
+~~MsgBox It's not raining.<BR>
+~~EndIf<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Decide</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>YesNo, YesNoCancel, AskUser</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Asks the user Question and returns 1 if the user presses 'Yes', 0 if 'No'</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Unlike the soft command 'Decide', the user is NOT given an option to cancel.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~If %%Decide::Is it raining outside ?%%<BR>
+~~MsgBox It's raining !<BR>
+~~Else<BR>
+~~MsgBox It's not raining.<BR>
+~~EndIf<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Decrement</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Dec</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyExample=100<BR>
+~~'	Sets %%MyExmple%% to "100"<BR>
+~~Dec MyExample<BR>
+~~'	%%MyExample%% now equal to "99"<BR>
+~~Dec MyExample 10<BR>
+~~'	%%MyExample%% now equal to "89"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteFile</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Causes a file in the operating system to be erased.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>This is functionally equivalent to the VB line of code <BR>
+Kill PathAndFilename<BR>
+Except it does not generate an error if the file is not there or the file could not be deleted<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteLine</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Deletes the line of code at the current insertion point. </BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~DeleteLine<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteLines</h2></B><UL><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Deletes <LineCount> lines starting at the current insertion point line</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~DeleteLines 10<BR>
+' Deletes 10 lines from the current point of insertion inclusive.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteProc</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Deletes the entire procedure/property named.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Deletes the comments before, body line, procedure contents, and "End <ProcType>" from the current module.<BR>
+<ProcName> should be a one word string of the procedure to jump to<BR>
+<ProcType> is the type of procedure of <ProcName> and can be "Proc" or "Get" or "Let" or "Set"<BR>
+If the procedure isn't there, an error will prevent insertion of the remainder of the template.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care.<BR>
+A Function and a Sub are both concidered "Proc"<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~DeleteProc Form_Load Proc<BR>
+~~DeleteProc Value Get<BR>
+~~DeleteProc Value Set<BR>
+**'<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteSelection</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Deletes the text selected by user from the current code module.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetTextSelection X<BR>
+~~DeleteSelection<BR>
+%%X%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Evaluate</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Eval</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Evaluates Expression to a value and assigned it to %%SoftVar%%</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Expression = <Something> <Operator> <SomethingElse><BR>
+Where Something and SomethingElse can be a %%Soft Variable%% or a number and<BR>
+Operator can be:<BR>
+	+	Addition<BR>
+	-	Subtraction<BR>
+	*	Multiplication<BR>
+	/	Division<BR>
+	\	Integer division<BR>
+	^	Exponent <BR>
+	MOD<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>No spaces are allowed and multiple expressions and parenthesied sub-expressions are NOT supported (yet).<BR>
+This evaluation will become much more robust soon.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Eval X=5<BR>
+~~Eval Y=10<BR>
+~~Eval Z=X+Y<BR>
+	Z = 15<BR>
+~~Eval Z=X-Y<BR>
+	Z = -5<BR>
+~~Eval Z=X*Y<BR>
+	Z = 50<BR>
+~~Eval Z=Y/X<BR>
+	Z = 2<BR>
+~~Eval Z=X\Y<BR>
+	Z = 0<BR>
+~~Eval Z=X^Y<BR>
+	Z = 9765625<BR>
+~~Eval Z=X MOD Y<BR>
+	Z = 5<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Except</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>sExcept</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns all tokens before and after Token number TokenNumber (default 1st) relative to the string "Delimiter" (default " ") of SoftVarIn.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set MyLastName=%%Except::MyName,2%%<BR>
+	%%MyLastName%% equals "William Rawls", all tokens except the 2nd token of %%MyName%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Extract</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>sExtract</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns token TokenNumber and extracts that token from SoftVarIn.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set MyLastName=%%Extract::MyName,2%%<BR>
+	%%MyLastName%% equals "M"<BR>
+	%%MyName%% equals "William Rawls"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Find</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Locate, Search</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets %%FOUND%% to the next line number containing "StringToFind"</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>If there are occurences of "StringToFind",<BR>
+%%Found%% = <NextLineNumberInModuleFound><BR>
+<BR>
+If there are no more occurences of "StringToFind", <BR>
+%%Found%% = "0"<BR>
+<BR>
+Great for looping through a module to do some <BR>
+form of automated find/replace.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>FindInProc</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ProcFind, PFind, ProcLocate, PLocate, ProcSearch, PSearch</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets %%FOUND%% to the next line number containing "StringToFind"</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>If there are more occurences of "StringToFind", <BR>
+(after the insertion point in the current procedure)<BR>
+<BR>
+%%Found%% = <NextLineNumberInProcedureFound><BR>
+<BR>
+If there are no more occurences of "StringToFind" <BR>
+(after the insertion point in the current procedure)<BR>
+<BR>
+%%Found%% = "0"<BR>
+<BR>
+Great for looping through a procedure to do some <BR>
+form of automated find/replace.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>FindToken</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>lFindToken, Find</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a number equal to the token number equal to TokenToFind from SoftVarIn.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set MyLastName=%%FindToken::MyName,Rawls%%<BR>
+	%%MyLastName%% equals "3"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>FirstSelectionLine</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets code insertion point to teh first line of the current text selection of the current module.</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ForEachControl</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>For each control in the form, one or more lines of code can be inserted at the current insertion point.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>ForEachControlByFrame</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Processing continues until a line containing NextControl is found.<BR>
+For each control in the form, one or more lines of code can be inserted at the current point.<BR>
+For each control TYPE you want to capture, insert a line of the form:<BR>
+"** TypeName" followed by one or more lines of code to insert.<BR>
+The classname following "** " should be the same as the one displayed in the properties window next to the <BR>
+control's name.<BR>
+To include information about the control, enclose the name of the property <BR>
+(like "Name", "Visible", "Caption", "TabStp", "Tag", etc.) in double asteriks. ie:<BR>
+Dim m_s**Name** As String<BR>
+m_s**Name** = "**Caption**"<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use this Soft command only when current focus is inside a form or ActiveX document.<BR>
+A special property called **sName** gets created automatically for each control that will allow you to get <BR>
+the name of a control starting at the 4th character of the name. This is very useful when you use the 3 <BR>
+character prefixes for naming your control. <BR>
+Example:	If the name of the control is "txtYourControl", <BR>
+Then <BR>
+**Name** = "txtYourControl" <BR>
+and <BR>
+**sName** = "YourControl".<BR>
+<BR>
+IMPORTANT NOTE: You can use soft variables, but you can NOT include double-tilde commands between <BR>
+ForEachControl and NextControl (yet). Actually, you can, but they will pass unprocessed to your code.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoProcEnd Form_Load Proc 0<BR>
+~~ForEachControl<BR>
+\** TextBox<BR>
+' These lines would get inserted for each TextBox control on the form.<BR>
+' The name of the TextBox would appear here: **Name**<BR>
+' The text of the TextBox would appear here: **Text**<BR>
+**Name**.Text = "Hello. My name is **Name**"<BR>
+\** ComboBox<BR>
+Dim CurListItem as Long<BR>
+For CurListItem = 0 To **Name**.Count - 1<BR>
+MsgBox **Name**.List(CurListItem)<BR>
+Next CurListItem<BR>
+~~NextControl<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ForEachControlByFrame</h2></B><UL><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>ForEachControl</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Usable ONLY inside a form, user document, or anything with controls.<BR>
+Same as ForEachControl except controls are "walked" by Frame. <BR>
+The "** Frame" subentry is inserted for each Frame control and then the controls in that frame are processed <BR>
+as with ForEachControl.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoProcEnd LoadControlsWithData Proc 0<BR>
+~~ForEachControlByFrame<BR>
+\** Frame<BR>
+' This text will get inserted for each frame, logically grouping lines of inserted code.<BR>
+\** TextBox<BR>
+' This text will get inserted at the current insertion point of the form.<BR>
+**Name**.Text = "Hello. My name is **Name**"<BR>
+\** ComboBox<BR>
+' This text will get inserted when a combobox is encountered.<BR>
+FillComboBox **Name**, "Default"<BR>
+~~NextControl<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GetClipboardText</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GetClipboard, GetClip</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Places the text contents of the clipboard into %%SoftVarOut%%</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>SetClipboardText</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>GetClipboardText and SetClipboardText allow you to do clipboard template replacements which could occur <BR>
+completely outside the VB IDE. Useful if you want to Copy some text, transform it, then place it back on the<BR>
+clipboard or at the current line of insertion in the VB IDE.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetClipboardText X<BR>
+The clipboard contains:<BR>
+-------------------------<BR>
+%%X%%<BR>
+-------------------------<BR>
+~~Set X=%%Token::X%%<BR>
+====================================<BR>
+First Token to get put back on the clipboard<BR>
+-------------------------<BR>
+%%X%%<BR>
+-------------------------<BR>
+~~SetClipboardText X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GetTextSelection</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GetText, GetSelection</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Places the contents of the current text selection into %%SoftVarOut%%</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetTextSelection X<BR>
+~~DeleteSelection<BR>
+%%X%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoClass</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves point of insertion to the VB Class Module <ClassName>. </BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoClass CExampleClass<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoClipboard</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GotoClip, OutputToClipboard, OutToClip, OutToClipboard, ClipOut</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Switches the Focus of Insertion to the Windows clipboard buffer.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoKeyboard, GotoFile, GotoMessage, ResumeInsertion, GotoVar</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>The GotoClipboard SoftCommand accumulates all remaining output until either the end of <BR>
+the template code area or when another SoftCommand changes the Focus of Insertion<BR>
+(including another call to GotoClipboard). <BR>
+GotoClipboard then sends that buffer in one shot to the Windows clipboard buffer as the <BR>
+Visual Basic command "Clipboard.SetText". Any SoftCommand that moves the insertion point <BR>
+inside the VB IDE will have no effect while the Focus of Insertion is on the clipboard.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE.<BR>
+<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoDeclarations</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GotoDec</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves insertion point to line 1 of the current module or the end of (Declarations) if "End" is given.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Moves code insertion point to line 1 of the current module or to the end of the <BR>
+declarations section if "End" is given as a parameter.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoEndOfFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GotoEnd, GotoEndOfModule</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves code insertion point to the end of the current code module.</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Filename, OutputToFile, SendToFile, FileOut</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Switches the Focus of Insertion to the indicated file (Append mode).</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoClipboard, GotoKeyboard, ResumeInsertion, GotoMessage, GotoSoftVar, Overwrite</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>If the file exists, it will be appended to.<BR>
+If the file does not exist, it will be created.<BR>
+<BR>
+GotoFile accumulates all remaining output until either the end of the template <BR>
+code area or when another SoftCommand changes the Focus of Insertion<BR>
+(including another call to GotoFile). <BR>
+GotoFile then appends the entire buffer in one shot to the end of the indicated file.<BR>
+Obviously, great care should be taken.<BR>
+Any SoftCommand that moves the insertion point inside the VB IDE will have no effect <BR>
+while the Focus of Insertion is on GotoFile.<BR>
+Use ~~GotoNewFile to overwrite the existing file.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE.<BR>
+<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoForm</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves insertion point to the VB Form <ClassName>.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoForm frmMain<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoKeyboard</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GotoKB, OutputToKeyboard, OutputToKB, OutToKB, OutToKeyboard, KeyOut</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Switches the Focus of Insertion to the Windows keyboard buffer.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoClipboard, GotoFile, GotoMessage, ResumeInsertion, GotoVar</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>The GotoKeyboard SoftCommand accumulates all remaining output until either the end of <BR>
+the template code area or when another SoftCommand changes the Focus of Insertion<BR>
+(including another call to GotoKeyboard). <BR>
+GotoKeyboard then sends that buffer in one shot to the Windows Keyboard buffer as the <BR>
+Visual Basic command SendKeys. Further, any new line characters will be translated to the<BR>
+string "{ENTER}" unless you specify the "Raw" or "1" parameter. "Raw" or "1" will cause <BR>
+Slice and Dice to simply remove new line characters, replacing them with nothing.<BR>
+Any SoftCommand that moves the insertion point inside the VB IDE will have no effect <BR>
+while the focus of insertion is on the keyboard buffer.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE (if loaded).<BR>
+<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoMessage</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GotoMsg, OutputToMessage, OutToMsg, OutToMessage, MessageOut, MsgOut</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Switches the Focus of Insertion to the ~~ShowMessage area.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoClipboard, GotoKeyboard, GotoFile, ResumeInsertion, GotoVar</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>The GotoMessage SoftCommand accumulates all remaining output until either the end of <BR>
+the template code area or when another SoftCommand changes the Focus of Insertion<BR>
+(including another call to GotoMessage).<BR>
+GotoClipboard then sends that buffer in one shot to the SoftCommand ~~ShowMessage where<BR>
+it can be viewed, copied, saved, edited, etc. Any SoftCommand that moves the insertion <BR>
+point inside the VB IDE will have no effect while the Focus of Insertion is on the<BR>
+~~ShowMessage area.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE.<BR>
+<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoModule</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Turns the insertion focus to the indicated module.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>If <ModuleName> does not exist, a new module of type <ModuleType> is created.<BR>
+IMPORTANT NOTE: If <ModuleName> does not exist, then the <ModuleType> parameter is required.<BR>
+If it is excluded, the string "Module" is assumed for <ModuleType><BR>
+Valid values for <ModuleType> are "Class" or "ClassModule", "Form", or "Module".<BR>
+Anything else is interpreted as "Module".<BR>
+Try inserting: "Class - CAssocItem" or "Class - CAssocArray".<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoNewFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>OverwriteFile, Overwrite, NewFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Switches the Focus of Insertion to the indicated file, overwriting if needed.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoClipboard, GotoKeyboard, ResumeInsertion, GotoMessage, GotoSoftVar, Overwrite</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>If the file exists, it will be overwritten.<BR>
+If the file does not exist, it will be created.<BR>
+<BR>
+GotoNewFile accumulates all remaining output until either the end of the template <BR>
+code area or when another SoftCommand changes the Focus of Insertion<BR>
+(including another call to GotoNewFile). <BR>
+GotoNewFile then sends the entire buffer in one shot to the indicated file, overwriting<BR>
+existing contents or creating a new file as needed. Obviously, great care should be taken.<BR>
+Any SoftCommand that moves the insertion point inside the VB IDE will have no effect <BR>
+while the Focus of Insertion is on GotoNewFile.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use ~~GotoFile to append to an existing file.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE.<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoProc</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves insertion point to the beginning of the procedure/poperty <ProcName> plus or minus <LineOffset> lines.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE><ProcName> should be a one word string of the procedure to jump to<BR>
+<ProcType> the type of procedure <ProcName> is ("Proc" | "Get" | "Let" | "Set")<BR>
+<LineOffset> should be an long to offset the new line insertion point by<BR>
+Moves the insertion point to a relative point from the beginning of the procedure <ProcName><BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoProc Form_Load Proc 5<BR>
+	Moves the insertion point to the fifth (5th) line of the Form_Load procedure in the current module.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoProcEnd</h2></B><UL><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE><ProcName> should be a one word string of the procedure to jump to<BR>
+<ProcType> the type of procedure <ProcName> is ("Proc" | "Get" | "Let" | "Set")<BR>
+<LineOffset> should be an long to offset the new line insertion point by<BR>
+Moves the insertion point to a relative point at the end of the procedure <ProcName><BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoProcEnd SaveProperties Proc -1<BR>
+	Moves to the line right before the last line of the SaveProperties procedure<BR>
+<BR>
+Try inserting: "DB Persisted Property - ???"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoProject</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Turns the insertion focus to the first line of the first module found in the named project.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>If <ProjectName> does not exist, a new project of type <ProjectType> is created.<BR>
+If it is excluded, the string "DLL" is assumed for <ProjectType><BR>
+Valid values for <ProjectType> are:<BR>
+DLL         for   ActiveX DLL<BR>
+EXE         for   Standard EXE<BR>
+Control     for   ActiveX Control<BR>
+ActiveXEXE  for   ActiveX EXE<BR>
+Anything else is interpreted as "DLL".<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoSoftCode</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>SoftCode</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Treats remaining lines as if they started with ~~</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoClipboard, GotoKeyboard, GotoFile, ResumeInsertion, GotoMessage, GotoSoftVar</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>GotoSoftCode accumulates all remaining output until either the end of the template <BR>
+code area or when another SoftCommand changes the Focus of Insertion<BR>
+(including another call to GotoSoftCode). GotoSoftCode then prefixes each line with the<BR>
+SoftCommand delimiter "~~". Slice and Dice then inserts the modified buffer before any<BR>
+lines of SoftCode left to process, changes the Focus of Insertion back to the IDE, and<BR>
+continues processing normally. Obviously, great care should be taken as this can easily<BR>
+lead to and endless insertion loop. Any SoftCommand that moves the insertion point <BR>
+inside the VB IDE will have no effect while the Focus of Insertion is on this special<BR>
+SoftCode area.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE.<BR>
+<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoSoftVariable</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GotoSoftVar, GotoVar</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Switches the Focus of Insertion to the named SoftVariable.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoClipboard, GotoKeyboard, GotoFile, ResumeInsertion, GotoMessage</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>The GotoSoftVariable SoftCommand accumulates all remaining output until either the <BR>
+end of the template code area or when another SoftCommand changes the <BR>
+Focus of Insertion (including another call to GotoSoftVariable).<BR>
+GotoSoftVariable then sends that buffer in one shot to the indicated SoftVariable.<BR>
+Any SoftCommand that moves the insertion point inside the VB IDE will have no effect <BR>
+while the Focus of Insertion is on the ~~ShowMessage area.<BR>
+Use ResumeInsertion to move the focus of insertion back to the VB IDE.<BR>
+<BR>
+See ResumeInsertion for more information on issues about the Focus of Insertion.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>HideWindow</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Hide, HideCode</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Hides the current code/GUI window in the VB IDE</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use with care, great for multi-project find/replace<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>If</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Else, EndIf</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>This is one of the more powerful soft commands in its implications. <BR>
+Even in it's simplest form, it allows for some very interesting<BR>
+possibilities.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~' Simple Example<BR>
+~~Set X=10<BR>
+~~StartCoda<BR>
+~~If %%X%%<BR>
+%%X%%<BR>
+~~Else<BR>
+~~MsgBox Done<BR>
+~~EndIf<BR>
+~~Dec %%X%%<BR>
+~~Coda %%X%%<BR>
+~~' Embedded Example<BR>
+~~Set X=10<BR>
+~~Set Y=10<BR>
+~~StartCoda<BR>
+~~_TestY_If %%Y%%<BR>
+~~_TestX1_If %%X%%<BR>
+X=%%X%% Y=%%Y%%<BR>
+~~_TestX1_Else<BR>
+~~Decrement Y<BR>
+~~_TestX1_EndIf<BR>
+~~_TestY_Else<BR>
+~~_TestX1_If %%X%%<BR>
+X=%%X%% Y=%%Y%%<BR>
+~~_TestX1_Else<BR>
+~~Decrement Y<BR>
+~~_TestX1_EndIf<BR>
+~~_TestY_EndIf<BR>
+~~Decrement X<BR>
+~~Coda %%X%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>IgnoreBlanks</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>NoBlanks, BlanksOkay, NoBlanks</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>For the remainder of the template, blank soft variables will stay blank (no user input).</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>WatchBlanks</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Useful during ~~Coda loops where a string will eventually be blank.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Include</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Inserts the contents of a template code area where this soft variable is.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Area<BR>
+	0 or "" = Code at Top<BR>
+	1       = Code at Top<BR>
+	2       = Code at Cursor<BR>
+	3       = Code at Bottom<BR>
+	Else    = Code to file<BR>
+<BR>
+Template<BR>
+	Must be in "Category name - Template name" format.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>%%Include::Token Routine - sGetToken%%<BR>
+~~' Would include the "Code at Top" code area of the "sGetToken" template from the "Routine" category<BR>
+<BR>
+%%Include::Token Routine - sGetToken,1%%<BR>
+~~' Would include the "Code at Top" code area of the "sGetToken" template from the "Routine" category<BR>
+<BR>
+%%Include::Token Routine - sGetToken,%%<BR>
+~~' Would include the "Code at Top" code area of the "sGetToken" template from the "Routine" category<BR>
+<BR>
+%%Include::Token Routine - sGetToken,3%%<BR>
+~~' Would include the "Code at Bottom" code area of the "sGetToken" template from the "Routine" category<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Increment</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Inc</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Increments the value of SoftVar by one or if the optional By parameter is used, incremented by "By".</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyExample=1<BR>
+	Sets the soft variable MyExmple equal to 1<BR>
+~~Inc MyExample<BR>
+	MyExample now equal to "2"<BR>
+~~Inc MyExample 10<BR>
+	MyExample now equal to "12"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>InStr</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As VB InStr(X,Y)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Z=%%InStr::X,Y)<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LastSelectionLine</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets code insertion point to the last line of the current text selection of the current module.</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LCase</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>LowerCase, LwCase</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As the VB command LCase(TextToConvert)</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Left</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Equivaent to ~~Set SoftVar=%%Left::SoftVar,Length%% .</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Left 5 Testing=This is a test<BR>
+~~'    Sets %%Testing%% to "This "<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Left</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the left-most CharCount characters from SoftVarIn ala Left(SoftVarIn,CharCount)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Test=This is a test<BR>
+~~MsgBox %%Left::Test,5%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Len</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>StringLength, Length, StrLen</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the Length of SoftVar</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Test=Testing<BR>
+~~Set X=%%Len::Test%%<BR>
+~~MsgBox %%X%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LineOffset</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Offset</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves the insertion point to a relative line number from the current the insertion point.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Moves the insertion point to a relative line number from the current the insertion point.<BR>
+<LineOffset> should be an long positive or negative<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~LineOffset 2<BR>
+	Moves the insertion point +2 lines from the current insertion point<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LSet</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As the VB LSet command (strings only)</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>RSet, Set</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Let X=1234567890<BR>
+~~Let Y=Words<BR>
+~~LSet X=Y<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LTrim</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>LeftTrim</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As VB line of code "SoftVarInOut = LTrim(SoftVarInOut)"</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=    123<BR>
+~~LTrim X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LTrim</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>LeftTrim</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a left trimmed version of SoftVarIn as the VB line of code, LTrim(SoftVarIn)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~MsgBox %%LTrim::    123    %%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Mangle</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Attempts to create a single word from a string with underscores suitable for VB object use</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>If there are no underscores the string is left alone.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Mangle Test=THIS_IS_A_TEST<BR>
+~~'<BR>
+~~'    Would set %%Test%% to "ThisIsATest"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Mangle</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Attempts to create a single word from a string with underscores suitable for VB object use</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>If there are no underscores the string is left alone.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Test=THIS_IS_A_TEST<BR>
+~~Set Mangled=%%Mangle::Test%%<BR>
+~~'<BR>
+~~'    Would set %%Mangled%% to "ThisIsATest"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Mid</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Equivaent to ~~Set SoftVar=%%Mid::SoftVar,StartChar,Length%% .</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Mid 3 5 Testing=This is a test<BR>
+~~'    Sets %%Testing%% to "is is"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Mid</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the middle-most CharCount characters from SoftVarIn starting at character number StartChar ala Mid(SoftVarIn,StartChar,CharCount)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Test=This is a test<BR>
+~~MsgBox %%Mid::Test,3,5%%<BR>
+~~MsgBox %%Mid::This is a test,3,5%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ModuleContents</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Contents, Members</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a $$$$ delimited list of the members of the current module.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>ProjectList, ModuleList</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>%%ModuleContents%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ModuleList</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a $$$$ delimited list of modules/forms in the active project.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>ProjectList</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>%%ModuleList%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>MsgBox</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Shows a Message box ala VB line of code MsgBox(TextToDisplay)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~' Example 1<BR>
+~~MsgBox Hello world !<BR>
+~~'<BR>
+~~' Example 2<BR>
+~~Set MessageText=This is a test<BR>
+~~MsgBox %%MessageText%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>NoInsert</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>StopCodeInsertion, StopInsertion, Stop</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Causes the rest of the template box to NOT be inserted.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Great for including free form notes or other comments in a template.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>NoInsert is automatically turned off at the end of the current code area.<BR>
+So you need a NoInsert in EACH code area of the template for each you want to stop.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Now</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the current date/time as the Now() VB command.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>The date/time is %%Now%%<BR>
+The month is %%Now::Mmmm%%<BR>
+The day of the month is %%Now::D%%<BR>
+The year is %%Now::YYYY%%<BR>
+The time is %%Now::H:NN:SS AM/PM%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Pad</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns ToPad padded out to the given length. Not truncated.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>>>%%Pad::This is a test,50%%<<<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ProcAttr</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets an attribute of a procedure in a VB form/class/ActiveX control/etc.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Allows you to change a procedure's attributes as you would from the "Procedure Attributes" menu item <BR>
+on the Visual Basic IDE "Tools" pull-down menu. <BR>
+<BR>
+<AttrName> 	Should be:<BR>
+Desc		for the property's "Description" attribute<BR>
+ID		for the property's "Procecure ID" attribute<BR>
+Hidden 		for the property's "Hidden" attribute<BR>
+<BR>
+<AttrValue> is different for each <AttrName><BR>
+<BR>
+For <AttrName>,	<AttrValue> should be:<BR>
+Desc   			A string description for the procedure<BR>
+Hidden			"True" or "T" to set the property as hidden (NewEnum has to be hidden to work right)<BR>
+			or anything else to set Hidden to false<BR>
+ID			"Default" to make this the default property for a class<BR>
+ID			"NewEnum" to make the current property what is called in a "For Each...Next" loop<BR>
+ID			A number corresponding to the procedure ID you want.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Please note that insertion focus must be set with GotoProc to a valid procedure/property before attributes <BR>
+will be set.<BR>
+NOTE: Default = 0 , NewEnum = -4<BR>
+Try inserting: "DB Persisted Collection"<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoProc NewEnum Get 0<BR>
+~~ProcAttr Hidden True<BR>
+~~ProcAttr ID NewEnum<BR>
+<BR>
+	or<BR>
+<BR>
+~~GotoProc Item Get 0<BR>
+~~ProcAttr Desc This is the default property for this object<BR>
+~~ProcAttr ID Default<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ProcEnd</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves the insertion point to the end of the current procedure. </BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Great for error code insertion<BR>
+Try inserting: "Error code - General"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ProcTop</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Moves the insertion point to the top of the current procedure. </BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Great for procedure comment blocks<BR>
+Try inserting: "Comment - Procedure"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ProjectList</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a $$$$ delimited list of projects in the currently loaded group.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>ModuleList</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>%%ProjectList%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ReadLine</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Takes the contents of the current line at the insertion point and places it in %%SoftVarOut%%</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>The line comes from the current insertion point NOT the VB IDE cursor's location.<BR>
+If ~~ReadLine is put as the first line of the "At Cursor" section then the curent insertion point coicides with<BR>
+the VB IDE's cursor.<BR>
+This is useful if you want to manipulate a single line of code.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~ReadLine X<BR>
+~~' Would put the current line of text from the current module into %%X%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Replace</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Replaces all occurences of %%ToFind%% with %%ReplaceWith%% from sIN to sOUT</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>If sIN is ommited, sOUT is treated as sIN and sOUT (self-replacement).<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>This command is extremely useful for last second multiline or special character <BR>
+text replacements that would otherwise be impossible with the single line commands<BR>
+like %%Replace%% and ~~Set<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~'<BR>
+~~' Example 1<BR>
+~~'<BR>
+~~Set TestIn=William M Rawls, MyDegreeInitials<BR>
+~~Set ToFind=MyDegreeInitials<BR>
+~~Set ReplaceWith=SHPC<BR>
+~~Replace TestOut=TestIn<BR>
+~~'<BR>
+~~'  Would set %%TestOut%% to "William M Rawls, SHPC"<BR>
+~~'<BR>
+~~' Example 2 (multi-line, each line needs indenting)<BR>
+~~'   Chr(128) works good for this purpose<BR>
+~~'<BR>
+~~String SpecChar 1 Chr(128)<BR>
+~~Set TestIn=%%SpecChar%%  Line 1<BR>
+~~Append TestIn=EOL<BR>
+~~Append TestIn=%%SpecChar%%     Line 2$EOL$<BR>
+~~Append TestIn=%%SpecChar%%            Line 3$EOL$<BR>
+~~'<BR>
+~~Set ToFind=%%SpecChar%%<BR>
+~~String ReplaceWith 1 " "<BR>
+~~Replace TestOut=TestIn<BR>
+%%TestOut%%<BR>
+~~'<BR>
+~~'  This allows indenting of lines and other special one-step replacements.<BR>
+~~'     getting around Slice and Dice's "auto-trim" feature<BR>
+~~'     which is unfortunately necessary for proper operation.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Replace</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a string with all occurences of ToFind replaced with ToReplace in %%SoftVarIn%%</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~'<BR>
+~~' Example 1<BR>
+~~'<BR>
+~~Set TestString=William M Rawls<BR>
+~~Set Test=%%Replace::TestString, M , %%<BR>
+~~'<BR>
+~~'  Would set %%Test%% to "William Rawls"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ResetGlobal</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ResetGlobals</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Clears the Associative Array used for code insertions</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Good to do during a major code insertion like Data Classing especially if you want to insure no soft variable<BR>
+values carry forward. Generally this is unnecessary. I include it "just in case".<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>RestoreVars</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Restores all soft variable values from previous ~~SaveVars</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>SaveVars</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>RestoreVars restores ALL soft variables unconditionally. This means<BR>
+auto soft variable values will be restored to their previous values.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~' Try this example twice to see the consequences.<BR>
+~~RestoreVars<BR>
+~~MsgBox X = %%X%%<BR>
+~~SaveVars<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ResumeInsertion</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Resume, Flush</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Resumes insertion into the IDE after a series of outputing to a file.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Use to switch the Focus of Insertion back to the VB IDE. It is probably wise to explicitly follow <BR>
+ResumeInsertion with a SoftCommand that changes the Point of Insertion <BR>
+(such as GotoModule or GotoClass).<BR>
+Also call this command when you want to force a flushing of the buffer for the current (non-VB IDE)<BR>
+Focus of Insertion.<BR>
+Any time you change the Focus of Insertion, the buffer of the previous (non-VB IDE) <BR>
+Focus of Insertion will be flushed, so it is not necessary to call this SoftCommand.<BR>
+If the Focus of Insertion is not on the VB IDE at the end of the template code area, Slice and Dice<BR>
+will automatically flush that buffer.<BR>
+At the beginning of each code area, the Focus of Insertion is always assumed to be the VB IDE.<BR>
+If Slice and Dice is not being run from Visual Basic, then the Focus of Insertion goes nowhere.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ReverseTokens</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>FlipFlop</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Takes everything before the Delimiter string and puts it after and everything after before.</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Occationally useful when you want to take something like<BR>
+X = Y<BR>
+A = B<BR>
+C = D<BR>
+And turn it into<BR>
+Y = X<BR>
+B = A<BR>
+D = C<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetTextSelection TextSelection<BR>
+~~ReverseTokens TextSelection TextOut " = "<BR>
+~~FirstSelectionLine<BR>
+~~DeleteSelection<BR>
+%%TextOut%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Right</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Equivaent to ~~Set SoftVar=%%Right::SoftVar,Length%% .</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Right 5 Testing=This is a test<BR>
+~~'    Sets %%Testing%% to " test"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Right</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the right-most CharCount characters from SoftVarIn ala Right(SoftVarIn,CharCount)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Test=This is a test<BR>
+~~MsgBox %%Right::Test,5%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>RSet</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As the VB RSet command (strings only)</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>LSet, Set</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Let X=1234567890<BR>
+~~Let Y=Words<BR>
+~~RSet X=Y<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>RTrim</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>RightTrim</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As VB line of code "SoftVarInOut = RTrim(SoftVarInOut)"</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=123     <BR>
+~~RTrim X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>RTrim</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>RightTrim</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a right trimmed version of SoftVarIn as the VB line of code, RTrim(SoftVarIn)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~MsgBox %%RTrim::    123    %%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SaveVars</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Saves all soft variable values for later recal by RestoreVars</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>RestoreVars</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>RestoreVars restores ALL soft variables unconditionally. This means<BR>
+auto soft variable values will be restored to their previous values.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~' Try this example twice to see the consequences.<BR>
+~~RestoreVars<BR>
+~~MsgBox X = %%X%%<BR>
+~~SaveVars<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SelectControl</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Selects the control ControlName for operation by other selected control name sensitive soft commands (SetProperty mostly).</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>SetProperty~~SelectControl txtFirstName<BR>
+~~SetProperty Left=500<BR>
+~~SelectControl cmdSearch<BR>
+~~SetProperty Width=5000<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Set</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>SetValue, Let, !</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets SoftVarOut = to either the value of SoftVarIn or the string SoftVarIn</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>StrCopy</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=12<BR>
+~~Let Y=17<BR>
+~~! Z=1299<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SetClipboardText</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>SetClipboard, SetClip</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Places the contents of %%SoftVarIn%% onto the clipboard as text.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GetClipboardText</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>GetClipboardText and SetClipboardText allow you to do clipboard template replacements which could occur <BR>
+completely outside the VB IDE. Useful if you want to Copy some text, transform it, then place it back on the<BR>
+clipboard or at the current line of insertion in the VB IDE.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetClipboardText X<BR>
+The clipboard contains:<BR>
+-------------------------<BR>
+%%X%%<BR>
+-------------------------<BR>
+~~Set X=%%Token::X%%<BR>
+====================================<BR>
+First Token to get put back on the clipboard<BR>
+-------------------------<BR>
+%%X%%<BR>
+-------------------------<BR>
+~~SetClipboardText X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SetFormProperty</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>FormProperty</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Set a property's value of the current form.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~SetFormProperty Width=5000<BR>
+~~SetFormProperty Height=3000<BR>
+~~SetFormProperty Left=500<BR>
+~~SetFormProperty Top=500<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SetProperty</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sets CurrentControl.PropertyName = PropertyValue</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Only use after adding or selecting a control from the current insert point's module with ~~AddControl <BR>
+or ~~SelectControl . Otherwise this will do nothing.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ShowMessage</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ShowMsg</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Displays a message in a multiline text box.</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GotoMessage</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~ShowMessage This is a test<BR>
+<BR>
+~~Set X=This is another Test<BR>
+~~ShowMessage X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>StartCoda</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Used with ~~Coda , this marks the beginning of a template area to repeat </BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>Coda</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Test=3<BR>
+~~StartCoda<BR>
+' Loop %%Test%%<BR>
+~~Decrement Test<BR>
+~~Code Test<BR>
+~~'<BR>
+~~' Would insert "Loop 3" then "Loop 2" then "Loop 1"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>StrCopy</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>CopyString, StringCopy, CopySoftVar, SoftVarCopy</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Copies either the value of SoftVarSource or the string after the equal sign into %%SoftVarDest%%</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>While the example is very basic and seems redundant, keep in mind that the ~~Set command only works for the<BR>
+line of text following the equal sign. <BR>
+If in the example above, %%X%% had included multiple lines, the ~~Set Test=%%X%% would only have capatured the<BR>
+first line and the remaining lines of %%X%% would have been inserted as lines of code.<BR>
+So to summarize, if you expect a soft variable to have multiple lines of text in it, use ~~StrCopy, otherwise<BR>
+use ~~Set .<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=Something<BR>
+~~Set Test=%%X%%<BR>
+~~StrCopy Testing=X<BR>
+~~' Sets %%Testing%% = "Something"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>String</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Str, RepStr, ReplicateString</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Like the VB String() function.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>This is useful when you want some code spreaded out to a specific column.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~String Testing 30 "X"<BR>
+~~MsgBox The string generated is '%%Testing%%'<BR>
+~~String Testing 30 Chr(49)<BR>
+~~MsgBox The string generated is '%%Testing%%'<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Token</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>sGetToken, GetToken, sToken</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns Token number TokenNumber (default 1st) relative to the string "Delimiter" (default " ") of SoftVarIn.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set MyLastName=%%Token::MyName,3%%<BR>
+	%%MyLastName%% equals "Rawls", the 3rd space-delimited token of %%MyName%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>TokenCount</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>lTokenCount, lTCount, TCount</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the number of tokens in SoftVarIn relative to the delimiter "Delimiter".</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set MyName=William M Rawls<BR>
+~~Set NumberOfNames=%%TokenCount::MyName, %%<BR>
+	%%NumberOfNames%% equals "3".<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Trim</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As VB line of code "SoftVarInOut = Trim(SoftVarInOut)"</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=    123   <BR>
+~~Trim X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Trim</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a trimmed version of SoftVarIn as the VB line of code, Trim(SoftVarIn)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~MsgBox %%Trim::    123    %%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>UCase</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>UpperCase, UpCase</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As the VB command UCase(TextToConvert)</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=William<BR>
+%%UCase::X%%<BR>
+%%UCase::William%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>WatchBlanks</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>NoBlanks, BlanksNotOkay, YesBlanks</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>For the remainder of the template, blank soft variables will stay blank (no user input).</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>IgnoreBlanks</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Useful during ~~Coda loops where a string will eventually be blank.<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>WordWrap</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Takes the TextToWrap and formats it at a given length, with each line prefixed with <LinePrefix></BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE><WrapLen> should be a positive long at which <TextToWrap> should be wrapped at<BR>
+<LinePrefix> is a string that gets inserted before each line that gets wrapped<BR>
+<TextToWrap> should be a string that will get wrapped<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~WordWrap 80 "' " %%Code Module Description%%<BR>
+	Will wrap whatever the user types for the question "Code Module Description" every 80 characters <BR>
+	(broken on the nearest word boundary) and prefix each line with an appostrophe and a space. <BR>
+	Great for comment blocks.<BR>
+Try inserting: "Comment - Code Module"<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>~##~Include</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Inserts the contents of the indicated template before SoftVar resolution.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~##~Include Project Group Find/Replace - Basic Loop Begin<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Activate</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>AppActivate, ActivateApplication, SwitchToApp</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Activates the indicated ShellID or app with the indicated Title text</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Execute c:\windows\notepad.exe c:\Test.txt<BR>
+~~Activate %%ShellID%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AppendToFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>AppendFile, Append</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Appends Contents into Filename specified.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Most useful when Contents is a soft variable with multiple lines of text in it.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=1$2$3$<BR>
+~~Set X=%%Replace::X,$,EOL%%<BR>
+~~AppendFile C:\Test.txt, X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>AppendVarToFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>AppendVar</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Appends the contents of SoftVarIn to FilenameOut</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~AppendVarToFile X=c:\test.txt<BR>
+~~AppendVar X=c:\test.txt<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ChangeDirectory</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ChangeDir, ChDir, CD</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Changes the current directory to NewPath</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~ChangeDirectory c:\<BR>
+~~ChangeDir c:\windows\system<BR>
+~~ChDir d:\Program Files<BR>
+~~CD e:\autorun<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ChangeDrive</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Drive, ChDrive</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Changes the current drive to the indicated drive letter.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~ChangeDrive C<BR>
+~~Drive D<BR>
+~~ChDrive E<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ChooseColor</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>PickColor</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Opens the common color chooser and returns the color chosen.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=%%ChooseColor::&HFFFFFF&%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ChooseDatabase</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ChooseDB, PickDatabase, PickDB, GetDBPathAndFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Pops up the common dialog for choosing an Access Database</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set DBChosen=%%ChooseDB%%<BR>
+~~'   Chooses a database file starting in the current directory<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ChooseDir</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ChooseDirectory, GetPath, BrowseForFolder, ChooseFolder, BrowseForDir, BrowseForDirectory, PickDir, PickDirectory</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Pops up the common dialog for browsing and choosing a folder which is returned.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Directory chosen by user=%%ChooseDir%%<BR>
+~~Set Directory chosen by user=%%ChooseDir::Choose a folder%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ChooseFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>PickFile, GetPathAndFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Pops up the common dialog for choosing a file which is returned.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set ChosenFile=%%ChooseFile::c:\windows%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>CopyFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>FileCopy</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Copies FileIn to FileOut</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~CopyFile c:\test.2 = c:\test.txt<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>CreateFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>MakeFile, MkFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Creates Filename and writes Contents to it.</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Most useful when Contents is a soft variable with multiple lines of text in it.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=1$2$3$<BR>
+~~Set X=%%Replace::X,$,EOL%%<BR>
+~~CreateFile C:\Test.txt, X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>CreateFolder</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>CreateDirectory, MakeDir, MkDir, MD</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Creates NewPath as in "MkDir NewPath"</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~CreateFolder c:\test<BR>
+~~MD c:\test<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteFolder</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>DeleteDirectory, DelDir, DeleteDir</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Removes the indicated directory (which must be empty) from the file system</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>The directory MUST be empty before the directory can be removed.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~DeleteFolder c:\test<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>DeleteSetting</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>DeleteRegistrySetting, DeleteRegKey, DelRegKey</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Deletes the indicated registry value</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~DelSetting Last,Date<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>FileContents</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GetFile, FileToSoftVar, FileToVar</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Reads the contents of FilenameIn into SoftVarOut</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~FileContents X=c:\Test.txt<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GetSetting</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GetRegistrySetting, GetRegKey</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As SoftVarOut = GetSetting("Slice and Dice", Section, Key)</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>SaveSetting</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Do not (or with extreme caution) use <BR>
+the following reserved values for "Section":<BR>
+Last<BR>
+Settings<BR>
+DB Class Gen<BR>
+frmMain<BR>
+frmDBClassGen<BR>
+frmCommandHelp<BR>
+<BR>
+Or any other "Section" name under:<BR>
+	HKEY_CURRENT_USER\Software\VB and VBA Program Settings\Slice and Dice<BR>
+(except those you create, of course).<BR>
+<BR>
+I recommend "Vars", "Unique Value", or "User Values" for Section.<BR>
+<BR>
+Use of these Section values may result in <BR>
+Slice and Dice crashing or other unknown <BR>
+and undesired behaviors.<BR>
+<BR>
+Then again, you might be able to do some <BR>
+interesting things by modifying these values.<BR>
+<BR>
+Values do NOT propagate between users on a machine.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetSetting Previous,Date,TheLastDateWas<BR>
+~~MsgBox The Last Date was %%TheLastDateWas%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GetSetting</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>GetRegistrySetting, GetRegKey</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Like the VB line of code = GetSetting("Slice and Dice", Section, Key)</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>SaveSetting</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Do not (or with extreme caution) use <BR>
+the following reserved values for "Section":<BR>
+Last<BR>
+Settings<BR>
+DB Class Gen<BR>
+frmMain<BR>
+frmDBClassGen<BR>
+frmCommandHelp<BR>
+<BR>
+Or any other "Section" name under:<BR>
+	HKEY_CURRENT_USER\Software\VB and VBA Program Settings\Slice and Dice<BR>
+(except those you create, of course).<BR>
+<BR>
+I recommend "Vars", "Unique Value", or "User Values" for Section.<BR>
+<BR>
+Use of these Section values may result in <BR>
+Slice and Dice crashing or other unknown <BR>
+and undesired behaviors.<BR>
+<BR>
+Then again, you might be able to do some <BR>
+interesting things by modifying these values.<BR>
+<BR>
+Values do NOT propagate between users on a machine.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~MsgBox The Last Date saved to the registry was %%GetSetting::Previous,Date%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>MatchFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Dir, FindFirst, FirstFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Like the VB Dir() command, returns the first matching file in mask</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>MatchNextFile</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=%%Dir::c:\windows\*.exe%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>MatchNextFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>FindNext, NextFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the next file matching the previously done ~~FindFirst</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~StartCoda<BR>
+~~Set X=%%Dir::c:\windows\*.exe%%<BR>
+~~Coda Len(%%X%%)<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Rename</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Ren, RenameFile</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Renames the file CurrentName to NewFilename</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Rename c:\Test.txt c:\Test.txt.old<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>RunProgram</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Shell, Execute</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Executes the indicated program. Stores the ID in the SoftVar "ShellID"</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Execute c:\windows\notepad.exe c:\Test.txt<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SaveSetting</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>SaveRegistrySetting, SetRegKey</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>As SaveSetting("Slice and Dice", Section, Key, Value)</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>GetSetting</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Do not (or with extreme caution) use <BR>
+the following reserved values for "Section":<BR>
+Last<BR>
+Settings<BR>
+DB Class Gen<BR>
+frmMain<BR>
+frmDBClassGen<BR>
+frmCommandHelp<BR>
+<BR>
+Or any other "Section" name under:<BR>
+	HKEY_CURRENT_USER\Software\VB and VBA Program Settings\Slice and Dice<BR>
+(except those you create, of course).<BR>
+<BR>
+I recommend "Vars", "Unique Value", or "User Values" for Section.<BR>
+<BR>
+Use of these Section values may result in <BR>
+Slice and Dice crashing or other unknown <BR>
+and undesired behaviors.<BR>
+<BR>
+Then again, you might be able to do some <BR>
+interesting things by modifying these values.<BR>
+<BR>
+Values do NOT propagate between users on a machine.<BR>
+</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~SaveSetting Previous,Date,%%Now%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SendKeys</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Works the same as the VB command SendKeys</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Execute c:\windows\notepad.exe c:\Test.txt<BR>
+~~Activate %%ShellID%%<BR>
+~~SendKeys Testing 123<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SendKeysWithPause</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>SendKeysAndWait, SendKeysAndPause, SendKeysWithWait</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Works the same as the VB command SendKeys with the Pause option on.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Execute c:\windows\notepad.exe c:\Test.txt<BR>
+~~Activate %%ShellID%%<BR>
+~~SendKeysWithPause Testing 123<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>VarToFile</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>PutFile, SaveToFile, FileToVar</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Writes the contents of SoftVarIn to FilenameOut</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~VarToFile c:\test.txt=X<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>BeforeLastToken</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>BeforeLast, ExceptLastToken, ExceptLast</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the last token in a string or SoftVariable</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>BeforeLastToken, Token, TokenCount, Before, After</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=1;2;3<BR>
+~~Set Y=%%BeforeLastToken::X,;%%<BR>
+~~' Y is now equal to '3'</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>btxFields</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>btxFieldFormats, btxFieldList</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a list of <Field> XML names from a BeneTX file</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set btxFilename=%%What input file should be used ?%%<BR>
+~~Set Choices=%%btxFieldFormats::btxRecordFormat%%</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>btxRecords</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>btxRecordFormats, btxRecordList</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a list of <RecordFormat> XML names from a BeneTX file</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set btxFilename=%%What input file should be used ?%%<BR>
+~~Set Choices=%%btxRecordFormats::btxFilename%%</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>ExecuteSoftCode</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>RunSoftCode</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GetClipboardText cbText<BR>
+~~ExecuteSoftCode cbText</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GetFileList</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a delimited list of files fitting the mask.</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Ginsu</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Wraps Values with 2 layers of XML tags</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoMessage<BR>
+~~Set xmlFields=Field1;Field2;Field3<BR>
+~~Set xmlValues=1;2;3;4;5;6<BR>
+~~Set xmlWrapper=OuterLayer<BR>
+~~Ginsu xmlOut</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>GotoSandyTemplate</h2></B><UL><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Same as clicking on a template, does NOT affect current insertion.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoSandyTemplate Move, modify, and store - Think SoftCode 1</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>KTEval</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Significantly more advanced Eval command</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>'Copyright© 1999, Tretyakov Konstantin<BR>
+'_____________________________________________________<BR>
+'This is the 'Evaluator' class: it inputs a string<BR>
+'like "2+2" or "2+4*sin(3.4)^2-8*arccos(0.55)", etc<BR>
+'_____________________________________________________<BR>
+'You may use the code for free, if you give me credit.<BR>
+'If you modify it or make your own program with it,<BR>
+'I would VERY APPRECIATE, if you mail me it (or better-<BR>
+'a link to it)<BR>
+'On the whole - just do not stamp your name on what you haven't<BR>
+'done quite alone.<BR>
+'This code was written totally by me, and 'it took me about<BR>
+'2 days to code it (and about a year<BR>
+'-that is,from the very moment I got interested in programming-<BR>
+'I spent dreaming of having such a thing)<BR>
+<BR>
+'(BTW this code seems to be quite unique-<BR>
+'I searched all over the Internet for such, but NOONE<BR>
+'is giving the source for such things)<BR>
+'______________________________________________________<BR>
+'Yours Sincerely, Konstantin Tretyakov (kt_ee@yahoo.com)<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>LastToken</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>tLast</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns the last token in a string or SoftVariable</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>BeforeLastToken, FirstToken, Token, TokenCount, Before, After</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set X=1;2;3<BR>
+~~Set Y=%%LastToken::X,;%%<BR>
+~~' Y is now equal to '3'</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>NextToken</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>NextItem, ItemToProcess, NextItemToProcess</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>[ListName] will default to the last ListName parsed or from whom 'NextToken' was last called.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set cbText=A token;Another token;Now a third one<BR>
+~~Set ItemDelimiter=;<BR>
+~~Parse Test List=cbText<BR>
+~~_Outer_StartCoda<BR>
+  ~~Set cItem=%%NextItem::Test List%%<BR>
+' %%Current Item in Test List%% : "%%cItem%%"<BR>
+  ~~String ItemDelimiter 1 " "<BR>
+  ~~Parse Inner List=cItem<BR>
+  ~~_Inner_StartCoda<BR>
+    ~~Set cWord=%%NextItem::Inner List%%<BR>
+'   %%Current Item in Inner List%% : "%%cWord%%"<BR>
+  ~~_Inner_Coda %%Next Item in Inner List%%<BR>
+~~_Outer_Coda %%Next Item in Test List%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Parse</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>Split, Tokenize</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set cbText=A token;Another token;Now a third one<BR>
+~~Set ItemDelimiter=;<BR>
+~~Parse Test List=cbText<BR>
+~~_Outer_StartCoda<BR>
+  ~~Set cItem=%%NextItem::Test List%%<BR>
+' %%Current Item in Test List%% : "%%cItem%%"<BR>
+  ~~String ItemDelimiter 1 " "<BR>
+  ~~Parse Inner List=cItem<BR>
+  ~~_Inner_StartCoda<BR>
+    ~~Set cWord=%%NextItem::Inner List%%<BR>
+'   %%Current Item in Inner List%% : "%%cWord%%"<BR>
+  ~~_Inner_Coda %%Next Item in Inner List%%<BR>
+~~_Outer_Coda %%Next Item in Test List%%<BR>
+</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>SetCodeArea</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>SetCodeAreaText</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~GotoSandyTemplate Move, modify, and store - Think SoftCode 1<BR>
+~~Set example=This will get inserted into the template<BR>
+~~SetCodeArea 0 example</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>Sort</h2></B><UL><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Sorts %%Sort Values%% storing the resulting sorted in %%Sort Results%%</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Uses 4 predefined soft variables to allow complex sorts<BR>
+	'Sort Values' the delimited string of items to sort<BR>
+	'Sort Delimiter' the delimiter (default = ';')<BR>
+	'Sort Direction' Ascending or Descending (default = 'Ascending')<BR>
+	'Sort Results' the resulting sorted string</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set Sort Direction=Ascending<BR>
+~~Set Sort Delimiter=;<BR>
+~~Set Sort Values=5;2;4;3;1<BR>
+~~Sort<BR>
+~~' Sort Results will be = '1;2;3;4;5'</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>spList</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>ListStoredProcedures, StoredProcedureList</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a semi-colon (;) delimited list of stored procedures for DSN</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>spParamList, spSelectList</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set spItems=%%spList::dbTest%%</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>spParamList</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>spParmList, spParameterList, spParameters</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a SQL Server stored procedure's parameters</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>spSelectList</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Parameters are space delimited</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use at your own risk. Contact lau800@hotmail.com for help.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set sParams=%%spParamList::_Test,dbTest%%</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+	<TR>
+		<TD><B><H2>spSelectList</h2></B><UL><BR>
+		<LI><B><H3>Aliases</H3></B> <BLOCKQUOTE><H3>spFieldList, spFields</H3></BLOCKQUOTE><BR>
+		<LI><B><H3>Summary</H3></B> <BLOCKQUOTE>Returns a SQL Server stored procedure's parameters</BLOCKQUOTE><BR>
+		<LI><B><H3>See Also</H3></B> <BLOCKQUOTE>spParamList</BLOCKQUOTE><BR>
+		<LI><B><H3>Long Description</H3></B> <BLOCKQUOTE>Parameters are space delimited</BLOCKQUOTE><BR>
+		<LI><B><H3>Comments</H3></B> <BLOCKQUOTE>Use at your own risk. Contact lau800@hotmail.com for help.</BLOCKQUOTE><BR>
+		<LI><B><H3>Examples</H3></B> <BLOCKQUOTE>~~Set sParams=%%spSelectList::_Test,dbTest%%</BLOCKQUOTE><BR>
+	</UL></TD></TR>
+
+</TABLE></BODY></HTML>
+

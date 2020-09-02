@@ -1,0 +1,229 @@
+[Root]
+Most Recent Package=Setup HTMLFileWalkerSenior
+
+
+[Package|HTMLFileWalkerSenior|Root]
+SubWizProgID=PDWizard.DepPkgSubWiz
+BuildFolder=S:\Projects - Firm Solutions\HTML File Walker\Senior
+
+[Package|HTMLFileWalkerSenior|Configure DAO ISAMs]
+Applicable=Yes
+Excel=No
+Text=No
+Xbase=No
+Paradox=No
+Lotus=No
+Jet 2.x=No
+
+[Package|HTMLFileWalkerSenior|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|HTMLFileWalkerSenior|Files Found]
+
+[Package|HTMLFileWalkerSenior|Files Released]
+
+[Package|HTMLFileWalkerSenior|Missing Dependency Information]
+
+[Package|HTMLFileWalkerSenior|Out-of-Date Dependency Information]
+C:\WINDOWS\SYSTEM\VSOCX32.OCX=
+
+[Package|HTMLFileWalkerSenior|Files Added]
+
+[Package|HTMLFileWalkerSenior|Files Removed]
+
+[Package|HTMLFileWalkerSenior|Files In Project]
+S:\Projects - Firm Solutions\HTML File Walker\Senior\HTML File Walker Senior.exe=Yes
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=Yes
+C:\WINDOWS\SYSTEM\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=Yes
+C:\WINDOWS\SYSTEM\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM\msrepl35.dll=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=Yes
+C:\WINDOWS\SYSTEM\VSOCX32.OCX=Yes
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=Yes
+C:\WINDOWS\SYSTEM\MFTPX.OCX=Yes
+
+[Package|HTMLFileWalkerSenior|Configure Registry Files]
+Applicable=
+
+[Package|HTMLFileWalkerSenior|Configure Remote Servers]
+Applicable=
+
+[Package|HTMLFileWalkerSenior|Install Locations]
+S:\Projects - Firm Solutions\HTML File Walker\Senior\HTML File Walker Senior.exe=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrepl35.dll=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\VSOCX32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MFTPX.OCX=$(WinSysPath)
+
+[Package|HTMLFileWalkerSenior|Configure Shared Files]
+Applicable=
+
+[Package|HTMLFileWalkerSenior|DepFile]
+DepCabFile=HTML File Walker Senior.CAB
+DepCabRun=HTML File Walker Senior.INF
+
+[Package|HTMLFileWalkerSenior|Package]
+PackageFolder=S:\Projects - Firm Solutions\HTML File Walker\Senior
+ProjectFolder=S:\Projects - Firm Solutions\HTML File Walker\Senior
+ServerSideCab=
+File1=S:\Projects - Firm Solutions\HTML File Walker\Senior\HTML File Walker Senior.DEP
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Setup HTMLFileWalkerSenior|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=S:\Projects - Firm Solutions\HTML File Walker\Senior\Setup2
+
+[Package|Setup HTMLFileWalkerSenior|Configure DAO ISAMs]
+Applicable=Yes
+Excel=No
+Text=No
+Xbase=No
+Paradox=No
+Lotus=No
+Jet 2.x=No
+
+[Package|Setup HTMLFileWalkerSenior|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Setup HTMLFileWalkerSenior|Files Found]
+
+[Package|Setup HTMLFileWalkerSenior|Files Released]
+
+[Package|Setup HTMLFileWalkerSenior|Missing Dependency Information]
+
+[Package|Setup HTMLFileWalkerSenior|Out-of-Date Dependency Information]
+C:\WINDOWS\SYSTEM\VSOCX32.OCX=
+
+[Package|Setup HTMLFileWalkerSenior|Files Added]
+
+[Package|Setup HTMLFileWalkerSenior|Files Removed]
+
+[Package|Setup HTMLFileWalkerSenior|Files In Project]
+S:\Projects - Firm Solutions\HTML File Walker\Senior\HTML File Walker Senior.exe=Yes
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=Yes
+C:\WINDOWS\SYSTEM\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=Yes
+C:\WINDOWS\SYSTEM\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM\msrepl35.dll=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=Yes
+C:\WINDOWS\SYSTEM\VSOCX32.OCX=Yes
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=Yes
+C:\WINDOWS\SYSTEM\MFTPX.OCX=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|Setup HTMLFileWalkerSenior|Configure Registry Files]
+Applicable=No
+
+[Package|Setup HTMLFileWalkerSenior|Configure Remote Servers]
+Applicable=No
+
+[Package|Setup HTMLFileWalkerSenior|Install Locations]
+S:\Projects - Firm Solutions\HTML File Walker\Senior\HTML File Walker Senior.exe=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\msrepl35.dll=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\VSOCX32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MFC40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MFTPX.OCX=$(WinSysPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|Setup HTMLFileWalkerSenior|Configure Shared Files]
+Applicable=Yes
+S:\Projects - Firm Solutions\HTML File Walker\Senior\HTML File Walker Senior.exe=No
+
+[Package|Setup HTMLFileWalkerSenior|DepFile]
+DepCabFile=HTML File Walker Senior.CAB
+DepCabRun=HTML File Walker Senior.INF
+
+[Package|Setup HTMLFileWalkerSenior|Distribution]
+Type=single
+Size=
+Title=HTML File Walker Senior for MP3
+
+[Package|Setup HTMLFileWalkerSenior|IconGroups]
+Group0=HTML File Walker Senior for MP3
+PrivateGroup0=True
+Parent0=$(Programs)
+
+[Package|Setup HTMLFileWalkerSenior|HTML File Walker Senior for MP3]
+Icon1="HTML File Walker Senior.exe"
+Title1=HTML File Walker Senior for MP3
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Setup HTMLFileWalkerSenior|Package]
+PackageFolder=S:\Projects - Firm Solutions\HTML File Walker\Senior\Setup2
+ProjectFolder=S:\Projects - Firm Solutions\HTML File Walker\Senior
+ServerSideCab=
+File1=S:\Projects - Firm Solutions\HTML File Walker\Senior\Setup2\setup.exe
+File2=S:\Projects - Firm Solutions\HTML File Walker\Senior\Setup2\Setup.Lst
+File3=S:\Projects - Firm Solutions\HTML File Walker\Senior\Setup2\HTML File Walker Senior.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

@@ -1,0 +1,285 @@
+** Command ChangeDrive
+** Alias Drive, ChDrive
+** Syntax DriveLetter As String
+** Short Changes the current drive to the indicated drive letter.
+** Example
+~~ChangeDrive C
+~~Drive D
+~~ChDrive E
+** '
+** Command ChangeDirectory
+** Alias ChangeDir, ChDir, CD
+** Syntax NewPath As ValidPath
+** Short Changes the current directory to NewPath
+** Example
+~~ChangeDirectory c:\
+~~ChangeDir c:\windows\system
+~~ChDir d:\Program Files
+~~CD e:\autorun
+** '
+** Command CreateFile
+** Alias MakeFile, MkFile
+** Syntax Filename As ValidPathAndFilename, Contents As StringOrSoftVar
+** Short Creates Filename and writes Contents to it.
+** Comments
+Most useful when Contents is a soft variable with multiple lines of text in it.
+** Example
+~~Set X=1$2$3$
+~~Set X=%%Replace::X,$,EOL%%
+~~CreateFile C:\Test.txt, X
+** '
+** Command AppendToFile
+** Alias AppendFile, Append
+** Syntax Filename As ValidPathAndFilename, Contents As StringOrSoftVar
+** Short Appends Contents into Filename specified.
+** Comments
+Most useful when Contents is a soft variable with multiple lines of text in it.
+** Example
+~~Set X=1$2$3$
+~~Set X=%%Replace::X,$,EOL%%
+~~AppendFile C:\Test.txt, X
+** '
+** Command DeleteFile
+** Alias DelFile, Del
+** Syntax Filename As ValidFilename
+** Short Deletes Filename
+** Example
+~~DeleteFile c:\Test.txt
+~~Del c:\Test.txt
+** '
+** Command CreateFolder
+** Alias CreateDirectory, MakeDir, MkDir, MD
+** Syntax NewPath As String
+** Short Creates NewPath as in "MkDir NewPath"
+** Example
+~~CreateFolder c:\test
+~~MD c:\test
+** '
+** Command DeleteFolder
+** Alias DeleteDirectory, DelDir, DeleteDir
+** Syntax PathToDelete As ValidPath
+** Short Removes the indicated directory (which must be empty) from the file system
+** Comments
+The directory MUST be empty before the directory can be removed.
+** Example
+~~DeleteFolder c:\test
+** '
+** Command Rename
+** Alias Ren, RenameFile
+** Syntax CurrentName As ValidFilename, NewFilename As String
+** Short Renames the file CurrentName to NewFilename
+** Example
+~~Rename c:\Test.txt c:\Test.txt.old
+** '
+** Command FileContents
+** Alias GetFile, FileToSoftVar, FileToVar
+** Syntax SoftVarOut As SoftVar = FileNameIn As ValidFilename
+** Short Reads the contents of FilenameIn into SoftVarOut
+** Example
+~~FileContents X=c:\Test.txt
+** '
+** Command VarToFile
+** Alias PutFile, SaveToFile, FileToVar
+** Syntax FileNameOut As ValidFilename = SoftVarIn As SoftVar
+** Short Writes the contents of SoftVarIn to FilenameOut
+** Example
+~~VarToFile c:\test.txt=X
+** '
+** Command AppendVarToFile
+** Alias AppendVar
+** Syntax SoftVarIn As SoftVar = FileNameOut As ValidFilename
+** Short Appends the contents of SoftVarIn to FilenameOut
+** Example
+~~AppendVarToFile X=c:\test.txt
+~~AppendVar X=c:\test.txt
+** '
+** Command RunProgram
+** Alias Shell, Execute
+** Syntax ProgramAndParameters As String
+** Short Executes the indicated program. Stores the ID in the SoftVar "ShellID"
+** Example
+~~Execute c:\windows\notepad.exe c:\Test.txt
+** '
+** Command Activate
+** Alias AppActivate, ActivateApplication, SwitchToApp
+** Syntax ShellIDOrTitleBarName As String
+** Short Activates the indicated ShellID or app with the indicated Title text
+** Example
+~~Execute c:\windows\notepad.exe c:\Test.txt
+~~Activate %%ShellID%%
+** '
+** Command SendKeys
+** Syntax KeyString As String
+** Short Works the same as the VB command SendKeys
+** Example
+~~Execute c:\windows\notepad.exe c:\Test.txt
+~~Activate %%ShellID%%
+~~SendKeys Testing 123
+** '
+** Command SendKeysWithPause
+** Alias SendKeysAndWait, SendKeysAndPause, SendKeysWithWait
+** Syntax KeyString As String
+** Short Works the same as the VB command SendKeys with the Pause option on.
+** Example
+~~Execute c:\windows\notepad.exe c:\Test.txt
+~~Activate %%ShellID%%
+~~SendKeysWithPause Testing 123
+** '
+** Command CopyFile
+** Alias FileCopy
+** Syntax FileOut As String = FileIn As ValidFilename
+** Short Copies FileIn to FileOut
+** Example
+~~CopyFile c:\test.2 = c:\test.txt
+** '
+** Command SaveSetting
+** SeeAlso GetSetting
+** Alias SaveRegistrySetting, SetRegKey
+** Syntax Section As String, Key As String, Value As String
+** Short As SaveSetting("Slice and Dice", Section, Key, Value)
+** Example
+~~SaveSetting Previous,Date,%%Now%%
+** Comments
+Do not (or with extreme caution) use 
+   the following reserved values for "Section":
+      Last
+      Settings
+      DB Class Gen
+      frmMain
+      frmDBClassGen
+      frmCommandHelp
+      
+   Or any other "Section" name under:
+	HKEY_CURRENT_USER\Software\VB and VBA Program Settings\Slice and Dice
+   (except those you create, of course).
+
+I recommend "Vars", "Unique Value", or "User Values" for Section.
+      
+Use of these Section values may result in 
+   Slice and Dice crashing or other unknown 
+   and undesired behaviors.
+
+Then again, you might be able to do some 
+   interesting things by modifying these values.
+
+Values do NOT propagate between users on a machine.
+** '
+** Command GetSetting
+** SeeAlso SaveSetting
+** Alias GetRegistrySetting, GetRegKey
+** Syntax Section As String, Key As String, SoftVarOut As SoftVar
+** Short As SoftVarOut = GetSetting("Slice and Dice", Section, Key)
+** Example
+~~GetSetting Previous,Date,TheLastDateWas
+~~MsgBox The Last Date was %%TheLastDateWas%%
+** Comments
+Do not (or with extreme caution) use 
+   the following reserved values for "Section":
+      Last
+      Settings
+      DB Class Gen
+      frmMain
+      frmDBClassGen
+      frmCommandHelp
+      
+   Or any other "Section" name under:
+	HKEY_CURRENT_USER\Software\VB and VBA Program Settings\Slice and Dice
+   (except those you create, of course).
+
+I recommend "Vars", "Unique Value", or "User Values" for Section.
+      
+Use of these Section values may result in 
+   Slice and Dice crashing or other unknown 
+   and undesired behaviors.
+
+Then again, you might be able to do some 
+   interesting things by modifying these values.
+
+Values do NOT propagate between users on a machine.
+** '
+** Inline GetSetting
+** SeeAlso SaveSetting
+** Alias GetRegistrySetting, GetRegKey
+** Syntax Section As StringOrSoftVar, Key As StringOrSoftVar
+** Short Like the VB line of code = GetSetting("Slice and Dice", Section, Key)
+** Example
+~~MsgBox The Last Date saved to the registry was %%GetSetting::Previous,Date%%
+** Comments
+Do not (or with extreme caution) use 
+   the following reserved values for "Section":
+      Last
+      Settings
+      DB Class Gen
+      frmMain
+      frmDBClassGen
+      frmCommandHelp
+      
+   Or any other "Section" name under:
+	HKEY_CURRENT_USER\Software\VB and VBA Program Settings\Slice and Dice
+   (except those you create, of course).
+
+I recommend "Vars", "Unique Value", or "User Values" for Section.
+      
+Use of these Section values may result in 
+   Slice and Dice crashing or other unknown 
+   and undesired behaviors.
+
+Then again, you might be able to do some 
+   interesting things by modifying these values.
+
+Values do NOT propagate between users on a machine.
+** '
+** Command DeleteSetting
+** Alias DeleteRegistrySetting, DeleteRegKey, DelRegKey
+** Syntax Section As String, Key As String
+** Short Deletes the indicated registry value
+** Example
+~~DelSetting Last,Date
+** '
+** Inline ChooseDir
+** Alias ChooseDirectory, GetPath, BrowseForFolder, ChooseFolder, BrowseForDir, BrowseForDirectory, PickDir, PickDirectory
+** Syntax [Optional DialogTitle As StringOrSoftVar]
+** Short Pops up the common dialog for browsing and choosing a folder which is returned.
+** Example
+~~Set Directory chosen by user=%%ChooseDir%%
+~~Set Directory chosen by user=%%ChooseDir::Choose a folder%%
+** '
+** Inline ChooseFile
+** Alias PickFile, GetPathAndFile
+** Syntax Path As ValidPath As ValidPath, Optional StartingFilename As String, Filter As String
+** Short Pops up the common dialog for choosing a file which is returned.
+** Example
+~~Set ChosenFile=%%ChooseFile::c:\windows%%
+** '
+** Inline ChooseDatabase
+** Alias ChooseDB, PickDatabase, PickDB, GetDBPathAndFile
+** Syntax Path As ValidPath As ValidPath, Optional StartingFilename As String
+** Short Pops up the common dialog for choosing an Access Database
+** Example
+~~Set DBChosen=%%ChooseDB%%
+~~'   Chooses a database file starting in the current directory
+** '
+** Inline ChooseColor
+** Alias PickColor
+** Syntax InitialColor As HexString
+** Short Opens the common color chooser and returns the color chosen.
+** Example
+~~Set X=%%ChooseColor::&HFFFFFF&%%
+** '
+** Inline MatchFile
+** Alias Dir, FindFirst, FirstFile
+** SeeAlso MatchNextFile
+** Syntax PathAndFileMask As String, Attributes As String
+** Short Like the VB Dir() command, returns the first matching file in mask
+** Example
+~~Set X=%%Dir::c:\windows\*.exe%%
+** '
+** Inline MatchNextFile
+** Alias FindNext, NextFile
+** Syntax None
+** Short Returns the next file matching the previously done ~~FindFirst
+** Example
+~~StartCoda
+~~Set X=%%Dir::c:\windows\*.exe%%
+~~Coda Len(%%X%%)
+** End

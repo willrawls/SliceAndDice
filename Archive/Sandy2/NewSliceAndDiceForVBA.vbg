@@ -1,0 +1,4 @@
+VBGROUP 5.0
+StartupProject=SandyForVBA\SandyForVBA.vbp
+Project=SandySupport.vbp
+Project=SandyInstance.vbp

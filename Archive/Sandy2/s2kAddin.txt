@@ -1,0 +1,1108 @@
+** '
+   This is the main set of commands and documentation for all the
+   basic Slice and Dice soft commands and inline soft commands. 
+   Modify at your peril.
+** '
+** Inline Pad
+** Syntax [ToPad::StringOrSoftVar], [PadLength::Long]
+** Short Returns ToPad padded out to the given length. Not truncated.
+** Example
+>>%%Pad::This is a test,50%%<<
+** '
+** Inline ModuleContents
+** Aliases Contents, Members
+** SeeAlso ProjectList, ModuleList
+** Syntax None
+** Short Returns a $$$$ delimited list of the members of the current module.
+** Example
+%%ModuleContents%%
+** '
+** Inline ModuleList
+** SeeAlso ProjectList
+** Syntax None
+** Short Returns a $$$$ delimited list of modules/forms in the active project.
+** Example
+%%ModuleList%%
+** '
+** Inline ProjectList
+** SeeAlso ModuleList
+** Syntax None
+** Short Returns a $$$$ delimited list of projects in the currently loaded group.
+** Example
+%%ProjectList%%
+** '
+** Command RestoreVars
+** SeeAlso SaveVars
+** Syntax None
+** Short Restores all soft variable values from previous ~~SaveVars
+** Example
+~~' Try this example twice to see the consequences.
+~~RestoreVars
+~~MsgBox X = %%X%%
+~~SaveVars
+** Comments
+RestoreVars restores ALL soft variables unconditionally. This means
+auto soft variable values will be restored to their previous values.
+** '
+** Command SaveVars
+** SeeAlso RestoreVars
+** Syntax None
+** Short Saves all soft variable values for later recal by RestoreVars
+** Example
+~~' Try this example twice to see the consequences.
+~~RestoreVars
+~~MsgBox X = %%X%%
+~~SaveVars
+** Comments
+RestoreVars restores ALL soft variables unconditionally. This means
+auto soft variable values will be restored to their previous values.
+** '
+** Inline Decide
+** Aliases YesNo, YesNoCancel, AskUser
+** Syntax [Question As String]
+** Short Asks the user Question and returns 1 if the user presses 'Yes', 0 if 'No'
+** Comments
+Unlike the soft command 'Decide', the user is NOT given an option to cancel.
+** Example
+~~If %%Decide::Is it raining outside ?%%
+~~MsgBox It's raining !
+~~Else
+~~MsgBox It's not raining.
+~~EndIf
+** '
+** Command Decide
+** Aliases YesNo, YesNoCancel, AskUser
+** Syntax [SoftVarOut As SoftVar] = [Question As String]
+** Short Asks the user Question and stores 1 if the user presses 'Yes', 0 if 'No'
+** Comments
+If the user presses 'Cancel', template insertion stops 
+as if the ~~Cancel 1 command had been executed
+** Example
+~~Decide X=Is it raining outside ?
+~~If %%X%%
+~~MsgBox It's raining !
+~~Else
+~~MsgBox It's not raining.
+~~EndIf
+** '
+** Command Block
+** Syntax [SoftVarIn As SoftVar]
+** Short Causes the contents of a SoftVarIn to be inserted as a text block.
+** Comments
+     This is useful if you want to do processing on an unknown number of lines
+but still want to allow the template user to undo the results with a single
+undo operation.
+
+NOTE: Works with outputing to a file as a block.
+** Example
+~~Set X=Something
+~~Append X=EOL
+~~Append X=Something else
+~~Block X
+~~' Causes two lines to be inserted, but as a single step so only 1 undo needed.
+** '
+** Command If
+** Aliases Else, EndIf
+** Syntax Special (See example)
+** Short A simple If statement. Multple embedded Ifs NOT supported (yet).
+** Example
+~~Set X=10
+~~StartCoda
+~~If %%X%%
+  %%X%%
+~~Else
+  Done
+~~EndIf
+~~Coda %%X%%
+** Comments
+This is one of the more powerful soft commands in its implications. 
+Even in it's simplest form, it allows for some very interesting
+possibilities.
+** '
+** Inline UCase
+** Aliases UpperCase, UpCase
+** Syntax TextToConvert As String
+** Short As the VB command UCase(TextToConvert)
+** Example
+~~Set X=William
+%%UCase::X%%
+%%UCase::William%%
+** '
+** Inline LCase
+** Aliases LowerCase, LwCase
+** Syntax TextToConvert As String
+** Short As the VB command LCase(TextToConvert)
+** '
+** Command MsgBox
+** Syntax TextToDisplay As String
+** Short Shows a Message box ala VB line of code MsgBox(TextToDisplay)
+** Example
+~~' Example 1
+~~MsgBox Hello world !
+~~'
+~~' Example 2
+~~Set MessageText=This is a test
+~~MsgBox %%MessageText%%
+** '
+** Inline Replace
+** Syntax SoftVarIn As SoftVar, ToFind As String, ToReplace As String
+** Short Returns a string with all occurences of ToFind replaced with ToReplace in %%SoftVarIn%%
+** Example
+~~'
+~~' Example 1
+~~'
+~~Set TestString=William M Rawls
+~~Set Test=%%Replace::TestString, M , %%
+~~'
+~~'  Would set %%Test%% to "William Rawls"
+** Command StartCoda
+** Syntax None
+** Short Used with ~~Coda , this marks the beginning of a template area to repeat 
+** SeeAlso Coda
+** Example
+~~Set Test=3
+~~StartCoda
+' Loop %%Test%%
+~~Decrement Test
+~~Code Test
+~~'
+~~' Would insert "Loop 3" then "Loop 2" then "Loop 1"
+** '
+** Command Coda
+** Aliases LoopWhile, LoopUntil
+** Syntax Expression As Long
+** Short Causes everything between ~~StartCoda and ~~Coda to be repeated until Expression is "0" or ""
+** Comments
+~~LoopWhile True
+~~Coda True
+~~LoopUntil False
+	In other words, LoopWhile and Coda repeat if Exression is not "0" or "" 
+	while LoopUntil repeats if Expression is "0" or ""
+
+	There can only be ONLY Coda,LoopWhile,LoopUntil structure in a template (for now)
+** Example
+~~GetSelection sProcess
+~~Set sProcess=%%Replace::sProcess,EOL,$$EOL$$%%
+~~StartCoda
+~~Set CurrField=%%Token::sProcess,2%%
+~~MsgBox Current Field = %%CurrField%%
+~~'
+~~Set sProcess=%%After::sProcess,1,$$EOL$$%%
+~~Set lProcess=%%Length::sProcess%%
+~~Coda %%lProcess%%
+** '
+** Inline Now
+** Syntax Optional DateTimeFormatString As String
+** Short Returns the current date/time as the Now() VB command.
+** Example
+The date/time is %%Now%%
+The month is %%Now::Mmmm%%
+The day of the month is %%Now::D%%
+The year is %%Now::YYYY%%
+The time is %%Now::H:NN:SS AM/PM%%
+** '
+** Inline Mangle
+** Syntax Expression As StringOrSoftVar
+** Short Attempts to create a single word from a string with underscores suitable for VB object use
+** Example
+~~Set Test=THIS_IS_A_TEST
+~~Set Mangled=%%Mangle::Test%%
+~~'
+~~'    Would set %%Mangled%% to "ThisIsATest"
+** Comments
+If there are no underscores the string is left alone.
+** '
+** Command Mangle
+** Syntax [SoftVarOut As SoftVar] = [Expression As String]
+** Short Attempts to create a single word from a string with underscores suitable for VB object use
+** Example
+~~Mangle Test=THIS_IS_A_TEST
+~~'
+~~'    Would set %%Test%% to "ThisIsATest"
+** Comments
+If there are no underscores the string is left alone.
+** '
+** Command Choose
+** Syntax [SoftVarOut As SoftVar],[Choices As StringOrSoftVar]
+** Short Opens the "Choose One" dialog which is populated with Choices and stores the selection in SoftVarOut
+** Comments
+Choices MUST be semi-colon delimited
+Choices cannot (curently) be numbers
+Inside a choice, you can include an equal sign plus a description of the item which is for display purposes only.
+A Description CANNOT have a semi-colon in it.
+The Delimiter that choose uses to distinguish each item can be set with
+~~Set ChooseDelimiter=<Your Delimiter Here>
+Example of good delimiters:
+~~Set ChooseDelimiter=|
+~~Set ChooseDelimiter=^^^^
+~~Set ChooseDelimiter=###
+~~Set ChooseDelimiter=!!
+~~Set ChooseDelimiter=:
+~~Set ChooseDelimiter=&&
+    These are just examples. You could just as easily have " M " be a delimiter.
+** Example
+~~Choose Selection=Red;Green;Blue
+~~MsgBox You choose %%Selection%%
+~~Choose Selection=a=Test;b=Another;c=X;d=Y;e=Z;f=Some value;g=Another something;h=A;i=B;j=C
+~~MsgBox You choose %%Selection%%** '
+** '
+** Inline Include
+** Syntax [Optional Area As Long], [Template As CategoryTemplateName]
+** Short Inserts the contents of a template code area where this soft variable is.
+** Long
+Area
+	0 or "" = Code at Top
+	1       = Code at Top
+	2       = Code at Cursor
+	3       = Code at Bottom
+	Else    = Code to file
+
+Template
+	Must be in "Category name - Template name" format.
+** Example
+%%Include::Token Routine - sGetToken%%
+~~' Would include the "Code at Top" code area of the "sGetToken" template from the "Routine" category
+
+%%Include::Token Routine - sGetToken,1%%
+~~' Would include the "Code at Top" code area of the "sGetToken" template from the "Routine" category
+
+%%Include::Token Routine - sGetToken,%%
+~~' Would include the "Code at Top" code area of the "sGetToken" template from the "Routine" category
+
+%%Include::Token Routine - sGetToken,3%%
+~~' Would include the "Code at Bottom" code area of the "sGetToken" template from the "Routine" category
+** '
+** Inline Choose
+** Syntax Choices As StringOrSoftVar
+** Short Opens the "Choose One" dialog which is populated with Choices and returns the selection
+** Comments
+Choices MUST be semi-colon delimited
+Choices cannot be numbers (curently)
+Inside a choice, you can include an equal sign plus a description of the item which is for display purposes only.
+A Description CANNOT have a semi-colon in it.
+The Delimiter that choose uses to distinguish each item can be set with
+~~Set ChooseDelimiter=<Your Delimiter Here>
+Example of good delimiters:
+~~Set ChooseDelimiter=|
+~~Set ChooseDelimiter=^^^^
+~~Set ChooseDelimiter=###
+~~Set ChooseDelimiter=!!
+~~Set ChooseDelimiter=:
+~~Set ChooseDelimiter=&&
+    These are just examples. You could just as easily have " M " be a delimiter.
+** Example
+~~Set Selection=%%Choose::Red;Green;Blue%%
+~~MsgBox You choose %%Selection%%
+
+~~Set Selection=%%Choose::a=Test;b=Another;c=X;d=Y;e=Z;f=Some value;g=Another something;h=A;i=B;j=C%%
+~~MsgBox You choose %%Selection%%
+** '
+** Command NoInsert
+** Aliases StopCodeInsertion, StopInsertion
+** Syntax None
+** Short Causes the rest of the template box to NOT be inserted.
+** Long
+Great for including free form notes or other comments in a template.
+** Comments
+NoInsert is automatically turned off at the end of the current code area.
+So you need a NoInsert in EACH code area of the template for each you want to stop.
+** '
+** Command AbsLine
+** Syntax LineOffset As Long
+** Short Moves the insertion point to the absolute line number in the current code module.
+** Long
+Where <LineOffset> should be a positive long. Negative longs are treated as positive.
+Moves the insertion point to an absolute line number in the current code module.
+Try inserting: "Comment - Code Module"
+** Examples
+~~AbsLine 1
+	Moves to the first line in the module
+
+~~AbsLine 23
+	Moves to the 23rd line in the module
+
+~~AbsLine -30
+	Moves to the 30th line in the module
+** '
+** Command CommentedParameters
+** Aliases Params
+** Syntax None
+** Short Takes the current procedure, and generates a comment block of each input/output parameter
+** Comments
+Inserted at the current point of insertion
+** Long
+Outputs one comment prefixed (') line for each parameter in the current procedure, 
+or "'     None" if none are there.
+Great for procedure comment blocks !
+Try inserting: "Comment Block - Procedure"
+** '
+** Command DeleteLine
+** Syntax None
+** Short Deletes the line of code at the current insertion point. 
+** Comments Use with care.
+** Example
+~~DeleteLine
+** '
+** Command DeleteLines 
+** Syntax LineCount As Long
+** Long Deletes <LineCount> lines starting at the current insertion point line
+** Comments Use with care.
+** Example
+~~DeleteLines 10
+' Deletes 10 lines from the current point of insertion inclusive.
+** '
+** Command DeleteProc
+** Syntax [ProcName As String],[ProcType As List(Proc|Get|Let|Set)]
+** Short Deletes the entire procedure/property named.
+** Long
+Deletes the comments before, body line, procedure contents, and "End <ProcType>" from the current module.
+<ProcName> should be a one word string of the procedure to jump to
+<ProcType> is the type of procedure of <ProcName> and can be "Proc" or "Get" or "Let" or "Set"
+If the procedure isn't there, an error will prevent insertion of the remainder of the template.
+** Comments
+Use with care.
+A Function and a Sub are both concidered "Proc"
+** Examples
+~~DeleteProc Form_Load Proc
+~~DeleteProc Value Get
+~~DeleteProc Value Set
+** '
+** Command Filename
+** Syntax FileOut As PathAndFilename
+** Short Switches output of the remainder of the template to the indicated file, <FileOut>.
+** Long
+If the file exists, it will be appended to.
+If the file does not exist, it will be created.
+Use ResumeInsertion to switch insertion focus back to the project.
+** Comments
+The Filename soft command can be used several times throughout a template each time it will save to the current 
+file any accumulated file code before switching to the new file (thus Filename implies a ResumeInsertion 
+before Filename).
+Please note, this is a "simple dump". Any soft command that moves the insertion point will have no effect while 
+in this mode. 
+WARNING: Be very careful of soft commands like DeleteProc and DeleteLines as they will still delete lines 
+from the current insertion point in the current code module, not in the file.
+**'
+** Command ForEachControl
+** SeeAlso ForEachControlByFrame
+** Syntax None
+** Short For each control in the form, one or more lines of code can be inserted at the current insertion point.
+** Long
+Processing continues until a line containing NextControl is found.
+For each control in the form, one or more lines of code can be inserted at the current point.
+For each control TYPE you want to capture, insert a line of the form:
+"** TypeName" followed by one or more lines of code to insert.
+The classname following "** " should be the same as the one displayed in the properties window next to the 
+control's name.
+To include information about the control, enclose the name of the property 
+(like "Name", "Visible", "Caption", "TabStp", "Tag", etc.) in double asteriks. ie:
+ Dim m_s**Name** As String
+ m_s**Name** = "**Caption**"
+** Example
+~~GotoProcEnd Form_Load Proc 0
+~~ForEachControl
+\** TextBox
+    ' These lines would get inserted for each TextBox control on the form.
+    ' The name of the TextBox would appear here: **Name**
+    ' The text of the TextBox would appear here: **Text**
+    **Name**.Text = "Hello. My name is **Name**"
+\** ComboBox
+    Dim CurListItem as Long
+    For CurListItem = 0 To **Name**.Count - 1
+        MsgBox **Name**.List(CurListItem)
+    Next CurListItem
+~~NextControl
+** Comments
+Use this Soft command only when current focus is inside a form or ActiveX document.
+A special property called **sName** gets created automatically for each control that will allow you to get 
+the name of a control starting at the 4th character of the name. This is very useful when you use the 3 
+character prefixes for naming your control. 
+Example:	If the name of the control is "txtYourControl", 
+Then 
+   **Name** = "txtYourControl" 
+and 
+   **sName** = "YourControl".
+
+IMPORTANT NOTE: You can use soft variables, but you can NOT include double-tilde commands between 
+ForEachControl and NextControl (yet). Actually, you can, but they will pass unprocessed to your code.
+** '
+** Command ForEachControlByFrame
+** SeeAlso ForEachControl
+** Syntax None
+** Walks through all controls in a Form/ActiveX control but only those grouped by a VB frame control.
+** Long
+Usable ONLY inside a form, user document, or anything with controls.
+Same as ForEachControl except controls are "walked" by Frame. 
+The "** Frame" subentry is inserted for each Frame control and then the controls in that frame are processed 
+as with ForEachControl.
+** Example
+~~GotoProcEnd LoadControlsWithData Proc 0
+~~ForEachControlByFrame
+\** Frame
+    ' This text will get inserted for each frame, logically grouping lines of inserted code.
+\** TextBox
+    ' This text will get inserted at the current insertion point of the form.
+   **Name**.Text = "Hello. My name is **Name**"
+\** ComboBox
+    ' This text will get inserted when a combobox is encountered.
+    FillComboBox **Name**, "Default"
+~~NextControl
+** '
+** Command Find
+** Syntax StringToFind As String
+** Short Moves the insertion point to the next line in the current module containing the text "<StringToFind>"
+** Comments
+You'll have no way of knowing if this moved the point of insertion or not, so use with care.
+** '
+** Command GotoProject
+** Syntax [ProjectName As String], [Optional ProjectType As List(DLL|EXE|Control|ActiveXEXE) = DLL]
+** Short Turns the insertion focus to the first line of the first module found in the named project.
+** Long
+If <ProjectName> does not exist, a new project of type <ProjectType> is created.
+If it is excluded, the string "DLL" is assumed for <ProjectType>
+Valid values for <ProjectType> are:
+   DLL         for   ActiveX DLL
+   EXE         for   Standard EXE
+   Control     for   ActiveX Control
+   ActiveXEXE  for   ActiveX EXE
+Anything else is interpreted as "DLL".
+** '
+** Command GotoModule
+** Syntax [ModuleName As String], [Optional ModuleType As List(Class|ClassModule|Form|Module) = ]
+** Short Turns the insertion focus to the indicated module.
+** Long
+If <ModuleName> does not exist, a new module of type <ModuleType> is created.
+IMPORTANT NOTE: If <ModuleName> does not exist, then the <ModuleType> parameter is required.
+If it is excluded, the string "Module" is assumed for <ModuleType>
+Valid values for <ModuleType> are "Class" or "ClassModule", "Form", or "Module".
+Anything else is interpreted as "Module".
+Try inserting: "Class - CAssocItem" or "Class - CAssocArray".
+** '
+** Command GotoClass
+** Syntax ClassName As String
+** Short Moves point of insertion to the VB Class Module <ClassName>. 
+** Example
+~~GotoClass CExampleClass
+** '
+** Command GotoForm
+** Syntax FormName As String
+** Short Moves insertion point to the VB Form <ClassName>.
+** Example
+~~GotoForm frmMain
+** '
+** Command GotoProcEnd 
+** Syntax [ProcName As String], [ProcType As List(Proc|Get|Let|Set), LineOffset As Long]
+** Moves insertion point to the end of the procedure/property <ProcName> plus or minus <LineOffset> lines.
+** Long
+<ProcName> should be a one word string of the procedure to jump to
+<ProcType> the type of procedure <ProcName> is ("Proc" | "Get" | "Let" | "Set")
+<LineOffset> should be an long to offset the new line insertion point by
+Moves the insertion point to a relative point at the end of the procedure <ProcName>
+** Example
+~~GotoProcEnd SaveProperties Proc -1
+	Moves to the line right before the last line of the SaveProperties procedure
+
+Try inserting: "DB Persisted Property - ???"
+** '
+** Command GotoProc
+** Syntax [ProcName As String], [ProcType As List(Proc|Get|Let|Set), LineOffset As Long]
+** Short Moves insertion point to the beginning of the procedure/poperty <ProcName> plus or minus <LineOffset> lines.
+** Long
+<ProcName> should be a one word string of the procedure to jump to
+<ProcType> the type of procedure <ProcName> is ("Proc" | "Get" | "Let" | "Set")
+<LineOffset> should be an long to offset the new line insertion point by
+Moves the insertion point to a relative point from the beginning of the procedure <ProcName>
+** Example
+~~GotoProc Form_Load Proc 5
+	Moves the insertion point to the fifth (5th) line of the Form_Load procedure in the current module.
+** '
+** Command LineOffset
+** Syntax [NumberOfLines As Long]
+** Aliases Offset
+** Short Moves the insertion point to a relative line number from the current the insertion point.
+** Long
+Moves the insertion point to a relative line number from the current the insertion point.
+<LineOffset> should be an long positive or negative
+** Example
+~~LineOffset 2
+	Moves the insertion point +2 lines from the current insertion point
+** '
+** Command ProcAttr
+** Syntax [AttrName As List(Desc|ID|Hidden)], [AttrValue As List(True|T|Default|NewEnum|(Long))]
+** Short Sets an attribute of a procedure in a VB form/class/ActiveX control/etc.
+** Long
+Allows you to change a procedure's attributes as you would from the "Procedure Attributes" menu item 
+on the Visual Basic IDE "Tools" pull-down menu. 
+
+<AttrName> 	Should be:
+Desc		for the property's "Description" attribute
+ID		for the property's "Procecure ID" attribute
+Hidden 		for the property's "Hidden" attribute
+
+<AttrValue> is different for each <AttrName>
+
+For <AttrName>,	<AttrValue> should be:
+Desc   			A string description for the procedure
+Hidden			"True" or "T" to set the property as hidden (NewEnum has to be hidden to work right)
+             			or anything else to set Hidden to false
+ID			"Default" to make this the default property for a class
+ID			"NewEnum" to make the current property what is called in a "For Each...Next" loop
+ID			A number corresponding to the procedure ID you want.
+** Examples
+~~GotoProc NewEnum Get 0
+~~ProcAttr Hidden True
+~~ProcAttr ID NewEnum
+
+	or
+
+~~GotoProc Item Get 0
+~~ProcAttr Desc This is the default property for this object
+~~ProcAttr ID Default
+** Comments
+Please note that insertion focus must be set with GotoProc to a valid procedure/property before attributes 
+will be set.
+NOTE: Default = 0 , NewEnum = -4
+Try inserting: "DB Persisted Collection"
+** '
+** Command ProcEnd
+** Short Moves the insertion point to the end of the current procedure. 
+** Comments
+Great for error code insertion
+Try inserting: "Error code - General"
+** '
+** Command ProcTop
+** Short Moves the insertion point to the top of the current procedure. 
+** Long
+Great for procedure comment blocks
+Try inserting: "Comment - Procedure"
+** '
+** Command ResumeInsertion
+** Aliases Resume
+** Short Resumes insertion into the VB IDE after a series of outputing to a file.
+** SetAlso NoInsert
+** Long
+Used after the Filename soft command. Returns insertion focus back to the current VB module where it last left
+off. It is probably wise to explicitly do a GotoModule or GotoClass or GotoForm or other insertion point 
+changing soft command to insure that the code gets put in the right place.
+** '
+** Command WordWrap
+** Syntax [WrapLen As Long], [LinePrefix As QuotedString], [TextToWrap As String]
+** Short Takes the TextToWrap and formats it at a given length, with each line prefixed with <LinePrefix>
+** Long
+<WrapLen> should be a positive long at which <TextToWrap> should be wrapped at
+<LinePrefix> is a string that gets inserted before each line that gets wrapped
+<TextToWrap> should be a string that will get wrapped
+** Example
+~~WordWrap 80 "' " %%Code Module Description%%
+	Will wrap whatever the user types for the question "Code Module Description" every 80 characters 
+	(broken on the nearest word boundary) and prefix each line with an appostrophe and a space. 
+	Great for comment blocks.
+Try inserting: "Comment - Code Module"
+** '
+** Command DeleteFile
+** Syntax PathAndFilename As ValidPathAndFilename
+** Short Causes a file in the operating system to be erased.
+** Long
+This is functionally equivalent to the VB line of code 
+   Kill PathAndFilename
+Except it does not generate an error if the file is not there or the file could not be deleted
+** Comments
+Use with care.
+** '
+** Command GotoDeclarations
+** Syntax Optional List(End)
+** Aliases GotoDec
+** Short Moves insertion point to line 1 of the current module or the end of (Declarations) if "End" is given.
+** Long
+Moves code insertion point to line 1 of the current module or to the end of the 
+declarations section if "End" is given as a parameter.
+** '
+** Command GotoEndOfFile
+** Aliases GotoEnd, GotoEndOfModule
+** Syntax None
+** Short Moves code insertion point to the end of the current code module.
+** '
+** Command AddControl
+** Syntax [ProgID As ValidProgID], [NewControlName As String]
+** Short Adds a control of the type indicated by the text ProgID to the current form.
+** '
+** Command SetProperty
+** Syntax [PropertyName As String], [PropertyValue As String]
+** Short Sets CurrentControl.PropertyName = PropertyValue
+** Long 
+** Comments
+Only use after adding or selecting a control from the current insert point's module with ~~AddControl 
+or ~~SelectControl . Otherwise this will do nothing.
+** '
+** Command ResetGlobal
+** Aliases ResetGlobals
+** Syntax None
+** Short Clears the Associative Array used for code insertions
+** Comments 
+Good to do during a major code insertion like Data Classing especially if you want to insure no soft variable
+values carry forward. Generally this is unnecessary. I include it "just in case".
+** '
+** Command SetFormProperty
+** Syntax [FormPropertyName As String]=[PropertyValue As String]
+** Aliases FormProperty
+** Short Set a property's value of the current form.
+** Example
+~~SetFormProperty Width=5000
+~~SetFormProperty Height=3000
+~~SetFormProperty Left=500
+~~SetFormProperty Top=500
+** '
+** Command AutoSpace
+** Syntax SoftVarToSpace As SoftVar
+** Short Logically inserts spaces into a Soft Variable's Value.
+** Long
+One space is inserted before each capital letter.
+This is useful if you have a string like "FirstName" and you want the string "First Name".
+Simple words like "a", "an", "the", "of", "or", etc. are automatically set to lower case.
+"Id" is automatically set to "ID". 
+** Example
+~~Set Testing=ThisIsATest
+~~AutoSpace Testing
+~~'   Sets %%Testing%% to "This is a test"
+** '
+** Command SelectControl
+** Syntax ControlName As String
+** Short Selects the control ControlName for operation by other selected control name sensitive soft commands (SetProperty mostly).
+** SeeAlso SetProperty
+~~SelectControl txtFirstName
+~~SetProperty Left=500
+~~SelectControl cmdSearch
+~~SetProperty Width=5000
+** '
+** Command Increment
+** Syntax SoftVarName As SoftVar
+** Aliases Inc
+** Short Increments the value of SoftVar by one or if the optional By parameter is used, incremented by "By".
+** Example
+~~Set MyExample=1
+	Sets the soft variable MyExmple equal to 1
+~~Inc MyExample
+	MyExample now equal to "2"
+~~Inc MyExample 10
+	MyExample now equal to "12"
+** '
+** Command Decrement
+** Syntax SoftVarName As SoftVar
+** Aliases Dec
+** Example
+~~Set MyExample=100
+~~'	Sets %%MyExmple%% to "100"
+~~Dec MyExample
+~~'	%%MyExample%% now equal to "99"
+~~Dec MyExample 10
+~~'	%%MyExample%% now equal to "89"
+** '
+** Command Evaluate
+** Syntax [SoftVarName As SoftVar]=[Expression As SimpleExpression]
+** Aliases Eval
+** Short Evaluates Expression to a value and assigned it to %%SoftVar%%
+** Long
+Expression = <Something> <Operator> <SomethingElse>
+Where Something and SomethingElse can be a %%Soft Variable%% or a number and
+Operator can be:
+	+	Addition
+	-	Subtraction
+	*	Multiplication
+	/	Division
+	\	Integer division
+	^	Exponent 
+	MOD
+** Examples
+~~Eval X=5
+~~Eval Y=10
+~~Eval Z=X+Y
+	Z = 15
+~~Eval Z=X-Y
+	Z = -5
+~~Eval Z=X*Y
+	Z = 50
+~~Eval Z=Y/X
+	Z = 2
+~~Eval Z=X\Y
+	Z = 0
+~~Eval Z=X^Y
+	Z = 9765625
+~~Eval Z=X MOD Y
+	Z = 5
+** Comments
+No spaces are allowed and multiple expressions and parenthesied sub-expressions are NOT supported (yet).
+This evaluation will become much more robust soon.
+** '
+** Command String
+** Aliases Str, RepStr, ReplicateString
+** Syntax [SoftVar As SoftVar] [StringLength As Long]  [StringToReplicate As QuotedString Or Chr(AsciiValue As Byte)]
+** Short Like the VB String() function.
+** Example
+~~String Testing 30 "X"
+~~MsgBox The string generated is '%%Testing%%'
+~~String Testing 30 Chr(49)
+~~MsgBox The string generated is '%%Testing%%'
+** Comments
+This is useful when you want some code spreaded out to a specific column.
+** '
+** Command AddFileReference
+** Aliases AddFileRef
+** Syntax FileOfRefToAdd As ValidPathAndFilename
+** Shorts adds a reference to the current project as the VB IDE "Projects"->"Add References" pull-down menu command.
+** Long
+This will insert a reference to a type library given the path to the file.
+** Example
+Look at "Code Bound Data Forms - Settings"
+This template includes a reference to the DAO library. You'll probably need to find that file and then
+change the path to it. You can find the complete path/filename from the VB IDE "References" screen by
+selecting the reference and then looking in the "Location" string below the list. Sorry for making you work
+like this, but Microsoft's add-in model won't let me just add a reference using the "nice" name (yet).
+** '
+** Command AddFile
+** Aliases IncludeFile, Include
+** Syntax FileToInsert As ValidPathAndFilename
+** Short Adds the contents of the file specicifed at the current code insertion point.
+** Comments
+Very useful when you want to generate something or include something from outside the system.
+** '
+** Command Left
+** Syntax [Length As Long] [SoftVarOut As SoftVar]=[Expression As String]
+** Short Equivaent to ~~Set SoftVar=%%Left::SoftVar,Length%% .
+** Example
+~~Left 5 Testing=This is a test
+~~'    Sets %%Testing%% to "This "
+** '
+** Command Right
+** Syntax [Length As Long] [SoftVarOut As SoftVar]=[Expression As String]
+** Short Equivaent to ~~Set SoftVar=%%Right::SoftVar,Length%% .
+** Example
+~~Right 5 Testing=This is a test
+~~'    Sets %%Testing%% to " test"
+** '
+** Command Mid
+** Syntax [StartChar As Long] [Length As Long] [SoftVarOut As SoftVar]=[Expression As String]
+** Short Equivaent to ~~Set SoftVar=%%Mid::SoftVar,StartChar,Length%% .
+** Example
+~~Mid 3 5 Testing=This is a test
+~~'    Sets %%Testing%% to "is is"
+** '
+** Command StrCopy
+** Aliases CopyString, StringCopy, CopySoftVar, SoftVarCopy
+** Syntax [SoftVarDest As SoftVar]=[SoftVarSource As StringOrSoftVar]
+** Short Copies either the value of SoftVarSource or the string after the equal sign into %%SoftVarDest%%
+** Example
+~~Set X=Something
+~~Set Test=%%X%%
+~~StrCopy Testing=X
+~~' Sets %%Testing%% = "Something"
+** Comments
+While the example is very basic and seems redundant, keep in mind that the ~~Set command only works for the
+line of text following the equal sign. 
+If in the example above, %%X%% had included multiple lines, the ~~Set Test=%%X%% would only have capatured the
+first line and the remaining lines of %%X%% would have been inserted as lines of code.
+So to summarize, if you expect a soft variable to have multiple lines of text in it, use ~~StrCopy, otherwise
+use ~~Set .
+** '
+** Command ReadLine
+** Syntax SoftVarOut As SoftVar
+** Short Takes the contents of the current line at the insertion point and places it in %%SoftVarOut%%
+** Comments
+The line comes from the current insertion point NOT the VB IDE cursor's location.
+If ~~ReadLine is put as the first line of the "At Cursor" section then the curent insertion point coicides with
+the VB IDE's cursor.
+This is useful if you want to manipulate a single line of code.
+** Example
+~~ReadLine X
+~~' Would put the current line of text from the current module into %%X%%
+** '
+** Command SetClipboardText
+** Alias SetClipboard, SetClip
+** SeeAlso GetClipboardText
+** Syntax SoftVarIn As SoftVar
+** Short Places the contents of %%SoftVarIn%% onto the clipboard as text.
+** Comments
+GetClipboardText and SetClipboardText allow you to do clipboard template replacements which could occur 
+completely outside the VB IDE. Useful if you want to Copy some text, transform it, then place it back on the
+clipboard or at the current line of insertion in the VB IDE.
+** Example
+~~GetClipboardText X
+The clipboard contains:
+-------------------------
+%%X%%
+-------------------------
+~~Set X=%%Token::X%%
+====================================
+First Token to get put back on the clipboard
+-------------------------
+%%X%%
+-------------------------
+~~SetClipboardText X
+** '
+** Command GetClipboardText
+** Alias GetClipboard, GetClip
+** SeeAlso SetClipboardText
+** Syntax SoftVarOut As SoftVar
+** Short Places the text contents of the clipboard into %%SoftVarOut%%
+** Comments
+GetClipboardText and SetClipboardText allow you to do clipboard template replacements which could occur 
+completely outside the VB IDE. Useful if you want to Copy some text, transform it, then place it back on the
+clipboard or at the current line of insertion in the VB IDE.
+** Example
+~~GetClipboardText X
+The clipboard contains:
+-------------------------
+%%X%%
+-------------------------
+~~Set X=%%Token::X%%
+====================================
+First Token to get put back on the clipboard
+-------------------------
+%%X%%
+-------------------------
+~~SetClipboardText X
+** '
+** Command GetTextSelection
+** Alias GetText, GetSelection
+** Syntax SoftVarOut As SoftVar
+** Short Places the contents of the current text selection into %%SoftVarOut%%
+** Example
+~~GetTextSelection X
+~~DeleteSelection
+%%X%%
+** '
+** Command DeleteSelection
+** Syntax None
+** Short Deletes the text selected by user from the current code module.
+** Example
+~~GetTextSelection X
+~~DeleteSelection
+%%X%%
+** '
+** Command LastSelectionLine
+** Syntax None
+** Short Sets code insertion point to the last line of the current text selection of the current module.
+~~LastSelectionLine
+' Here it is
+** '
+** Command FirstSelectionLine
+** Syntax None
+** Short Sets code insertion point to teh first line of the current text selection of the current module.
+~~FirstSelectionLine
+' Here it is
+** '
+** Command ReverseTokens
+** Aliases FlipFlop
+** Syntax [SoftVarIn As SoftVar] [SoftVarOut As SoftVar] [Delimiter As QuotedString]
+** Short Takes everything before the Delimiter string and puts it after and everything after before.
+** Long
+Occationally useful when you want to take something like
+     X = Y
+     A = B
+     C = D
+And turn it into
+     Y = X
+     B = A
+     D = C
+** Example
+~~GetTextSelection TextSelection
+~~ReverseTokens TextSelection TextOut " = "
+~~FirstSelectionLine
+~~DeleteSelection
+%%TextOut%%
+** '
+** Command Set
+** Aliases SetValue
+** SeeAlso StrCopy
+** Syntax [SoftVarOut As SoftVar]=[SoftVarIn As StringOrSoftVar]
+** Short Sets SoftVarOut = to either the value of SoftVarIn or the string SoftVarIn
+** '
+** Command Trim
+** Syntax SoftVarInOut As SoftVar
+** Short As VB line of code "SoftVarInOut = Trim(SoftVarInOut)"
+** Example
+~~Set X=    123   
+~~Trim X
+** '
+** Command LTrim
+** Aliases LeftTrim
+** Syntax SoftVarInOut As SoftVar
+** Short As VB line of code "SoftVarInOut = LTrim(SoftVarInOut)"
+** Example
+~~Set X=    123
+~~LTrim X
+** '
+** Command RTrim
+** Aliases RightTrim
+** Syntax SoftVarInOut As SoftVar
+** Short As VB line of code "SoftVarInOut = RTrim(SoftVarInOut)"
+** Example
+~~Set X=123     
+~~RTrim X
+** '
+** Command '
+** Aliases Rem, Remark, Remarks, Comment, Comments, Note, Notes
+** Syntax Optional Comments As String
+** Short This line is ignored. No processing occurs.
+** '
+** Inline Len
+** Aliases StringLength, Length, StrLen
+** Syntax SoftVarIn As SoftVar
+** Short Returns the Length of SoftVar
+** Example
+~~Set Test=Testing
+~~Set X=%%Len::Test%%
+~~MsgBox %%X%%
+** '
+** Inline Trim
+** Syntax SoftVarIn As SoftVar
+** Short Returns a trimmed version of SoftVarIn as the VB line of code, Trim(SoftVarIn)
+** Example
+~~MsgBox %%Trim::    123    %%
+** '
+** Inline LTrim
+** Aliases LeftTrim
+** Syntax SoftVarIn As SoftVar
+** Short Returns a left trimmed version of SoftVarIn as the VB line of code, LTrim(SoftVarIn)
+** Example
+~~MsgBox %%LTrim::    123    %%
+** '
+** Inline RTrim
+** Aliases RightTrim
+** Syntax SoftVarIn As SoftVar
+** Short Returns a right trimmed version of SoftVarIn as the VB line of code, RTrim(SoftVarIn)
+** Example
+~~MsgBox %%RTrim::    123    %%
+** '
+** Inline TokenCount
+** Aliases lTokenCount, lTCount, TCount
+** Syntax [SoftVarIn As StringOrSoftVar], [Optional Delimiter As String]
+** Short Returns the number of tokens in SoftVarIn relative to the delimiter "Delimiter".
+** Examples
+~~Set MyName=William M Rawls
+~~Set NumberOfNames=%%TokenCount::MyName, %%
+	%%NumberOfNames%% equals "3".
+** '
+** Inline Token
+** Aliases sGetToken, GetToken, sToken
+** Syntax [SoftVarIn As StringOrSoftVar], [Optional TokenNumber As Long = 1], [Optional Delimiter As String = " "]
+** Short Returns Token number TokenNumber (default 1st) relative to the string "Delimiter" (default " ") of SoftVarIn.
+** Examples
+~~Set MyName=William M Rawls
+~~Set MyLastName=%%Token::MyName,3%%
+	%%MyLastName%% equals "Rawls", the 3rd space-delimited token of %%MyName%%
+** '
+** Inline Before
+** Aliases sBefore
+** Syntax [SoftVarIn As StringOrSoftVar], [Optional TokenNumber As Long = 2], [Optional Delimiter As String = " "]
+** Short Returns all tokens before Token number TokenNumber (default 2nd) relative to the string "Delimiter" (default " ") of SoftVarIn.
+** Examples
+~~Set MyName=William M Rawls
+~~Set MyLastName=%%Before::MyName,3%%
+	%%MyLastName%% equals "M Rawls", all tokens before the 3rd token of %%MyName%%
+** '
+** Inline After
+** Aliases sAfter
+** Syntax [SoftVarIn As StringOrSoftVar], [Optional TokenNumber As Long = 1], [Optional Delimiter As String = " "]
+** Short Returns all tokens after Token number TokenNumber (default 1st) relative to the string "Delimiter" (default " ") of SoftVarIn.
+** Examples
+~~Set MyName=William M Rawls
+~~Set MyLastName=%%After::MyName%%
+	%%MyLastName%% equals "M Rawls", all tokens after the 1st token (default) of %%MyName%%
+** '
+** Inline Except
+** Aliases sExcept
+** Syntax [SoftVarIn As StringOrSoftVar], [Optional TokenNumber As Long = 1], [Optional Delimiter As String = " "]
+** Short Returns all tokens before and after Token number TokenNumber (default 1st) relative to the string "Delimiter" (default " ") of SoftVarIn.
+** Examples
+~~Set MyName=William M Rawls
+~~Set MyLastName=%%Except::MyName,2%%
+	%%MyLastName%% equals "William Rawls", all tokens except the 2nd token of %%MyName%%
+** '
+** Inline Extract
+** Aliases sExtract
+** Syntax [SoftVarIn As StringOrSoftVar], [Optional TokenNumber As Long = 1], [Optional Delimiter As String = " "]
+** Short Returns token TokenNumber and extracts that token from SoftVarIn.
+** Examples
+~~Set MyName=William M Rawls
+~~Set MyLastName=%%Extract::MyName,2%%
+	%%MyLastName%% equals "M"
+	%%MyName%% equals "William Rawls"
+** '
+** Inline FindToken
+** Aliases lFindToken, Find
+** Syntax [SoftVarIn As StringOrSoftVar], [TokenToFind As StringOrQuotedString], [Optional Delimiter As String = " "]
+** Short Returns a number equal to the token number equal to TokenToFind from SoftVarIn.
+** Examples
+~~Set MyName=William M Rawls
+~~Set MyLastName=%%FindToken::MyName,Rawls%%
+	%%MyLastName%% equals "3"
+** '
+** Inline Left
+** Syntax [SoftVarIn As StringOrSoftVar], [CharCount As Long]
+** Short Returns the left-most CharCount characters from SoftVarIn ala Left(SoftVarIn,CharCount)
+** Example
+~~Set Test=This is a test
+~~MsgBox %%Left::Test,5%%
+** '
+** Inline Right
+** Syntax [SoftVarIn As StringOrSoftVar], [CharCount As Long]
+** Short Returns the right-most CharCount characters from SoftVarIn ala Right(SoftVarIn,CharCount)
+** Example
+~~Set Test=This is a test
+~~MsgBox %%Right::Test,5%%
+** '
+** Inline Mid
+** Syntax [SoftVarIn As StringOrSoftVar], [StartChar As Long], [Optional CharCount As Long]
+** Short Returns the middle-most CharCount characters from SoftVarIn starting at character number StartChar ala Mid(SoftVarIn,StartChar,CharCount)
+** Example
+~~Set Test=This is a test
+~~MsgBox %%Mid::Test,3,5%%
+~~MsgBox %%Mid::This is a test,3,5%%
+** '
+** Command Cancel
+** Syntax Expr As Expression
+** Short Causes code insertion to be cancelled immediately if Expr is not "0" or "".
+** Example
+~~Set X=%%X%%-1
+~~Cancel %%X%%
+** '
+** Command Append
+** Syntax [SoftVarOut As SoftVar] = [StringToAppend As String]
+** Short Appends the string StringToAppend to SoftVarOut.
+** Comments
+You can imbed the following special strings:
+    $EOL$ to embed a Chr(13) & Chr(10)
+    $13$  to embed a Chr(13)
+    $9$   to embed a Chr(9)
+** Example
+~~Set X=Y
+~~Append X=Z
+~~Append X=ABC$EOL$123$9$7890
+~~'   Sets %%X%% to "YZABC" & Chr(13) & Chr(10) & "123" & Chr(9) & "7890"
+** Command IgnoreBlanks
+** Alias NoBlanks
+** Syntax None
+** Short For the remainder of the template, blank soft variables will stay blank (no user input).
+** Comments
+Useful during ~~Coda loops where a string will eventually be blank.
+** '
+** Inline Chr
+** Syntax AsciiValue As Short
+** Short Just like the Chr(AsciiValue) VB command. Returns a one character string with the indicated ascii value.
+** Comments
+Invalid values are translated to Chr(48) or "0"
+** Example
+~~Set X=%%Chr::13%%
+~~Set X=%%Chr::23%%
+~~Set X=%%Chr::126%%
+** '
+** Inline Asc
+** Syntax Character As String
+** Short Just like the Asc(Character) VB command. Returns the ascii value of the indicated Character (or 1st char).
+** Comments
+Invalid values are translated to "48" ("0")
+** Example
+~~Set X=%%Asc::A%%
+~~Set X=%%Asc::0%%
+~~Set X=%%Asc:: %%
+** End

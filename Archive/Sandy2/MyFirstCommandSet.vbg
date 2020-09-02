@@ -1,0 +1,4 @@
+VBGROUP 5.0
+StartupProject=SliceAndDice.vbp
+Project=SADAddin.vbp
+Project=FirmSolutions.vbp
