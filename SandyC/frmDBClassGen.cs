@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmDBClassGen : System.Windows.Forms.Form
-        {
+    public class frmDBClassGen : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.Frame fraCategory;
          public System.Windows.Forms.VB.CommandButton cmdDeleteCategory;
          public System.Windows.Forms.VB.CommandButton cmdAddCategory;
@@ -735,871 +735,839 @@ namespace MetX.SliceAndDice
         public int CurrFav;
         public CAssocItem CurrAssoc;
         public TableDef CurTable;
-        public object nodX;
+        public unknown nodX;
         public int TableListCount;
         public CAssocArray asaX;
         public CAssocItem CurrItem;
         public string sCategoryChosen;
         public string sCategoryChosen;
-        public object sDatabasePath;
+        public unknown sDatabasePath;
         public string sNewDatabaseName;
         public ListItem ItemClicked;
         public string sParentTable;
-        public object sTable;
-        public object sField;
-        public object CurTable;
-        public object CurItem;
-        public object NewField;
+        public unknown sTable;
+        public unknown sField;
+        public unknown CurTable;
+        public unknown CurItem;
+        public unknown NewField;
         public string sTable;
         public string sTableName;
         public Node NodeDroppedOnto;
         public Node NodeClicked;
         public TableDef CurTable;
         public Field CurField;
-        public object nodX;
-        public object litX;
-        public object sIcon;
+        public unknown nodX;
+        public unknown litX;
+        public unknown sIcon;
 
 
-                public bool Canceled
-    {
-        get
+        public bool Canceled
         {
-        Canceled = mbCanceled;
-        }
-
-    }
-
-
-                public string Connectstring
-    {
-        get
-        {
-        Connectstring = msClassDatabaseOptions;
-        }
-
-    }
-
-
-                public string DBName
-    {
-        get
-        {
-        DBName = sGetToken(sGetToken(msClassDatabaseName, lTokenCount(msClassDatabaseName, gsBS), gsBS), 1, ".mdb");
-        }
-
-    }
-
-
-                public string DBPathAndFilename
-    {
-        get
-        {
-        DBPathAndFilename = msClassDatabaseName;
-        }
-
-    }
-
-
-                public string ODBCDatabaseName
-    {
-        get
-        {
-        ODBCDatabaseName = sGetToken(sGetToken(msClassDatabaseOptions, 2, "DSN="), 1, gsSC);
-        }
-
-    }
-
-
-                public bool GenerateBranch
-    {
-        get
-        {
-        GenerateBranch = mbGenerateBranch;
-        }
-
-    }
-
-
-                public bool GenerateDatabase
-    {
-        get
-        {
-        GenerateDatabase = mbGenerateDatabase;
-        }
-
-    }
-
-
-
-            public void GenerateChildren            {
-                CurChild = nodChild;
-                Do Until CurChild Is null;
-                CurChild.Selected = true;
-                tvwTables_NodeClick CurChild;
-                if ( ! CurChild.Parent.Parent Is null )
-            {;
-                asaPass("Parent Table Name") = CurChild.Parent.Text;
-                }
-            else
-            {;
-                asaPass("Parent Table Name") = "Root";
+            get
+            {
+                return mbCanceled;
             }
 
-            public void GenerateClass            {
+        }
 
 
-                try
-{;
+        public string Connectstring
+        {
+            get
+            {
+                return msClassDatabaseOptions;
+            }
 
-                sCategoryName = sGetToken(sDataLibraryType, 1, gsCategoryTemplateDelimiter);
+        }
 
-                //    ' Determine if the singular member of the collection will be collecting anything;
-                bSingularCollects = (! tvwTables.SelectedItem.Child Is null);
-                if ( bSingularCollects )
+
+        public string DBName
+        {
+            get
+            {
+                return sGetToken(sGetToken(msClassDatabaseName, lTokenCount(msClassDatabaseName, gsBS), gsBS), 1, ".mdb");
+            }
+
+        }
+
+
+        public string DBPathAndFilename
+        {
+            get
+            {
+                return msClassDatabaseName;
+            }
+
+        }
+
+
+        public string ODBCDatabaseName
+        {
+            get
+            {
+                return sGetToken(sGetToken(msClassDatabaseOptions, 2, "DSN="), 1, gsSC);
+            }
+
+        }
+
+
+        public bool GenerateBranch
+        {
+            get
+            {
+                return mbGenerateBranch;
+            }
+
+        }
+
+
+        public bool GenerateDatabase
+        {
+            get
+            {
+                return mbGenerateDatabase;
+            }
+
+        }
+
+
+
+    public void GenerateChildren    {
+        CurChild = nodChild;
+        Do Until CurChild Is null;
+        CurChild.Selected = true;
+        tvwTables_NodeClick CurChild;
+        if ( ! CurChild.Parent.Parent Is null )
             {;
-                sClassToCollect = tvwTables.SelectedItem.Child.Text + "s";
-                sChildTableName = tvwTables.SelectedItem.Child.Text;
-                }
+        asaPass("Parent Table Name") = CurChild.Parent.Text;
+        }
             else
             {;
-                sClassToCollect = string.Empty;
-                sChildTableName = tvwTables.SelectedItem.Child.Text;
-                }
+        asaPass("Parent Table Name") = "Root";
+    }
+
+    public void GenerateClass    {
+        try
+{;
+        sCategoryName = sGetToken(sDataLibraryType, 1, gsCategoryTemplateDelimiter);
+        //    ' Determine if the singular member of the collection will be collecting anything;
+        bSingularCollects = (! tvwTables.SelectedItem.Child Is null);
+        if ( bSingularCollects )
+            {;
+        sClassToCollect = tvwTables.SelectedItem.Child.Text + "s";
+        sChildTableName = tvwTables.SelectedItem.Child.Text;
+        }
+            else
+            {;
+        sClassToCollect = string.Empty;
+        sChildTableName = tvwTables.SelectedItem.Child.Text;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void TriggerClassGeneration()
-            {
-                if ( gbProcessing )
+    public void TriggerClassGeneration()
+    {
+        if ( gbProcessing )
             {
  return;
+        asaV = new CAssocArray();
+        if ( Canceled = false )
+            {;
+        //        'masaMisc.this.Clear()                                                                ' Clean out the assoc used for 'session' long inserts;
+        if ( GenerateDatabase = false )
+            {;
+        //            ' Generate a class for the currently selected class;
+        GenerateClass asaV, cboDataLibraryType.Text + gsCategoryTemplateDelimiter, tvwTables, lvwFields;
+        if ( GenerateBranch = true )
+            {;
+        //                ' Generate a class for each child table and each of its children tables;
+        if ( ! tvwTables.SelectedItem.Child Is null )
+            {;
+        GenerateChildren asaV, cboDataLibraryType.Text + gsCategoryTemplateDelimiter, tvwTables.SelectedItem.Child;
+    }
 
-
-                asaV = new CAssocArray();
-
-                if ( Canceled = false )
+    public void AddFavorite()
+    {
+        if ( Len(msClassDatabaseName) )
             {;
-                //        'masaMisc.this.Clear()                                                                ' Clean out the assoc used for 'session' long inserts;
-                if ( GenerateDatabase = false )
-            {;
-                //            ' Generate a class for the currently selected class;
-                GenerateClass asaV, cboDataLibraryType.Text + gsCategoryTemplateDelimiter, tvwTables, lvwFields;
-                if ( GenerateBranch = true )
-            {;
-                //                ' Generate a class for each child table and each of its children tables;
-                if ( ! tvwTables.SelectedItem.Child Is null )
-            {;
-                GenerateChildren asaV, cboDataLibraryType.Text + gsCategoryTemplateDelimiter, tvwTables.SelectedItem.Child;
-            }
-
-            public void AddFavorite()
-            {
-                if ( Len(msClassDatabaseName) )
-            {;
-                Favorites(msClassDatabaseName) = "|||" + sNormalize(TableList);
-                }
+        Favorites(msClassDatabaseName) = "|||" + sNormalize(TableList);
+        }
             else
             {;
-                if ( Len(ODBCTableNamePrefix) )
+        if ( Len(ODBCTableNamePrefix) )
             {;
-                Favorites("ODBC: " + sGetToken(sGetToken(msClassDatabaseOptions, 2, "DSN="), 1, gsSC) + " (" + ODBCTableNamePrefix + gsPC + IIf(Len(TableList), " Limited (" + tvwTables.Nodes.Count - 1 + gsPC, string.Empty)) = msClassDatabaseOptions + "|" + ODBCTableNamePrefix + "|" + ODBCPassword + "|" + sNormalize(TableList);
-                }
+        Favorites("ODBC: " + sGetToken(sGetToken(msClassDatabaseOptions, 2, "DSN="), 1, gsSC) + " (" + ODBCTableNamePrefix + gsPC + IIf(Len(TableList), " Limited (" + tvwTables.Nodes.Count - 1 + gsPC, string.Empty)) = msClassDatabaseOptions + "|" + ODBCTableNamePrefix + "|" + ODBCPassword + "|" + sNormalize(TableList);
+        }
             else
             {;
-                Favorites("ODBC: " + sGetToken(sGetToken(msClassDatabaseOptions, 2, "DSN="), 1, gsSC) + IIf(Len(TableList), " Limited (" + tvwTables.Nodes.Count - 1 + gsPC, string.Empty)) = msClassDatabaseOptions + "|" + ODBCTableNamePrefix + "|" + ODBCPassword + "|" + sNormalize(TableList);
-            }
+        Favorites("ODBC: " + sGetToken(sGetToken(msClassDatabaseOptions, 2, "DSN="), 1, gsSC) + IIf(Len(TableList), " Limited (" + tvwTables.Nodes.Count - 1 + gsPC, string.Empty)) = msClassDatabaseOptions + "|" + ODBCTableNamePrefix + "|" + ODBCPassword + "|" + sNormalize(TableList);
+    }
 
-            public void AddTable            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmDBClassGen_AddTable;
-
-                if ( IsInODBCDatabaseMode )
+    public void AddTable    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmDBClassGen_AddTable;
+        if ( IsInODBCDatabaseMode )
             {;
-                if ( ! KeepDatabaseOpen )
+        if ( ! KeepDatabaseOpen )
             {
   db == OpenDatabase(msClassDatabaseName, dbDriverComplete, false, msClassDatabaseOptions);
-                }
+        }
             else
             {;
-                db = OpenDatabase(msClassDatabaseName, false, false);
-            }
+        db = OpenDatabase(msClassDatabaseName, false, false);
+    }
 
-            public void RefreshTableList()
-            {
-                TreeReading = new CAssocArray();
-                TreeReading.TreeToAll tvwTables;
-                TableList = TreeReading.All;
-                TreeReading = null;
-            }
+    public void RefreshTableList()
+    {
+        TreeReading = new CAssocArray();
+        TreeReading.TreeToAll tvwTables;
+        TableList = TreeReading.All;
+        TreeReading = null;
+    }
 
-            public As RemoveNodes            {
-                RemoveNodes_Restart:;
-                foreach( var CurrNode in tvwX.Nodes );
-                if ( StrComp(CurrNode.Image), UCase$(sNodeImageNameToRemove)) = 0 .ToUpper()
+    public As RemoveNodes    {
+        RemoveNodes_Restart:;
+        foreach( var CurrNode in tvwX.Nodes );
+        if ( StrComp(CurrNode.Image), UCase$(sNodeImageNameToRemove)) = 0 .ToUpper()
             {;
-                tvwX.Nodes.Remove CurrNode.Key;
-                GoTo RemoveNodes_Restart;
-                }
+        tvwX.Nodes.Remove CurrNode.Key;
+        GoTo RemoveNodes_Restart;
+        }
             else
             {if ( ! CurrNode.Parent Is null )
             {;
-                sNodesLeft +=  CurrNode.Key + gsSC;
-            }
+        sNodesLeft +=  CurrNode.Key + gsSC;
+    }
 
-            public void UpdateFavorites()
-            {
-                try
+    public void UpdateFavorites()
+    {
+        try
 {;
-
-                if ( FavoriteCount > 0 )
+        if ( FavoriteCount > 0 )
             {
                          ' this.Clear()out previous entries;
-                for(var CurrFav = FavoriteCount; CurrFav < 1 Step -1; CurrFav++)  {;
-                Unload mnuFavorite(CurrFav);
-                } // CurrFav;
-                mnuFavorite(0).Text = "-Empty-";
-                mnuFavorite(0).Enabled = false;
-                FavoriteCount = 0;
-                }
+        for(var CurrFav = FavoriteCount; CurrFav < 1 Step -1; CurrFav++)  {;
+        Unload mnuFavorite(CurrFav);
+        } // CurrFav;
+        mnuFavorite(0).Text = "-Empty-";
+        mnuFavorite(0).Enabled = false;
+        FavoriteCount = 0;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void RefreshCategories()
-            {
-                try
+    public void RefreshCategories()
+    {
+        try
 {;
-                mbLoadingCategories = true;
-                Parent.SliceAndDice.Categorys.FillList cboDataLibraryType, 1;
-                cboDataLibraryType.ListIndex = FindListIndex(cboDataLibraryType, GetSetting$(App.ProductName, "DB Class Gen", "Last " + gsCategory, "RDO Persisted"));
-                mbLoadingCategories = false;
-                }
+        mbLoadingCategories = true;
+        Parent.SliceAndDice.Categorys.FillList cboDataLibraryType, 1;
+        cboDataLibraryType.ListIndex = FindListIndex(cboDataLibraryType, GetSetting$(App.ProductName, "DB Class Gen", "Last " + gsCategory, "RDO Persisted"));
+        mbLoadingCategories = false;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void PopulateTree()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_PopulateTree;
-
-                //    'On Error goto Next;
-                //    'msClassDatabaseName = sGetToken(sGetToken(msClassDatabaseName, lTokenCount(msClassDatabaseName, gsBS), gsBS), 1, ".mdb");
-
-                Screen.MousePointer = vbHourglass;
-                if ( Len(msClassDatabaseName) = 0 )
+    public void PopulateTree()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_PopulateTree;
+        //    'On Error goto Next;
+        //    'msClassDatabaseName = sGetToken(sGetToken(msClassDatabaseName, lTokenCount(msClassDatabaseName, gsBS), gsBS), 1, ".mdb");
+        Screen.MousePointer = vbHourglass;
+        if ( Len(msClassDatabaseName) = 0 )
             {;
-                if ( ! KeepDatabaseOpen )
+        if ( ! KeepDatabaseOpen )
             {;
-                if ( Len(msClassDatabaseOptions) = 0 )
+        if ( Len(msClassDatabaseOptions) = 0 )
             {;
-                msClassDatabaseOptions = "ODBC;";
-            }
+        msClassDatabaseOptions = "ODBC;";
+    }
 
-            public As sFieldType            {
-                switch iFieldType;
-                Case dbBigInt: sFieldType = "Big Integer";
-                Case dbBinary: sFieldType = "Binary";
-                Case dbBoolean: sFieldType = "Boolean";
-                Case dbByte: sFieldType = "Byte";
-                Case dbChar: sFieldType = "Char";
-                Case dbCurrency: sFieldType = "Currency";
-                Case dbDate: sFieldType = "Date / Time";
-                Case dbDecimal: sFieldType = "Decimal";
-                Case dbDouble: sFieldType = "Double";
-                Case dbFloat: sFieldType = "Float";
-                Case dbGUID: sFieldType = "Guid";
-                Case dbInteger: sFieldType = "Integer";
-                Case dbLong: sFieldType = "Long";
-                Case dbLongBinary: sFieldType = "long Binary (OLE Object)";
-                Case dbMemo: sFieldType = "Memo";
-                Case dbNumeric: sFieldType = "Numeric";
-                Case dbSingle: sFieldType = "Single";
-                Case dbText: sFieldType = "Text";
-                Case dbTime: sFieldType = "Time";
-                Case dbTimeStamp: sFieldType = "Time Stamp";
-                Case dbVarBinary: sFieldType = "VarBinary";
-            }
+    public As sFieldType    {
+        switch iFieldType;
+        Case dbBigInt: sFieldType = "Big Integer";
+        Case dbBinary: sFieldType = "Binary";
+        Case dbBoolean: sFieldType = "Boolean";
+        Case dbByte: sFieldType = "Byte";
+        Case dbChar: sFieldType = "Char";
+        Case dbCurrency: sFieldType = "Currency";
+        Case dbDate: sFieldType = "Date / Time";
+        Case dbDecimal: sFieldType = "Decimal";
+        Case dbDouble: sFieldType = "Double";
+        Case dbFloat: sFieldType = "Float";
+        Case dbGUID: sFieldType = "Guid";
+        Case dbInteger: sFieldType = "Integer";
+        Case dbLong: sFieldType = "Long";
+        Case dbLongBinary: sFieldType = "long Binary (OLE Object)";
+        Case dbMemo: sFieldType = "Memo";
+        Case dbNumeric: sFieldType = "Numeric";
+        Case dbSingle: sFieldType = "Single";
+        Case dbText: sFieldType = "Text";
+        Case dbTime: sFieldType = "Time";
+        Case dbTimeStamp: sFieldType = "Time Stamp";
+        Case dbVarBinary: sFieldType = "VarBinary";
+    }
 
-            public void cboDataLibraryType_Click()
-            {
-                if ( mbLoadingCategories )
+    public void cboDataLibraryType_Click()
+    {
+        if ( mbLoadingCategories )
             {
  return;
-                SaveSetting App.ProductName, "DB Class Gen", "Last " + gsCategory, cboDataLibraryType.Text;
-            }
+        SaveSetting App.ProductName, "DB Class Gen", "Last " + gsCategory, cboDataLibraryType.Text;
+    }
 
-            public void cmdAddCategory_Click()
-            {
+    public void cmdAddCategory_Click()
+    {
 
-                sCategoryChosen = Parent.SliceAndDice.Categorys.Choose(0);
-                if ( Len(sCategoryChosen) > 0 )
+        sCategoryChosen = Parent.SliceAndDice.Categorys.Choose(0);
+        if ( Len(sCategoryChosen) > 0 )
             {;
-                Parent.SliceAndDice.Categorys.Item(sCategoryChosen).CategoryType = 1;
-                Parent.SliceAndDice.Save;
-            }
+        Parent.SliceAndDice.Categorys.Item(sCategoryChosen).CategoryType = 1;
+        Parent.SliceAndDice.Save;
+    }
 
-            public void cmdDeleteCategory_Click()
-            {
+    public void cmdDeleteCategory_Click()
+    {
 
-                sCategoryChosen = Parent.SliceAndDice.Categorys.Choose(1);
-                if ( Len(sCategoryChosen) > 0 )
+        sCategoryChosen = Parent.SliceAndDice.Categorys.Choose(1);
+        if ( Len(sCategoryChosen) > 0 )
             {;
-                Parent.SliceAndDice.Categorys.Item(sCategoryChosen).CategoryType = 0;
-                Parent.SliceAndDice.Save;
-            }
+        Parent.SliceAndDice.Categorys.Item(sCategoryChosen).CategoryType = 0;
+        Parent.SliceAndDice.Save;
+    }
 
-            public void Form_Initialize()
-            {
+    public void Form_Initialize()
+    {
+    }
 
-            }
-
-            public void Form_QueryUnload            {
-                if ( UnloadMode = vbFormControlMenu )
+    public void Form_QueryUnload    {
+        if ( UnloadMode = vbFormControlMenu )
             {;
-                Cancel = true;
-            }
+        Cancel = true;
+    }
 
-            public void Form_Resize()
-            {
-                try
+    public void Form_Resize()
+    {
+        try
 {;
-                if ( ! dvwTable.Visible )
+        if ( ! dvwTable.Visible )
             {;
-                lvwFields.Move ScaleWidth - fraCategory.Width, lvwFields.Top, fraCategory.Width, ScaleHeight - lvwFields.Top;
-                tvwTables.Move 0, 60, ScaleWidth - fraCategory.Width, ScaleHeight;
-                fraCategory.Move lvwFields.Left, 0;
-                }
+        lvwFields.Move ScaleWidth - fraCategory.Width, lvwFields.Top, fraCategory.Width, ScaleHeight - lvwFields.Top;
+        tvwTables.Move 0, 60, ScaleWidth - fraCategory.Width, ScaleHeight;
+        fraCategory.Move lvwFields.Left, 0;
+        }
             else
             {;
-                lvwFields.Move ScaleWidth - fraCategory.Width, lvwFields.Top, fraCategory.Width, ScaleHeight - fraCategory.Height - dvwTable.Height;
-                tvwTables.Move 0, 60, ScaleWidth - fraCategory.Width, ScaleHeight - dvwTable.Height;
-                fraCategory.Move lvwFields.Left, 0;
-                dvwTable.Move 0, lvwFields.Top + lvwFields.Height, ScaleWidth;
-                }
+        lvwFields.Move ScaleWidth - fraCategory.Width, lvwFields.Top, fraCategory.Width, ScaleHeight - fraCategory.Height - dvwTable.Height;
+        tvwTables.Move 0, 60, ScaleWidth - fraCategory.Width, ScaleHeight - dvwTable.Height;
+        fraCategory.Move lvwFields.Left, 0;
+        dvwTable.Move 0, lvwFields.Top + lvwFields.Height, ScaleWidth;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Unload            {
-                SaveFormPosition Me;
-            }
+    public void Form_Unload    {
+        SaveFormPosition Me;
+    }
 
-            public void lvwFields_DblClick()
-            {
-                mnuFieldNew_Click;
-            }
+    public void lvwFields_DblClick()
+    {
+        mnuFieldNew_Click;
+    }
 
-            public void lvwFields_KeyPress            {
-                if ( KeyAscii = 13 )
+    public void lvwFields_KeyPress    {
+        if ( KeyAscii = 13 )
             {;
-                mnuFieldNew_Click;
-            }
+        mnuFieldNew_Click;
+    }
 
-            public void mnuFavorite_Click            {
-                Screen.MousePointer = vbDefault;
+    public void mnuFavorite_Click    {
+        Screen.MousePointer = vbDefault;
 
-                if ( Len(sGetToken(.Value, 1, "|")) = 0 )
+        if ( Len(sGetToken(.Value, 1, "|")) = 0 )
             {;
-                msClassDatabaseName = sGetToken(.Key, 1, "|");
-                msClassDatabaseOptions = string.Empty;
-                ODBCTableNamePrefix = string.Empty;
-                ODBCPassword = string.Empty;
-                TableList = sDenormalize(sAfter(.Value, 3, "|"));
-                }
+        msClassDatabaseName = sGetToken(.Key, 1, "|");
+        msClassDatabaseOptions = string.Empty;
+        ODBCTableNamePrefix = string.Empty;
+        ODBCPassword = string.Empty;
+        TableList = sDenormalize(sAfter(.Value, 3, "|"));
+        }
             else
             {;
-                msClassDatabaseName = string.Empty;
-                msClassDatabaseOptions = sGetToken(.Value, 1, "|");
-                ODBCTableNamePrefix = sGetToken(.Value, 2, "|");
-                ODBCPassword = sGetToken(.Value, 3, "|");
-                TableList = sDenormalize(sAfter(.Value, 3, "|"));
-            }
+        msClassDatabaseName = string.Empty;
+        msClassDatabaseOptions = sGetToken(.Value, 1, "|");
+        ODBCTableNamePrefix = sGetToken(.Value, 2, "|");
+        ODBCPassword = sGetToken(.Value, 3, "|");
+        TableList = sDenormalize(sAfter(.Value, 3, "|"));
+    }
 
-            public void mnuFavRemoveAll_Click()
-            {
-                if ( bUserSure() )
+    public void mnuFavRemoveAll_Click()
+    {
+        if ( bUserSure() )
             {;
-                Favorites.All = string.Empty;
-                SaveSetting App.ProductName, "DB Class Gen", "Favorites", string.Empty;
-                UpdateFavorites;
-            }
+        Favorites.All = string.Empty;
+        SaveSetting App.ProductName, "DB Class Gen", "Favorites", string.Empty;
+        UpdateFavorites;
+    }
 
-            public void mnuFileExit_Click()
-            {
-                mbCanceled = true;
-                lvwFields.ListItems.Clear;
-                SaveFormPosition Me;
-                Hide;
-            }
+    public void mnuFileExit_Click()
+    {
+        mbCanceled = true;
+        lvwFields.ListItems.Clear;
+        SaveFormPosition Me;
+        Hide;
+    }
 
-            public void mnuFileNew_Click()
-            {
-
-                sDatabasePath = Trim$(BrowseForFolder(hwnd, "Where should database go ?"));
-                if ( Len(sDatabasePath) == 0 )
-            {
- return;
-
-                sNewDatabaseName = Trim$(InputBox("What should the name of the new database be ?", "CREATE BLANK DATABASE"));
-                if ( Len(snewDatabaseName) == 0 )
+    public void mnuFileNew_Click()
+    {
+        sDatabasePath = Trim$(BrowseForFolder(hwnd, "Where should database go ?"));
+        if ( Len(sDatabasePath) == 0 )
             {
  return;
-
-                sDatabasePath.Substring(sDatabasePath.Length - 1) <> gsBS )
+        sNewDatabaseName = Trim$(InputBox("What should the name of the new database be ?", "CREATE BLANK DATABASE"));
+        if ( Len(snewDatabaseName) == 0 )
+            {
+ return;
+        sDatabasePath.Substring(sDatabasePath.Length - 1) <> gsBS )
             {
  sDatabasePath == sDatabasePath + gsBS;
-                LCase$(snewDatabaseName).Substring(LCase$(snewDatabaseName).Length - 4) <> ".mdb" )
+        LCase$(snewDatabaseName).Substring(LCase$(snewDatabaseName).Length - 4) <> ".mdb" )
             {
  snewDatabaseName == sDatabasePath + snewDatabaseName + ".mdb";
-
-                try
+        try
 {;
-                db = CreateDatabase(sNewDatabaseName, dbLangGeneral, dbVersion30);
-                db.Close;
-
-                msClassDatabaseName = sNewDatabaseName;
-                msClassDatabaseOptions = string.Empty;
-                ODBCTableNamePrefix = string.Empty;
-                ODBCPassword = string.Empty;
-                IsInODBCDatabaseMode = false;
-                KeepDatabaseOpen = false;
-                PopulateTree;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFileOpenODBC_Click()
-            {
-                mbOpenVBIDE = false;
-                msClassDatabaseName = string.Empty;
-                msClassDatabaseOptions = string.Empty;
-                ODBCTableNamePrefix = string.Empty;
-                ODBCPassword = string.Empty;
-                IsInODBCDatabaseMode = false;
-                KeepDatabaseOpen = false;
-                PopulateTree;
-            }
-
-            public void mnuFileOpenVBIDE_Click()
-            {
-                mbOpenVBIDE = true;
-                msClassDatabaseName = string.Empty;
-                msClassDatabaseOptions = string.Empty;
-                ODBCTableNamePrefix = string.Empty;
-                ODBCPassword = string.Empty;
-                IsInODBCDatabaseMode = false;
-                KeepDatabaseOpen = false;
-                PopulateTree;
-            }
-
-            public void mnuFreeAssociateTables_Click()
-            {
-                mnuFreeAssociateTables.Checked = ! mnuFreeAssociateTables.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "Free Associate Tables", mnuFreeAssociateTables.Checked;
-            }
-
-            public void mnuGenerateClass_Click()
-            {
-                if ( lvwFields.ListItems.Count = 0 )
-            {;
-                MsgBox "Please select a table first.";
-                return;
-            }
-
-            public void mnuGenerateEnterBranch_Click()
-            {
-                if ( lvwFields.ListItems.Count = 0 )
-            {;
-                MsgBox "Please select a branch first.";
-                return;
-            }
-
-            public void mnuGenerateEntireDatabase_Click()
-            {
-                if ( tvwTables.Nodes.Count = 0 )
-            {;
-                MsgBox "Please select a database first.";
-                return;
-            }
-
-            public void mnuFileOpen_Click()
-            {
-                mbOpenVBIDE = false;
-                msClassDatabaseName = Parent.sChooseDatabase();
-                msClassDatabaseOptions = string.Empty;
-                ODBCTableNamePrefix = string.Empty;
-                ODBCPassword = string.Empty;
-                IsInODBCDatabaseMode = false;
-                KeepDatabaseOpen = false;
-                if ( Len(msClassDatabaseName) > 0 )
-            {;
-                PopulateTree;
-            }
-
-            public void Form_Load()
-            {
-                try
-{;
-
-                RefreshCategories;
-
-                mnuRulesAutoAddKey.Checked = GetSetting(App.ProductName, "DB Class Gen", "AutoAddKey", true);
-                mnuRulesAutoAddDateModified.Checked = GetSetting(App.ProductName, "DB Class Gen", "AutoAddDateModified", true);
-                mnuRulesAutoAddDateCreated.Checked = GetSetting(App.ProductName, "DB Class Gen", "AutoAddCreated", true);
-
-                mnuRulesEnforce.Checked = GetSetting(App.ProductName, "DB Class Gen", "Enforce", true);
-                mnuRulesCascadeUpdates.Checked = GetSetting(App.ProductName, "DB Class Gen", "CascadeUpdates", true);
-                mnuRulesCascadeDeletes.Checked = GetSetting(App.ProductName, "DB Class Gen", "CascadeDeletes", true);
-
-                mnuRulesUseAutoNumber.Checked = GetSetting(App.ProductName, "DB Class Gen", "UseAutoNumber", true);
-                mnuViewTableData.Checked = GetSetting(App.ProductName, "DB Class Gen", "ViewTableData", false);
-                mnuRelateOnLoad.Checked = GetSetting(App.ProductName, "DB Class Gen", "Relate on load", true);
-                mnuFreeAssociateTables.Checked = GetSetting(App.ProductName, "DB Class Gen", "Free Asoociate Tables", true);
-
-                if ( mnuRulesEnforce.Checked )
-            {;
-                mnuRulesCascadeUpdates.Enabled = true;
-                mnuRulesCascadeDeletes.Enabled = true;
-                }
-            else
-            {;
-                mnuRulesCascadeUpdates.Enabled = false;
-                mnuRulesCascadeDeletes.Enabled = false;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void Form_Terminate()
-            {
-                SaveFormPosition Me;
-                Favorites = null;
-                Parent = null;
-                //    ' LogEvent "frmDBClassGen: Terminate";
-            }
-
-            public void lvwFields_MouseUp            {
-                try
-{;
-
-                if ( Button = vbRightButton )
-            {;
-                ItemClicked = lvwFields.HitTest(X, Y);
-                if ( ! ItemClicked Is null )
-            {;
-                ItemClicked.Selected = true;
-                PopupMenu mnuField;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFieldDelete_Click()
-            {
-
-                try
-{;
-                if ( tvwTables.SelectedItem.Parent.Key = msClassDatabaseName )
-            {;
-                sParentTable = string.Empty;
-                }
-            else
-            {;
-                sParentTable = tvwTables.SelectedItem.Parent.Key;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFieldNew_Click()
-            {
-
-                NewField = new frmFieldType();
-
-                mnuFieldNew_Click_TryAgain:;
-
-                try
-{;
-
-                NewField.Show vbModal, Me;
-                if ( ex <> 0 )
-            {
- return;
-                if ( newField.Canceled == true )
-            {
- return;
-
-                foreach( var CurItem in lvwFields.ListItems );
-                if ( CurItem.Text) = UCase$(.FieldName) .ToUpper()
-            {;
-                MsgBox "That field already exists in this table... Try again.";
-                GoTo mnuFieldNew_Click_TryAgain;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuRelateOnLoad_Click()
-            {
-                mnuRelateOnLoad.Checked = ! mnuRelateOnLoad.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "Relate on load", mnuRelateOnLoad.Checked;
-            }
-
-            public void mnuRemoveMarked_Click()
-            {
-                RemoveNodes tvwTables, "TableMarked";
-                RefreshTableList;
-                AddFavorite;
-            }
-
-            public void mnuRemoveUnmarked_Click()
-            {
-                RemoveNodes tvwTables, "Table";
-                RefreshTableList;
-                AddFavorite;
-            }
-
-            public void mnuRulesAutoAddDateCreated_Click()
-            {
-                mnuRulesAutoAddDateCreated.Checked = ! mnuRulesAutoAddDateCreated.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "AutoAddDateCreated", mnuRulesAutoAddDateCreated.Checked;
-            }
-
-            public void mnuRulesAutoAddDateModified_Click()
-            {
-                mnuRulesAutoAddDateModified.Checked = ! mnuRulesAutoAddDateModified.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "AutoAddDateModified", mnuRulesAutoAddDateModified.Checked;
-            }
-
-            public void mnuRulesAutoAddKey_Click()
-            {
-                mnuRulesAutoAddKey.Checked = ! mnuRulesAutoAddKey.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "AutoAddKey", mnuRulesAutoAddKey.Checked;
-            }
-
-            public void mnuRulesCascadeDeletes_Click()
-            {
-                mnuRulesCascadeDeletes.Checked = ! mnuRulesCascadeDeletes.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "CascadeDeletes", mnuRulesCascadeDeletes.Checked;
-            }
-
-            public void mnuRulesCascadeUpdates_Click()
-            {
-                mnuRulesCascadeUpdates.Checked = ! mnuRulesCascadeUpdates.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "CascadeUpdates", mnuRulesCascadeUpdates.Checked;
-            }
-
-            public void mnuRulesEnforce_Click()
-            {
-                mnuRulesEnforce.Checked = ! mnuRulesEnforce.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "Enforce", mnuRulesEnforce.Checked;
-                if ( mnuRulesEnforce.Checked )
-            {;
-                mnuRulesCascadeUpdates.Enabled = true;
-                mnuRulesCascadeDeletes.Enabled = true;
-                }
-            else
-            {;
-                mnuRulesCascadeUpdates.Enabled = false;
-                mnuRulesCascadeDeletes.Enabled = false;
-            }
-
-            public void mnuRulesUseAutoNumber_Click()
-            {
-                mnuRulesUseAutoNumber.Checked = ! mnuRulesUseAutoNumber.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "UseAutoNumber", mnuRulesUseAutoNumber.Checked;
-            }
-
-            public void mnuShowAllTables_Click()
-            {
-                TableList = string.Empty;
-                AddFavorite;
-                PopulateTree;
-            }
-
-            public void mnuTableDelete_Click()
-            {
-                try
-{;
-                if ( bUserSure("This will PERMANENTLY remove the table selected." + gsEolTab + "ARE YOU ABSOLUTELY SURE ?") )
-            {;
-                if ( IsInODBCDatabaseMode )
-            {;
-                if ( ! KeepDatabaseOpen )
-            {
-  db == OpenDatabase(msClassDatabaseName, dbDriverComplete, false, msClassDatabaseOptions);
-                }
-            else
-            {;
-                db = OpenDatabase(msClassDatabaseName, false, false);
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuTableNew_Click()
-            {
-
-                mnuTableNew_Click_TryAgain:;
-                sTable = Replace(Trim$(InputBox("What should the name of the new table be ?" + gsEolTab + "Note: Table names should be singular, such as:" + gsEolTab + "Book, Publisher, etc.")), gsS, string.Empty);
-                if ( Len(sTable) == 0 )
-            {
- return;
-
-                sTable.Substring(sTable.Length - 1) = "s" )
-            {;
-                MsgBox "Table names MUST be singular.";
-                GoTo mnuTableNew_Click_TryAgain;
-            }
-
-            public void mnuToggleTableMark_Click()
-            {
-                if ( tvwTables.SelectedItem.Image = "Table" )
-            {;
-                tvwTables.SelectedItem.Image = "TableMarked";
-                tvwTables.SelectedItem.ExpandedImage = "TableMarked";
-                tvwTables.SelectedItem.SelectedImage = "TableMarked";
-                }
-            else
-            {;
-                tvwTables.SelectedItem.Image = "Table";
-                tvwTables.SelectedItem.ExpandedImage = "Table";
-                tvwTables.SelectedItem.SelectedImage = "Table";
-            }
-
-            public void mnuUnhideTable_Click()
-            {
-                try
-{;
-                sTableName = InputBox("What is the fully qualified name of the table to unhide ?", "UNHIDE A TABLE");
-                if ( Len(sTableName) )
-            {;
-
-                tvwTables.Nodes.Add(                                                                                                                                                                                                      tvwTables.SelectedItem.Key, tvwChild, sTableName, sTableName, "Table", "Table").ExpandedImage = "Table";
-                tvwTables.Nodes.Add(                                                                                                                                                                                                      tvwTables.SelectedItem.Key, tvwChild, sTableName, sTableName, "Table", "Table").Expanded = true;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuViewTableData_Click()
-            {
-                try
-{;
-                mnuViewTableData.Checked = ! mnuViewTableData.Checked;
-                SaveSetting App.ProductName, "DB Class Gen", "ViewTableData", mnuViewTableData.Checked;
-                dvwTable.Visible = mnuViewTableData.Checked;
-                Form_Resize;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuX_Click()
-            {
-                mnuFileExit_Click;
-            }
-
-            public void tvwTables_DblClick()
-            {
-                mnuTableNew_Click;
-            }
-
-            public void tvwTables_DragDrop            {
-                try
-{;
-
-                if ( Source.Tag = "tvwTables" )
-            {;
-                if ( ! NodeDragged Is null )
-            {;
-                NodeDroppedOnto = null;
-                NodeDroppedOnto = tvwTables.HitTest(X, Y);
-                if ( ! NodeDroppedOnto Is null )
-            {;
-                NodeDragged.Parent = NodeDroppedOnto;
-                RefreshTableList;
-                AddFavorite;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void tvwTables_KeyPress            {
-                if ( KeyAscii = 13 )
-            {;
-                mnuTableNew_Click;
-            }
-
-            public void tvwTables_MouseMove            {
-                if ( Button = vbLeftButton And (Shift And vbShiftMask) <> 0 )
-            {;
-                NodeDragged = null;
-                NodeDragged = tvwTables.HitTest(X, Y);
-                if ( ! NodeDragged Is null )
-            {;
-                tvwTables.Drag vbBeginDrag;
-            }
-
-            public void tvwTables_MouseUp            {
-
-                if ( Button = vbRightButton )
-            {;
-                NodeClicked = tvwTables.HitTest(X, Y);
-                if ( ! NodeClicked Is null )
-            {;
-                NodeClicked.Selected = true;
-                PopupMenu mnuTable;
-            }
-
-            public void tvwTables_NodeClick            {
-
-                try
-{;
-                Screen.MousePointer = vbHourglass;
-                if ( IsInODBCDatabaseMode )
-            {;
-                if ( ! KeepDatabaseOpen )
-            {
-  db == OpenDatabase(msClassDatabaseName, dbDriverComplete, false, msClassDatabaseOptions);
-                }
-            else
-            {;
-                db = OpenDatabase(msClassDatabaseName, false, false);
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
+        db = CreateDatabase(sNewDatabaseName, dbLangGeneral, dbVersion30);
+        db.Close;
+        msClassDatabaseName = sNewDatabaseName;
+        msClassDatabaseOptions = string.Empty;
+        ODBCTableNamePrefix = string.Empty;
+        ODBCPassword = string.Empty;
+        IsInODBCDatabaseMode = false;
+        KeepDatabaseOpen = false;
+        PopulateTree;
         }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFileOpenODBC_Click()
+    {
+        mbOpenVBIDE = false;
+        msClassDatabaseName = string.Empty;
+        msClassDatabaseOptions = string.Empty;
+        ODBCTableNamePrefix = string.Empty;
+        ODBCPassword = string.Empty;
+        IsInODBCDatabaseMode = false;
+        KeepDatabaseOpen = false;
+        PopulateTree;
+    }
+
+    public void mnuFileOpenVBIDE_Click()
+    {
+        mbOpenVBIDE = true;
+        msClassDatabaseName = string.Empty;
+        msClassDatabaseOptions = string.Empty;
+        ODBCTableNamePrefix = string.Empty;
+        ODBCPassword = string.Empty;
+        IsInODBCDatabaseMode = false;
+        KeepDatabaseOpen = false;
+        PopulateTree;
+    }
+
+    public void mnuFreeAssociateTables_Click()
+    {
+        mnuFreeAssociateTables.Checked = ! mnuFreeAssociateTables.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "Free Associate Tables", mnuFreeAssociateTables.Checked;
+    }
+
+    public void mnuGenerateClass_Click()
+    {
+        if ( lvwFields.ListItems.Count = 0 )
+            {;
+        MsgBox "Please select a table first.";
+        return;
+    }
+
+    public void mnuGenerateEnterBranch_Click()
+    {
+        if ( lvwFields.ListItems.Count = 0 )
+            {;
+        MsgBox "Please select a branch first.";
+        return;
+    }
+
+    public void mnuGenerateEntireDatabase_Click()
+    {
+        if ( tvwTables.Nodes.Count = 0 )
+            {;
+        MsgBox "Please select a database first.";
+        return;
+    }
+
+    public void mnuFileOpen_Click()
+    {
+        mbOpenVBIDE = false;
+        msClassDatabaseName = Parent.sChooseDatabase();
+        msClassDatabaseOptions = string.Empty;
+        ODBCTableNamePrefix = string.Empty;
+        ODBCPassword = string.Empty;
+        IsInODBCDatabaseMode = false;
+        KeepDatabaseOpen = false;
+        if ( Len(msClassDatabaseName) > 0 )
+            {;
+        PopulateTree;
+    }
+
+    public void Form_Load()
+    {
+        try
+{;
+        RefreshCategories;
+        mnuRulesAutoAddKey.Checked = GetSetting(App.ProductName, "DB Class Gen", "AutoAddKey", true);
+        mnuRulesAutoAddDateModified.Checked = GetSetting(App.ProductName, "DB Class Gen", "AutoAddDateModified", true);
+        mnuRulesAutoAddDateCreated.Checked = GetSetting(App.ProductName, "DB Class Gen", "AutoAddCreated", true);
+        mnuRulesEnforce.Checked = GetSetting(App.ProductName, "DB Class Gen", "Enforce", true);
+        mnuRulesCascadeUpdates.Checked = GetSetting(App.ProductName, "DB Class Gen", "CascadeUpdates", true);
+        mnuRulesCascadeDeletes.Checked = GetSetting(App.ProductName, "DB Class Gen", "CascadeDeletes", true);
+        mnuRulesUseAutoNumber.Checked = GetSetting(App.ProductName, "DB Class Gen", "UseAutoNumber", true);
+        mnuViewTableData.Checked = GetSetting(App.ProductName, "DB Class Gen", "ViewTableData", false);
+        mnuRelateOnLoad.Checked = GetSetting(App.ProductName, "DB Class Gen", "Relate on load", true);
+        mnuFreeAssociateTables.Checked = GetSetting(App.ProductName, "DB Class Gen", "Free Asoociate Tables", true);
+        if ( mnuRulesEnforce.Checked )
+            {;
+        mnuRulesCascadeUpdates.Enabled = true;
+        mnuRulesCascadeDeletes.Enabled = true;
+        }
+            else
+            {;
+        mnuRulesCascadeUpdates.Enabled = false;
+        mnuRulesCascadeDeletes.Enabled = false;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_Terminate()
+    {
+        SaveFormPosition Me;
+        Favorites = null;
+        Parent = null;
+        //    ' LogEvent "frmDBClassGen: Terminate";
+    }
+
+    public void lvwFields_MouseUp    {
+        try
+{;
+        if ( Button = vbRightButton )
+            {;
+        ItemClicked = lvwFields.HitTest(X, Y);
+        if ( ! ItemClicked Is null )
+            {;
+        ItemClicked.Selected = true;
+        PopupMenu mnuField;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFieldDelete_Click()
+    {
+        try
+{;
+        if ( tvwTables.SelectedItem.Parent.Key = msClassDatabaseName )
+            {;
+        sParentTable = string.Empty;
+        }
+            else
+            {;
+        sParentTable = tvwTables.SelectedItem.Parent.Key;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFieldNew_Click()
+    {
+        NewField = new frmFieldType();
+        mnuFieldNew_Click_TryAgain:;
+
+        try
+{;
+
+        NewField.Show vbModal, Me;
+        if ( ex <> 0 )
+            {
+ return;
+        if ( newField.Canceled == true )
+            {
+ return;
+        foreach( var CurItem in lvwFields.ListItems );
+        if ( CurItem.Text) = UCase$(.FieldName) .ToUpper()
+            {;
+        MsgBox "That field already exists in this table... Try again.";
+        GoTo mnuFieldNew_Click_TryAgain;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuRelateOnLoad_Click()
+    {
+        mnuRelateOnLoad.Checked = ! mnuRelateOnLoad.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "Relate on load", mnuRelateOnLoad.Checked;
+    }
+
+    public void mnuRemoveMarked_Click()
+    {
+        RemoveNodes tvwTables, "TableMarked";
+        RefreshTableList;
+        AddFavorite;
+    }
+
+    public void mnuRemoveUnmarked_Click()
+    {
+        RemoveNodes tvwTables, "Table";
+        RefreshTableList;
+        AddFavorite;
+    }
+
+    public void mnuRulesAutoAddDateCreated_Click()
+    {
+        mnuRulesAutoAddDateCreated.Checked = ! mnuRulesAutoAddDateCreated.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "AutoAddDateCreated", mnuRulesAutoAddDateCreated.Checked;
+    }
+
+    public void mnuRulesAutoAddDateModified_Click()
+    {
+        mnuRulesAutoAddDateModified.Checked = ! mnuRulesAutoAddDateModified.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "AutoAddDateModified", mnuRulesAutoAddDateModified.Checked;
+    }
+
+    public void mnuRulesAutoAddKey_Click()
+    {
+        mnuRulesAutoAddKey.Checked = ! mnuRulesAutoAddKey.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "AutoAddKey", mnuRulesAutoAddKey.Checked;
+    }
+
+    public void mnuRulesCascadeDeletes_Click()
+    {
+        mnuRulesCascadeDeletes.Checked = ! mnuRulesCascadeDeletes.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "CascadeDeletes", mnuRulesCascadeDeletes.Checked;
+    }
+
+    public void mnuRulesCascadeUpdates_Click()
+    {
+        mnuRulesCascadeUpdates.Checked = ! mnuRulesCascadeUpdates.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "CascadeUpdates", mnuRulesCascadeUpdates.Checked;
+    }
+
+    public void mnuRulesEnforce_Click()
+    {
+        mnuRulesEnforce.Checked = ! mnuRulesEnforce.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "Enforce", mnuRulesEnforce.Checked;
+        if ( mnuRulesEnforce.Checked )
+            {;
+        mnuRulesCascadeUpdates.Enabled = true;
+        mnuRulesCascadeDeletes.Enabled = true;
+        }
+            else
+            {;
+        mnuRulesCascadeUpdates.Enabled = false;
+        mnuRulesCascadeDeletes.Enabled = false;
+    }
+
+    public void mnuRulesUseAutoNumber_Click()
+    {
+        mnuRulesUseAutoNumber.Checked = ! mnuRulesUseAutoNumber.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "UseAutoNumber", mnuRulesUseAutoNumber.Checked;
+    }
+
+    public void mnuShowAllTables_Click()
+    {
+        TableList = string.Empty;
+        AddFavorite;
+        PopulateTree;
+    }
+
+    public void mnuTableDelete_Click()
+    {
+        try
+{;
+        if ( bUserSure("This will PERMANENTLY remove the table selected." + gsEolTab + "ARE YOU ABSOLUTELY SURE ?") )
+            {;
+        if ( IsInODBCDatabaseMode )
+            {;
+        if ( ! KeepDatabaseOpen )
+            {
+  db == OpenDatabase(msClassDatabaseName, dbDriverComplete, false, msClassDatabaseOptions);
+        }
+            else
+            {;
+        db = OpenDatabase(msClassDatabaseName, false, false);
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuTableNew_Click()
+    {
+        mnuTableNew_Click_TryAgain:;
+        sTable = Replace(Trim$(InputBox("What should the name of the new table be ?" + gsEolTab + "Note: Table names should be singular, such as:" + gsEolTab + "Book, Publisher, etc.")), gsS, string.Empty);
+        if ( Len(sTable) == 0 )
+            {
+ return;
+        sTable.Substring(sTable.Length - 1) = "s" )
+            {;
+        MsgBox "Table names MUST be singular.";
+        GoTo mnuTableNew_Click_TryAgain;
+    }
+
+    public void mnuToggleTableMark_Click()
+    {
+        if ( tvwTables.SelectedItem.Image = "Table" )
+            {;
+        tvwTables.SelectedItem.Image = "TableMarked";
+        tvwTables.SelectedItem.ExpandedImage = "TableMarked";
+        tvwTables.SelectedItem.SelectedImage = "TableMarked";
+        }
+            else
+            {;
+        tvwTables.SelectedItem.Image = "Table";
+        tvwTables.SelectedItem.ExpandedImage = "Table";
+        tvwTables.SelectedItem.SelectedImage = "Table";
+    }
+
+    public void mnuUnhideTable_Click()
+    {
+        try
+{;
+        sTableName = InputBox("What is the fully qualified name of the table to unhide ?", "UNHIDE A TABLE");
+        if ( Len(sTableName) )
+            {;
+
+        tvwTables.Nodes.Add(                                                                                                                                                                                                      tvwTables.SelectedItem.Key, tvwChild, sTableName, sTableName, "Table", "Table").ExpandedImage = "Table";
+        tvwTables.Nodes.Add(                                                                                                                                                                                                      tvwTables.SelectedItem.Key, tvwChild, sTableName, sTableName, "Table", "Table").Expanded = true;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuViewTableData_Click()
+    {
+        try
+{;
+        mnuViewTableData.Checked = ! mnuViewTableData.Checked;
+        SaveSetting App.ProductName, "DB Class Gen", "ViewTableData", mnuViewTableData.Checked;
+        dvwTable.Visible = mnuViewTableData.Checked;
+        Form_Resize;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuX_Click()
+    {
+        mnuFileExit_Click;
+    }
+
+    public void tvwTables_DblClick()
+    {
+        mnuTableNew_Click;
+    }
+
+    public void tvwTables_DragDrop    {
+        try
+{;
+        if ( Source.Tag = "tvwTables" )
+            {;
+        if ( ! NodeDragged Is null )
+            {;
+        NodeDroppedOnto = null;
+        NodeDroppedOnto = tvwTables.HitTest(X, Y);
+        if ( ! NodeDroppedOnto Is null )
+            {;
+        NodeDragged.Parent = NodeDroppedOnto;
+        RefreshTableList;
+        AddFavorite;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void tvwTables_KeyPress    {
+        if ( KeyAscii = 13 )
+            {;
+        mnuTableNew_Click;
+    }
+
+    public void tvwTables_MouseMove    {
+        if ( Button = vbLeftButton And (Shift And vbShiftMask) <> 0 )
+            {;
+        NodeDragged = null;
+        NodeDragged = tvwTables.HitTest(X, Y);
+        if ( ! NodeDragged Is null )
+            {;
+        tvwTables.Drag vbBeginDrag;
+    }
+
+    public void tvwTables_MouseUp    {
+        if ( Button = vbRightButton )
+            {;
+        NodeClicked = tvwTables.HitTest(X, Y);
+        if ( ! NodeClicked Is null )
+            {;
+        NodeClicked.Selected = true;
+        PopupMenu mnuTable;
+    }
+
+    public void tvwTables_NodeClick    {
+        try
+{;
+        Screen.MousePointer = vbHourglass;
+        if ( IsInODBCDatabaseMode )
+            {;
+        if ( ! KeepDatabaseOpen )
+            {
+  db == OpenDatabase(msClassDatabaseName, dbDriverComplete, false, msClassDatabaseOptions);
+        }
+            else
+            {;
+        db = OpenDatabase(msClassDatabaseName, false, false);
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    }
     }

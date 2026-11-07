@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmFindReplace : System.Windows.Forms.Form
-        {
+    public class frmFindReplace : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.CommandButton cmdReplaceAll;
          public System.Windows.Forms.VB.CommandButton cmdReplace;
          public System.Windows.Forms.VB.CheckBox chkUsePatternMatching;
@@ -291,143 +291,142 @@ namespace MetX.SliceAndDice
         public bool UsePatternMatching;
 
 
-                public object IsReplace
+        public unknown IsReplace
+        {
+            get
+            {
+                return txtReplace.Enabled;
+            }
+
+            set
+            {
+                lblLabels(1).Enabled = value;
+                txtReplace.Visible = value;
+                cmdReplaceAll.Visible = value;
+                cmdReplace.Enabled = true                         'value;
+                // txtReplace.Enabled = New_IsReplace
+                // cmdReplace.Enabled = New_IsReplace
+                // cmdReplaceAll.Enabled = New_IsReplace
+                this.Show vbModal;
+            }
+
+        }
+
+
+
+    public void cmdCancel_Click()
     {
-        get
-        {
-        IsReplace = txtReplace.Enabled;
-        }
-
-        set
-        {
-        lblLabels(1).Enabled = value;
-        txtReplace.Visible = value;
-        cmdReplaceAll.Visible = value;
-        cmdReplace.Enabled = true                         'value;
-        // txtReplace.Enabled = New_IsReplace
-        // cmdReplace.Enabled = New_IsReplace
-        // cmdReplaceAll.Enabled = New_IsReplace
-        this.Show vbModal;
-        }
-
+        DoFind} // = false;
+        DoReplace = false;
+        DoReplaceAll = false;
+        Canceled = true;
+        this.Hide;
     }
 
+    public void cmdOK_Click()
+    {
+        DoFind} // = true;
+        DoReplace = false;
+        DoReplaceAll = false;
+        Canceled = false;
+        this.Hide;
+    }
 
-
-            public void cmdCancel_Click()
-            {
-                DoFind} // = false;
-                DoReplace = false;
-                DoReplaceAll = false;
-                Canceled = true;
-                this.Hide;
-            }
-
-            public void cmdOK_Click()
-            {
-                DoFind} // = true;
-                DoReplace = false;
-                DoReplaceAll = false;
-                Canceled = false;
-                this.Hide;
-            }
-
-            public void cmdReplace_Click()
-            {
-                if ( cmdReplace.Visible )
+    public void cmdReplace_Click()
+    {
+        if ( cmdReplace.Visible )
             {;
-                DoFind} // = false;
-                DoReplace = true;
-                DoReplaceAll = false;
-                Canceled = false;
-                this.Hide;
-                }
-            else
-            {;
-                DoFind} // = false;
-                DoReplace = true;
-                DoReplaceAll = false;
-                Canceled = false;
-                this.Hide;
-            }
-
-            public void cmdReplaceAll_Click()
-            {
-                DoFind} // = false;
-                DoReplace = false;
-                DoReplaceAll = true;
-                Canceled = false;
-                this.Hide;
-            }
-
-            public void Form_Activate()
-            {
-                if ( Len(txtFind) <> 0 And Len(txtReplace) = 0 And txtReplace.Visible )
-            {;
-                txtReplace.SetFocus;
-                }
-            else
-            {;
-                txtFind.SetFocus;
-            }
-
-            public void Form_Load()
-            {
-                txtFind = GetSetting$(App.ProductName, "Last", "Find Text", string.Empty);
-                txtReplace = GetSetting$(App.ProductName, "Last", "Replace Text", string.Empty);
-                optSearchArea(GetSetting(App.ProductName, "Last", "Search Area", 0)).Value = true;
-                cboDirection.ListIndex = GetSetting(App.ProductName, "Last", "Search Direction", 0);
-                chkFindWholeWordOnly.Value = GetSetting(App.ProductName, "Last", "Find Whole Word Only", 0);
-                chkMatchCase.Value = GetSetting(App.ProductName, "Last", "Match Case", 0);
-                chkUsePatternMatching.Value = GetSetting(App.ProductName, "Last", "Use Pattern Matching", 0);
-            }
-
-            public void Form_Unload            {
-                SaveSetting App.ProductName, "Last", "Find Text", txtFind.Text;
-                SaveSetting App.ProductName, "Last", "Replace Text", txtReplace;
-                SaveSetting App.ProductName, "Last", "Search Direction", cboDirection.ListIndex;
-                SaveSetting App.ProductName, "Last", "Find Whole Word Only", chkFindWholeWordOnly.Value;
-                SaveSetting App.ProductName, "Last", "Match Case", chkMatchCase.Value;
-                SaveSetting App.ProductName, "Last", "Use Pattern Matching", chkUsePatternMatching.Value;
-
-                if ( optSearchArea(0).Value )
-            {;
-                SaveSetting App.ProductName, "Last", "Search Area", 0;
-                }
-            else
-            {if ( optSearchArea(1).Value )
-            {;
-                SaveSetting App.ProductName, "Last", "Search Area", 1;
-                }
-            else
-            {if ( optSearchArea(2).Value )
-            {;
-                SaveSetting App.ProductName, "Last", "Search Area", 2;
-                }
-            else
-            {;
-                SaveSetting App.ProductName, "Last", "Search Area", 3;
-            }
-
-            public void optSearchArea_Click            {
-                if ( optSearchArea(0).Value )
-            {;
-                SearchArea = SearchAreaCurrentPane;
-                }
-            else
-            {if ( optSearchArea(1).Value )
-            {;
-                SearchArea = SearchAreaCurrentTemplate;
-                }
-            else
-            {if ( optSearchArea(2).Value )
-            {;
-                SearchArea = SearchAreaCurrentCategory;
-                }
-            else
-            {;
-                SearchArea = SearchAreaCurrentDatabase;
-            }
-
+        DoFind} // = false;
+        DoReplace = true;
+        DoReplaceAll = false;
+        Canceled = false;
+        this.Hide;
         }
+            else
+            {;
+        DoFind} // = false;
+        DoReplace = true;
+        DoReplaceAll = false;
+        Canceled = false;
+        this.Hide;
+    }
+
+    public void cmdReplaceAll_Click()
+    {
+        DoFind} // = false;
+        DoReplace = false;
+        DoReplaceAll = true;
+        Canceled = false;
+        this.Hide;
+    }
+
+    public void Form_Activate()
+    {
+        if ( Len(txtFind) <> 0 And Len(txtReplace) = 0 And txtReplace.Visible )
+            {;
+        txtReplace.SetFocus;
+        }
+            else
+            {;
+        txtFind.SetFocus;
+    }
+
+    public void Form_Load()
+    {
+        txtFind = GetSetting$(App.ProductName, "Last", "Find Text", string.Empty);
+        txtReplace = GetSetting$(App.ProductName, "Last", "Replace Text", string.Empty);
+        optSearchArea(GetSetting(App.ProductName, "Last", "Search Area", 0)).Value = true;
+        cboDirection.ListIndex = GetSetting(App.ProductName, "Last", "Search Direction", 0);
+        chkFindWholeWordOnly.Value = GetSetting(App.ProductName, "Last", "Find Whole Word Only", 0);
+        chkMatchCase.Value = GetSetting(App.ProductName, "Last", "Match Case", 0);
+        chkUsePatternMatching.Value = GetSetting(App.ProductName, "Last", "Use Pattern Matching", 0);
+    }
+
+    public void Form_Unload    {
+        SaveSetting App.ProductName, "Last", "Find Text", txtFind.Text;
+        SaveSetting App.ProductName, "Last", "Replace Text", txtReplace;
+        SaveSetting App.ProductName, "Last", "Search Direction", cboDirection.ListIndex;
+        SaveSetting App.ProductName, "Last", "Find Whole Word Only", chkFindWholeWordOnly.Value;
+        SaveSetting App.ProductName, "Last", "Match Case", chkMatchCase.Value;
+        SaveSetting App.ProductName, "Last", "Use Pattern Matching", chkUsePatternMatching.Value;
+        if ( optSearchArea(0).Value )
+            {;
+        SaveSetting App.ProductName, "Last", "Search Area", 0;
+        }
+            else
+            {if ( optSearchArea(1).Value )
+            {;
+        SaveSetting App.ProductName, "Last", "Search Area", 1;
+        }
+            else
+            {if ( optSearchArea(2).Value )
+            {;
+        SaveSetting App.ProductName, "Last", "Search Area", 2;
+        }
+            else
+            {;
+        SaveSetting App.ProductName, "Last", "Search Area", 3;
+    }
+
+    public void optSearchArea_Click    {
+        if ( optSearchArea(0).Value )
+            {;
+        SearchArea = SearchAreaCurrentPane;
+        }
+            else
+            {if ( optSearchArea(1).Value )
+            {;
+        SearchArea = SearchAreaCurrentTemplate;
+        }
+            else
+            {if ( optSearchArea(2).Value )
+            {;
+        SearchArea = SearchAreaCurrentCategory;
+        }
+            else
+            {;
+        SearchArea = SearchAreaCurrentDatabase;
+    }
+
+    }
     }

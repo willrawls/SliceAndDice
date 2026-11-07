@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmMain : System.Windows.Forms.Form
-        {
+    public class frmMain : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.Frame frmTemplateInfo;
          public System.Windows.Forms.VB.CommandButton cmdRecalc;
          public System.Windows.Forms.VB.CheckBox chkAutoRecalc;
@@ -1175,34 +1175,34 @@ namespace MetX.SliceAndDice
         }
         #endregion
 
-        public object m_sTemplateDatabaseName;
+        public unknown m_sTemplateDatabaseName;
         public string m_sCurrentEventResponseCategory;
-        public object CurrentCodeArea;
-        public object Parent;
-        public object m_oDBClassGen;
-        public object m_asaHistory;
-        public object m_asaAttributes;
-        public object SliceAndDice;
-        public object CurrentTemplate;
-        public object InternalCurrentTemplate;
-        public object Complete;
-        public object SadCommands();
-        public object SadCommandSetCount;
-        public object FavoriteCount;
-        public object ExternalCount;
-        public object CurrentHistoryEntry;
-        public object ActionToDo;
-        public object ActionParam;
-        public object mbScramFormKey;
-        public object mbFillingAddInScreen;
-        public object mbIgnoreBlanks;
-        public object mbIgnoreReadOnly;
-        public object OkayToDoAction;
-        public object FavoriteCalledFromIDE;
-        public object OkayToUnload;
-        public object WithEvents;
-        public object Externals;
-        public object CurrExternal;
+        public unknown CurrentCodeArea;
+        public unknown Parent;
+        public unknown m_oDBClassGen;
+        public unknown m_asaHistory;
+        public unknown m_asaAttributes;
+        public unknown SliceAndDice;
+        public unknown CurrentTemplate;
+        public unknown InternalCurrentTemplate;
+        public unknown Complete;
+        public unknown SadCommands();
+        public unknown SadCommandSetCount;
+        public unknown FavoriteCount;
+        public unknown ExternalCount;
+        public unknown CurrentHistoryEntry;
+        public unknown ActionToDo;
+        public unknown ActionParam;
+        public unknown mbScramFormKey;
+        public unknown mbFillingAddInScreen;
+        public unknown mbIgnoreBlanks;
+        public unknown mbIgnoreReadOnly;
+        public unknown OkayToDoAction;
+        public unknown FavoriteCalledFromIDE;
+        public unknown OkayToUnload;
+        public unknown WithEvents;
+        public unknown Externals;
+        public unknown CurrExternal;
         public string sResult;
         public string sOperator;
         public string sLeftOfOp;
@@ -1226,19 +1226,19 @@ namespace MetX.SliceAndDice
         public string sProcTypeLong;
         public CAssocArray asaVar;
         public CAssocItem CurItem;
-        public object CurFrame;
-        public object CurForm;
-        public object CurReference;
-        public object CurControl;
-        public object CurModule;
-        public object ControlVars;
-        public object tTemplate;
-        public object tProject;
-        public object tModule;
-        public object tPane;
-        public object tWindow;
-        public object tWindows;
-        public object tComponent;
+        public unknown CurFrame;
+        public unknown CurForm;
+        public unknown CurReference;
+        public unknown CurControl;
+        public unknown CurModule;
+        public unknown ControlVars;
+        public unknown tTemplate;
+        public unknown tProject;
+        public unknown tModule;
+        public unknown tPane;
+        public unknown tWindow;
+        public unknown tWindows;
+        public unknown tComponent;
         public int fh;
         public int CurrSet;
         public int CurrParam;
@@ -1298,9 +1298,9 @@ namespace MetX.SliceAndDice
         public int CurListItem;
         public string sCurToken;
         public CTemplate TemplateFound;
-        public object sSelectedText;
-        public object sOrigText;
-        public object CurrSet;
+        public unknown sSelectedText;
+        public unknown sOrigText;
+        public unknown CurrSet;
         public string sCurrentCategory;
         public string sNewCategoryName;
         public string sCategoryToDuplicate;
@@ -1314,13 +1314,13 @@ namespace MetX.SliceAndDice
         public string sChoices;
         public string sChoice;
         public string sPasswordCheck;
-        public object sDatabasePath;
+        public unknown sDatabasePath;
         public string sNewDatabaseName;
-        public object db;
-        public object tblTemplates;
-        public object fldTemplates;
-        public object ndxTemplates;
-        public object rstCategory;
+        public unknown db;
+        public unknown tblTemplates;
+        public unknown fldTemplates;
+        public unknown ndxTemplates;
+        public unknown rstCategory;
         public string sTemplateDatabaseName;
         public string sOldDatabaseName;
         public string sLastTemplate;
@@ -1329,9 +1329,9 @@ namespace MetX.SliceAndDice
         public short Red;
         public short Green;
         public short Blue;
-        public object sSelectedText;
-        public object sOrigText;
-        public object CurrSet;
+        public unknown sSelectedText;
+        public unknown sOrigText;
+        public unknown CurrSet;
         public int CurCodeArea;
         public int lLastFound;
         public bool bSomethingFound;
@@ -1339,19 +1339,19 @@ namespace MetX.SliceAndDice
         public string sShortName;
         public string sName;
         public 4) sCode(0;
-        public object lLine;
+        public unknown lLine;
         public As lLastLine;
-        public object lTemp;
+        public unknown lTemp;
         public As lFirstCol;
-        public object lLastCol;
-        public object sCode;
+        public unknown lLastCol;
+        public unknown sCode;
         public As sProcName;
         public As lProcType;
-        public object lLine;
+        public unknown lLine;
         public As lLastLine;
         public As lFirstCol;
-        public object lLastCol;
-        public object sCode;
+        public unknown lLastCol;
+        public unknown sCode;
         public int lLine;
         public int lLastLine;
         public int lFirstCol;
@@ -1372,2009 +1372,1875 @@ namespace MetX.SliceAndDice
         public int lFirstCol;
         public int lLastCol;
         public string sCode;
-        public object lLine;
+        public unknown lLine;
         public As lLastLine;
         public As lFirstCol;
-        public object lLastCol;
-        public object sCode;
+        public unknown lLastCol;
+        public unknown sCode;
         public string sTitle;
         public short Cancel;
-        public object sKey;
+        public unknown sKey;
         public string sRegValue;
 
 
-                public object CurrentEventResponseCategory
-    {
-        get
+        public string CurrentEventResponseCategory
         {
-        if ( Len(m_sCurrentEventResponseCategory) == 0 )
+            get
+            {
+                if ( Len(m_sCurrentEventResponseCategory) == 0 )
             {
  m_sCurrentEventResponseCategory == "Event Response";
-        CurrentEventResponseCategory = m_sCurrentEventResponseCategory;
+                return m_sCurrentEventResponseCategory;
+            }
+
+            set
+            {
+                m_sCurrentEventResponseCategory = value;
+            }
+
         }
 
-        set
+
+        public string CurrentTemplateNameAndCategory
         {
-        m_sCurrentEventResponseCategory = value;
+            get
+            {
+                return txtName.Text;
+            }
+
         }
 
-    }
 
-
-                public string CurrentTemplateNameAndCategory
-    {
-        get
+        public unknown DBClassGen
         {
-        CurrentTemplateNameAndCategory = txtName.Text;
+            get
+            {
+                 DBClassGen = m_oDBClassGen;
+            }
+
+            set
+            {
+            }
+
         }
 
-    }
 
-
-                public object DBClassGen
-    {
-        get
+        public bool ExitAfterInsert
         {
-         DBClassGen = m_oDBClassGen;
+            get
+            {
+                return mnuExitAfterInsert.Checked;
+            }
+
         }
 
-        set
+
+        public unknown QueuedInsertions
         {
+            set
+            {
+                // TODO: Rewrite try/catch and/or goto. EH_frmMain_QueuedInsertions
+                Boolean static bInHereAlready;
+                if ( bInHereAlready )
+            {
+ return; // ???
+                bInHereAlready = true;
+                asaVar.ItemDelimiter = "~";
+                asaVar.All = value;
+                foreach( var CurItem in asaVar.mCol )
+                DoInsertion asaV, CurItem.Key;
+                if ( gbCancelInsertion )
+            {
+ return; // ???
+                } // CurItem
+                EH_frmMain_QueuedInsertions_Continue:
+                bInHereAlready = false;
+                return; // ???
+                EH_frmMain_QueuedInsertions:
+                MsgBox "Error occured in:" + gsEolTab + "Module: frmMain" + gsEolTab + "Procedure: QueuedInsertions" + gs2EOL + Err.Description;
+                goto EH_frmMain_QueuedInsertions_Continue;
+                Resume;
+            }
+
+        }
+
+
+        public string TemplateDatabaseName
+        {
+            get
+            {
+                return m_sTemplateDatabaseName;
+            }
+
+        }
+
+
+
+    public As AddSadCommandSet    {
         try
-{
-
-         m_oDBClassGen = value;
-        SetColors GetSetting$(App.ProductName, "Last", "Background Color", "&H80000018&"), GetSetting$(App.ProductName, "Last", "Foreground Color", "&H80000008&");
+{;
         ;
+
+        SadCommandSetCount +=  1;
+        ReDim Preserve SadCommands(1 To SadCommandSetCount);
+        SadCommands(SadCommandSetCount) = oCommands;
+        if ( SadCommands(SadCommandSetCount).Startup(Parent, Parent.vbInst) )
+            {;
+        AddSadCommand = true;
+        frmSplash.lblDLLsLoaded(1).Text = string.Empty + SadCommandSetCount;
+        frmSplash.lblDLLsLoaded(1).Refresh;
+        Externals = oCommands.Externals;
+        if ( ! Externals Is null )
+            {;
+        if ( ExternalCount > 0 )
+            {;
+        Load mnuExternals(ExternalCount);
+        mnuExternals(ExternalCount).Text = "-";
+        mnuExternals(ExternalCount).Tag = string.Empty;
+        mnuExternals(ExternalCount).Enabled = true;
+        mnuExternals(ExternalCount).Visible = true;
+        ExternalCount +=  1;
         }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
-        }
-
-        }
-
+        };
     }
 
-
-                public bool ExitAfterInsert
-    {
-        get
-        {
-        ExitAfterInsert = mnuExitAfterInsert.Checked;
-        }
-
-    }
-
-
-                public object QueuedInsertions
-    {
-        set
-        {
-        // TODO: Rewrite try/catch and/or goto. EH_frmMain_QueuedInsertions
+    public void DeleteTemplate    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_DeleteTemplate;
         Boolean static bInHereAlready;
         if ( bInHereAlready )
             {
- return; // ???
-        bInHereAlready = true;
-        asaVar.ItemDelimiter = "~";
-        asaVar.All = value;
-        foreach( var CurItem in asaVar.mCol )
-        DoInsertion asaV, CurItem.Key;
-        if ( gbCancelInsertion )
-            {
- return; // ???
-        } // CurItem
-        EH_frmMain_QueuedInsertions_Continue:
-        bInHereAlready = false;
-        return; // ???
-        EH_frmMain_QueuedInsertions:
-        MsgBox "Error occured in:" + gsEolTab + "Module: frmMain" + gsEolTab + "Procedure: QueuedInsertions" + gs2EOL + Err.Description;
-        goto EH_frmMain_QueuedInsertions_Continue;
-        Resume;
-        }
-
-    }
-
-
-                public string TemplateDatabaseName
-    {
-        get
-        {
-        TemplateDatabaseName = m_sTemplateDatabaseName;
-        }
-
-    }
-
-
-
-            public As AddSadCommandSet            {
-                try
-{;
-                ;
-
-                SadCommandSetCount +=  1;
-                ReDim Preserve SadCommands(1 To SadCommandSetCount);
-                SadCommands(SadCommandSetCount) = oCommands;
-                if ( SadCommands(SadCommandSetCount).Startup(Parent, Parent.vbInst) )
-            {;
-                AddSadCommand = true;
-                frmSplash.lblDLLsLoaded(1).Text = string.Empty + SadCommandSetCount;
-                frmSplash.lblDLLsLoaded(1).Refresh;
-                Externals = oCommands.Externals;
-                if ( ! Externals Is null )
-            {;
-                if ( ExternalCount > 0 )
-            {;
-                Load mnuExternals(ExternalCount);
-                mnuExternals(ExternalCount).Text = "-";
-                mnuExternals(ExternalCount).Tag = string.Empty;
-                mnuExternals(ExternalCount).Enabled = true;
-                mnuExternals(ExternalCount).Visible = true;
-                ExternalCount +=  1;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void DeleteTemplate            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_DeleteTemplate;
-                Boolean static bInHereAlready;
-                if ( bInHereAlready )
-            {
  return;
-                bInHereAlready = true;
-
-                if ( CurrentTemplate Is null )
+        bInHereAlready = true;
+        if ( CurrentTemplate Is null )
             {;
-                if ( bAutoDelete )
+        if ( bAutoDelete )
             {;
-                MsgBox "DeleteTemplate failed because nothing is selected.";
-                }
+        MsgBox "DeleteTemplate failed because nothing is selected.";
+        }
             else
             {;
-                MsgBox "Please select a " + gsTemplate + " to delete first.";
-            }
+        MsgBox "Please select a " + gsTemplate + " to delete first.";
+    }
 
-            public As Evaluate            {
-                try
+    public As Evaluate    {
+        try
 {;
-
-
-                if ( InStr(sExpression), " AND ") .ToUpper()
+        if ( InStr(sExpression), " AND ") .ToUpper()
             {;
-                vLeftOfOp = InStr(sExpression), " AND ".ToUpper();
-                sExpression.Substring(0, vLeftOfOp - 1);
-                sRightOfOp = sExpression.Substring( vLeftOfOp + 5);
-                sLeftOfOp = Evaluate(Trim$(sLeftOfOp), asaVar);
-                sRightOfOp = Evaluate(Trim$(sRightOfOp), asaVar);
-                Evaluate = IIf((Val(sLeftOfOp) <> 0) And (Val(sRightOfOp) <> 0), "1", "0");
-                return; // ???;
-
-                }
+        vLeftOfOp = InStr(sExpression), " AND ".ToUpper();
+        sExpression.Substring(0, vLeftOfOp - 1);
+        sRightOfOp = sExpression.Substring( vLeftOfOp + 5);
+        sLeftOfOp = Evaluate(Trim$(sLeftOfOp), asaVar);
+        sRightOfOp = Evaluate(Trim$(sRightOfOp), asaVar);
+        Evaluate = IIf((Val(sLeftOfOp) <> 0) And (Val(sRightOfOp) <> 0), "1", "0");
+        return; // ???;
+        }
             else
             {if ( InStr(sExpression), " OR ") .ToUpper()
             {;
-                vLeftOfOp = InStr(sExpression), " OR ".ToUpper();
-                sExpression.Substring(0, vLeftOfOp - 1);
-                sRightOfOp = sExpression.Substring( vLeftOfOp + 5);
-                sLeftOfOp = Evaluate(Trim$(sLeftOfOp), asaVar);
-                sRightOfOp = Evaluate(Trim$(sRightOfOp), asaVar);
-                Evaluate = IIf((Val(sLeftOfOp) <> 0) Or (Val(sRightOfOp) <> 0), "1", "0");
-                return; // ???;
-
-                }
+        vLeftOfOp = InStr(sExpression), " OR ".ToUpper();
+        sExpression.Substring(0, vLeftOfOp - 1);
+        sRightOfOp = sExpression.Substring( vLeftOfOp + 5);
+        sLeftOfOp = Evaluate(Trim$(sLeftOfOp), asaVar);
+        sRightOfOp = Evaluate(Trim$(sRightOfOp), asaVar);
+        Evaluate = IIf((Val(sLeftOfOp) <> 0) Or (Val(sRightOfOp) <> 0), "1", "0");
+        return; // ???;
+        }
             else
             {if ( InStr(sExpression), " XOR ") .ToUpper()
             {;
-                vLeftOfOp = InStr(sExpression), " XOR ".ToUpper();
-                sExpression.Substring(0, vLeftOfOp - 1);
-                sRightOfOp = sExpression.Substring( vLeftOfOp + 5);
-                sLeftOfOp = Evaluate(Trim$(sLeftOfOp), asaVar);
-                sRightOfOp = Evaluate(Trim$(sRightOfOp), asaVar);
-                Evaluate = IIf((Val(sLeftOfOp) <> 0) Xor (Val(sRightOfOp) <> 0), "1", "0");
-                return; // ???;
-
-                }
+        vLeftOfOp = InStr(sExpression), " XOR ".ToUpper();
+        sExpression.Substring(0, vLeftOfOp - 1);
+        sRightOfOp = sExpression.Substring( vLeftOfOp + 5);
+        sLeftOfOp = Evaluate(Trim$(sLeftOfOp), asaVar);
+        sRightOfOp = Evaluate(Trim$(sRightOfOp), asaVar);
+        Evaluate = IIf((Val(sLeftOfOp) <> 0) Xor (Val(sRightOfOp) <> 0), "1", "0");
+        return; // ???;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void FillAddInScreen()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_FillAddInScreen;
-                Boolean static bInHereAlready;
-                if ( bInHereAlready )
-            {
- return;
-                bInHereAlready = true;
-                mbFillingAddInScreen = true;
-                if ( CurrentTemplate Is null )
+    public void FillAddInScreen()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_FillAddInScreen;
+        Boolean static bInHereAlready;
+        if ( bInHereAlready )
             {
  return;
+        bInHereAlready = true;
+        mbFillingAddInScreen = true;
+        if ( CurrentTemplate Is null )
+            {
+ return;
 
-                txtName = CurrentTemplate.Key;
-                txtShortName = CurrentTemplate.ShortTemplateName;
+        txtName = CurrentTemplate.Key;
+        txtShortName = CurrentTemplate.ShortTemplateName;
+        txtCode(0) = CurrentTemplate.memoCodeAtTop;
+        txtCode(1) = CurrentTemplate.memoCodeAtCursor;
+        txtCode(2) = CurrentTemplate.memoCodeAtBottom;
+        txtFilename = CurrentTemplate.FileName;
+        txtCodeToFile = CurrentTemplate.memoCodeToFile;
+        chkUndeletable = Abs(.Undeletable);
+        chkLocked = Abs(.Locked);
+        chkFavorite = Abs(.Favorite);
+        mnuIsFavorite.Checked = CurrentTemplate.Favorite;
+        chkSelected = Abs(.Selected);
+        lblRevision.Text = "Revision #: " + CurrentTemplate.Revision;
+        lblAlpha.Text = "Alpha Date: " + Format$(.DateCreated, "Mmmm D, YYYY H:NN:SS AM/PM");
+        lblDelta.Text = "Delta Date: " + Format$(.DateModified, "Mmmm D, YYYY H:NN:SS AM/PM");
+        //        '         With SliceAndDice.SystemInfo("Hotkey Templates").Item(.Key);
+        //        '              If Len(.Value) Then;
+        //        '                 hkyInstantInsert.HotKeyModifier = Val(sGetToken(.Value, 2, gsC));
+        //        '                 hkyInstantInsert.HotKey = Val(sGetToken(.Value, 1, gsC));
+        //        '              Else;
+        //        '                 hkyInstantInsert.HotKeyModifier = HOTKEYF_EXT;
+        //        '                 hkyInstantInsert.HotKey = 0;
+        //        '              End If;
+        //        '         End With;
+    }
 
-                txtCode(0) = CurrentTemplate.memoCodeAtTop;
-                txtCode(1) = CurrentTemplate.memoCodeAtCursor;
-                txtCode(2) = CurrentTemplate.memoCodeAtBottom;
-
-                txtFilename = CurrentTemplate.FileName;
-                txtCodeToFile = CurrentTemplate.memoCodeToFile;
-
-                chkUndeletable = Abs(.Undeletable);
-                chkLocked = Abs(.Locked);
-                chkFavorite = Abs(.Favorite);
-                mnuIsFavorite.Checked = CurrentTemplate.Favorite;
-                chkSelected = Abs(.Selected);
-                lblRevision.Text = "Revision #: " + CurrentTemplate.Revision;
-                lblAlpha.Text = "Alpha Date: " + Format$(.DateCreated, "Mmmm D, YYYY H:NN:SS AM/PM");
-                lblDelta.Text = "Delta Date: " + Format$(.DateModified, "Mmmm D, YYYY H:NN:SS AM/PM");
-                //        '         With SliceAndDice.SystemInfo("Hotkey Templates").Item(.Key);
-                //        '              If Len(.Value) Then;
-                //        '                 hkyInstantInsert.HotKeyModifier = Val(sGetToken(.Value, 2, gsC));
-                //        '                 hkyInstantInsert.HotKey = Val(sGetToken(.Value, 1, gsC));
-                //        '              Else;
-                //        '                 hkyInstantInsert.HotKeyModifier = HOTKEYF_EXT;
-                //        '                 hkyInstantInsert.HotKey = 0;
-                //        '              End If;
-                //        '         End With;
-            }
-
-            public void GetCategoryAndName            {
-                if ( lTokenCount(sCategoryAndName, gsCategoryTemplateDelimiter) < 2 )
+    public void GetCategoryAndName    {
+        if ( lTokenCount(sCategoryAndName, gsCategoryTemplateDelimiter) < 2 )
             {;
-                sCategory = "Unknown";
-                sShortName = sCategoryAndName;
-                }
+        sCategory = "Unknown";
+        sShortName = sCategoryAndName;
+        }
             else
             {;
-                sCategory = sGetToken(sCategoryAndName, 1, gsCategoryTemplateDelimiter);
-                sShortName = sAfter(sCategoryAndName, 1, gsCategoryTemplateDelimiter);
-                if ( Len(sShortName) = 0 )
+        sCategory = sGetToken(sCategoryAndName, 1, gsCategoryTemplateDelimiter);
+        sShortName = sAfter(sCategoryAndName, 1, gsCategoryTemplateDelimiter);
+        if ( Len(sShortName) = 0 )
             {;
-                sCategory = "Unknown";
-                sShortName = sCategoryAndName;
-            }
+        sCategory = "Unknown";
+        sShortName = sCategoryAndName;
+    }
 
-            public void HandleIDEEvents            {
-                // On Error GoTo EH_frmMain_HandleIDEEvents;
-                // On Error goto Next;
-                // EH_frmMain_HandleIDEEvents_Continue:;
-                // EH_frmMain_HandleIDEEvents:;
-            }
+    public void HandleIDEEvents    {
+        // On Error GoTo EH_frmMain_HandleIDEEvents;
+        // On Error goto Next;
+        // EH_frmMain_HandleIDEEvents_Continue:;
+        // EH_frmMain_HandleIDEEvents:;
+    }
 
-            public void HideAllWindows            {
-                try
+    public void HideAllWindows    {
+        try
 {;
-
-                if ( ! m_oDBClassGen Is null )
+        if ( ! m_oDBClassGen Is null )
             {;
-                m_oDBClassGen.Hide;
-                }
+        m_oDBClassGen.Hide;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As InitializeAddinDLLs            {
-
-                ShutdownDLLs;
-
-                if ( Len(sAddinList) = 0 )
+    public As InitializeAddinDLLs    {
+        ShutdownDLLs;
+        if ( Len(sAddinList) = 0 )
             {;
-                InitializeAddinDLLs = true;
-                return; // ???;
-            }
+        InitializeAddinDLLs = true;
+        return; // ???;
+    }
 
-            public void NewTemplate            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_NewTemplate;
-
-                if ( Len(sTitle) = 0 )
+    public void NewTemplate    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_NewTemplate;
+        if ( Len(sTitle) = 0 )
             {;
-                sCategory = lsbJumpTo.BarKey;
-                if ( Len(sDefaultShortName) = 0 )
+        sCategory = lsbJumpTo.BarKey;
+        if ( Len(sDefaultShortName) = 0 )
             {;
-                sDefaultShortName = Abs(NextNegativeUnique());
-            }
+        sDefaultShortName = Abs(NextNegativeUnique());
+    }
 
-            public void QueueAction            {
-                OkayToDoAction = false;
-                ActionToDo = sAction;
-                ActionParam = sParam;
-                tmrDoAction.Interval = IIf(Interval > 65535, 65535, IIf(Interval < 100, 100, Interval));
-                tmrDoAction.Enabled = true;
-            }
+    public void QueueAction    {
+        OkayToDoAction = false;
+        ActionToDo = sAction;
+        ActionParam = sParam;
+        tmrDoAction.Interval = IIf(Interval > 65535, 65535, IIf(Interval < 100, 100, Interval));
+        tmrDoAction.Enabled = true;
+    }
 
-            public As RefreshDatabaseConnection()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_RefreshDatabaseConnection;
-
-                Call NextNegativeUnique;
-
-                CurrentTemplate = null;
-                InternalCurrentTemplate = null;
-                SliceAndDice = null;
-
-                SliceAndDice = new CSliceAndDice();
-                if ( ! SliceAndDice.Load(m_sTemplateDatabaseName) )
+    public As RefreshDatabaseConnection()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_RefreshDatabaseConnection;
+        Call NextNegativeUnique;
+        CurrentTemplate = null;
+        InternalCurrentTemplate = null;
+        SliceAndDice = null;
+        SliceAndDice = new CSliceAndDice();
+        if ( ! SliceAndDice.Load(m_sTemplateDatabaseName) )
             {;
-                RefreshDatabaseConnection = false;
-                return; // ???;
-            }
+        RefreshDatabaseConnection = false;
+        return; // ???;
+    }
 
-            public void DoInsertion            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_DoInsertion;
-                Boolean static bInHereAlready;
-                if ( bInHereAlready )
+    public void DoInsertion    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_DoInsertion;
+        Boolean static bInHereAlready;
+        if ( bInHereAlready )
             {
  return;
-                bInHereAlready = true;
-
-                lsbJumpTo.Enabled = false;
-
-                gbCancelInsertion = false;
-                mbIgnoreBlanks = false;
-                mbIgnoreReadOnly = false;
-
-
-
-                //    'If txtName <> sTemplateToInsert Then;
-                if ( ! SetInternalCurrentTemplate(sTemplateToInsert) )
+        bInHereAlready = true;
+        lsbJumpTo.Enabled = false;
+        gbCancelInsertion = false;
+        mbIgnoreBlanks = false;
+        mbIgnoreReadOnly = false;
+        //    'If txtName <> sTemplateToInsert Then;
+        if ( ! SetInternalCurrentTemplate(sTemplateToInsert) )
             {;
-                LogError "frmMain", "DoInsertion", vbObjectError + 100, "Can't find the " + gsTemplate + gsS + gsA + sTemplateToInsert + "' to insert." + gsEolTab + "Aborting this insertion.", Erl;
-                GoTo EH_frmMain_DoInsertion_Continue;
-            }
+        LogError "frmMain", "DoInsertion", vbObjectError + 100, "Can't find the " + gsTemplate + gsS + gsA + sTemplateToInsert + "' to insert." + gsEolTab + "Aborting this insertion.", Erl;
+        GoTo EH_frmMain_DoInsertion_Continue;
+    }
 
-            public As FillTemplateWithUserInput            {
-                string static sVarName;
-                string static sVarPhrase;
-                string static sDefault;
-                string static sT;
-                string static sVar1;
-                string static sVar2;
-                string static sVar3;
-                string static sNow;
-                long static lParamCount;
-                long static Curr;
-                Boolean static bInlineCommandExecuted;
-
-                sGetToken(sToParse, 1, vbNewLine).Contains(gsSoftVarDelimiter) > 0    ' For each soft variable found) {;
-                sVarPhrase = sGetToken(sToParse, 2, gsSoftVarDelimiter)    ' Get the Variable name and default if provided;
-                sVarName = sGetToken(sVarPhrase, 1, gsInlineCmdDelimiter)    ' Extract just the variable name;
-                sNow = string.Empty;
-                bInlineCommandExecuted = false;
-                if ( SadCommandSetCount > 0 )
+    public As FillTemplateWithUserInput    {
+        string static sVarName;
+        string static sVarPhrase;
+        string static sDefault;
+        string static sT;
+        string static sVar1;
+        string static sVar2;
+        string static sVar3;
+        string static sNow;
+        long static lParamCount;
+        long static Curr;
+        Boolean static bInlineCommandExecuted;
+        sGetToken(sToParse, 1, vbNewLine).Contains(gsSoftVarDelimiter) > 0    ' For each soft variable found) {;
+        sVarPhrase = sGetToken(sToParse, 2, gsSoftVarDelimiter)    ' Get the Variable name and default if provided;
+        sVarName = sGetToken(sVarPhrase, 1, gsInlineCmdDelimiter)    ' Extract just the variable name;
+        sNow = string.Empty;
+        bInlineCommandExecuted = false;
+        if ( SadCommandSetCount > 0 )
             {;
-                sVar1 = sAfter(sVarPhrase, 1, gsInlineCmdDelimiter);
-                for(var Curr = 1; Curr < SadCommandSetCount; Curr++)  {;
-                if ( SadCommands(CurrSet).ExecuteSoftCommandInline(asaX, sVarName), sVar1, sNow) .ToUpper()
+        sVar1 = sAfter(sVarPhrase, 1, gsInlineCmdDelimiter);
+        for(var Curr = 1; Curr < SadCommandSetCount; Curr++)  {;
+        if ( SadCommands(CurrSet).ExecuteSoftCommandInline(asaX, sVarName), sVar1, sNow) .ToUpper()
             {;
-                bInlineCommandExecuted = true;
-                Exit For;
-            }
+        bInlineCommandExecuted = true;
+        Exit For;
+    }
 
-            public As InternalInsertTemplate            {
-
-
-
-
-
-
-
-                //    ' For use by internal commands only (not outside select case statment);
-
-
-                // TODO: Rewrite try/catch and/or goto. EH_InsertTemplate;
-
-                if ( II Is null )
+    public As InternalInsertTemplate    {
+        //    ' For use by internal commands only (not outside select case statment);
+        // TODO: Rewrite try/catch and/or goto. EH_InsertTemplate;
+        if ( II Is null )
             {;
-                InternalInsertTemplate = true;
-                GoTo EH_InsertTemplate_Continue;
-            }
+        InternalInsertTemplate = true;
+        GoTo EH_InsertTemplate_Continue;
+    }
 
-            public void GetProcAtLine            {
-
-                if ( ! Parent.HostedByVB )
+    public void GetProcAtLine    {
+        if ( ! Parent.HostedByVB )
             {
  return;   ' Shell override;
-
-                if ( lCurrentLine < 1 Or lCurrentLine > Parent.vbInst.ActiveCodePane.CodeModule.CountOfLines )
+        if ( lCurrentLine < 1 Or lCurrentLine > Parent.vbInst.ActiveCodePane.CodeModule.CountOfLines )
             {;
-                sProcName = string.Empty;
-                lProcType = 0;
-                return;
-            }
+        sProcName = string.Empty;
+        lProcType = 0;
+        return;
+    }
 
-            public As FindLastProcLine            {
-                long static lLine          ;
-                long static lCurLine       ;
-                long static lLastLine      ;
-                string static sFindstring    ;
-                string static sFunctionHeader;
-
-                if ( ! Parent.HostedByVB )
+    public As FindLastProcLine    {
+        long static lLine          ;
+        long static lCurLine       ;
+        long static lLastLine      ;
+        string static sFindstring    ;
+        string static sFunctionHeader;
+        if ( ! Parent.HostedByVB )
             {
  return; // ???   ' Shell override;
-
-                try
+        try
 {;
 
 
-                lLine = Parent.vbInst.ActiveCodePane.CodeModule.ProcStartLine(sProcName, lProcType)  ' Get the first line number of the procedure;
-                if ( ex <> 0 )
+        lLine = Parent.vbInst.ActiveCodePane.CodeModule.ProcStartLine(sProcName, lProcType)  ' Get the first line number of the procedure;
+        if ( ex <> 0 )
             {;
-                if ( InStr(sProcName, "_") )
+        if ( InStr(sProcName, "_") )
             {;
 
-                lLine = Parent.vbInst.ActiveCodePane.CodeModule.CreateEventProc(sGetToken(sProcName, 2, "_"), sGetToken(sProcName, 1, "_"));
-                if ( ex <> 0 )
+        lLine = Parent.vbInst.ActiveCodePane.CodeModule.CreateEventProc(sGetToken(sProcName, 2, "_"), sGetToken(sProcName, 1, "_"));
+        if ( ex <> 0 )
             {;
-                MsgBox "FindLastProcLine" + gsEolTab + "Can't find:" + gsEolTab + vbTab + sProcName + gsEolTab + "In module:" + gsEolTab + vbTab + Parent.vbInst.ActiveCodePane.CodeModule.Parent.Name;
-                gbCancelInsertion = bUserSure("Cancel processing ?");
-                FindLastProcLine = 0;
+        MsgBox "FindLastProcLine" + gsEolTab + "Can't find:" + gsEolTab + vbTab + sProcName + gsEolTab + "In module:" + gsEolTab + vbTab + Parent.vbInst.ActiveCodePane.CodeModule.Parent.Name;
+        gbCancelInsertion = bUserSure("Cancel processing ?");
+        FindLastProcLine = 0;
 
-                return; // ???;
-                }
+        return; // ???;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As JumpTo            {
-                // TODO: Rewrite try/catch and/or goto. frmMain_EH_JumpTo;
-                string static sCategoryName;
-                string static sShortTemplateName;
-                long static CurrHE;
+    public As JumpTo    {
+        // TODO: Rewrite try/catch and/or goto. frmMain_EH_JumpTo;
+        string static sCategoryName;
+        string static sShortTemplateName;
+        long static CurrHE;
 
-
-                SaveTemplate;
-
-                sCategoryName = sGetToken(sTemplateName, 1, gsCategoryTemplateDelimiter);
-                sShortTemplateName = sAfter(sTemplateName, 1, gsCategoryTemplateDelimiter);
-                try
+        SaveTemplate;
+        sCategoryName = sGetToken(sTemplateName, 1, gsCategoryTemplateDelimiter);
+        sShortTemplateName = sAfter(sTemplateName, 1, gsCategoryTemplateDelimiter);
+        try
 {;
-                if ( SliceAndDice.Categorys(sCategoryName).Templates(sTemplateName) Is null )
+        if ( SliceAndDice.Categorys(sCategoryName).Templates(sTemplateName) Is null )
             {;
-                JumpTo = false;
-                return; // ???;
-                }
+        JumpTo = false;
+        return; // ???;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void RefillList()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_RefillList;
-                Boolean static bInHereAlready;
-                if ( bInHereAlready )
+    public void RefillList()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_RefillList;
+        Boolean static bInHereAlready;
+        if ( bInHereAlready )
             {
  return;
-                bInHereAlready = true;
+        bInHereAlready = true;
+        lsbJumpTo.Visible = false;
+        lsbJumpTo.Clear;
+        foreach( var CurrCategory in SliceAndDice.Categorys );
 
-
-                lsbJumpTo.Visible = false;
-                lsbJumpTo.Clear;
-                foreach( var CurrCategory in SliceAndDice.Categorys );
-
-                if ( CurrCategory.Deleted )
+        if ( CurrCategory.Deleted )
             {;
-                //                ' Ignore this one;
-                //                'Else;
-                }
+        //                ' Ignore this one;
+        //                'Else;
+        }
             else
             {if ( CurrCategory.CategoryType = 0 )
             {;
-                if ( lsbJumpTo.BarKey = "Bar 1" )
+        if ( lsbJumpTo.BarKey = "Bar 1" )
             {;
-                lsbJumpTo.CurBar = 0;
-                lsbJumpTo.BarName = CurrCategory.Key + " (" + Format$(CurrCategory.Templates.Count, "00") + gsPC;
-                lsbJumpTo.BarKey = CurrCategory.Key;
-                lsbJumpTo.View = 3;
-                lsbJumpTo.Arrange = CurrCategory.Arrange;
-                lsbJumpTo.BarType = "List";
-                try
+        lsbJumpTo.CurBar = 0;
+        lsbJumpTo.BarName = CurrCategory.Key + " (" + Format$(CurrCategory.Templates.Count, "00") + gsPC;
+        lsbJumpTo.BarKey = CurrCategory.Key;
+        lsbJumpTo.View = 3;
+        lsbJumpTo.Arrange = CurrCategory.Arrange;
+        lsbJumpTo.BarType = "List";
+        try
 {;
-                lsbJumpTo.Bars(0).ColumnHeaders(1).Width = 3400;
-                }
+        lsbJumpTo.Bars(0).ColumnHeaders(1).Width = 3400;
+        }
             else
             {;
-                lsbJumpTo.AddBar(.Key + " (" + Format$(CurrCategory.Templates.Count, "00") + gsPC, CurrCategory.Key).ColumnHeaders(1).Width = 3400;
-                }
+        lsbJumpTo.AddBar(.Key + " (" + Format$(CurrCategory.Templates.Count, "00") + gsPC, CurrCategory.Key).ColumnHeaders(1).Width = 3400;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void SetColors            {
-                try
+    public void SetColors    {
+        try
 {;
-                BackColor.Substring(BackColor.Length - 1) == "&" )
+        BackColor.Substring(BackColor.Length - 1) == "&" )
             {
 BackColor.Substring(0, Len(BackColor) - 1);
-                ForeColor.Substring(ForeColor.Length - 1) == "&" )
+        ForeColor.Substring(ForeColor.Length - 1) == "&" )
             {
 ForeColor.Substring(0, Len(ForeColor) - 1);
-
-                BackColor.Substring(0, 2) <> "&H" )
+        BackColor.Substring(0, 2) <> "&H" )
             {
  BackColor == "&H" + BackColor;
-                ForeColor.Substring(0, 2) <> "&H" )
+        ForeColor.Substring(0, 2) <> "&H" )
             {
  ForeColor == "&H" + ForeColor;
-
-                lsbJumpTo.BackColor = BackColor;
-                txtCode(0).BackColor = BackColor;
-                txtCode(1).BackColor = BackColor;
-                txtCode(2).BackColor = BackColor;
-                txtCodeToFile.BackColor = BackColor;
-                lstSoftCommands.BackColor = BackColor;
-                lstSoftVariables.BackColor = BackColor;
-
-                lsbJumpTo.ForeColor = ForeColor;
-                txtCode(0).ForeColor = ForeColor;
-                txtCode(1).ForeColor = ForeColor;
-                txtCode(2).ForeColor = ForeColor;
-                txtCodeToFile.ForeColor = ForeColor;
-                lstSoftCommands.ForeColor = ForeColor;
-                lstSoftVariables.ForeColor = ForeColor;
-
-                if ( ! m_oDBClassGen Is null )
+        lsbJumpTo.BackColor = BackColor;
+        txtCode(0).BackColor = BackColor;
+        txtCode(1).BackColor = BackColor;
+        txtCode(2).BackColor = BackColor;
+        txtCodeToFile.BackColor = BackColor;
+        lstSoftCommands.BackColor = BackColor;
+        lstSoftVariables.BackColor = BackColor;
+        lsbJumpTo.ForeColor = ForeColor;
+        txtCode(0).ForeColor = ForeColor;
+        txtCode(1).ForeColor = ForeColor;
+        txtCode(2).ForeColor = ForeColor;
+        txtCodeToFile.ForeColor = ForeColor;
+        lstSoftCommands.ForeColor = ForeColor;
+        lstSoftVariables.ForeColor = ForeColor;
+        if ( ! m_oDBClassGen Is null )
             {;
 
-                m_oDBClassGen.lvwFields.BackColor = BackColor;
-                m_oDBClassGen.lvwFields.ForeColor = ForeColor;
-                m_oDBClassGen.dvwTable.BackColor = BackColor;
-                m_oDBClassGen.dvwTable.ForeColor = ForeColor;
-                }
+        m_oDBClassGen.lvwFields.BackColor = BackColor;
+        m_oDBClassGen.lvwFields.ForeColor = ForeColor;
+        m_oDBClassGen.dvwTable.BackColor = BackColor;
+        m_oDBClassGen.dvwTable.ForeColor = ForeColor;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As SetInternalCurrentTemplate            {
-                try
+    public As SetInternalCurrentTemplate    {
+        try
 {;
-                string static sCategoryName;
-                string static sShortTemplateName;
+        string static sCategoryName;
+        string static sShortTemplateName;
 
-
-                SaveTemplate;
-
-                sCategoryName = sGetToken(sTemplateName, 1, gsCategoryTemplateDelimiter);
-                sShortTemplateName = sAfter(sTemplateName, 1, gsCategoryTemplateDelimiter);
-
-                if ( SliceAndDice(sCategoryName).Templates(sTemplateName) Is null )
+        SaveTemplate;
+        sCategoryName = sGetToken(sTemplateName, 1, gsCategoryTemplateDelimiter);
+        sShortTemplateName = sAfter(sTemplateName, 1, gsCategoryTemplateDelimiter);
+        if ( SliceAndDice(sCategoryName).Templates(sTemplateName) Is null )
             {;
-                SetInternalCurrentTemplate = false;
-                }
+        SetInternalCurrentTemplate = false;
+        }
             else
             {;
-                InternalCurrentTemplate = SliceAndDice(sCategoryName).Templates(sTemplateName);
-                SetInternalCurrentTemplate = true;
-                }
+        InternalCurrentTemplate = SliceAndDice(sCategoryName).Templates(sTemplateName);
+        SetInternalCurrentTemplate = true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As sGetCurrentLineAtCharacter            {
-                sTextToSearch, lCharToStart).Substring(0, vbNewLine);
-                if ( lCount > 0 )
+    public As sGetCurrentLineAtCharacter    {
+        sTextToSearch, lCharToStart).Substring(0, vbNewLine);
+        if ( lCount > 0 )
             {;
-                sGetCurrentLineAtCharacter = sGetToken(sTextToSearch, lCount, vbNewLine);
-                }
+        sGetCurrentLineAtCharacter = sGetToken(sTextToSearch, lCount, vbNewLine);
+        }
             else
             {;
-                sGetCurrentLineAtCharacter = sTextToSearch;
-            }
+        sGetCurrentLineAtCharacter = sTextToSearch;
+    }
 
-            public void ShowExternalsMenu()
-            {
-                try
+    public void ShowExternalsMenu()
+    {
+        try
 {;
-                PopupMenu mnuExternalFunctions;
-                }
+        PopupMenu mnuExternalFunctions;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void ShowFavMenu()
-            {
-                try
+    public void ShowFavMenu()
+    {
+        try
 {;
-                PopupMenu mnuFav;
-                }
+        PopupMenu mnuFav;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As ShutdownDLLs()
-            {
-                try
+    public As ShutdownDLLs()
+    {
+        try
 {;
-
-                for(var Curr = 1; Curr < SadCommandSetCount; Curr++)  {;
-                Call SadCommands(CurrSet).Shutdown;
-                SadCommands(CurrSet) = null;
-                } // CurrSet;
-                ReDim SadCommands(1 To 1);
-                SadCommandSetCount = 0;
-
-                ShutdownDLLs = true;
-                }
+        for(var Curr = 1; Curr < SadCommandSetCount; Curr++)  {;
+        Call SadCommands(CurrSet).Shutdown;
+        SadCommands(CurrSet) = null;
+        } // CurrSet;
+        ReDim SadCommands(1 To 1);
+        SadCommandSetCount = 0;
+        ShutdownDLLs = true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void SaveTemplate()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_SaveTemplate;
-                Boolean static bInHereAlready;
-                if ( bInHereAlready )
+    public void SaveTemplate()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_SaveTemplate;
+        Boolean static bInHereAlready;
+        if ( bInHereAlready )
             {
  return;
-                bInHereAlready = true;
-
-                MSComctlLib.ListView static CurrBar;
-
-                if ( ! CurrentTemplate Is null )
+        bInHereAlready = true;
+        MSComctlLib.ListView static CurrBar;
+        if ( ! CurrentTemplate Is null )
             {;
 
-                if ( ! CurrentTemplate.Deleted )
+        if ( ! CurrentTemplate.Deleted )
             {;
-                if ( CurrentTemplate.ParentKey = string.Empty )
+        if ( CurrentTemplate.ParentKey = string.Empty )
             {;
-                MsgBox "frmMain.SaveTemplate : Error found. ParentKey blank";
-                GoTo EH_frmMain_SaveTemplate_Continue;
-            }
+        MsgBox "frmMain.SaveTemplate : Error found. ParentKey blank";
+        GoTo EH_frmMain_SaveTemplate_Continue;
+    }
 
-            public void UpdateFavorites()
-            {
-                try
+    public void UpdateFavorites()
+    {
+        try
 {;
-
-                DoEvents: DoEvents: DoEvents;
-
-                if ( FavoriteCount > 0 )
+        DoEvents: DoEvents: DoEvents;
+        if ( FavoriteCount > 0 )
             {
                          ' this.Clear()out previous entries;
-                for(var CurrFav = FavoriteCount; CurrFav < 1 Step -1; CurrFav++)  {;
-                Unload mnuFavorite(CurrFav);
-                } // CurrFav;
-                mnuFavorite(0).Text = "-Empty-";
-                mnuFavorite(0).Enabled = false;
-                FavoriteCount = 0;
-                }
+        for(var CurrFav = FavoriteCount; CurrFav < 1 Step -1; CurrFav++)  {;
+        Unload mnuFavorite(CurrFav);
+        } // CurrFav;
+        mnuFavorite(0).Text = "-Empty-";
+        mnuFavorite(0).Enabled = false;
+        FavoriteCount = 0;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As sTemplateIcon            {
-                if ( CurrTemplate Is null )
+    public As sTemplateIcon    {
+        if ( CurrTemplate Is null )
             {;
-                sTemplateIcon = "!";
-                }
+        sTemplateIcon = "!";
+        }
             else
             {if ( Len(CurrTemplate.memoCodeAtBottom + CurrTemplate.memoCodeAtCursor + CurrTemplate.memoCodeAtTop + CurrTemplate.memoCodeToFile) > 0 )
             {;
-                sTemplateIcon = gsCategory;
-                }
+        sTemplateIcon = gsCategory;
+        }
             else
             {if ( CurrTemplate.Selected )
             {;
-                sTemplateIcon = "Check";
-                }
+        sTemplateIcon = "Check";
+        }
             else
             {if ( CurrTemplate.Undeletable Or CurrTemplate.Locked )
             {;
-                sTemplateIcon = "Key";
-                }
+        sTemplateIcon = "Key";
+        }
             else
             {;
-                sTemplateIcon = "Document";
-            }
+        sTemplateIcon = "Document";
+    }
 
-            public void UpdateHotKeys()
-            {
-                // On Error GoTo EH_UpdateHotKeys;
-                // EH_UpdateHotKeys_Continue:;
-                // EH_UpdateHotKeys:;
-            }
+    public void UpdateHotKeys()
+    {
+        // On Error GoTo EH_UpdateHotKeys;
+        // EH_UpdateHotKeys_Continue:;
+        // EH_UpdateHotKeys:;
+    }
 
-            public void chkAutoRecalc_Click()
-            {
-                SaveSetting App.ProductName, "Last", "Auto Recalc", chkAutoRecalc.Value;
-            }
+    public void chkAutoRecalc_Click()
+    {
+        SaveSetting App.ProductName, "Last", "Auto Recalc", chkAutoRecalc.Value;
+    }
 
-            public void chkFavorite_Click()
-            {
-                if ( mbFillingAddInScreen )
+    public void chkFavorite_Click()
+    {
+        if ( mbFillingAddInScreen )
             {
  return;
-                CurrentTemplate.Favorite = (chkFavorite.Value <> 0);
-                mnuIsFavorite.Checked = CurrentTemplate.Favorite;
-                UpdateFavorites;
-            }
+        CurrentTemplate.Favorite = (chkFavorite.Value <> 0);
+        mnuIsFavorite.Checked = CurrentTemplate.Favorite;
+        UpdateFavorites;
+    }
 
-            public void chkUndeletable_Click()
-            {
-                Boolean static bInHereAlready;
-
-                if ( mbFillingAddInScreen )
+    public void chkUndeletable_Click()
+    {
+        Boolean static bInHereAlready;
+        if ( mbFillingAddInScreen )
             {
  return;
-                if ( bInHereAlready )
+        if ( bInHereAlready )
             {
  return;
-                if ( ! mnuPasswordProtection.Checked )
+        if ( ! mnuPasswordProtection.Checked )
             {;
-                lsbJumpTo.BarItemIcon = IIf(chkLocked.Value = 0 And chkUndeletable.Value = 0, "Document" + IIf(lsbJumpTo.BarItemIcon = "DocumentAlternate", "Alternate", string.Empty), "Key");
-                return;
-            }
+        lsbJumpTo.BarItemIcon = IIf(chkLocked.Value = 0 And chkUndeletable.Value = 0, "Document" + IIf(lsbJumpTo.BarItemIcon = "DocumentAlternate", "Alternate", string.Empty), "Key");
+        return;
+    }
 
-            public void chkUndeletable_Validate            {
-            }
+    public void chkUndeletable_Validate    {
+    }
 
-            public void cmdRecalc_Click()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_cmdRecalc_Click;
+    public void cmdRecalc_Click()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_cmdRecalc_Click;
+        Screen.MousePointer = vbHourglass;
+        lstSoftVariables.Clear;
+        lstSoftCommands.Clear;
+        //    'MsgBox "Recalc to occur here.";
+        sCodeToCheck(0) = txtCode(1);
+        sCodeToCheck(1) = txtCode(0);
+        sCodeToCheck(2) = txtCode(2);
 
-
-                Screen.MousePointer = vbHourglass;
-
-                lstSoftVariables.Clear;
-                lstSoftCommands.Clear;
-                //    'MsgBox "Recalc to occur here.";
-
-                sCodeToCheck(0) = txtCode(1);
-                sCodeToCheck(1) = txtCode(0);
-                sCodeToCheck(2) = txtCode(2);
-
-
-                switch txtShortName.ToUpper();
-                Case "COLLECTION", "COLLECTION, NO CHILD", "COLLECTION, NO PARENT", "COLLECTION, NO PARENT, NO CHILD";
-                if ( InStr(txtShortName), "NO PARENT") = 0 .ToUpper()
+        switch txtShortName.ToUpper();
+        Case "COLLECTION", "COLLECTION, NO CHILD", "COLLECTION, NO PARENT", "COLLECTION, NO PARENT, NO CHILD";
+        if ( InStr(txtShortName), "NO PARENT") = 0 .ToUpper()
             {;
-                lstSoftVariables.AddItem("* Parent AutoNumber Field Name");
-                lstSoftVariables.AddItem("* Parent AutoNumber Property Name");
-            }
+        lstSoftVariables.AddItem("* Parent AutoNumber Field Name");
+        lstSoftVariables.AddItem("* Parent AutoNumber Property Name");
+    }
 
-            public void Form_LostFocus()
-            {
-                try
+    public void Form_LostFocus()
+    {
+        try
 {;
-                lsbJumpTo.HideCategories;
-                }
+        lsbJumpTo.HideCategories;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_QueryUnload            {
-                if ( UnloadMode = vbFormControlMenu )
+    public void Form_QueryUnload    {
+        if ( UnloadMode = vbFormControlMenu )
             {;
-                Cancel = true;
-                mnuFileExit_Click;
-                }
+        Cancel = true;
+        mnuFileExit_Click;
+        }
             else
             {;
-                Form_Unload Cancel;
-            }
+        Form_Unload Cancel;
+    }
 
-            public void lsbJumpTo_AfterBarClick()
-            {
-                try
+    public void lsbJumpTo_AfterBarClick()
+    {
+        try
 {;
-                JumpTo lsbJumpTo.BarKey + gsCategoryTemplateDelimiter + lsbJumpTo.BarItemName;
-                }
+        JumpTo lsbJumpTo.BarKey + gsCategoryTemplateDelimiter + lsbJumpTo.BarItemName;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void lsbJumpTo_BarItemClick            {
-                try
+    public void lsbJumpTo_BarItemClick    {
+        try
 {;
-                if ( lsbJumpTo.BarType = "List" )
+        if ( lsbJumpTo.BarType = "List" )
             {;
-                JumpTo BarItemKey;
-                }
+        JumpTo BarItemKey;
+        }
             else
             {;
-                TemplateFound = SliceAndDice.Categorys.ItemByLongTemplateName(BarItemKey);
-                if ( TemplateFound Is null )
+        TemplateFound = SliceAndDice.Categorys.ItemByLongTemplateName(BarItemKey);
+        if ( TemplateFound Is null )
             {;
-                Beep;
-                if ( MsgBox("That " + gsTemplate + " does not exist (yet)." + gsEolTab + "Create " + gsTemplate + " now ?", vbYesNo, "NO " + gsTemplate + ": " + BarItemKey) = vbYes )
+        Beep;
+        if ( MsgBox("That " + gsTemplate + " does not exist (yet)." + gsEolTab + "Create " + gsTemplate + " now ?", vbYesNo, "NO " + gsTemplate + ": " + BarItemKey) = vbYes )
             {;
-                QueueAction "NewTemplate", BarItemKey;
-                OkayToDoAction = true;
-                }
+        QueueAction "NewTemplate", BarItemKey;
+        OkayToDoAction = true;
+        }
             else
             {;
-                if ( Val(CurrentHistoryEntry) > 0 )
+        if ( Val(CurrentHistoryEntry) > 0 )
             {;
-                JumpTo m_asaHistory(CurrentHistoryEntry), false, true;
-                }
+        JumpTo m_asaHistory(CurrentHistoryEntry), false, true;
+        }
             else
             {if ( SliceAndDice.Categorys(sGetToken(BarItemKey, 1, gsCategoryTemplateDelimiter)).Templates.Count > 1 )
             {;
-                JumpTo SliceAndDice.Categorys(sGetToken(BarItemKey, 1, gsCategoryTemplateDelimiter)).Templates(1);
-                }
+        JumpTo SliceAndDice.Categorys(sGetToken(BarItemKey, 1, gsCategoryTemplateDelimiter)).Templates(1);
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void lsbJumpTo_BarItemDblClick            {
-                if ( Len(BarItemKey) == 0 )
+    public void lsbJumpTo_BarItemDblClick    {
+        if ( Len(BarItemKey) == 0 )
             {
  return;
+        mnuInsertTemplate_Click;
+    }
 
-                mnuInsertTemplate_Click;
-            }
-
-            public void lsbJumpTo_KeyDown            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_lsbJumpTo_KeyDown;
-
-
-                if ( (Shift And vbShiftMask) > 0 )
+    public void lsbJumpTo_KeyDown    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_lsbJumpTo_KeyDown;
+        if ( (Shift And vbShiftMask) > 0 )
             {
                ' Shift Key         *******************;
-                switch KeyCode;
-                ;
-                Case vbKeyInsert: KeyCode = 0: Shift = 0  ' Paste;
-                if ( TypeOf ActiveControl Is TextBox )
+        switch KeyCode;
+        ;
+        Case vbKeyInsert: KeyCode = 0: Shift = 0  ' Paste;
+        if ( TypeOf ActiveControl Is TextBox )
             {;
-                ActiveControl.SelText = Clipboard.GetText;
-            }
+        ActiveControl.SelText = Clipboard.GetText;
+    }
 
-            public void lsbJumpTo_LostFocus()
-            {
-                try
+    public void lsbJumpTo_LostFocus()
+    {
+        try
 {;
-                lsbJumpTo.HideCategories;
-                }
+        lsbJumpTo.HideCategories;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void lsbJumpTo_MouseDown            {
-                if ( Button == vbRightButton And Shift == 0 )
+    public void lsbJumpTo_MouseDown    {
+        if ( Button == vbRightButton And Shift == 0 )
             {
       ' Right click, pop-up menu;
-                PopupMenu mnuTemplate;
-            }
+        PopupMenu mnuTemplate;
+    }
 
-            public void lsbJumpTo_MouseDownOnCategory            {
-                if ( Button == vbRightButton And Shift == 0 )
+    public void lsbJumpTo_MouseDownOnCategory    {
+        if ( Button == vbRightButton And Shift == 0 )
             {
       ' Right click, pop-up menu;
-                PopupMenu mnuCategories;
-            }
+        PopupMenu mnuCategories;
+    }
 
-            public void lstSoftCommands_DblClick()
-            {
-                try
+    public void lstSoftCommands_DblClick()
+    {
+        try
 {;
-                lstSoftVariables.ListIndex = -1;
-                txtCode(0).SelStart = 0: txtCode(0).SelLength = 0;
-                txtCode(1).SelStart = 0: txtCode(1).SelLength = 0;
-                txtCode(2).SelStart = 0: txtCode(2).SelLength = 0;
-                FindInCurrent false, false, true;
-                }
+        lstSoftVariables.ListIndex = -1;
+        txtCode(0).SelStart = 0: txtCode(0).SelLength = 0;
+        txtCode(1).SelStart = 0: txtCode(1).SelLength = 0;
+        txtCode(2).SelStart = 0: txtCode(2).SelLength = 0;
+        FindInCurrent false, false, true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void lstSoftVariables_DblClick()
-            {
-                try
+    public void lstSoftVariables_DblClick()
+    {
+        try
 {;
-                lstSoftCommands.ListIndex = -1;
-                txtCode(0).SelStart = 0: txtCode(0).SelLength = 0;
-                txtCode(1).SelStart = 0: txtCode(1).SelLength = 0;
-                txtCode(2).SelStart = 0: txtCode(2).SelLength = 0;
-                FindInCurrent false, false, true;
-                }
+        lstSoftCommands.ListIndex = -1;
+        txtCode(0).SelStart = 0: txtCode(0).SelLength = 0;
+        txtCode(1).SelStart = 0: txtCode(1).SelLength = 0;
+        txtCode(2).SelStart = 0: txtCode(2).SelLength = 0;
+        FindInCurrent false, false, true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuBack_Click()
-            {
-                try
+    public void mnuBack_Click()
+    {
+        try
 {;
-                if ( Val(CurrentHistoryEntry) < 2 )
+        if ( Val(CurrentHistoryEntry) < 2 )
             {;
-                Beep;
-                mnuBack.Enabled = false;
-                return;
-                }
+        Beep;
+        mnuBack.Enabled = false;
+        return;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuCategoriesDeleteCurrent_Click()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_mnuCategoriesDeleteCurrent_Click;
-                Boolean static bInHereAlready;
-
-                if ( bInHereAlready )
+    public void mnuCategoriesDeleteCurrent_Click()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_mnuCategoriesDeleteCurrent_Click;
+        Boolean static bInHereAlready;
+        if ( bInHereAlready )
             {
  return;
-                bInHereAlready = true;
-
-                SaveTemplate;
-
-                sCurrentCategory = lsbJumpTo.BarKey;
-
-                if ( sCurrentCategory) = "CHANGE FROM" .ToUpper()
+        bInHereAlready = true;
+        SaveTemplate;
+        sCurrentCategory = lsbJumpTo.BarKey;
+        if ( sCurrentCategory) = "CHANGE FROM" .ToUpper()
             {;
-                MsgBox "The 'Change From' " + gsCategory + " is not removable.", vbExclamation;
-                GoTo EH_mnuCategoriesDeleteCurrent_Click_Continue;
-                return;
-                }
+        MsgBox "The 'Change From' " + gsCategory + " is not removable.", vbExclamation;
+        GoTo EH_mnuCategoriesDeleteCurrent_Click_Continue;
+        return;
+        }
             else
             {if ( SliceAndDice.Categorys(sCurrentCategory).CategoryType <> 0 )
             {;
-                if ( ! bUserSure("This " + gsCategory + " is used by the code generators. Deleting it is unadvisable." + gs2EOLTab + "Are you sure you want to permanently erase this " + gsCategory + " ?") )
+        if ( ! bUserSure("This " + gsCategory + " is used by the code generators. Deleting it is unadvisable." + gs2EOLTab + "Are you sure you want to permanently erase this " + gsCategory + " ?") )
             {;
-                GoTo EH_mnuCategoriesDeleteCurrent_Click_Continue;
-                return;
-            }
+        GoTo EH_mnuCategoriesDeleteCurrent_Click_Continue;
+        return;
+    }
 
-            public void mnuCategoriesNewMethod_Click            {
-
-                switch Index;
-                Case 0                                        ' New, Blank Category;
-                sNewCategoryName = InputBox("What should the name of the new, blank " + gsCategory + " be ?", "NEW " + gsCategory, string.Empty);
-                if ( Len(snewCategoryName) == 0 )
+    public void mnuCategoriesNewMethod_Click    {
+        switch Index;
+        Case 0                                        ' New, Blank Category;
+        sNewCategoryName = InputBox("What should the name of the new, blank " + gsCategory + " be ?", "NEW " + gsCategory, string.Empty);
+        if ( Len(snewCategoryName) == 0 )
             {
  return;
-                if ( SliceAndDice(sNewCategoryName) Is null )
+        if ( SliceAndDice(sNewCategoryName) Is null )
             {;
-                SliceAndDice.Categorys.Add(                                                                                                   sNewCategoryName);
-                SliceAndDice.Save;
-                RefillList;
-                }
+        SliceAndDice.Categorys.Add(                                                                                                   sNewCategoryName);
+        SliceAndDice.Save;
+        RefillList;
+        }
             else
             {;
-                MsgBox "There is already a " + gsCategory + " by that name. Aborting.", vbInformation;
-            }
+        MsgBox "There is already a " + gsCategory + " by that name. Aborting.", vbInformation;
+    }
 
-            public void mnuChangeBackgroundColors_Click()
-            {
-                ColorSelected = sChooseColor(lsbJumpTo.BackColor);
-                if ( Len(ColorSelected) == 0 )
-            {
- return;
-
-                SaveSetting App.ProductName, "Last", "Background Color", ColorSelected;
-                SetColors ColorSelected, GetSetting$(App.ProductName, "Last", "Foreground Color", "&H80000008&");
-            }
-
-            public void mnuChangeForegroundColor_Click()
-            {
-                ColorSelected = sChooseColor(lsbJumpTo.ForeColor);
-                if ( Len(ColorSelected) == 0 )
+    public void mnuChangeBackgroundColors_Click()
+    {
+        ColorSelected = sChooseColor(lsbJumpTo.BackColor);
+        if ( Len(ColorSelected) == 0 )
             {
  return;
-                SaveSetting App.ProductName, "Last", "Foreground Color", ColorSelected;
+        SaveSetting App.ProductName, "Last", "Background Color", ColorSelected;
+        SetColors ColorSelected, GetSetting$(App.ProductName, "Last", "Foreground Color", "&H80000008&");
+    }
 
-                SetColors GetSetting$(App.ProductName, "Last", "Background Color", "&H80000018&"), ColorSelected;
-            }
-
-            public void mnuEditCopy_Click()
+    public void mnuChangeForegroundColor_Click()
+    {
+        ColorSelected = sChooseColor(lsbJumpTo.ForeColor);
+        if ( Len(ColorSelected) == 0 )
             {
-                if ( ! chkLocked )
-            {;
-                switch tabCode.SelectedItem.Index;
-                Case 1: stringToClipboard txtCode(0).SelText;
-                Case 2: stringToClipboard txtCode(1).SelText;
-                Case 3: stringToClipboard txtCode(2).SelText;
-                Case 4: stringToClipboard txtCode(3).SelText;
-            }
+ return;
+        SaveSetting App.ProductName, "Last", "Foreground Color", ColorSelected;
+        SetColors GetSetting$(App.ProductName, "Last", "Background Color", "&H80000018&"), ColorSelected;
+    }
 
-            public void mnuEditCut_Click()
-            {
-                if ( ! chkLocked )
+    public void mnuEditCopy_Click()
+    {
+        if ( ! chkLocked )
             {;
-                switch tabCode.SelectedItem.Index;
-                Case 1: if ( stringToClipboard(txtCode(0).SelText) )
+        switch tabCode.SelectedItem.Index;
+        Case 1: stringToClipboard txtCode(0).SelText;
+        Case 2: stringToClipboard txtCode(1).SelText;
+        Case 3: stringToClipboard txtCode(2).SelText;
+        Case 4: stringToClipboard txtCode(3).SelText;
+    }
+
+    public void mnuEditCut_Click()
+    {
+        if ( ! chkLocked )
+            {;
+        switch tabCode.SelectedItem.Index;
+        Case 1: if ( stringToClipboard(txtCode(0).SelText) )
             {
  txtCode(0).SelText == string.Empty;
-                Case 2: if ( stringToClipboard(txtCode(1).SelText) )
+        Case 2: if ( stringToClipboard(txtCode(1).SelText) )
             {
  txtCode(1).SelText == string.Empty;
-                Case 3: if ( stringToClipboard(txtCode(2).SelText) )
+        Case 3: if ( stringToClipboard(txtCode(2).SelText) )
             {
  txtCode(2).SelText == string.Empty;
-                Case 4: if ( stringToClipboard(txtCode(3).SelText) )
+        Case 4: if ( stringToClipboard(txtCode(3).SelText) )
             {
  txtCode(3).SelText == string.Empty;
-            }
+    }
 
-            public void mnuEditFind_Click()
-            {
-                FindInCurrent;
-            }
+    public void mnuEditFind_Click()
+    {
+        FindInCurrent;
+    }
 
-            public void mnuEditPaste_Click()
-            {
-                if ( ! chkLocked )
+    public void mnuEditPaste_Click()
+    {
+        if ( ! chkLocked )
             {;
-                switch tabCode.SelectedItem.Index;
-                Case 1: txtCode(0).SelText = Clipboard.GetText;
-                Case 2: txtCode(1).SelText = Clipboard.GetText;
-                Case 3: txtCode(2).SelText = Clipboard.GetText;
-                Case 4: txtCode(3).SelText = Clipboard.GetText;
-            }
+        switch tabCode.SelectedItem.Index;
+        Case 1: txtCode(0).SelText = Clipboard.GetText;
+        Case 2: txtCode(1).SelText = Clipboard.GetText;
+        Case 3: txtCode(2).SelText = Clipboard.GetText;
+        Case 4: txtCode(3).SelText = Clipboard.GetText;
+    }
 
-            public void mnuEditReplace_Click()
-            {
-                FindInCurrent false, true;
-            }
+    public void mnuEditReplace_Click()
+    {
+        FindInCurrent false, true;
+    }
 
-            public void mnuExternals_Click            {
-                try
+    public void mnuExternals_Click    {
+        try
 {;
-                SadCommands(Val(sGetToken(mnuExternals(Index).Tag, 1, "|"))).ExecuteExternal mnuExternals(Index).Text, sAfter(mnuExternals(Index).Tag, 1, "|");
-                }
+        SadCommands(Val(sGetToken(mnuExternals(Index).Tag, 1, "|"))).ExecuteExternal mnuExternals(Index).Text, sAfter(mnuExternals(Index).Tag, 1, "|");
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuFavorite_Click            {
-                if ( FavoriteCalledFromIDE )
+    public void mnuFavorite_Click    {
+        if ( FavoriteCalledFromIDE )
             {;
-                FavoriteCalledFromIDE = false;
-                DoInsertion null, mnuFavorite(Index).Text;
-                }
+        FavoriteCalledFromIDE = false;
+        DoInsertion null, mnuFavorite(Index).Text;
+        }
             else
             {;
-                JumpTo mnuFavorite(Index).Text, , true;
-                lsbJumpTo.HideCategories;
-            }
+        JumpTo mnuFavorite(Index).Text, , true;
+        lsbJumpTo.HideCategories;
+    }
 
-            public void mnuFileApplyDeltaPatch_Click()
-            {
-                sFilename = sChooseFile(, , "Sandy Delta Patch (*.sad)|*.sad|All Files (*.*)|*.*");
-                if ( Len(sFilename) )
+    public void mnuFileApplyDeltaPatch_Click()
+    {
+        sFilename = sChooseFile(, , "Sandy Delta Patch (*.sad)|*.sad|All Files (*.*)|*.*");
+        if ( Len(sFilename) )
             {;
-                SliceAndDice.ApplyPatch sFilename;
-            }
+        SliceAndDice.ApplyPatch sFilename;
+    }
 
-            public void mnuFileGenerateDeltaPatch_Click            {
-
-                sDate = SliceAndDice.sChoosePatch(Index);
-                if ( Len(sDate) )
+    public void mnuFileGenerateDeltaPatch_Click    {
+        sDate = SliceAndDice.sChoosePatch(Index);
+        if ( Len(sDate) )
             {;
-                App.Path, 1) <> gsBS, gsBS.Substring(App.Path, 1) <> gsBS, gsBS.Length - string.Empty) + "MDBPatch" + Replace(Format$(sDate, "00000.00"), gsP, "-") + ".sad";
-                SliceAndDice.GenerateDeltaPatchFile CVDate(sDate), PatchFilename;
-                if ( Len(Dir$(PatchFilename)) )
+        App.Path, 1) <> gsBS, gsBS.Substring(App.Path, 1) <> gsBS, gsBS.Length - string.Empty) + "MDBPatch" + Replace(Format$(sDate, "00000.00"), gsP, "-") + ".sad";
+        SliceAndDice.GenerateDeltaPatchFile CVDate(sDate), PatchFilename;
+        if ( Len(Dir$(PatchFilename)) )
             {;
-                if ( bUserSure("File created successfully." + gsEolTab + "Filename:" + PatchFilename + gs2EOL + "Would you like to view it now ?") )
+        if ( bUserSure("File created successfully." + gsEolTab + "Filename:" + PatchFilename + gs2EOL + "Would you like to view it now ?") )
             {;
-                try
+        try
 {;
-                Shell WindowsDirectory + "NOTEPAD.EXE " + gsQ + PatchFilename + gsQ;
-                }
+        Shell WindowsDirectory + "NOTEPAD.EXE " + gsQ + PatchFilename + gsQ;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuForward_Click()
-            {
-                if ( Val(CurrentHistoryEntry) >= m_asaHistory.Count )
+    public void mnuForward_Click()
+    {
+        if ( Val(CurrentHistoryEntry) >= m_asaHistory.Count )
             {;
-                Beep;
-                mnuForward.Enabled = false;
-                return;
-            }
+        Beep;
+        mnuForward.Enabled = false;
+        return;
+    }
 
-            public void mnuHelpAbout_Click()
-            {
-                try
+    public void mnuHelpAbout_Click()
+    {
+        try
 {;
 
-                frmSplash.lblDLLsLoaded(1).Text = string.Empty + SadCommandSetCount;
-                frmSplash.Show;
-                }
+        frmSplash.lblDLLsLoaded(1).Text = string.Empty + SadCommandSetCount;
+        frmSplash.Show;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuHelpEmailWilliamRawls_Click()
-            {
-                BrowseTo "mailto:wrawls@firmsolutions.com";
-            }
+    public void mnuHelpEmailWilliamRawls_Click()
+    {
+        BrowseTo "mailto:wrawls@firmsolutions.com";
+    }
 
-            public void mnuHelpReportIssue_Click()
-            {
-                BrowseTo "http://www.sliceanddice.com/sadissue.html";
-            }
+    public void mnuHelpReportIssue_Click()
+    {
+        BrowseTo "http://www.sliceanddice.com/sadissue.html";
+    }
 
-            public void mnuHelpSoftCommandReference_Click()
-            {
-                if ( SadCommandSetCount > 0 )
+    public void mnuHelpSoftCommandReference_Click()
+    {
+        if ( SadCommandSetCount > 0 )
             {;
-                Complete.ShowHelpScreen;
-                // End If;
-                }
+        Complete.ShowHelpScreen;
+        // End If;
+        }
             else
             {;
-                the frmSplash.MDB you have loaded." MsgBox "No command set DLLs loaded." + gsEolTab + "No Soft Command Reference available." + gsEolTab + "Make sure S&D DLLs are in the same directory;
-            }
+        the frmSplash.MDB you have loaded." MsgBox "No command set DLLs loaded." + gsEolTab + "No Soft Command Reference available." + gsEolTab + "Make sure S&D DLLs are in the same directory;
+    }
 
-            public void UpdateCompleteListOfSoftCommands()
-            {
-                try
+    public void UpdateCompleteListOfSoftCommands()
+    {
+        try
 {;
-
-                if ( ! Complete Is null )
+        if ( ! Complete Is null )
             {;
-                Complete.this.Clear()false;
-                Complete.Parent = null;
-                Complete = null;
-                }
+        Complete.this.Clear()false;
+        Complete.Parent = null;
+        Complete = null;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuHelpVisitHomePage_Click()
-            {
-                BrowseTo "http://www.sliceanddice.com";
-            }
+    public void mnuHelpVisitHomePage_Click()
+    {
+        BrowseTo "http://www.sliceanddice.com";
+    }
 
-            public void mnuHistoryList_Click()
-            {
-                try
+    public void mnuHistoryList_Click()
+    {
+        try
 {;
-
-                if ( m_asaHistory.Count > 0 )
+        if ( m_asaHistory.Count > 0 )
             {;
-                m_asaHistory.ItemDelimiter = gsSC;
-                sChoices = m_asaHistory.Column;
-                sChoice = sChoose(sChoices, , m_asaHistory(CurrentHistoryEntry).Value);
-                if ( Len(sChoice) )
+        m_asaHistory.ItemDelimiter = gsSC;
+        sChoices = m_asaHistory.Column;
+        sChoice = sChoose(sChoices, , m_asaHistory(CurrentHistoryEntry).Value);
+        if ( Len(sChoice) )
             {;
-                CurrentHistoryEntry = string.Empty + m_asaHistory.FindKey(sChoice);
-                JumpTo m_asaHistory(CurrentHistoryEntry), false, true;
-                mnuForward.Enabled = Val(CurrentHistoryEntry) < m_asaHistory.Count;
-                mnuBack.Enabled = Val(CurrentHistoryEntry) > 1;
-                }
+        CurrentHistoryEntry = string.Empty + m_asaHistory.FindKey(sChoice);
+        JumpTo m_asaHistory(CurrentHistoryEntry), false, true;
+        mnuForward.Enabled = Val(CurrentHistoryEntry) < m_asaHistory.Count;
+        mnuBack.Enabled = Val(CurrentHistoryEntry) > 1;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuHelpOnlineDocumentation_Click()
-            {
-                BrowseTo "http://www.sliceanddice.com/saddoc.html";
-            }
+    public void mnuHelpOnlineDocumentation_Click()
+    {
+        BrowseTo "http://www.sliceanddice.com/saddoc.html";
+    }
 
-            public void mnuIsFavorite_Click()
-            {
-                if ( mbFillingAddInScreen )
+    public void mnuIsFavorite_Click()
+    {
+        if ( mbFillingAddInScreen )
             {
  return;
-                chkFavorite = Abs(! -chkFavorite);
-                chkFavorite_Click;
-            }
+        chkFavorite = Abs(! -chkFavorite);
+        chkFavorite_Click;
+    }
 
-            public void mnuPasswordProtection_Click()
-            {
-                mnuPasswordProtection.Checked = ! mnuPasswordProtection.Checked;
-                SaveSetting App.ProductName, "Last", "Password Protection", mnuPasswordProtection.Checked;
-            }
+    public void mnuPasswordProtection_Click()
+    {
+        mnuPasswordProtection.Checked = ! mnuPasswordProtection.Checked;
+        SaveSetting App.ProductName, "Last", "Password Protection", mnuPasswordProtection.Checked;
+    }
 
-            public void mnuShowOnModuleRightClick_Click()
-            {
-                mnuShowOnModuleRightClick.Checked = ! mnuShowOnModuleRightClick.Checked;
-                SaveSetting App.ProductName, "Last", "Show On Module Right Click", mnuShowOnModuleRightClick.Checked;
-                MsgBox "This will take effect the next time Visual Basic or " + gsSliceAndDice + " is restarted.", vbInformation;
-            }
+    public void mnuShowOnModuleRightClick_Click()
+    {
+        mnuShowOnModuleRightClick.Checked = ! mnuShowOnModuleRightClick.Checked;
+        SaveSetting App.ProductName, "Last", "Show On Module Right Click", mnuShowOnModuleRightClick.Checked;
+        MsgBox "This will take effect the next time Visual Basic or " + gsSliceAndDice + " is restarted.", vbInformation;
+    }
 
-            public void mnuShowPaintbrushIcon_Click()
-            {
-                mnuShowPaintbrushIcon.Checked = ! mnuShowPaintbrushIcon.Checked;
-                SaveSetting App.ProductName, "Last", "Show Paitbrush Icon", mnuShowPaintbrushIcon.Checked;
-                MsgBox "This will take effect the next time Visual Basic is restarted.", vbInformation;
-            }
+    public void mnuShowPaintbrushIcon_Click()
+    {
+        mnuShowPaintbrushIcon.Checked = ! mnuShowPaintbrushIcon.Checked;
+        SaveSetting App.ProductName, "Last", "Show Paitbrush Icon", mnuShowPaintbrushIcon.Checked;
+        MsgBox "This will take effect the next time Visual Basic is restarted.", vbInformation;
+    }
 
-            public void mnuOLEDragDrop_Click()
-            {
-                try
+    public void mnuOLEDragDrop_Click()
+    {
+        try
 {;
-                mnuOLEDragDrop.Checked = ! mnuOLEDragDrop.Checked;
-                SaveSetting App.ProductName, gsLast, "OLEDragDrop", mnuOLEDragDrop.Checked;
-
-                txtCode(0).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
-                txtCode(0).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                txtCode(1).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
-                txtCode(1).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                txtCode(2).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
-                txtCode(2).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                txtCodeToFile.OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
-                txtCodeToFile.OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                }
+        mnuOLEDragDrop.Checked = ! mnuOLEDragDrop.Checked;
+        SaveSetting App.ProductName, gsLast, "OLEDragDrop", mnuOLEDragDrop.Checked;
+        txtCode(0).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
+        txtCode(0).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        txtCode(1).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
+        txtCode(1).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        txtCode(2).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
+        txtCode(2).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        txtCodeToFile.OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0);
+        txtCodeToFile.OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuShowSplash_Click()
-            {
-                mnuShowSplash.Checked = ! mnuShowSplash.Checked;
-                SaveSetting App.ProductName, "Last", "Show Splash", mnuShowSplash.Checked;
-            }
+    public void mnuShowSplash_Click()
+    {
+        mnuShowSplash.Checked = ! mnuShowSplash.Checked;
+        SaveSetting App.ProductName, "Last", "Show Splash", mnuShowSplash.Checked;
+    }
 
-            public void mnuSwitchTabsAutomatically_Click()
-            {
-                mnuSwitchTabsAutomatically.Checked = ! mnuSwitchTabsAutomatically.Checked;
-                SaveSetting App.ProductName, "Last", "Switch tabs automatically", mnuSwitchTabsAutomatically.Checked;
-            }
+    public void mnuSwitchTabsAutomatically_Click()
+    {
+        mnuSwitchTabsAutomatically.Checked = ! mnuSwitchTabsAutomatically.Checked;
+        SaveSetting App.ProductName, "Last", "Switch tabs automatically", mnuSwitchTabsAutomatically.Checked;
+    }
 
-            public void mnuX_Click()
-            {
-                mnuFileExit_Click;
-            }
+    public void mnuX_Click()
+    {
+        mnuFileExit_Click;
+    }
 
-            public void tmrActivateDBClassGen_Timer()
-            {
-                if ( gbProcessing )
+    public void tmrActivateDBClassGen_Timer()
+    {
+        if ( gbProcessing )
             {
  return;
-                tmrActivateDBClassGen.Enabled = false;
+        tmrActivateDBClassGen.Enabled = false;
+        DBClassGen.RefreshCategories;
+        DBClassGen.Show , Me;
+    }
 
-                DBClassGen.RefreshCategories;
-                DBClassGen.Show , Me;
-            }
-
-            public void chkLocked_Click()
-            {
-                Boolean static bInHereAlready;
-
-                if ( mbFillingAddInScreen )
+    public void chkLocked_Click()
+    {
+        Boolean static bInHereAlready;
+        if ( mbFillingAddInScreen )
             {
  return;
-                if ( bInHereAlready )
+        if ( bInHereAlready )
             {
  return;
-                if ( ! mnuPasswordProtection.Checked )
+        if ( ! mnuPasswordProtection.Checked )
             {;
-                lsbJumpTo.BarItemIcon = IIf(chkLocked.Value = 0 And chkUndeletable.Value = 0, "Document" + IIf(lsbJumpTo.BarItemIcon = "DocumentAlternate", "Alternate", string.Empty), "Key");
-                return;
-            }
+        lsbJumpTo.BarItemIcon = IIf(chkLocked.Value = 0 And chkUndeletable.Value = 0, "Document" + IIf(lsbJumpTo.BarItemIcon = "DocumentAlternate", "Alternate", string.Empty), "Key");
+        return;
+    }
 
-            public void mnuSpecialNewDatabase_Click()
-            {
-
-                sDatabasePath = Trim$(BrowseForFolder(DBClassGen.hwnd, "Where should database go ?"));
-                if ( Len(sDatabasePath) == 0 )
-            {
- return;
-
-                sNewDatabaseName = Trim$(InputBox("What should the name of the new " + gsTemplate + " database be ?", "CREATE " + gsTemplate + " DATABASE"));
-                if ( Len(snewDatabaseName) == 0 )
+    public void mnuSpecialNewDatabase_Click()
+    {
+        sDatabasePath = Trim$(BrowseForFolder(DBClassGen.hwnd, "Where should database go ?"));
+        if ( Len(sDatabasePath) == 0 )
             {
  return;
-
-                sDatabasePath.Substring(sDatabasePath.Length - 1) <> gsBS )
+        sNewDatabaseName = Trim$(InputBox("What should the name of the new " + gsTemplate + " database be ?", "CREATE " + gsTemplate + " DATABASE"));
+        if ( Len(snewDatabaseName) == 0 )
+            {
+ return;
+        sDatabasePath.Substring(sDatabasePath.Length - 1) <> gsBS )
             {
  sDatabasePath == sDatabasePath + gsBS;
-                LCase$(snewDatabaseName).Substring(LCase$(snewDatabaseName).Length - 4) <> ".mdb" )
+        LCase$(snewDatabaseName).Substring(LCase$(snewDatabaseName).Length - 4) <> ".mdb" )
             {
  snewDatabaseName == sDatabasePath + snewDatabaseName + ".mdb";
+        // TODO: Rewrite try/catch and/or goto. mnuSpecialNewDatabase_Click;
 
-                // TODO: Rewrite try/catch and/or goto. mnuSpecialNewDatabase_Click;
+        db = CreateDatabase(sNewDatabaseName, dbLangGeneral, dbVersion30);
+        if ( ex <> 0 )
+            {;
+        MsgBox "Error creating " + gsTemplate + " database. Aborting.";
+        return;
+    }
 
-                db = CreateDatabase(sNewDatabaseName, dbLangGeneral, dbVersion30);
-                if ( ex <> 0 )
+    public void mnuSpecialOpenDatabase_Click()
+    {
+        sTemplateDatabaseName = sChooseDatabase(App.Path);
+        if ( Len(sTemplateDatabaseName) )
             {;
-                MsgBox "Error creating " + gsTemplate + " database. Aborting.";
-                return;
-            }
-
-            public void mnuSpecialOpenDatabase_Click()
-            {
-
-                sTemplateDatabaseName = sChooseDatabase(App.Path);
-                if ( Len(sTemplateDatabaseName) )
+        SaveTemplate;
+        sOldDatabaseName = m_sTemplateDatabaseName;
+        m_sTemplateDatabaseName = sTemplateDatabaseName;
+        if ( RefreshDatabaseConnection )
             {;
-                SaveTemplate;
-                sOldDatabaseName = m_sTemplateDatabaseName;
-                m_sTemplateDatabaseName = sTemplateDatabaseName;
-                if ( RefreshDatabaseConnection )
+        SaveSetting App.ProductName, "Settings", "Current Database", sTemplateDatabaseName;
+        if ( ! SliceAndDice(1) Is null )
             {;
-                SaveSetting App.ProductName, "Settings", "Current Database", sTemplateDatabaseName;
-                if ( ! SliceAndDice(1) Is null )
+        if ( ! SliceAndDice(1).Templates(1) Is null )
             {;
-                if ( ! SliceAndDice(1).Templates(1) Is null )
-            {;
-                JumpTo SliceAndDice(1).Templates(1).Key;
-                lsbJumpTo.BarAndItem SliceAndDice(1).Key, SliceAndDice(1).Templates(1).ShortTemplateName;
-                }
+        JumpTo SliceAndDice(1).Templates(1).Key;
+        lsbJumpTo.BarAndItem SliceAndDice(1).Key, SliceAndDice(1).Templates(1).ShortTemplateName;
+        }
             else
             {if ( ! SliceAndDice(2) Is null )
             {;
-                if ( ! SliceAndDice(2).Templates(1) Is null )
+        if ( ! SliceAndDice(2).Templates(1) Is null )
             {;
-                JumpTo SliceAndDice(2).Templates(1).Key;
-                lsbJumpTo.BarAndItem SliceAndDice(2).Key, SliceAndDice(2).Templates(1).ShortTemplateName;
-            }
+        JumpTo SliceAndDice(2).Templates(1).Key;
+        lsbJumpTo.BarAndItem SliceAndDice(2).Key, SliceAndDice(2).Templates(1).ShortTemplateName;
+    }
 
-            public void tabCode_MouseUp            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_tabCode_MouseUp;
-                Boolean static bInHereAlready;
-
-                switch tabCode.SelectedItem.Index;
-                Case 1;
-                txtCode(0).Visible = true;
-                txtCode(1).Visible = false;
-                txtCode(2).Visible = false;
-                frmFile.Visible = false;
-                frmOptions.Visible = false;
-                frmTemplateInfo.Visible = false;
-                try
+    public void tabCode_MouseUp    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_tabCode_MouseUp;
+        Boolean static bInHereAlready;
+        switch tabCode.SelectedItem.Index;
+        Case 1;
+        txtCode(0).Visible = true;
+        txtCode(1).Visible = false;
+        txtCode(2).Visible = false;
+        frmFile.Visible = false;
+        frmOptions.Visible = false;
+        frmTemplateInfo.Visible = false;
+        try
 {;
-                txtCode(0).SetFocus;
-
-                Case 2;
-                txtCode(0).Visible = false;
-                txtCode(1).Visible = true;
-                txtCode(2).Visible = false;
-                frmFile.Visible = false;
-                frmOptions.Visible = false;
-                frmTemplateInfo.Visible = false;
-                try
+        txtCode(0).SetFocus;
+        Case 2;
+        txtCode(0).Visible = false;
+        txtCode(1).Visible = true;
+        txtCode(2).Visible = false;
+        frmFile.Visible = false;
+        frmOptions.Visible = false;
+        frmTemplateInfo.Visible = false;
+        try
 {;
-                txtCode(1).SetFocus;
-
-                Case 3;
-                txtCode(0).Visible = false;
-                txtCode(1).Visible = false;
-                txtCode(2).Visible = true;
-                frmFile.Visible = false;
-                frmOptions.Visible = false;
-                frmTemplateInfo.Visible = false;
-                try
+        txtCode(1).SetFocus;
+        Case 3;
+        txtCode(0).Visible = false;
+        txtCode(1).Visible = false;
+        txtCode(2).Visible = true;
+        frmFile.Visible = false;
+        frmOptions.Visible = false;
+        frmTemplateInfo.Visible = false;
+        try
 {;
-                txtCode(2).SetFocus;
-
-                Case 4;
-                txtCode(0).Visible = false;
-                txtCode(1).Visible = false;
-                txtCode(2).Visible = false;
-                frmFile.Visible = true;
-                frmOptions.Visible = false;
-                frmTemplateInfo.Visible = false;
-                try
+        txtCode(2).SetFocus;
+        Case 4;
+        txtCode(0).Visible = false;
+        txtCode(1).Visible = false;
+        txtCode(2).Visible = false;
+        frmFile.Visible = true;
+        frmOptions.Visible = false;
+        frmTemplateInfo.Visible = false;
+        try
 {;
-                txtCodeToFile.SetFocus;
-
-                Case 5;
-                txtCode(0).Visible = false;
-                txtCode(1).Visible = false;
-                txtCode(2).Visible = false;
-                frmFile.Visible = false;
-                frmOptions.Visible = true;
-                frmTemplateInfo.Visible = false;
-                try
+        txtCodeToFile.SetFocus;
+        Case 5;
+        txtCode(0).Visible = false;
+        txtCode(1).Visible = false;
+        txtCode(2).Visible = false;
+        frmFile.Visible = false;
+        frmOptions.Visible = true;
+        frmTemplateInfo.Visible = false;
+        try
 {;
-                chkFavorite.SetFocus;
-
-                Case 6;
-                txtCode(0).Visible = false;
-                txtCode(1).Visible = false;
-                txtCode(2).Visible = false;
-                frmFile.Visible = false;
-                frmOptions.Visible = false;
-                frmTemplateInfo.Visible = true;
-                try
+        chkFavorite.SetFocus;
+        Case 6;
+        txtCode(0).Visible = false;
+        txtCode(1).Visible = false;
+        txtCode(2).Visible = false;
+        frmFile.Visible = false;
+        frmOptions.Visible = false;
+        frmTemplateInfo.Visible = true;
+        try
 {;
-                cmdRecalc.SetFocus;
-
-                if ( chkAutoRecalc.Value <> 0 )
+        cmdRecalc.SetFocus;
+        if ( chkAutoRecalc.Value <> 0 )
             {;
-                cmdRecalc_Click;
-                }
+        cmdRecalc_Click;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-                }
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-                }
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-                }
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-                }
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-                }
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void tmrDoAction_Timer()
-            {
-                try
+    public void tmrDoAction_Timer()
+    {
+        try
 {;
-                if ( ! OkayToDoAction )
+        if ( ! OkayToDoAction )
             {
  return;
-
-                tmrDoAction.Enabled = false;
-
-                switch ActionToDo.ToUpper();
-                Case "NEWTEMPLATE";
-                NewTemplate true, ActionParam;
-
-                //            'Case "DELTACHECK", "DELTA CHECK";
-                //            '     If Len(Dir$(Parent.TemplateDatabasePath + "MDBPatch*.sad", vbNormal)) Then;
-                //            '        If bUserSure("A Delta Patch file has been found. Would you like to apply it now ?") Then;
-                //            '           SliceAndDice.ApplyPatch Dir$(Parent.TemplateDatabasePath + "MDBPatch*.sad", vbNormal);
-                //            '        End If;
-                //            '     End If;
-                //            '     QueueAction "DeltaCheck", vbNullstring, 65535;
-                //            '     OkayToDoAction = true;
-
-                Case "DOINSERTION";
-                DoInsertion null, ActionParam;
-                }
+        tmrDoAction.Enabled = false;
+        switch ActionToDo.ToUpper();
+        Case "NEWTEMPLATE";
+        NewTemplate true, ActionParam;
+        //            'Case "DELTACHECK", "DELTA CHECK";
+        //            '     If Len(Dir$(Parent.TemplateDatabasePath + "MDBPatch*.sad", vbNormal)) Then;
+        //            '        If bUserSure("A Delta Patch file has been found. Would you like to apply it now ?") Then;
+        //            '           SliceAndDice.ApplyPatch Dir$(Parent.TemplateDatabasePath + "MDBPatch*.sad", vbNormal);
+        //            '        End If;
+        //            '     End If;
+        //            '     QueueAction "DeltaCheck", vbNullstring, 65535;
+        //            '     OkayToDoAction = true;
+        Case "DOINSERTION";
+        DoInsertion null, ActionParam;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void txtCode_GotFocus            {
-                CurrentCodeArea = Index;
-            }
+    public void txtCode_GotFocus    {
+        CurrentCodeArea = Index;
+    }
 
-            public void txtCode_KeyDown            {
-                Form_KeyDown KeyCode, Shift;
-                if ( mbScramFormKey )
+    public void txtCode_KeyDown    {
+        Form_KeyDown KeyCode, Shift;
+        if ( mbScramFormKey )
             {
  KeyCode == 0: Shift == 0;
-            }
+    }
 
-            public void Form_GotFocus()
-            {
-                try
+    public void Form_GotFocus()
+    {
+        try
 {;
-                lsbJumpTo.SetFocus                                ' More than likely the user is going to want to insert a pre-existing Template.;
-                }
+        lsbJumpTo.SetFocus                                ' More than likely the user is going to want to insert a pre-existing Template.;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Initialize()
-            {
-
-                InitPublic;
-
-                mnuExitAfterInsert.Checked = GetSetting(App.ProductName, "Settings", "Exit after insert", true);
-
-                mnuShowPaintbrushIcon.Checked = GetSetting(App.ProductName, "Last", "Show Paitbrush Icon", true);
-                mnuShowOnModuleRightClick.Checked = GetSetting(App.ProductName, "Last", "Show On Module Right Click", true);
-
-                mnuSwitchTabsAutomatically.Checked = GetSetting(App.ProductName, "Last", "Switch tabs automatically", true);
-                mnuPasswordProtection.Checked = GetSetting(App.ProductName, "Last", "Password Protection", false);
-                mnuShowSplash.Checked = GetSetting(App.ProductName, "Last", "Show Splash", true);
-                mnuOLEDragDrop.Checked = GetSetting(App.ProductName, "Last", "OLEDragDrop", false);
-
-                txtCode(0).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):     txtCode(0).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                txtCode(1).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):     txtCode(1).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                txtCode(2).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):     txtCode(2).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                txtCodeToFile.OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):  txtCodeToFile.OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
-                ;
-                chkAutoRecalc.Value = GetSetting(App.ProductName, "Last", "Auto Recalc", 0);
-
-                lsbJumpTo.Arrange = GetSetting(App.ProductName, "Settings", "Bar Arrange", "1");
-                lsbJumpTo.View = GetSetting(App.ProductName, "Settings", "Bar View", "1");
-
-                if ( Len(Dir$(App.Path + gsBS + "SliceAndDice.mdb")) = 0 And Len(Dir$(App.Path + gsBS + "SliceAndDiceNew.mdb")) <> 0 )
+    public void Form_Initialize()
+    {
+        InitPublic;
+        mnuExitAfterInsert.Checked = GetSetting(App.ProductName, "Settings", "Exit after insert", true);
+        mnuShowPaintbrushIcon.Checked = GetSetting(App.ProductName, "Last", "Show Paitbrush Icon", true);
+        mnuShowOnModuleRightClick.Checked = GetSetting(App.ProductName, "Last", "Show On Module Right Click", true);
+        mnuSwitchTabsAutomatically.Checked = GetSetting(App.ProductName, "Last", "Switch tabs automatically", true);
+        mnuPasswordProtection.Checked = GetSetting(App.ProductName, "Last", "Password Protection", false);
+        mnuShowSplash.Checked = GetSetting(App.ProductName, "Last", "Show Splash", true);
+        mnuOLEDragDrop.Checked = GetSetting(App.ProductName, "Last", "OLEDragDrop", false);
+        txtCode(0).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):     txtCode(0).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        txtCode(1).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):     txtCode(1).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        txtCode(2).OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):     txtCode(2).OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        txtCodeToFile.OLEDragMode = IIf(mnuOLEDragDrop.Checked, 1, 0):  txtCodeToFile.OLEDropMode = IIf(mnuOLEDragDrop.Checked, 2, 0);
+        ;
+        chkAutoRecalc.Value = GetSetting(App.ProductName, "Last", "Auto Recalc", 0);
+        lsbJumpTo.Arrange = GetSetting(App.ProductName, "Settings", "Bar Arrange", "1");
+        lsbJumpTo.View = GetSetting(App.ProductName, "Settings", "Bar View", "1");
+        if ( Len(Dir$(App.Path + gsBS + "SliceAndDice.mdb")) = 0 And Len(Dir$(App.Path + gsBS + "SliceAndDiceNew.mdb")) <> 0 )
             {;
-                App.Path + gsBS + "SliceAndDice.mdb" Name App.Path + gsBS + "SliceAndDiceNew.mdb";
-            }
+        App.Path + gsBS + "SliceAndDice.mdb" Name App.Path + gsBS + "SliceAndDiceNew.mdb";
+    }
 
-            public As sChooseDatabase            {
-                try
+    public As sChooseDatabase    {
+        try
 {;
 
 
-                cdgSelect.Filter = "Access Database (*.mdb)|*.mdb|All Files (*.*)|*.*";
-                cdgSelect.FilterIndex = 0;
-                if ( Len(sPath) > 0 )
+        cdgSelect.Filter = "Access Database (*.mdb)|*.mdb|All Files (*.*)|*.*";
+        cdgSelect.FilterIndex = 0;
+        if ( Len(sPath) > 0 )
             {
  cdgSelect.InitDir == sPath;
-                if ( Len(sFilename) > 0 )
+        if ( Len(sFilename) > 0 )
             {
  cdgSelect.FileName == sFilename;
-                cdgSelect.ShowOpen;
-                if ( Err <> 0 )
+        cdgSelect.ShowOpen;
+        if ( Err <> 0 )
             {;
 
-                return; // ???;
-                }
+        return; // ???;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As sChooseFile            {
-                try
+    public As sChooseFile    {
+        try
 {;
 
 
-                cdgSelect.Filter = IIf(Len(sFilter) And InStr(sFilter, "|"), sFilter, "All Files (*.*)|*.*");
-                cdgSelect.FilterIndex = 0;
-                if ( Len(sPath) > 0 )
+        cdgSelect.Filter = IIf(Len(sFilter) And InStr(sFilter, "|"), sFilter, "All Files (*.*)|*.*");
+        cdgSelect.FilterIndex = 0;
+        if ( Len(sPath) > 0 )
             {
  cdgSelect.InitDir == sPath;
-                if ( Len(sFilename) > 0 )
+        if ( Len(sFilename) > 0 )
             {
  cdgSelect.FileName == sFilename;
-                cdgSelect.ShowOpen;
-                if ( Err <> 0 )
+        cdgSelect.ShowOpen;
+        if ( Err <> 0 )
             {;
 
-                return; // ???;
-                }
+        return; // ???;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As sChooseColor            {
-                try
+    public As sChooseColor    {
+        try
 {;
 
 
-
-                cdgSelect.CancelError = true;
-                if ( lTokenCount(sInitialColor, gsSC) = 3 )
+        cdgSelect.CancelError = true;
+        if ( lTokenCount(sInitialColor, gsSC) = 3 )
             {;
-                Red = sGetToken(sInitialColor, 1, gsSC);
-                Green = sGetToken(sInitialColor, 1, gsSC);
-                Blue = sGetToken(sInitialColor, 1, gsSC);
-                if ( Red > 255 )
+        Red = sGetToken(sInitialColor, 1, gsSC);
+        Green = sGetToken(sInitialColor, 1, gsSC);
+        Blue = sGetToken(sInitialColor, 1, gsSC);
+        if ( Red > 255 )
             {
  Red == 255;
-                if ( Red < 0 )
+        if ( Red < 0 )
             {
  Red == 0;
-                if ( Green > 255 )
+        if ( Green > 255 )
             {
  Green == 255;
-                if ( Green < 0 )
+        if ( Green < 0 )
             {
  Green == 0;
-                if ( Blue > 255 )
+        if ( Blue > 255 )
             {
  Blue == 255;
-                if ( Blue < 0 )
+        if ( Blue < 0 )
             {
  Blue == 0;
-                cdgSelect.Color = RGB(Red, Green, Blue);
-                }
+        cdgSelect.Color = RGB(Red, Green, Blue);
+        }
             else
             {if ( Val(sInitialColor) > 0 )
             {;
-                cdgSelect.Color = Val(sInitialColor);
-                }
+        cdgSelect.Color = Val(sInitialColor);
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_KeyDown            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_Form_KeyDown;
-
-                mbScramFormKey = false;
-
-                if ( (Shift And vbShiftMask) > 0 )
+    public void Form_KeyDown    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_Form_KeyDown;
+        mbScramFormKey = false;
+        if ( (Shift And vbShiftMask) > 0 )
             {
                ' Shift Key         *******************;
-                switch KeyCode;
-                ;
-                Case vbKeyInsert: KeyCode = 0: Shift = 0: mbScramFormKey = true   ' Paste;
-                if ( TypeOf ActiveControl Is TextBox )
+        switch KeyCode;
+        ;
+        Case vbKeyInsert: KeyCode = 0: Shift = 0: mbScramFormKey = true   ' Paste;
+        if ( TypeOf ActiveControl Is TextBox )
             {;
-                ActiveControl.SelText = Clipboard.GetText;
-            }
+        ActiveControl.SelText = Clipboard.GetText;
+    }
 
-            public void FindInCurrent            {
-                // TODO: Rewrite try/catch and/or goto. EH_frmMain_FindInCurrent;
-                Boolean static bInHereAlready;
-                if ( bInHereAlready )
+    public void FindInCurrent    {
+        // TODO: Rewrite try/catch and/or goto. EH_frmMain_FindInCurrent;
+        Boolean static bInHereAlready;
+        if ( bInHereAlready )
             {
  return;
-                bInHereAlready = true;
-
-
-                if ( CurrentTemplate Is null )
+        bInHereAlready = true;
+        if ( CurrentTemplate Is null )
             {;
-                MsgBox "Please select a " + gsTemplate + " before selecting to search.";
-                return;
-            }
+        MsgBox "Please select a " + gsTemplate + " before selecting to search.";
+        return;
+    }
 
-            public void Form_Resize()
-            {
-                // TODO: Rewrite try/catch and/or goto. EH_Form_Resize;
+    public void Form_Resize()
+    {
+        // TODO: Rewrite try/catch and/or goto. EH_Form_Resize;
 
-                tabCode                                      ' Position the code entry areas.Height = ScaleHeight - tabCode                                      ' Position the code entry areas.Top;
-                //        'lsbJumpTo.Height = ScaleHeight - 415;
-                if ( ScaleWidth - tabCode                                      ' Position the code entry areas.Left < 0 )
+        tabCode                                      ' Position the code entry areas.Height = ScaleHeight - tabCode                                      ' Position the code entry areas.Top;
+        //        'lsbJumpTo.Height = ScaleHeight - 415;
+        if ( ScaleWidth - tabCode                                      ' Position the code entry areas.Left < 0 )
             {
  return;       ' if ( there isn't enough display area to show the code entry areas, don't attempt to redraw it;
-                tabCode                                      ' Position the code entry areas.Width = ScaleWidth - tabCode                                      ' Position the code entry areas.Left;
-                txtName.Move lblCode(3).Left + lblCode(3).Width + 40, txtName.Top, tabCode                                      ' Position the code entry areas.Width - (lblCode(3).Left + lblCode(3).Width + 40 - tabCode                                      ' Position the code entry areas.Left), txtName.Height;
-                txtShortName.Move lblCode(3).Left + lblCode(3).Width + 40, txtName.Top, tabCode                                      ' Position the code entry areas.Width - (lblCode(3).Left + lblCode(3).Width + 40 - tabCode                                      ' Position the code entry areas.Left), txtName.Height;
+        tabCode                                      ' Position the code entry areas.Width = ScaleWidth - tabCode                                      ' Position the code entry areas.Left;
+        txtName.Move lblCode(3).Left + lblCode(3).Width + 40, txtName.Top, tabCode                                      ' Position the code entry areas.Width - (lblCode(3).Left + lblCode(3).Width + 40 - tabCode                                      ' Position the code entry areas.Left), txtName.Height;
+        txtShortName.Move lblCode(3).Left + lblCode(3).Width + 40, txtName.Top, tabCode                                      ' Position the code entry areas.Width - (lblCode(3).Left + lblCode(3).Width + 40 - tabCode                                      ' Position the code entry areas.Left), txtName.Height;
+        txtCode(0).Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
+        txtCode(1).Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
+        txtCode(2).Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
+        frmOptions.Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
+        frmFile.Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
+        txtFilename.Width = frmFile.Width - txtFilename.Left * 2;
+        txtCodeToFile.Width = txtFilename.Width;
+        txtCodeToFile.Height = frmFile.Height - txtCodeToFile.Top - 100;
+        frmTemplateInfo.Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
+        lstSoftVariables.Width = (frmTemplateInfo.Width - lstSoftVariables.Left * 3) \ 2;
+        lstSoftCommands.Left = lstSoftVariables.Left * 2 + lstSoftVariables.Width;
+        lstSoftCommands.Width = lstSoftVariables.Width;
+        lblTemplateInfo(0).Left = lstSoftVariables.Left;
+        lblTemplateInfo(1).Left = lstSoftCommands.Left;
+        lstSoftVariables.Height = frmTemplateInfo.Height - lstSoftVariables.Top - 100;
+        lstSoftCommands.Height = frmTemplateInfo.Height - lstSoftVariables.Top - 100;
+    }
 
-                txtCode(0).Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
-                txtCode(1).Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
-                txtCode(2).Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
-                frmOptions.Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
-                frmFile.Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
-                txtFilename.Width = frmFile.Width - txtFilename.Left * 2;
-                txtCodeToFile.Width = txtFilename.Width;
-                txtCodeToFile.Height = frmFile.Height - txtCodeToFile.Top - 100;
-                frmTemplateInfo.Move tabCode                                      ' Position the code entry areas.Left + 100, tabCode                                      ' Position the code entry areas.Top + 500, tabCode                                      ' Position the code entry areas.Width - 200, tabCode                                      ' Position the code entry areas.Height - 600;
-                lstSoftVariables.Width = (frmTemplateInfo.Width - lstSoftVariables.Left * 3) \ 2;
-                lstSoftCommands.Left = lstSoftVariables.Left * 2 + lstSoftVariables.Width;
-                lstSoftCommands.Width = lstSoftVariables.Width;
-                lblTemplateInfo(0).Left = lstSoftVariables.Left;
-                lblTemplateInfo(1).Left = lstSoftCommands.Left;
-                lstSoftVariables.Height = frmTemplateInfo.Height - lstSoftVariables.Top - 100;
-                lstSoftCommands.Height = frmTemplateInfo.Height - lstSoftVariables.Top - 100;
-            }
+    public void mnuDBClassGen_Click()
+    {
+        tmrActivateDBClassGen.Enabled = true;
+    }
 
-            public void mnuDBClassGen_Click()
-            {
-                tmrActivateDBClassGen.Enabled = true;
-            }
-
-            public As sPropertyType            {
-                switch sFieldType;
-                Case "Big Integer": sPropertyType = "Long";
-                Case "Binary": sPropertyType = "Variant";
-                Case "Boolean": sPropertyType = "Boolean";
-                Case "Byte": sPropertyType = "Byte";
-                Case "Char": sPropertyType = "string";
-                Case "Currency": sPropertyType = "Currency";
-                Case "Date / Time": sPropertyType = "Date";
-                Case "Decimal": sPropertyType = "Variant";
-                Case "Double": sPropertyType = "Double";
-                Case "Float": sPropertyType = "Double";
-                Case "Guid": sPropertyType = "string";
-                Case "Integer": sPropertyType = "Integer";
-                Case "Long": sPropertyType = "Long";
-                Case "long Binary (OLE Object)": sPropertyType = "Variant";
-                Case "Memo": sPropertyType = "Memo";
-                Case "Numeric": sPropertyType = "Variant";
-                Case "Single": sPropertyType = "Single";
-                Case "Text": sPropertyType = "string";
-                Case "Time": sPropertyType = "Date";
-                Case "Time Stamp": sPropertyType = "Date";
-                Case "VarBinary": sPropertyType = "Variant";
-                Case }
+    public As sPropertyType    {
+        switch sFieldType;
+        Case "Big Integer": sPropertyType = "Long";
+        Case "Binary": sPropertyType = "Variant";
+        Case "Boolean": sPropertyType = "Boolean";
+        Case "Byte": sPropertyType = "Byte";
+        Case "Char": sPropertyType = "string";
+        Case "Currency": sPropertyType = "Currency";
+        Case "Date / Time": sPropertyType = "Date";
+        Case "Decimal": sPropertyType = "Variant";
+        Case "Double": sPropertyType = "Double";
+        Case "Float": sPropertyType = "Double";
+        Case "Guid": sPropertyType = "string";
+        Case "Integer": sPropertyType = "Integer";
+        Case "Long": sPropertyType = "Long";
+        Case "long Binary (OLE Object)": sPropertyType = "Variant";
+        Case "Memo": sPropertyType = "Memo";
+        Case "Numeric": sPropertyType = "Variant";
+        Case "Single": sPropertyType = "Single";
+        Case "Text": sPropertyType = "string";
+        Case "Time": sPropertyType = "Date";
+        Case "Time Stamp": sPropertyType = "Date";
+        Case "VarBinary": sPropertyType = "Variant";
+        Case }
             else
             {: sPropertyType = "Variant";
-            }
+    }
 
-            public void mnuExitAfterInsert_Click()
-            {
-                mnuExitAfterInsert.Checked = ! mnuExitAfterInsert.Checked;
-            }
+    public void mnuExitAfterInsert_Click()
+    {
+        mnuExitAfterInsert.Checked = ! mnuExitAfterInsert.Checked;
+    }
 
-            public void mnuFileCopy_Click()
-            {
-
-                if ( CurrentTemplate Is null )
+    public void mnuFileCopy_Click()
+    {
+        if ( CurrentTemplate Is null )
             {;
-                MsgBox "Please select a " + gsTemplate + " to copy before selecting this option.";
-                return;
-            }
+        MsgBox "Please select a " + gsTemplate + " to copy before selecting this option.";
+        return;
+    }
 
-            public void mnuFileDelete_Click()
-            {
-                DeleteTemplate;
-            }
+    public void mnuFileDelete_Click()
+    {
+        DeleteTemplate;
+    }
 
-            public void mnuFileExit_Click()
-            {
-                SaveTemplate;
+    public void mnuFileExit_Click()
+    {
+        SaveTemplate;
+        Hide;
+        HideAllWindows;
+        //    'VBIDEWindow.Visible = false      '   So hiding it will return control to VB;
+    }
 
-                Hide;
-                HideAllWindows;
-                //    'VBIDEWindow.Visible = false      '   So hiding it will return control to VB;
-            }
-
-            public void mnuFileImport_Click()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public void mnuFileImport_Click()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol    ' Determine where the cursor is;
-                lLastLine +=  lLine + Abs(lLastCol > 1)    ' Determine what the last line selected is (discard last line if at beginning);
-                sCode = Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.CodeModule.Lines(lLine, lLastLine)   ' Grab the code selected from the active pane;
-                GetProcAtLine lLine, sProcName, lProcType;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol    ' Determine where the cursor is;
+        lLastLine +=  lLine + Abs(lLastCol > 1)    ' Determine what the last line selected is (discard last line if at beginning);
+        sCode = Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.CodeModule.Lines(lLine, lLastLine)   ' Grab the code selected from the active pane;
+        GetProcAtLine lLine, sProcName, lProcType;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As GetCurrentTextSelection()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public As GetCurrentTextSelection()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return; // ???;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol    ' Determine where the cursor is;
-                lLastLine +=  lLine + Abs(lLastCol > 1)    ' Determine what the last line selected is (discard last line if at beginning);
-                GetCurrentTextSelection = Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.CodeModule.Lines(lLine, lLastLine)    ' Grab the code selected from the active pane;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol    ' Determine where the cursor is;
+        lLastLine +=  lLine + Abs(lLastCol > 1)    ' Determine what the last line selected is (discard last line if at beginning);
+        GetCurrentTextSelection = Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.CodeModule.Lines(lLine, lLastLine)    ' Grab the code selected from the active pane;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void DeleteCurrentTextSelection()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public void DeleteCurrentTextSelection()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
-                lLastLine +=  lLine + Abs(lLastCol > 1);
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.CodeModule.DeleteLines lLine, lLastLine;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
+        lLastLine +=  lLine + Abs(lLastCol > 1);
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.CodeModule.DeleteLines lLine, lLastLine;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As DetermineLastLineInSelection()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public As DetermineLastLineInSelection()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return; // ???;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
-                DetermineLastLineInSelection = lLastLine;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
+        DetermineLastLineInSelection = lLastLine;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As DetermineFirstLineInSelection()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public As DetermineFirstLineInSelection()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return; // ???;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
-                DetermineFirstLineInSelection = lLine;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
+        DetermineFirstLineInSelection = lLine;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As DetermineFirstColumnInSelection()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public As DetermineFirstColumnInSelection()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return; // ???;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
-                DetermineFirstColumnInSelection = lFirstCol;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
+        DetermineFirstColumnInSelection = lFirstCol;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As DetermineLastColumnInSelection()
-            {
-
-                if ( ! Parent.HostedByVB )
+    public As DetermineLastColumnInSelection()
+    {
+        if ( ! Parent.HostedByVB )
             {
  return; // ???;
-
-                try
+        try
 {;
 
-                Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
-                DetermineLastColumnInSelection = lLastCol;
-                }
+        Parent.vbInst.ActiveCodePane                 ' Send all output to the active code pane.GetSelection lLine, lFirstCol, lLastLine, lLastCol;
+        DetermineLastColumnInSelection = lLastCol;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuFileNew_Click()
-            {
-                NewTemplate;
-            }
+    public void mnuFileNew_Click()
+    {
+        NewTemplate;
+    }
 
-            public void mnuFileRefresh_Click()
-            {
-                try
+    public void mnuFileRefresh_Click()
+    {
+        try
 {;
-
-                sTitle = lsbJumpTo.BarKey + gsCategoryTemplateDelimiter + lsbJumpTo.BarItemName;
-                RefillList;
-                JumpTo sTitle, false, true;
-                }
+        sTitle = lsbJumpTo.BarKey + gsCategoryTemplateDelimiter + lsbJumpTo.BarItemName;
+        RefillList;
+        JumpTo sTitle, false, true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void mnuInsertTemplate_Click()
-            {
-                DoInsertion null, txtName;
-            }
+    public void mnuInsertTemplate_Click()
+    {
+        DoInsertion null, txtName;
+    }
 
-            public void Form_Terminate()
-            {
-                Form_Unload Cancel;
-                //    ' LogEvent "frmMain: Terminate";
-            }
+    public void Form_Terminate()
+    {
+        Form_Unload Cancel;
+        //    ' LogEvent "frmMain: Terminate";
+    }
 
-            public void Form_Load()
-            {
-                m_asaHistory.Clear;
-                LoadFormPosition Me;
-                SetColors GetSetting$(App.ProductName, "Last", "Background Color", "&H80000018&"), GetSetting$(App.ProductName, "Last", "Foreground Color", "&H80000008&");
-            }
+    public void Form_Load()
+    {
+        m_asaHistory.Clear;
+        LoadFormPosition Me;
+        SetColors GetSetting$(App.ProductName, "Last", "Background Color", "&H80000018&"), GetSetting$(App.ProductName, "Last", "Foreground Color", "&H80000008&");
+    }
 
-            public void Form_Unload            {
-                if ( ! mHotKeyOpenWindow Is null )
+    public void Form_Unload    {
+        if ( ! mHotKeyOpenWindow Is null )
             {;
-                mHotKeyOpenWindow.Clear;
-                mHotKeyOpenWindow = null;
-            }
+        mHotKeyOpenWindow.Clear;
+        mHotKeyOpenWindow = null;
+    }
 
-            public void mHotKeyOpenWindow_HotKeyPress            {
-
-                if ( sName = "Sandy Cancel Insertion" )
+    public void mHotKeyOpenWindow_HotKeyPress    {
+        if ( sName = "Sandy Cancel Insertion" )
             {;
-                gbCancelInsertion = true;
-                }
+        gbCancelInsertion = true;
+        }
             else
             {if ( sName = "Sandy Activate" )
             {;
-                mHotKeyOpenWindow.RestoreAndActivate this.hwnd;
-                }
+        mHotKeyOpenWindow.RestoreAndActivate this.hwnd;
+        }
             else
             {if ( sName = "Sandy Repeat Insertion" )
             {;
-                if ( ! InternalCurrentTemplate Is null )
+        if ( ! InternalCurrentTemplate Is null )
             {;
-                sKey = InternalCurrentTemplate.Key;
-            }
+        sKey = InternalCurrentTemplate.Key;
+    }
 
-            public void txtCodeToFile_KeyDown            {
-                Form_KeyDown KeyCode, Shift;
-                if ( mbScramFormKey )
+    public void txtCodeToFile_KeyDown    {
+        Form_KeyDown KeyCode, Shift;
+        if ( mbScramFormKey )
             {
  KeyCode == 0: Shift == 0;
-            }
+    }
 
-            public void txtFilename_KeyDown            {
-                Form_KeyDown KeyCode, Shift;
-                if ( mbScramFormKey )
+    public void txtFilename_KeyDown    {
+        Form_KeyDown KeyCode, Shift;
+        if ( mbScramFormKey )
             {
  KeyCode == 0: Shift == 0;
-            }
+    }
 
-            public void txtShortName_KeyDown            {
-                Form_KeyDown KeyCode, Shift;
-                if ( mbScramFormKey )
+    public void txtShortName_KeyDown    {
+        Form_KeyDown KeyCode, Shift;
+        if ( mbScramFormKey )
             {
  KeyCode == 0: Shift == 0;
-            }
+    }
 
-        }
+    }
     }

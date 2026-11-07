@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 namespace MetX.SliceAndDice
 {
-        public class ISandyIDE
-        {
-
-                public VBIDE.CodePane ActiveCodePane
+    public class ISandyIDE
     {
-        get
+
+        public VBIDE.CodePane ActiveCodePane
         {
+            get
+            {
+            }
+
         }
+
+
 
     }
-
-
-
-        }
     }

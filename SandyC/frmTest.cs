@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmTest : System.Windows.Forms.Form
-        {
+    public class frmTest : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.Label Label2;
          public System.Windows.Forms.VB.Image Image1;
          public System.Windows.Forms.VB.Label Label1;
@@ -101,20 +101,20 @@ namespace MetX.SliceAndDice
         }
         #endregion
 
-        public object WithEvents;
+        public unknown WithEvents;
 
 
-            public void Form_Load()
-            {
-                m_cHotKey = new cRegHotKey();
-                m_cHotKey.Attach this.hwnd;
-                m_cHotKey.RegisterKey "Activate", vbKeyUp, MOD_ALT + MOD_CONTROL;
-            }
+    public void Form_Load()
+    {
+        m_cHotKey = new cRegHotKey();
+        m_cHotKey.Attach this.hwnd;
+        m_cHotKey.RegisterKey "Activate", vbKeyUp, MOD_ALT + MOD_CONTROL;
+    }
 
-            public void m_cHotKey_HotKeyPress            {
-                m_cHotKey.RestoreAndActivate this.hwnd;
-                MsgBox "Got HotKey: " + sName;
-            }
+    public void m_cHotKey_HotKeyPress    {
+        m_cHotKey.RestoreAndActivate this.hwnd;
+        MsgBox "Got HotKey: " + sName;
+    }
 
-        }
+    }
     }

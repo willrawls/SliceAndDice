@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmMain : System.Windows.Forms.Form
-        {
+    public class frmMain : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.SysTrayCtl.cSysTray trayMain;
          public System.Windows.Forms.VB.Menu mnuTray;
          public System.Windows.Forms.VB.Menu mnuExit;
@@ -144,147 +144,143 @@ namespace MetX.SliceAndDice
         }
         #endregion
 
-        public object myIDTExtender;
-        public object QueuedPopupMenu;
+        public unknown myIDTExtender;
+        public unknown QueuedPopupMenu;
         public 1) CustomVars(0;
-        public object sQueuedPopupMenu;
-        public object IsMenuDisplayed;
+        public unknown sQueuedPopupMenu;
+        public unknown IsMenuDisplayed;
 
 
-            public void ShowQueuedPopupMenu()
-            {
-                try
+    public void ShowQueuedPopupMenu()
+    {
+        try
 {;
-                ;
-                ;
-
-                TryAgain:;
-                if ( ! QueuedPopupMenu Is null )
+        ;
+        ;
+        TryAgain:;
+        if ( ! QueuedPopupMenu Is null )
             {;
-                MenuToShow = QueuedPopupMenu;
-                QueuedPopupMenu = null;
-                IsMenuDisplayed = true;
-                PopupMenu MenuToShow, , , , mnuMainWindow;
-                IsMenuDisplayed = false;
-                GoTo TryAgain;
-                }
+        MenuToShow = QueuedPopupMenu;
+        QueuedPopupMenu = null;
+        IsMenuDisplayed = true;
+        PopupMenu MenuToShow, , , , mnuMainWindow;
+        IsMenuDisplayed = false;
+        GoTo TryAgain;
+        }
             else
             {if ( Len(sQueuedPopupMenu) > 0 )
             {;
-                mySandyWizard = myIDTExtender;
-                switch sQueuedPopupMenu.ToUpper();
-                Case "FAVORITES": mySandyWizard.FavoriteCalledFromIDE = true: mySandyWizard.ShowFavoritesMenu;
-                Case "EXTERNALS": mySandyWizard.ShowExternalsMenu;
-                Case "ABOUT":     mySandyWizard.ShowSplashScreen;
-                };
-                mySandyWizard = null;
-                sQueuedPopupMenu = string.Empty;
-                };
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
+        mySandyWizard = myIDTExtender;
+        switch sQueuedPopupMenu.ToUpper();
+        Case "FAVORITES": mySandyWizard.FavoriteCalledFromIDE = true: mySandyWizard.ShowFavoritesMenu;
+        Case "EXTERNALS": mySandyWizard.ShowExternalsMenu;
+        Case "ABOUT":     mySandyWizard.ShowSplashScreen;
         };
-            }
-
-            public void Form_Load()
-            {
-                try
-{;
-                myIDTExtender = new SliceAndDice.Wizard();
-
-                CustomVars(0) = "sadAddin|sadFile|sadRegister|sadSoftCodeWmr";
-                CustomVars(1) = "";
-
-                myIDTExtender.OnConnection null, vbext_cm_External, null, CustomVars;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
+        mySandyWizard = null;
+        sQueuedPopupMenu = string.Empty;
         };
-            }
-
-            public void Form_Unload            {
-                try
-{;
-                myIDTExtender.OnDisconnection vbext_dm_HostShutdown, CustomVars;
-                myIDTExtender = null;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuAbout_Click()
-            {
-                sQueuedPopupMenu = "About";
-            }
-
-            public void mnuExit_Click()
-            {
-                try
-{;
-                ;
-                mySandyWizard = myIDTExtender;
-                mySandyWizard.HideWindows;
-                mySandyWizard = null;
-
-                Close();
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFavorites_Click()
-            {
-                sQueuedPopupMenu = "Favorites";
-            }
-
-            public void mnuMainWindow_Click()
-            {
-                try
-{;
-                ;
-                mySandyWizard = myIDTExtender;
-                mySandyWizard.ShowMainWindow;
-                mySandyWizard = null;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuShowExternals_Click()
-            {
-                sQueuedPopupMenu = "Externals";
-            }
-
-            public void trayMain_MouseDblClick            {
-                try
-{;
-                mnuMainWindow_Click;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void trayMain_MouseUp            {
-                try
-{;
-                QueuedPopupMenu = mnuTray;
-                ShowQueuedPopupMenu;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
         }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_Load()
+    {
+        try
+{;
+        myIDTExtender = new SliceAndDice.Wizard();
+        CustomVars(0) = "sadAddin|sadFile|sadRegister|sadSoftCodeWmr";
+        CustomVars(1) = "";
+        myIDTExtender.OnConnection null, vbext_cm_External, null, CustomVars;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_Unload    {
+        try
+{;
+        myIDTExtender.OnDisconnection vbext_dm_HostShutdown, CustomVars;
+        myIDTExtender = null;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuAbout_Click()
+    {
+        sQueuedPopupMenu = "About";
+    }
+
+    public void mnuExit_Click()
+    {
+        try
+{;
+        ;
+        mySandyWizard = myIDTExtender;
+        mySandyWizard.HideWindows;
+        mySandyWizard = null;
+        Close();
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFavorites_Click()
+    {
+        sQueuedPopupMenu = "Favorites";
+    }
+
+    public void mnuMainWindow_Click()
+    {
+        try
+{;
+        ;
+        mySandyWizard = myIDTExtender;
+        mySandyWizard.ShowMainWindow;
+        mySandyWizard = null;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuShowExternals_Click()
+    {
+        sQueuedPopupMenu = "Externals";
+    }
+
+    public void trayMain_MouseDblClick    {
+        try
+{;
+        mnuMainWindow_Click;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void trayMain_MouseUp    {
+        try
+{;
+        QueuedPopupMenu = mnuTray;
+        ShowQueuedPopupMenu;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    }
     }

@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmRegisterCodeSnippet : System.Windows.Forms.Form
-        {
+    public class frmRegisterCodeSnippet : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.TextBox txtObjectName;
          public System.Windows.Forms.VB.CommandButton cmdRemoveAddin;
          public System.Windows.Forms.VB.TextBox txtLocation;
@@ -121,71 +121,68 @@ namespace MetX.SliceAndDice
         }
         #endregion
 
-            public void RegisterIt()
-            {
-                ;
-                ;
-
-                fh = FreeFile;
-                ;
-                //  ' Make sure it's not already there;
-                #fh     Open txtLocation For Input Access Read;
-                Do Until EOF(fh);
-                Input #fh, sLine;
-                sLine).Contains(UCase(txtObjectName)) > 0 .ToUpper()
+    public void RegisterIt()
+    {
+        ;
+        ;
+        fh = FreeFile;
+        ;
+        //  ' Make sure it's not already there;
+        #fh     Open txtLocation For Input Access Read;
+        Do Until EOF(fh);
+        Input #fh, sLine;
+        sLine).Contains(UCase(txtObjectName)) > 0 .ToUpper()
             {;
-                MsgBox "'" + txtObjectName + "' has already been registered. Aborting action.";
-                Close #fh;
-                return;
-                };
-                Loop;
-                Close #fh;
-                ;
-                #fh     Open txtLocation For Append Access Write;
-                Print #fh, txtObjectName + "=0";
-                Close #fh;
-            }
+        MsgBox "'" + txtObjectName + "' has already been registered. Aborting action.";
+        Close #fh;
+        return;
+        };
+        Loop;
+        Close #fh;
+        ;
+        #fh     Open txtLocation For Append Access Write;
+        Print #fh, txtObjectName + "=0";
+        Close #fh;
+    }
 
-            public void cmdAddAddin_Click()
-            {
-                RegisterIt;
-                MsgBox "Code Snippet Add-in added successfully. Use the Add-in Manager to activate it.";
-            }
+    public void cmdAddAddin_Click()
+    {
+        RegisterIt;
+        MsgBox "Code Snippet Add-in added successfully. Use the Add-in Manager to activate it.";
+    }
 
-            public void cmdRemoveAddin_Click()
-            {
-                ;
-                ;
-                ;
-
-                fh = FreeFile;
-                #fh     Open txtLocation For Input Access Read;
-                Do Until EOF(fh);
-                Input #fh, sLine;
-                sLine.Contains(txtObjectName) = 0 )
+    public void cmdRemoveAddin_Click()
+    {
+        ;
+        ;
+        ;
+        fh = FreeFile;
+        #fh     Open txtLocation For Input Access Read;
+        Do Until EOF(fh);
+        Input #fh, sLine;
+        sLine.Contains(txtObjectName) = 0 )
             {;
-                sBackOut +=  sLine + Chr$(13) + Chr$(10);
-                };
-                Loop;
-                Close #fh;
-                ;
-                #fh     Open txtLocation For Output Access Write;
-                Print #fh, sBackOut;
-                Close #fh;
+        sBackOut +=  sLine + Chr$(13) + Chr$(10);
+        };
+        Loop;
+        Close #fh;
+        ;
+        #fh     Open txtLocation For Output Access Write;
+        Print #fh, sBackOut;
+        Close #fh;
+        MsgBox "Code Snippet Add-in removed successfully.";
+    }
 
-                MsgBox "Code Snippet Add-in removed successfully.";
-            }
+    public void Form_Load()
+    {
+        txtLocation.Text = sGetWindowsDir() + "vbaddin.ini";
 
-            public void Form_Load()
-            {
-                txtLocation.Text = sGetWindowsDir() + "vbaddin.ini";
-                ;
-                if ( Command) = "REGISTER SLICE AND DICE" .ToUpper()
+        if ( Command) = "REGISTER SLICE AND DICE" .ToUpper()
             {;
-                RegisterIt;
-                End;
-                };
-            }
+        RegisterIt;
+        End;
+        };
+    }
 
-        }
+    }
     }

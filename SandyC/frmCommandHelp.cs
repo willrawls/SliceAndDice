@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmCommandHelp : System.Windows.Forms.Form
-        {
+    public class frmCommandHelp : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.MSComDlg.CommonDialog cdgHelp;
          public System.Windows.Forms.VB.TextBox txtSoftCommandName;
          public System.Windows.Forms.VB.TextBox txtAliases;
@@ -437,245 +437,238 @@ namespace MetX.SliceAndDice
         public CAssocArray asaOrdered;
 
 
-                public object CurrCommandKey
-    {
-        set
+        public unknown CurrCommandKey
         {
-        try
+            set
+            {
+                try
 {
 
-        if ( ! SadCommandSet.Item(vKey) Is null )
+                if ( ! SadCommandSet.Item(vKey) Is null )
             {
 
-         CurrCommand = SadCommandSet.Item(value);
-        vCurrCommandKey = CurrCommand.Index;
-        Populate;
-        ;
+                 CurrCommand = SadCommandSet.Item(value);
+                vCurrCommandKey = CurrCommand.Index;
+                Populate;
         }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         }
+            }
 
         }
 
-    }
 
 
-
-            public void Populate()
-            {
-                try
+    public void Populate()
+    {
+        try
 {;
-
-                if ( SadCommandIs null )
+        if ( SadCommandIs null )
             {
  return;
-                if ( CurrCommand Is null )
+        if ( CurrCommand Is null )
             {
  return;
 
-
-                Caption = "SAD Soft Command Reference - " + SadCommandSet.Attributes("Name") + " ( " + SadCommandSet.Count + " commands)";
-                chkIsInline.Enabled = true;
-                chkIsInline.Value = Abs(.IsInline);
-                if ( CurrCommand.IsInline )
+        Caption = "SAD Soft Command Reference - " + SadCommandSet.Attributes("Name") + " ( " + SadCommandSet.Count + " commands)";
+        chkIsInline.Enabled = true;
+        chkIsInline.Value = Abs(.IsInline);
+        if ( CurrCommand.IsInline )
             {;
-                chkIsInline.Text = "This is an INLINE Soft Command (ie. " + gsSoftVarDelimiter + CurrCommand.SoftCommandName + gsInlineCmdDelimiter + "Parameters" + gsSoftVarDelimiter + gsS + gsPC;
-                }
+        chkIsInline.Text = "This is an INLINE Soft Command (ie. " + gsSoftVarDelimiter + CurrCommand.SoftCommandName + gsInlineCmdDelimiter + "Parameters" + gsSoftVarDelimiter + gsS + gsPC;
+        }
             else
             {;
-                chkIsInline.Text = "This is a REGULAR Soft Command (ie. " + gsSoftCmdDelimiter + CurrCommand.SoftCommandName + " )";
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void chkIsInline_Click()
-            {
-                try
-{;
-                chkIsInline.Value = Abs(CurrCommand.IsInline);
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void Form_Initialize()
-            {
-
-            }
-
-            public void Form_KeyDown            {
-                try
-{;
-                if ( (Shift And vbCtrlMask) > 0 )
-            {;
-                switch KeyCode;
-                Case vbKeyPageUp: mnuPrevious_Click;
-                Case vbKeyPageDown: mnuNext_Click;
-                Case vbKeyF: mnuFileFind_Click;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void Form_Load()
-            {
-                try
-{;
-                LoadFormPosition Me, , false;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void Form_QueryUnload            {
-                if ( UnloadMode = vbFormControlMenu )
-            {;
-                Cancel = true;
-            }
-
-            public void Form_Terminate()
-            {
-
-            }
-
-            public void Form_Unload            {
-                try
-{;
-                SaveFormPosition Me;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFileExit_Click()
-            {
-                try
-{;
-                SaveFormPosition Me;
-                CurrCommand = null;
-                SadCommand= null;
-                Hide;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFileFind_Click()
-            {
-                try
-{;
-
-                sChoices = string.Empty;
-                foreach( var CurrMember in SadCommandSet );
-                sChoices +=  CurrMember.SoftCommandName + IIf(CurrMember.IsInline, " (Inline)" + gsE + CurrMember.OneLineDescription + gsSC, gsE + CurrMember.OneLineDescription + gsSC);
-                if ( Len(CurrMember.Aliases) )
-            {;
-                sChoices +=  Replace(CurrMember.Aliases, ", ", IIf(CurrMember.IsInline, " (Inline)" + "=See " + CurrMember.SoftCommandName + gsSC, "=See " + CurrMember.SoftCommandName + gsSC));
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuFirst_Click()
-            {
-                try
-{;
-                CurrCommandKey = 1;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuLast_Click()
-            {
-                try
-{;
-                CurrCommandKey = SadCommandSet.Count;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuNext_Click()
-            {
-                try
-{;
-                if ( vCurrCommandKey + 1 < SadCommandSet.Count )
-            {;
-                CurrCommandKey = vCurrCommandKey + 1;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void mnuPrevious_Click()
-            {
-                try
-{;
-                if ( vCurrCommandKey - 1 > 0 )
-            {;
-                CurrCommandKey = vCurrCommandKey - 1;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void txtHelpFile_Click()
-            {
-                txtHelpTopic_Click;
-            }
-
-            public void txtHelpFile_DblClick()
-            {
-                txtHelpTopic_Click;
-            }
-
-            public void txtHelpTopic_Click()
-            {
-                if ( Len(txtHelpFile) > 0 And Len(txtHelpTopic) = 0 )
-            {;
-
-                cdgHelp.HelpFile = txtHelpFile;
-                //            ' Go to the Click Event topic in the Help file.;
-                //            ' The number is determined in the [MAP] section;
-                //            ' of the .HPJ file for the .chm file. You can;
-                //            ' edit this number only if you are using the;
-                //            ' Microsoft Help Workshop to build your;
-                //            ' own Help file.;
-                cdgHelp.HelpContext = txtHelpTopic;
-                cdgHelp.HelpCommand = cdlHelpContext;
-                cdgHelp.ShowHelp;
-            }
-
-            public void txtHelpTopic_DblClick()
-            {
-                txtHelpTopic_Click;
-            }
-
+        chkIsInline.Text = "This is a REGULAR Soft Command (ie. " + gsSoftCmdDelimiter + CurrCommand.SoftCommandName + " )";
         }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void chkIsInline_Click()
+    {
+        try
+{;
+        chkIsInline.Value = Abs(CurrCommand.IsInline);
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_Initialize()
+    {
+    }
+
+    public void Form_KeyDown    {
+        try
+{;
+        if ( (Shift And vbCtrlMask) > 0 )
+            {;
+        switch KeyCode;
+        Case vbKeyPageUp: mnuPrevious_Click;
+        Case vbKeyPageDown: mnuNext_Click;
+        Case vbKeyF: mnuFileFind_Click;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_Load()
+    {
+        try
+{;
+        LoadFormPosition Me, , false;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_QueryUnload    {
+        if ( UnloadMode = vbFormControlMenu )
+            {;
+        Cancel = true;
+    }
+
+    public void Form_Terminate()
+    {
+    }
+
+    public void Form_Unload    {
+        try
+{;
+        SaveFormPosition Me;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFileExit_Click()
+    {
+        try
+{;
+        SaveFormPosition Me;
+        CurrCommand = null;
+        SadCommand= null;
+        Hide;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFileFind_Click()
+    {
+        try
+{;
+        sChoices = string.Empty;
+        foreach( var CurrMember in SadCommandSet );
+        sChoices +=  CurrMember.SoftCommandName + IIf(CurrMember.IsInline, " (Inline)" + gsE + CurrMember.OneLineDescription + gsSC, gsE + CurrMember.OneLineDescription + gsSC);
+        if ( Len(CurrMember.Aliases) )
+            {;
+        sChoices +=  Replace(CurrMember.Aliases, ", ", IIf(CurrMember.IsInline, " (Inline)" + "=See " + CurrMember.SoftCommandName + gsSC, "=See " + CurrMember.SoftCommandName + gsSC));
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuFirst_Click()
+    {
+        try
+{;
+        CurrCommandKey = 1;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuLast_Click()
+    {
+        try
+{;
+        CurrCommandKey = SadCommandSet.Count;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuNext_Click()
+    {
+        try
+{;
+        if ( vCurrCommandKey + 1 < SadCommandSet.Count )
+            {;
+        CurrCommandKey = vCurrCommandKey + 1;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void mnuPrevious_Click()
+    {
+        try
+{;
+        if ( vCurrCommandKey - 1 > 0 )
+            {;
+        CurrCommandKey = vCurrCommandKey - 1;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void txtHelpFile_Click()
+    {
+        txtHelpTopic_Click;
+    }
+
+    public void txtHelpFile_DblClick()
+    {
+        txtHelpTopic_Click;
+    }
+
+    public void txtHelpTopic_Click()
+    {
+        if ( Len(txtHelpFile) > 0 And Len(txtHelpTopic) = 0 )
+            {;
+
+        cdgHelp.HelpFile = txtHelpFile;
+        //            ' Go to the Click Event topic in the Help file.;
+        //            ' The number is determined in the [MAP] section;
+        //            ' of the .HPJ file for the .chm file. You can;
+        //            ' edit this number only if you are using the;
+        //            ' Microsoft Help Workshop to build your;
+        //            ' own Help file.;
+        cdgHelp.HelpContext = txtHelpTopic;
+        cdgHelp.HelpCommand = cdlHelpContext;
+        cdgHelp.ShowHelp;
+    }
+
+    public void txtHelpTopic_DblClick()
+    {
+        txtHelpTopic_Click;
+    }
+
+    }
     }

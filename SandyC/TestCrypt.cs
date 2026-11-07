@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class Form1 : System.Windows.Forms.Form
-        {
+    public class Form1 : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.CommandButton cmdDecrypt;
          public System.Windows.Forms.VB.TextBox txtDec;
          public System.Windows.Forms.VB.CommandButton cmdEncrypt;
@@ -110,15 +110,15 @@ namespace MetX.SliceAndDice
         }
         #endregion
 
-            public void cmdDecrypt_Click()
-            {
-                txtDec.Text = sadDecrypt(txtOut.Text);
-            }
+    public void cmdDecrypt_Click()
+    {
+        txtDec.Text = sadDecrypt(txtOut.Text);
+    }
 
-            public void cmdEncrypt_Click()
-            {
-                txtOut.Text = sadEncrypt(txtIn.Text);
-            }
+    public void cmdEncrypt_Click()
+    {
+        txtOut.Text = sadEncrypt(txtIn.Text);
+    }
 
-        }
+    }
     }

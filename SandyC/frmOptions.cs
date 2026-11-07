@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmOptions : System.Windows.Forms.Form
-        {
+    public class frmOptions : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.PictureBox picBottom;
          public System.Windows.Forms.VB.CheckBox chkProcessIncludes;
          public System.Windows.Forms.VB.CommandButton cmdOK;
@@ -370,160 +370,157 @@ namespace MetX.SliceAndDice
         public string sStruct;
         public string sUnion;
         public int lBraceCount;
-        public object CurrItem;
-        public object sOut;
+        public unknown CurrItem;
+        public unknown sOut;
         public string sFilename;
         public SliceAndDice.CAssocItem CurrItem;
         public Node CurrNode;
 
 
-            public void AddNode            {
-                // TODO: Rewrite try/catch and/or goto. 0;
-                if ( Len(sText) == 0 Or Len(sIcon) == 0 )
+    public void AddNode    {
+        // TODO: Rewrite try/catch and/or goto. 0;
+        if ( Len(sText) == 0 Or Len(sIcon) == 0 )
             {
  return;
-                if ( Len(sKey) == 0 )
+        if ( Len(sKey) == 0 )
             {
  sKey == sText;
-
-                if ( Len(sParent) )
+        if ( Len(sParent) )
             {;
 
-                tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).ExpandedImage = sIcon;
-                tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).Expanded = bExpanded;
-                tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).BackColor = lvwContents.BackColor;
-                tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).ForeColor = lvwContents.ForeColor;
-                tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).Tag = sTag;
-            }
+        tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).ExpandedImage = sIcon;
+        tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).Expanded = bExpanded;
+        tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).BackColor = lvwContents.BackColor;
+        tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).ForeColor = lvwContents.ForeColor;
+        tvwHierarchy.Nodes.Add(                                                                                                                                                                                                      sParent, tvwChild, sKey, sText, sIcon, sIcon).Tag = sTag;
+    }
 
-            public void ProcessFile            {
-                ;
-                ;
+    public void ProcessFile    {
+        ;
+        ;
+        Form_Load;
 
-                Form_Load;
-
-                sContents = Parent.Parent.sFileContents(sFilename);
-                Screen.MousePointer = vbHourglass;
-                if ( Len(sContents) )
+        sContents = Parent.Parent.sFileContents(sFilename);
+        Screen.MousePointer = vbHourglass;
+        if ( Len(sContents) )
             {;
-                sEOL = Chr(13);
-                sRootName = Parent.Parent.sGetToken(sFilename, Parent.Parent.lTokenCount(sFilename, "\"), "\");
-                if ( bClearFirst )
+        sEOL = Chr(13);
+        sRootName = Parent.Parent.sGetToken(sFilename, Parent.Parent.lTokenCount(sFilename, "\"), "\");
+        if ( bClearFirst )
             {;
-                lvwContents.ListItems.Clear;
-                tvwHierarchy.Nodes.Clear;
-            }
+        lvwContents.ListItems.Clear;
+        tvwHierarchy.Nodes.Clear;
+    }
 
-            public As MassReplace            {
-
-                sOut = sLine;
-                foreach( var CurrItem in asaDefines );
-                if ( Len(CurrItem.Key) > 0 )
+    public As MassReplace    {
+        sOut = sLine;
+        foreach( var CurrItem in asaDefines );
+        if ( Len(CurrItem.Key) > 0 )
             {;
-                sOut = Replace(sOut, CurrItem.Key, CurrItem.Value);
-            }
+        sOut = Replace(sOut, CurrItem.Key, CurrItem.Value);
+    }
 
-            public void chkProcessIncludes_Click()
-            {
-                SaveSetting App.ProductName, "Last", "Process Includes", chkProcessIncludes.Value;
-            }
+    public void chkProcessIncludes_Click()
+    {
+        SaveSetting App.ProductName, "Last", "Process Includes", chkProcessIncludes.Value;
+    }
 
-            public void cmdCancel_Click()
-            {
-                Form_Unload 0;
-                Hide;
-            }
+    public void cmdCancel_Click()
+    {
+        Form_Unload 0;
+        Hide;
+    }
 
-            public void cmdGenerate_Click()
-            {
-                Form_Unload 0;
-                MsgBox "Generation would occur here";
-                Hide;
-            }
+    public void cmdGenerate_Click()
+    {
+        Form_Unload 0;
+        MsgBox "Generation would occur here";
+        Hide;
+    }
 
-            public void cmdOK_Click()
-            {
-                Form_Unload 0;
-                Hide;
-            }
+    public void cmdOK_Click()
+    {
+        Form_Unload 0;
+        Hide;
+    }
 
-            public void cmdPickFile_Click()
-            {
-                sFilename = Parent.Parent.sChooseFile(, , "C Header|*.h|C++ Header|*.hpp|All Files|*.*");
-                if ( Len(sFilename) )
+    public void cmdPickFile_Click()
+    {
+        sFilename = Parent.Parent.sChooseFile(, , "C Header|*.h|C++ Header|*.hpp|All Files|*.*");
+        if ( Len(sFilename) )
             {
  ProcessFile sFilename, true;
-            }
+    }
 
-            public void Form_Load()
-            {
-                LoadFormPosition Me;
-                Form_Resize;
+    public void Form_Load()
+    {
+        LoadFormPosition Me;
+        Form_Resize;
 
-                asaDefines.Clear;
-                asaDefines.Item("&") = "!!!";
-                asaDefines.Item("virtual ") = "!!!";
-                asaDefines.Item("char *") = "string ";
-                asaDefines.Item("LPCTSTR ") = "string ";
-                asaDefines.Item("BSTR ") = "string ";
-                asaDefines.Item("void *") = "long ";
-                asaDefines.Item("int ") = "long ";
-                asaDefines.Item("short") = "Integer";
-                //       '.Item("long ") = "long ";
-                asaDefines.Item("char ") = "Byte ";
-                asaDefines.Item("") = " ";
-                asaDefines.Item("") = " ";
-                asaDefines.Item("") = " ";
-                asaDefines.Item("operator==") = "CompareForEquality ";
-                asaDefines.Item("operator!=") = "CompareForInequality ";
-                asaDefines.Item("_exports") = "!!!";
-                asaDefines.Item(": public") = " - Implements ";
-                asaDefines.Item("const ") = "!!!";
-                asaDefines.Item("afx_msg ") = "!!!";
-                asaDefines.Item(" const") = "!!!";
-                asaDefines.Item("(void)") = "()";
-                asaDefines.Item("void ") = "Sub ";
-                asaDefines.Item(" void") = "!!!";
-                asaDefines.Item("(string ") = "(ByVal string ";
-                asaDefines.Item(", string ") = ", ByVal string ";
-            }
+        asaDefines.Clear;
+        asaDefines.Item("&") = "!!!";
+        asaDefines.Item("virtual ") = "!!!";
+        asaDefines.Item("char *") = "string ";
+        asaDefines.Item("LPCTSTR ") = "string ";
+        asaDefines.Item("BSTR ") = "string ";
+        asaDefines.Item("void *") = "long ";
+        asaDefines.Item("int ") = "long ";
+        asaDefines.Item("short") = "Integer";
+        //       '.Item("long ") = "long ";
+        asaDefines.Item("char ") = "Byte ";
+        asaDefines.Item("") = " ";
+        asaDefines.Item("") = " ";
+        asaDefines.Item("") = " ";
+        asaDefines.Item("operator==") = "CompareForEquality ";
+        asaDefines.Item("operator!=") = "CompareForInequality ";
+        asaDefines.Item("_exports") = "!!!";
+        asaDefines.Item(": public") = " - Implements ";
+        asaDefines.Item("const ") = "!!!";
+        asaDefines.Item("afx_msg ") = "!!!";
+        asaDefines.Item(" const") = "!!!";
+        asaDefines.Item("(void)") = "()";
+        asaDefines.Item("void ") = "Sub ";
+        asaDefines.Item(" void") = "!!!";
+        asaDefines.Item("(string ") = "(ByVal string ";
+        asaDefines.Item(", string ") = ", ByVal string ";
+    }
 
-            public void Form_Resize()
-            {
-                try
+    public void Form_Resize()
+    {
+        try
 {;
-                picLeft.Width = ScaleWidth * 0.55;
-                picRight.Width = ScaleWidth - picLeft.Width - 100;
-                tvwHierarchy.Move 30, 30, picLeft.Width - 30, picLeft.Height - 30;
-                lvwContents.Move 30, 30, picRight.Width - 30, picRight.Height - 30;
-                }
+        picLeft.Width = ScaleWidth * 0.55;
+        picRight.Width = ScaleWidth - picLeft.Width - 100;
+        tvwHierarchy.Move 30, 30, picLeft.Width - 30, picLeft.Height - 30;
+        lvwContents.Move 30, 30, picRight.Width - 30, picRight.Height - 30;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Unload            {
-                SaveFormPosition Me;
-            }
+    public void Form_Unload    {
+        SaveFormPosition Me;
+    }
 
-            public void tvwHierarchy_MouseUp            {
-                ;
-                if ( Button = 1 And Shift = 0 )
+    public void tvwHierarchy_MouseUp    {
+
+        if ( Button = 1 And Shift = 0 )
             {;
-                CurrNode = null;
-                CurrNode = tvwHierarchy.HitTest(x, y);
-                if ( ! CurrNode Is null )
+        CurrNode = null;
+        CurrNode = tvwHierarchy.HitTest(x, y);
+        if ( ! CurrNode Is null )
             {;
-                if ( lvwContents.Tag <> CurrNode.Tag) .ToUpper()
+        if ( lvwContents.Tag <> CurrNode.Tag) .ToUpper()
             {;
-                lvwContents.ListItems.Clear;
-                switch CurrNode.Tag.ToUpper();
-                Case "ASADEFINES";
-                foreach( var CurrItem in asaDefines );
+        lvwContents.ListItems.Clear;
+        switch CurrNode.Tag.ToUpper();
+        Case "ASADEFINES";
+        foreach( var CurrItem in asaDefines );
 
-                lvwContents.ListItems.Add(                                                                                                                                                                                                      , , CurrItem.Key, "Constant", "Constant").SubItems(1) = CurrItem.Value;
-            }
+        lvwContents.ListItems.Add(                                                                                                                                                                                                      , , CurrItem.Key, "Constant", "Constant").SubItems(1) = CurrItem.Value;
+    }
 
-        }
+    }
     }

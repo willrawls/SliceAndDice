@@ -1,0 +1,50 @@
+I've got new templates and a revised Slice and Dice that work flawlessly for what
+we want to accomplish. However, it took most of the night to do it. I will be back
+this morning, but probably not until like 11am.
+
+The templates we're going to want to use are:
+   (also in the order we'll need to apply them):
+
+There's a new command as well as a couple of implementations you suggested
+	that were quick and simple changes. The big thing is the addition of the 
+	"preprocessor" which is where that new ~##~Include comes in. I'll explain
+	this later, but essentially, it pulls all the templates together and
+	processes them as a unit like good ol' C.
+
+For a group of business server projects: 
+	"Process Group Find/Replace - Clean up iGreentree Business Servers"
+
+For an individual module (whatever's currently selected):
+	"Process Group Find/Replace - Remove IObjectSafety from current module"
+	"Process Group Find/Replace - Modernize ObjectControl in current module"
+
+Also a new line numbering / on the fly code replacing template:
+	"Line Numbers - Basic Process Entire Module"
+		Which also does the error handler line simultaineously.
+
+You might want to look through:
+	"Line Numbers - Basic Common Line Modifications"
+
+As this controls what other ops besides line numbering occurs during a replace.
+
+With these templates, we should be able to breeze through the servers in 
+a matter of only a couple of hours or less. 
+	I went through several servers and many of the common files myself as
+	you suggested. These are now checked in, so pull them down before
+	starting anything.
+
+If you want to start, the Explorer is open to a project (copy locally first)
+      "Business Servers 3 of 3.vbg".
+
+My copies of the project files have been altered to (temporarily) turn off
+      binary compatibility with the CMP files as we're going to break them
+      up one side and down the other with the new ADO 2.5 (at least that's
+      what happened to me). The business servers don't need to maintain it 
+      for now anyway. I can walk back through the files once we have everything
+      transitioned, and restore the the CMP references in a few minutes.
+
+Also, my project files already have the IObjectSafety reference (but not the code)
+      removed for ease of loading and compiling. I recommend using these to 
+      springboard your efforts.
+
+Again, I'll be back soon. Mostly need a shower.

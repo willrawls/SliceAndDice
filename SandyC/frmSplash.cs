@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmSplash : System.Windows.Forms.Form
-        {
+    public class frmSplash : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.Frame Frame1;
          public System.Windows.Forms.VB.Label Label14;
          public System.Windows.Forms.VB.Label Label411;
@@ -599,77 +599,76 @@ namespace MetX.SliceAndDice
         public Date RightNow;
 
 
-            public void Form_KeyPress            {
-                Close();
-            }
+    public void Form_KeyPress    {
+        Close();
+    }
 
-            public void Form_Load()
-            {
-                try
+    public void Form_Load()
+    {
+        try
 {;
-                DetermineRegistration;
-                Move (Screen.Width - Width) \ 2, (Screen.Height - Height) \ 2;
-
-                }
+        DetermineRegistration;
+        Move (Screen.Width - Width) \ 2, (Screen.Height - Height) \ 2;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Frame1_Click()
-            {
-                Close();
-            }
+    public void Frame1_Click()
+    {
+        Close();
+    }
 
-            public void imgLogo_Click()
-            {
-                BrowseTo "http://www.sliceanddice.com";
-            }
+    public void imgLogo_Click()
+    {
+        BrowseTo "http://www.sliceanddice.com";
+    }
 
-            public void Label1_Click            {
-                BrowseTo string.Empty + Label1(Index).Text;
-            }
+    public void Label1_Click    {
+        BrowseTo string.Empty + Label1(Index).Text;
+    }
 
-            public void Label2_Click()
-            {
-                BrowseTo "http://www.sliceanddice.com/agreement.html";
-            }
+    public void Label2_Click()
+    {
+        BrowseTo "http://www.sliceanddice.com/agreement.html";
+    }
 
-            public void lblCompanyProduct_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblCompanyProduct_Click()
+    {
+        Frame1_Click;
+    }
 
-            public void lblCopyright_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblCopyright_Click()
+    {
+        Frame1_Click;
+    }
 
-            public void lblLicenseTo_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblLicenseTo_Click()
+    {
+        Frame1_Click;
+    }
 
-            public void lblPlatform_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblPlatform_Click()
+    {
+        Frame1_Click;
+    }
 
-            public void lblProductName_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblProductName_Click()
+    {
+        Frame1_Click;
+    }
 
-            public void lblVersion_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblVersion_Click()
+    {
+        Frame1_Click;
+    }
 
-            public void lblWarning_Click()
-            {
-                Frame1_Click;
-            }
+    public void lblWarning_Click()
+    {
+        Frame1_Click;
+    }
 
-        }
+    }
     }

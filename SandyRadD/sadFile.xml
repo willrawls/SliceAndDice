@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XML>
+<Sandal>
+   <Name>sadFile</Name>
+   <Location>d:\data\Programming\Projects - Firm Solutions\SliceAndDice\sadFile.dll</Location>
+   <Version>1.8.136</Version>
+   <Update>http://www.sliceanddice.com/uptodate/sandal/sadFile.xml</Update>
+
+<SoftCommand><Name>ChangeDrive</Name>
+   <Alias>Drive, ChDrive</Alias>
+   <Syntax>DriveLetter As String</Syntax>
+   <OneLineDescription>Changes the current drive to the indicated drive letter.</OneLineDescription>
+<Example>
+~~ChangeDrive C
+~~Drive D
+~~ChDrive E
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>ChangeDirectory</Name>
+   <Alias>ChangeDir, ChDir, CD</Alias>
+   <Syntax>NewPath As ValidPath</Syntax>
+   <OneLineDescription>Changes the current directory to NewPath</OneLineDescription>
+<Example>
+~~ChangeDirectory c:\
+~~ChangeDir c:\windows\system
+~~ChDir d:\Program Files
+~~CD e:\autorun
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>CreateFile</Name>
+   <Alias>MakeFile, MkFile</Alias>
+   <Syntax>Filename As ValidPathAndFilename, Contents As StringOrSoftVar</Syntax>
+   <OneLineDescription>Creates Filename and writes Contents to it.</OneLineDescription>
+<Comment>
+Most useful when Contents is a soft variable with multiple lines of text in it.
+</Comment>
+<Example>
+~~Set X=1$2$3$
+~~Set X=%%Replace::X,$,EOL%%
+~~CreateFile C:\Test.txt, X
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>AppendToFile</Name>
+   <Alias>AppendFile, Append</Alias>
+   <Syntax>Filename As ValidPathAndFilename, Contents As StringOrSoftVar</Syntax>
+   <OneLineDescription>Appends Contents into Filename specified.</OneLineDescription>
+<Comment>
+Most useful when Contents is a soft variable with multiple lines of text in it.
+</Comment>
+<Example>
+~~Set X=1$2$3$
+~~Set X=%%Replace::X,$,EOL%%
+~~AppendFile C:\Test.txt, X
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>DeleteFile</Name>
+   <Alias>DelFile, Del</Alias>
+   <Syntax>Filename As ValidFilename</Syntax>
+   <OneLineDescription>Deletes Filename</OneLineDescription>
+<Example>
+~~DeleteFile c:\Test.txt
+~~Del c:\Test.txt
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>CreateFolder</Name>
+   <Alias>CreateDirectory, MakeDir, MkDir, MD</Alias>
+   <Syntax>NewPath As String</Syntax>
+   <OneLineDescription>Creates NewPath as in "MkDir NewPath"</OneLineDescription>
+<Example>
+~~CreateFolder c:\test
+~~MD c:\test
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>DeleteFolder</Name>
+   <Alias>DeleteDirectory, DelDir, DeleteDir</Alias>
+   <Syntax>PathToDelete As ValidPath</Syntax>
+   <OneLineDescription>Removes the indicated directory (which must be empty) from the file system</OneLineDescription>
+<Comment>
+The directory MUST be empty before the directory can be removed.
+</Comment>
+<Example>
+~~DeleteFolder c:\test
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>Rename</Name>
+   <Alias>Ren, RenameFile</Alias>
+   <Syntax>CurrentName As ValidFilename, NewFilename As String</Syntax>
+   <OneLineDescription>Renames the file CurrentName to NewFilename</OneLineDescription>
+<Example>
+~~Rename c:\Test.txt c:\Test.txt.old
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>FileContents</Name>
+   <Alias>GetFile, FileToSoftVar, FileToVar</Alias>
+   <Syntax>SoftVarOut As SoftVar = FileNameIn As ValidFilename</Syntax>
+   <OneLineDescription>Reads the contents of FilenameIn into SoftVarOut</OneLineDescription>
+<Example>
+~~FileContents X=c:\Test.txt
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>VarToFile</Name>
+   <Alias>PutFile, SaveToFile, FileToVar</Alias>
+   <Syntax>SoftVarIn As SoftVar = FileNameOut As ValidFilename</Syntax>
+   <OneLineDescription>Writes the contents of SoftVarIn to FilenameOut</OneLineDescription>
+<Example>
+~~VarToFile X=c:\test.txt
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>AppendVarToFile</Name>
+   <Alias>AppendVar</Alias>
+   <Syntax>SoftVarIn As SoftVar = FileNameOut As ValidFilename</Syntax>
+   <OneLineDescription>Appends the contents of SoftVarIn to FilenameOut</OneLineDescription>
+<Example>
+~~AppendVarToFile X=c:\test.txt
+~~AppendVar X=c:\test.txt
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>RunProgram</Name>
+   <Alias>Shell, Execute</Alias>
+   <Syntax>ProgramAndParameters As String</Syntax>
+   <OneLineDescription>Executes the indicated program. Stores the ID in the SoftVar "ShellID"</OneLineDescription>
+<Example>
+~~Execute c:\windows\notepad.exe c:\Test.txt
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>Activate</Name>
+   <Alias>AppActivate, ActivateApplication, SwitchToApp</Alias>
+   <Syntax>ShellIDOrTitleBarName As String</Syntax>
+   <OneLineDescription>Activates the indicated ShellID or app with the indicated Title text</OneLineDescription>
+<Example>
+~~Execute c:\windows\notepad.exe c:\Test.txt
+~~Activate %%ShellID%%
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>SendKeys</Name>
+   <Syntax>KeyString As String</Syntax>
+   <OneLineDescription>Works the same as the VB command SendKeys</OneLineDescription>
+<Example>
+~~Execute c:\windows\notepad.exe c:\Test.txt
+~~Activate %%ShellID%%
+~~SendKeys Testing 123
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>SendKeysWithPause</Name>
+   <Alias>SendKeysAndWait, SendKeysAndPause, SendKeysWithWait</Alias>
+   <Syntax>KeyString As String</Syntax>
+   <OneLineDescription>Works the same as the VB command SendKeys with the Pause option on.</OneLineDescription>
+<Example>
+~~Execute c:\windows\notepad.exe c:\Test.txt
+~~Activate %%ShellID%%
+~~SendKeysWithPause Testing 123
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>CopyFile</Name>
+   <Alias>FileCopy</Alias>
+   <Syntax>FileOut As String = FileIn As ValidFilename</Syntax>
+   <OneLineDescription>Copyies FileIn to FileOut</OneLineDescription>
+<Example>
+~~CopyFile c:\test.2 = c:\test.txt
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>SaveSetting</Name>
+   <Alias>SaveRegistrySetting, SetRegKey</Alias>
+   <Syntax>Section As String, Key As String, Value As String</Syntax>
+   <OneLineDescription>As SaveSetting("Slice and Dice", Section, Key, Value)</OneLineDescription>
+<Example>
+~~SaveSetting Last,Date,%%Now%%
+</Example>
+</SoftCommand>
+
+<SoftCommand>
+   <Name>GetSetting</Name>
+   <Alias>GetRegistrySetting, GetRegKey</Alias>
+   <Syntax>Section As String, Key As String, Value As String</Syntax>
+   <OneLineDescription>As Value = GetSetting("Slice and Dice", Section, Key)</OneLineDescription>
+<Example>
+~~GetSetting Last,Date,TheLastDateWas
+~~MsgBox The Last Date was %%TheLastDateWas%%
+</Example>
+</SoftCommand>
+
+<SoftCommand><Name>DeleteSetting</Name>
+   <Alias>DeleteRegistrySetting, DeleteRegKey, DelRegKey</Alias>
+   <Syntax>Section As String, Key As String</Syntax>
+   <OneLineDescription>Deletes the indicated registry value</OneLineDescription>
+   <Example>~~DelSetting Last,Date</Example>
+</SoftCommand>
+
+<SoftCommand><Inline>True</Inline><Name>ChooseFile</Name>
+   <Alias>PickFile, GetPathAndFile</Alias>
+   <Syntax>Path As ValidPath As ValidPath, Optional StartingFilename As String, Filter As String</Syntax>
+   <OneLineDescription>Pops up the common dialog for choosing a file which is returned.</OneLineDescription>
+<Example>
+~~Set InputFile=%%ChooseFile::c:\windows%%
+</Example>
+</SoftCommand>
+
+<SoftCommand><Inline>True</Inline><Name>ChooseDatabase</Name>
+   <Alias>ChooseDB, PickDatabase, PickDB, GetDBPathAndFile</Alias>
+   <Syntax>Path As ValidPath As ValidPath, Optional StartingFilename As String</Syntax>
+   <OneLineDescription>Pops up the common dialog for choosing an Access Database</OneLineDescription>
+<Example>
+~~Set DBChosen=%%ChooseDB%%
+~~'   Chooses a database file starting in the current directory
+</Example>
+</SoftCommand>
+
+<SoftCommand><Inline>True</Inline><Name>ChooseColor</Name>
+   <Alias>PickColor</Alias>
+   <Syntax>InitialColor As HexString</Syntax>
+   <OneLineDescription>Opens the common color chooser and returns the color chosen.</OneLineDescription>
+<Example>
+~~Set X=%%ChooseColor::&amp;HFFFFFF&amp;%%
+</Example>
+</SoftCommand>
+
+<SoftCommand><Inline>True</Inline><Name>MatchFile</Name>
+   <Alias>Dir, FindFirst, FirstFile</Alias>
+    <SeeAlso>MatchNextFile</SeeAlso>
+   <Syntax>PathAndFileMask As String, Attributes As String</Syntax>
+   <OneLineDescription>Like the VB Dir() command, returns the first matching file in mask</OneLineDescription>
+<Example>
+~~Set X=%%Dir::c:\windows\*.exe%%
+</Example>
+</SoftCommand>
+
+<SoftCommand><Inline>True</Inline><Name>MatchNextFile</Name>
+   <Alias>FindNext, NextFile</Alias>
+   <Syntax>None</Syntax>
+   <OneLineDescription>Returns the next file matching the previously done ~~FindFirst</OneLineDescription>
+<Example>
+~~StartCoda
+~~Set X=%%Dir::c:\windows\*.exe%%
+~~Coda Len(%%X%%)
+</Example>
+</SoftCommand>
+
+</Sandal>
+</XML>

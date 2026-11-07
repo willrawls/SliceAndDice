@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmRegister : System.Windows.Forms.Form
-        {
+    public class frmRegister : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.CommandButton cmdDone;
          public System.Windows.Forms.VB.TextBox txtInvoiceNumber;
          public System.Windows.Forms.VB.CommandButton cmdStepTwo;
@@ -131,257 +131,249 @@ namespace MetX.SliceAndDice
         public int fh;
         public byte b();
         public string strURL;
-        public object InvoiceNumber;
+        public unknown InvoiceNumber;
         public As DecryptedInvoiceNumber;
-        public object sEncryptedRegKey;
-        public object sRegKey;
-        public object sResponse;
-        public object CurrValue;
-        public object bOkaySoFar;
-        public object asaX;
-        public object fh;
-        public object Value08;
-        public object ProductID;
-        public object NumberOfLicenses;
-        public object LicensesRemaining;
-        public object strOut;
+        public unknown sEncryptedRegKey;
+        public unknown sRegKey;
+        public unknown sResponse;
+        public unknown CurrValue;
+        public unknown bOkaySoFar;
+        public unknown asaX;
+        public unknown fh;
+        public unknown Value08;
+        public unknown ProductID;
+        public unknown NumberOfLicenses;
+        public unknown LicensesRemaining;
+        public unknown strOut;
         public As bytArray();
-        public object CurrByte;
-        public object ValueLen;
-        public object OffsetLen;
-        public object CharLoc;
-        public object StartAt;
+        public unknown CurrByte;
+        public unknown ValueLen;
+        public unknown OffsetLen;
+        public unknown CharLoc;
+        public unknown StartAt;
         public As CurrOffset;
-        public object CheckSum;
+        public unknown CheckSum;
         public As CheckValue;
 
 
-            public void SubmitTemplate()
-            {
-                try
+    public void SubmitTemplate()
+    {
+        try
 {;
 
-
-                if ( Len(.CurrentTemplateNameAndCategory) > 0 )
+        if ( Len(.CurrentTemplateNameAndCategory) > 0 )
             {;
-                Parent.Parent.GetCategoryAndName Parent.Parent.CurrentTemplateNameAndCategory, sCategory, sTemplate;
-                if ( ! Parent.Parent.SliceAndDice(sCategory).Templates(sTemplate) Is null )
+        Parent.Parent.GetCategoryAndName Parent.Parent.CurrentTemplateNameAndCategory, sCategory, sTemplate;
+        if ( ! Parent.Parent.SliceAndDice(sCategory).Templates(sTemplate) Is null )
             {;
 
-                ;
-                }
+        ;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As GetCentralUpdateInfo            {
-                try
+    public As GetCentralUpdateInfo    {
+        try
 {;
-                Screen.MousePointer = vbHourglass;
-                sResponse = GetURL("http://www.sliceanddice.com/central.update");
-                Screen.MousePointer = vbDefault;
-                if ( Len(sResponse) = 0 )
+        Screen.MousePointer = vbHourglass;
+        sResponse = GetURL("http://www.sliceanddice.com/central.update");
+        Screen.MousePointer = vbDefault;
+        if ( Len(sResponse) = 0 )
             {;
-                if ( bUserSure("The Central Server Update Information cannot be acceessed right now." + vbCr + vbTab + "Continue with current settings ?") )
+        if ( bUserSure("The Central Server Update Information cannot be acceessed right now." + vbCr + vbTab + "Continue with current settings ?") )
             {;
-                GetCentralUpdateInfo = true;
-                }
+        GetCentralUpdateInfo = true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As GetFile            {
-                try
+    public As GetFile    {
+        try
 {;
-
-                if ( Len(sURL) == 0 Or Len(sFilename) == 0 )
+        if ( Len(sURL) == 0 Or Len(sFilename) == 0 )
             {
  return; // ???;
-
-                if ( InStr(sFilename, "\") == 0 )
+        if ( InStr(sFilename, "\") == 0 )
             {
  sFilename == App.Path + "\" + sFilename;
-
-                if ( Len(Dir(sFilename)) > 0 )
+        if ( Len(Dir(sFilename)) > 0 )
             {;
-                Kill sFilename;
-                }
+        Kill sFilename;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As GetURL            {
-                try
+    public As GetURL    {
+        try
 {;
-                //   'Load inetRegister(0);
-                inetRegister(0).RequestTimeout = 60;
-                GetURL = inetRegister(0).OpenURL(sURL);
-                //   'Unload inetRegister(0);
-                }
+        //   'Load inetRegister(0);
+        inetRegister(0).RequestTimeout = 60;
+        GetURL = inetRegister(0).OpenURL(sURL);
+        //   'Unload inetRegister(0);
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void PostURL            {
-                try
+    public void PostURL    {
+        try
 {;
-                //   'Load inetRegister(0);
-                inetRegister(0).RequestTimeout = 60;
-                inetRegister(0).Execute sURL, "POST", sData;
-                //   'Unload inetRegister(0);
-                }
+        //   'Load inetRegister(0);
+        inetRegister(0).RequestTimeout = 60;
+        inetRegister(0).Execute sURL, "POST", sData;
+        //   'Unload inetRegister(0);
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void cmdDone_Click()
-            {
-                Hide;
-            }
+    public void cmdDone_Click()
+    {
+        Hide;
+    }
 
-            public void cmdStepOne_Click()
-            {
-                try
+    public void cmdStepOne_Click()
+    {
+        try
 {;
-                if ( Len(txtInvoiceNumber) > 0 )
+        if ( Len(txtInvoiceNumber) > 0 )
             {;
-                if ( bUserSure("It appears you have already ordered Slice and Dice because there is an Invoice number." + vbCr + vbTab + "Would you like to continue to the online ordering system ?") )
+        if ( bUserSure("It appears you have already ordered Slice and Dice because there is an Invoice number." + vbCr + vbTab + "Would you like to continue to the online ordering system ?") )
             {;
-                CurrentStage = 2;
-                sadSaveLicenseKey "Current Stage", 2;
-                Shell "start http://www.sliceanddice.com/register.html", vbNormalFocus;
-                }
+        CurrentStage = 2;
+        sadSaveLicenseKey "Current Stage", 2;
+        Shell "start http://www.sliceanddice.com/register.html", vbNormalFocus;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void cmdStepTwo_Click()
-            {
-                ;
-                ;
-                try
+    public void cmdStepTwo_Click()
+    {
+        ;
+
+        try
 {;
-                ;
-                InvoiceNumber = txtInvoiceNumber.Text;
-                ;
-                if ( Now - CVDate(sadGetLicenseKey("Last Updated", CDbl(Now))) > 7 )
+        ;
+        InvoiceNumber = txtInvoiceNumber.Text;
+
+        if ( Now - CVDate(sadGetLicenseKey("Last Updated", CDbl(Now))) > 7 )
             {;
-                bOkaySoFar = GetCentralUpdateInfo;
-                }
+        bOkaySoFar = GetCentralUpdateInfo;
+        }
             else
             {;
-                bOkaySoFar = true;
-                }
+        bOkaySoFar = true;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public As sadInvoiceDecrypt            {
-                try
+    public As sadInvoiceDecrypt    {
+        try
 {;
-                string = "615243516784259045218002180248620684102579462315787815795168911248961534896127811596154329617581123589402160548" Const Offsets  ;
-                string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890" Const Values   ;
-
-                if ( Len(sInvoiceNumber) == 0 )
+        string = "615243516784259045218002180248620684102579462315787815795168911248961534896127811596154329617581123589402160548" Const Offsets  ;
+        string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890" Const Values   ;
+        if ( Len(sInvoiceNumber) == 0 )
             {
  return; // ???;
-
-                ValueLen = Len(Values);
-                OffsetLen = Len(Offsets);
-                sInvoiceNumber = Replace(Replace(Replace(sInvoiceNumber), "O", "0"), ".", "O"), "-", "".ToUpper();
-                sInvoiceNumber.Substring(0, 1));
-                sInvoiceNumber = sInvoiceNumber, 2.Substring( Len(sInvoiceNumber) - 2);
-                Values, Right$(sInvoiceNumber.Contains(1));
-                sInvoiceNumber.Substring(0, Len(sInvoiceNumber) - 1);
-                CurrOffset = StartAt;
-                bytArray = StrConv(sInvoiceNumber, vbFromUnicode);
-                strOut = "";
-
-                for(var CurrByte = 0; CurrByte < UBound(bytArray); CurrByte++)  {;
-                Values.Contains(Chr$(bytArray(CurrByte)));
-                if ( CharLoc < 1 Or CharLoc > ValueLen )
+        ValueLen = Len(Values);
+        OffsetLen = Len(Offsets);
+        sInvoiceNumber = Replace(Replace(Replace(sInvoiceNumber), "O", "0"), ".", "O"), "-", "".ToUpper();
+        sInvoiceNumber.Substring(0, 1));
+        sInvoiceNumber = sInvoiceNumber, 2.Substring( Len(sInvoiceNumber) - 2);
+        Values, Right$(sInvoiceNumber.Contains(1));
+        sInvoiceNumber.Substring(0, Len(sInvoiceNumber) - 1);
+        CurrOffset = StartAt;
+        bytArray = StrConv(sInvoiceNumber, vbFromUnicode);
+        strOut = "";
+        for(var CurrByte = 0; CurrByte < UBound(bytArray); CurrByte++)  {;
+        Values.Contains(Chr$(bytArray(CurrByte)));
+        if ( CharLoc < 1 Or CharLoc > ValueLen )
             {
  return; // ???;
-                CharLoc +=  Val(Offsets, CurrOffset.Substring( 1));
-                if ( CharLoc < 1 )
+        CharLoc +=  Val(Offsets, CurrOffset.Substring( 1));
+        if ( CharLoc < 1 )
             {
  CharLoc == ValueLen + CharLoc;
-                CheckSum = (CheckSum + Asc(Values, CharLoc.Substring( 1))) Mod ValueLen;
-                strOut +=  Values, CharLoc.Substring( 1);
-                CurrOffset +=  1;
-                if ( CurrOffset > OffsetLen )
+        CheckSum = (CheckSum + Asc(Values, CharLoc.Substring( 1))) Mod ValueLen;
+        strOut +=  Values, CharLoc.Substring( 1);
+        CurrOffset +=  1;
+        if ( CurrOffset > OffsetLen )
             {
  CurrOffset == 1;
-                } // CurrByte;
-
-                strOut.Substring(0.Substring(strOut.Substring(0.Length - 1) = "S" )
+        } // CurrByte;
+        strOut.Substring(0.Substring(strOut.Substring(0.Length - 1) = "S" )
             {;
-                if ( CheckSum < 1 )
+        if ( CheckSum < 1 )
             {
  CheckSum == 1;
-                strOut = strOut, 2.Substring( Len(strOut) - 2);
-                if ( CheckSum = CheckValue )
+        strOut = strOut, 2.Substring( Len(strOut) - 2);
+        if ( CheckSum = CheckValue )
             {;
-                sadInvoiceDecrypt = strOut;
-                }
-            else
-            {;
-                sadInvoiceDecrypt = "";
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void Form_Load()
-            {
-                try
-{;
-                Move (Screen.Width - Width) \ 2, (Screen.Height - Height) \ 2;
-                CurrentStage = sadGetLicenseKey("Current Stage", 1);
-                txtInvoiceNumber = sadGetLicenseKey("Invoice Number", "");
-                if ( Len(txtInvoiceNumber) > 10 )
-            {;
-                cmdStepTwo.Enabled = true;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
-            public void txtInvoiceNumber_Change()
-            {
-                try
-{;
-                if ( Len(txtInvoiceNumber) > 15 )
-            {;
-                cmdStepTwo.Enabled = true;
-                }
-            else
-            {;
-                cmdStepTwo.Enabled = false;
-                }
-        catch(Exception e)
-        {
-            // ON ERROR RESUME NEXT
-        };
-            }
-
+        sadInvoiceDecrypt = strOut;
         }
+            else
+            {;
+        sadInvoiceDecrypt = "";
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void Form_Load()
+    {
+        try
+{;
+        Move (Screen.Width - Width) \ 2, (Screen.Height - Height) \ 2;
+        CurrentStage = sadGetLicenseKey("Current Stage", 1);
+        txtInvoiceNumber = sadGetLicenseKey("Invoice Number", "");
+        if ( Len(txtInvoiceNumber) > 10 )
+            {;
+        cmdStepTwo.Enabled = true;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    public void txtInvoiceNumber_Change()
+    {
+        try
+{;
+        if ( Len(txtInvoiceNumber) > 15 )
+            {;
+        cmdStepTwo.Enabled = true;
+        }
+            else
+            {;
+        cmdStepTwo.Enabled = false;
+        }
+        catch(Exception e)
+        {
+            // ON ERROR RESUME NEXT
+        };
+    }
+
+    }
     }

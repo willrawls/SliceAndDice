@@ -1,0 +1,82 @@
+Thank you for purchasing Slice and Dice. 
+Remeber to visit http://www.sliceanddice.com at least once a month for updates.
+Please tell your friends about Slice and Dice. I could really use the referrals.
+
+
+NOTES AND DISCLAIMERS: 
+	This is not the Central Template Library (CTL). www.vbcode.com is just a great free place to get great free code that is already pretty much in the Slice and Dice template format (but without soft commands. No templates you send to this site should contain Slice and Dice commands because other users probably don't use Slice and Dice (yet). 
+	Anything you download from this site may not be compatible with Slice and Dice (such as zip file downloads). Use of the web site, all code downloaded, and use of the VBCodeDotCom.mdb database, DLL, and source code are AT YOUR OWN RISK. 
+	If you have templates you don't want to loose from your database, I suggest you make a backup copy of your SliceAndDice.mdb first. 
+
+	Having said that, please enjoy this code, DLL, and template archive which is still in a very rough state.
+
+	"VBCodeDotCom.mdb" is a Slice and Dice database and is not directly used by sadVBCodeDotCom.dll . Use "Open Database..." from the "File" menu on the Slice and Dice main window to view it's contents (which really needs cleaning up).
+
+REQUIREMENTS:
+Visual Basic 6 with Service Pack 3
+	(Please please please don't use VB5 to compile Sandals)
+
+TERMINOLOGY:
+	Sandal:	
+	Slice And Dice external DLl that allows a programmer to add new soft commands (double tilda format [~~]) for use during template processing, new soft inline commands (double percent format [%%]) for use during template processing, and new menu items to appear and be activated when clicked from the "Externals" menu (which can be seen from the pulldown on the main Slice and Dice Window, right clicking in a VB IDE code area and selecting "Externals", or by pressing the Ctrl-Shift-E key).
+
+
+GETTING SLICE AND DICE TO LOAD AND USE YOUR SANDALS :
+For a Sandal to be loaded by Slice and Dice it must meet the following conditions:
+	1) It must be registered via regsvr32.exe 
+		(or by VB during compiling of the DLL)
+	2) It (and the project files for it) must physically be placed in the same directory as either SliceAndDice.dll or the Slice and Dice database file loaded when Slice and Dice starts.
+	3) It must have a class named "NewCommands" that implements the "SliceAndDice.ISadAddin" interface available by adding a reference to SliceAndDice.dll to the Sandal project (see the project included here for example usage, ask me if you need clarification).
+
+
+DEBUGGING YOUR SANDALS: 
+	If you want to debug your Sandal, make sure you have no instances of Slice and Dice running before you open your Sandal project, enter debug mode, and NEVER load an instance of Slice and Dice directly into the same IDE as the Sandal project itself as this will probably seriously confuse VB, possibly render the sandal and Slice and Dice useless.
+
+	Don't use VB 5 to compile Sandals. This would probably be a serious problem and would require both runtimes as well as compatibility problems between VB 5 and 6 language versions.
+	
+
+KNOWN ISSUES WITH VBCODEDOTCOM SANDAL:
+	1) Sandals interact with Windows differently (doesn't sometimes pop up on IDE, etc) in debug mode than in runtime.
+	2) For some reason every time a new web page is processed by the web control on the Sandal's web browser form, the window gets pushed to the back. I'm not sure why.
+	3) Since Sandals implement an interface, whenever I break binary compatibility (which happens more than I'd like), you'll have recompile your Sandal. So just get in the habit of recompiling your custom Sandals whenever you download a new revision of Slice and Dice. Slice and Dice 2000 (S2k) will hopefully significantly reduce and hopefully eliminate this problem as I have completely redone the interface structure of not only Sandals, but Slice and Dice itself (more on that when it comes out).
+
+
+BONUS PACK CONTENTS:
+This bonus pack includes everything you need to:
+
+	1) Use Slice and Dice with the web site http://www.vbcode.com	via the sadVBCodeDotCom.dll Sandal. Hopefully more sites to follow in the future, feel free to suggest sites to myself (wrawls@firmsolutions.com) or the web site itself.
+
+	2) See how to construct a (fairly) well behaved Sandal that:
+		a) interacts with the Externals menu
+		b) responds to soft command and inline command requests
+		c) calls back to exposed functions from Slice and Dice
+		d) adds templates and grabs templats from Slice and Dice
+		e) responds to Slice and Dice generated events 
+			(like hide any displayed windows or unloading)
+		f) opens forms and interacts with the user
+		g) interacts with external systems like the Internet 
+
+	3) The complete DLL project source files are included and were designed to be reimplemented for different web sites, thus the "AutoWeb" in the names of the files. 
+	4) The VBCodeDotCom.mdb file which has over 300 code snippets pulled directly from www.vbcode.com several months ago. The author of vbcode.com (joe@vbcode.com) has graciously allowed me to do this and distribute it to my registered users. Please encourage his continued good will by being nice to him, visiting his site, and telling him good things about me... Well, okay maybe not that... 8)
+
+
+USE OF THE VBCODEDOTCOM SANDAL
+
+This Sandal adds two entries to the Externals menu:
+
+	1) Import templates from vbcode.com : Opens the mini-browser (requires IE) and browses to vbcode.com automatically. If you browse to a specific code snippet, Slice and Dice should automatically detect that it is an importable item, check to see if it is in the current Slice and Dice database under the "From VBCodeDotCom" category, and offer to import the code snippet as a template. The detection comes in immediately after the entire web page is fully downloaded. Check the code in the main form of the Sandal Project to see how it works.
+
+	2) Submit current template to vbcode.com : Opens the mini-browser, browses to the vbcode.com code snippet submittion page, asks for the template author's name and email address, and then automatically fills in the form with the current template's contents.
+
+The Sandal source also has some code in NewCommands for two inline soft commands (commented out) for 
+	1) getting a URL's response (no HTTP headers) to a soft variable
+~~URL SoftVarName=http://www.zzz.com
+
+	2) files to your local file system from URLs
+~~GetFileURL C:\testfile.html=http://www.zzz.com/testfile.html
+ 
+
+
+Thanks again, and welcome the new way to program in Visual Basic !
+	Send comments to wrawls@firmsolutions.com
+

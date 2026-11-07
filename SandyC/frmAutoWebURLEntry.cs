@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmURLEntry : System.Windows.Forms.Form
-        {
+    public class frmURLEntry : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.TextBox txtDataPaste;
          public System.Windows.Forms.VB.CommandButton cmdRemove;
          public System.Windows.Forms.VB.ListBox lstDataToPost;
@@ -205,127 +205,125 @@ namespace MetX.SliceAndDice
         public bool Canceled;
 
 
-                public string URLEntry
+        public string URLEntry
+        {
+            get
+            {
+                msURLEntry = txtURL + "~~~";
+                msURLEntry +=  txtAltURL + "~~~";
+                msURLEntry +=  ListTostring(lstDataToPost, false, "$$$") + "~~~";
+                msURLEntry +=  txtObjectToActivate + "~~~";
+                return msURLEntry;
+            }
+
+            set
+            {
+                msURLEntry = value;
+                txtURL = sGetToken(value, 1, "~~~");
+                txtAltURL = sGetToken(value, 2, "~~~");
+                stringToList sGetToken(value, 3, "~~~"), lstDataToPost, true, "$$$";
+                txtObjectToActivate = sGetToken(value, 4, "~~~");
+            }
+
+        }
+
+
+
+    public void cmdAdd_Click()
     {
-        get
-        {
-        msURLEntry = txtURL + "~~~";
-        msURLEntry +=  txtAltURL + "~~~";
-        msURLEntry +=  ListTostring(lstDataToPost, false, "$$$") + "~~~";
-        msURLEntry +=  txtObjectToActivate + "~~~";
-        URLEntry = msURLEntry;
-        }
-
-        set
-        {
-        msURLEntry = value;
-        txtURL = sGetToken(value, 1, "~~~");
-        txtAltURL = sGetToken(value, 2, "~~~");
-        stringToList sGetToken(value, 3, "~~~"), lstDataToPost, true, "$$$";
-        txtObjectToActivate = sGetToken(value, 4, "~~~");
-        }
-
+        ;
+        sNewEntry = InputBox("What should the new entry be ?" + vbCrLf + vbTab + "Name=Value", "Add(                                                                                                   DATA TO POST"));
+        if ( Len(sNewEntry) )
+            {;
+        lstDataToPost.AddItem(sNewEntry);
+        };
     }
 
+    public void cmdCancel_Click()
+    {
+        Canceled = true;
+        Hide;
+    }
 
+    public void cmdOkay_Click()
+    {
+        Canceled = false;
+        Hide;
+    }
 
-            public void cmdAdd_Click()
-            {
-                ;
-                sNewEntry = InputBox("What should the new entry be ?" + vbCrLf + vbTab + "Name=Value", "Add(                                                                                                   DATA TO POST"));
-                if ( Len(sNewEntry) )
+    public void cmdRemove_Click()
+    {
+        if ( lstDataToPost.ListIndex > -1 )
             {;
-                lstDataToPost.AddItem(sNewEntry);
-                };
-            }
+        //       'If MsgBox("Are you sure you want to remove that item ?", vbYesNo, "REMOVE DATA ITEM TO POST WITH THIS URL") = vbYes Then;
+        lstDataToPost.RemoveItem lstDataToPost.ListIndex;
+        //       'End If;
+        };
+    }
 
-            public void cmdCancel_Click()
-            {
-                Canceled = true;
-                Hide;
-            }
+    public void Form_Load()
+    {
+        LoadFormPosition Me;
+    }
 
-            public void cmdOkay_Click()
-            {
-                Canceled = false;
-                Hide;
-            }
-
-            public void cmdRemove_Click()
-            {
-                if ( lstDataToPost.ListIndex > -1 )
-            {;
-                //       'If MsgBox("Are you sure you want to remove that item ?", vbYesNo, "REMOVE DATA ITEM TO POST WITH THIS URL") = vbYes Then;
-                lstDataToPost.RemoveItem lstDataToPost.ListIndex;
-                //       'End If;
-                };
-            }
-
-            public void Form_Load()
-            {
-
-                LoadFormPosition Me;
-            }
-
-            public void Form_Resize()
-            {
-                try
+    public void Form_Resize()
+    {
+        try
 {;
-                txtURL.Width = ScaleWidth - txtURL.Left - 50;
-                txtAltURL.Width = ScaleWidth - txtAltURL.Left - 50;
-                txtObjectToActivate.Width = ScaleWidth - txtObjectToActivate.Left - 50;
-                lstDataToPost.Width = ScaleWidth - lstDataToPost.Left - 50;
-                txtDataPaste.Width = ScaleWidth - txtDataPaste.Left - 50;
-                txtDataPaste.Top = ScaleHeight - txtDataPaste.Height - 50;
-                lstDataToPost.Height = ScaleHeight - lstDataToPost.Top - txtDataPaste.Height - 100;
-                }
+        txtURL.Width = ScaleWidth - txtURL.Left - 50;
+        txtAltURL.Width = ScaleWidth - txtAltURL.Left - 50;
+        txtObjectToActivate.Width = ScaleWidth - txtObjectToActivate.Left - 50;
+        lstDataToPost.Width = ScaleWidth - lstDataToPost.Left - 50;
+        txtDataPaste.Width = ScaleWidth - txtDataPaste.Left - 50;
+        txtDataPaste.Top = ScaleHeight - txtDataPaste.Height - 50;
+        lstDataToPost.Height = ScaleHeight - lstDataToPost.Top - txtDataPaste.Height - 100;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Unload            {
+    public void Form_Unload    {
+        SaveFormPosition Me;
+    }
 
-                SaveFormPosition Me;
-            }
+    public void lstDataToPost_DblClick()
+    {
 
-            public void lstDataToPost_DblClick()
-            {
-                ;
-                if ( lstDataToPost.ListIndex > -1 )
+        if ( lstDataToPost.ListIndex > -1 )
             {;
-                sNewEntry = InputBox("Edit the value to post", "EDIT POST VALUE", lstDataToPost.List(lstDataToPost.ListIndex));
-                if ( Len(sNewEntry) > 0 )
+        sNewEntry = InputBox("Edit the value to post", "EDIT POST VALUE", lstDataToPost.List(lstDataToPost.ListIndex));
+        if ( Len(sNewEntry) > 0 )
             {;
-                lstDataToPost.List(lstDataToPost.ListIndex) = sNewEntry;
-                };
-                };
-            }
+        lstDataToPost.List(lstDataToPost.ListIndex) = sNewEntry;
+        };
+        };
+    }
 
-            public void lstDataToPost_MouseUp            {
-                if ( Button = vbRightButton And Shift = 0 )
+    public void lstDataToPost_MouseUp    {
+        if ( Button = vbRightButton And Shift = 0 )
             {;
-                lstDataToPost_DblClick;
-                };
-            }
+        lstDataToPost_DblClick;
+        };
+    }
 
-            public void txtDataPaste_Change()
-            {
-                if ( Len(txtDataPaste) == 0 )
+    public void txtDataPaste_Change()
+    {
+        if ( Len(txtDataPaste) == 0 )
             {
  return;
-                if ( lTokenCount(txtDataPaste, "$$$") > 1 )
+        if ( lTokenCount(txtDataPaste, "$$$") > 1 )
             {;
-                stringToList txtDataPaste, lstDataToPost, false, "$$$";
-                }
+        stringToList txtDataPaste, lstDataToPost, false, "$$$";
+        }
             else
             {if ( lTokenCount(txtDataPaste, "&") > 1 )
             {;
-                stringToList txtDataPaste, lstDataToPost, false, "&";
-                };
-                txtDataPaste = string.Empty;
-            }
+        stringToList txtDataPaste, lstDataToPost, false, "&";
+        };
+        txtDataPaste = string.Empty;
+    }
 
-        }
+    }
     }

@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmProgress : System.Windows.Forms.Form
-        {
+    public class frmProgress : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.MSComctlLib.ProgressBar pbrProgress0;
          public System.Windows.Forms.MSComctlLib.ProgressBar pbrProgress1;
          public System.Windows.Forms.MSComctlLib.ProgressBar pbrProgress2;
@@ -91,5 +91,5 @@ namespace MetX.SliceAndDice
         }
         #endregion
 
-        }
+    }
     }

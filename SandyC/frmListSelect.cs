@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmListSelect : System.Windows.Forms.Form
-        {
+    public class frmListSelect : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.MSComctlLib.ListView lstChoose;
          public System.Windows.Forms.VB.CommandButton cmdCancel;
          public System.Windows.Forms.VB.CommandButton cmdOkay;
@@ -138,82 +138,82 @@ namespace MetX.SliceAndDice
         public string Key;
 
 
-                public string Choice
-    {
-        get
+        public string Choice
         {
-        Choice = m_sChoice;
+            get
+            {
+                return m_sChoice;
+            }
+
         }
 
+
+
+    public void cmdCancel_Click()
+    {
+        m_sChoice = string.Empty;
+        Hide;
     }
 
-
-
-            public void cmdCancel_Click()
-            {
-                m_sChoice = string.Empty;
-                Hide;
-            }
-
-            public void cmdOkay_Click()
-            {
-                if ( lstChoose.SelectedItem Is null )
+    public void cmdOkay_Click()
+    {
+        if ( lstChoose.SelectedItem Is null )
             {;
-                //        'If lstChoose.ListIndex < 0 Then;
-                MsgBox "Please choose one before pressing OK.", vbInformation;
-                return;
-            }
+        //        'If lstChoose.ListIndex < 0 Then;
+        MsgBox "Please choose one before pressing OK.", vbInformation;
+        return;
+    }
 
-            public void Initialize            {
-                try
+    public void Initialize    {
+        try
 {;
 
-                Choices.ItemDelimiter = sDelimiter;
-                Choices.All = sChoices;
-                sChoices.Substring(0, 25);
-                if ( Len(Key) > 0 )
+        Choices.ItemDelimiter = sDelimiter;
+        Choices.All = sChoices;
+        sChoices.Substring(0, 25);
+        if ( Len(Key) > 0 )
             {;
-                LoadFormPosition Me, , , Key;
-                }
+        LoadFormPosition Me, , , Key;
+        }
             else
             {;
-                LoadFormPosition Me;
-                }
+        LoadFormPosition Me;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Load()
-            {
+    public void Form_Load()
+    {
 
-                lstChoose.ColumnHeaders.Clear;
-                lstChoose.ColumnHeaders.Add(                                                                                                   , , "Title", 2800);
-                lstChoose.ColumnHeaders.Add(                                                                                                   , , "Description", 9000);
-            }
+        lstChoose.ColumnHeaders.Clear;
+        lstChoose.ColumnHeaders.Add(                                                                                                   , , "Title", 2800);
+        lstChoose.ColumnHeaders.Add(                                                                                                   , , "Description", 9000);
+    }
 
-            public void Form_Resize()
-            {
-                cmdOkay.Move 0, ScaleHeight - cmdOkay.Height;
-                cmdCancel.Move ScaleWidth - cmdCancel.Width, cmdOkay.Top;
-                lstChoose.Move 0, 0, ScaleWidth, ScaleHeight - cmdOkay.Height;
-            }
+    public void Form_Resize()
+    {
+        cmdOkay.Move 0, ScaleHeight - cmdOkay.Height;
+        cmdCancel.Move ScaleWidth - cmdCancel.Width, cmdOkay.Top;
+        lstChoose.Move 0, 0, ScaleWidth, ScaleHeight - cmdOkay.Height;
+    }
 
-            public void Form_Unload            {
-                if ( Len(Key) )
+    public void Form_Unload    {
+        if ( Len(Key) )
             {;
-                SaveFormPosition Me, Key;
-                }
+        SaveFormPosition Me, Key;
+        }
             else
             {;
-                SaveFormPosition Me;
-            }
+        SaveFormPosition Me;
+    }
 
-            public void lstChoose_DblClick()
-            {
-                cmdOkay_Click;
-            }
+    public void lstChoose_DblClick()
+    {
+        cmdOkay_Click;
+    }
 
-        }
+    }
     }

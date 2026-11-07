@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmBrowser : System.Windows.Forms.Form
-        {
+    public class frmBrowser : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.MSComctlLib.Toolbar tbToolBar;
          public System.Windows.Forms.SHDocVwCtl.WebBrowser brwWebBrowser;
          public System.Windows.Forms.VB.Timer timTimer;
@@ -169,184 +169,174 @@ namespace MetX.SliceAndDice
 
         public As StartingAddress;
         public As DontNavigateNow;
-        public object Parent;
-        public object Sites;
+        public unknown Parent;
+        public unknown Sites;
 
 
-            public void Form_Initialize()
-            {
-                LoadSites;
-            }
+    public void Form_Initialize()
+    {
+        LoadSites;
+    }
 
-            public void Form_Load()
-            {
-                try
+    public void Form_Load()
+    {
+        try
 {;
-                Show;
-                tbToolBar.Refresh;
-                Form_Resize;
-
-                cboAddress.Move 50, lblAddress.Top + lblAddress.Height + 15;
-
-                GotoSite 1;
-                }
+        Show;
+        tbToolBar.Refresh;
+        Form_Resize;
+        cboAddress.Move 50, lblAddress.Top + lblAddress.Height + 15;
+        GotoSite 1;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void brwWebBrowser_DownloadComplete()
-            {
-                try
+    public void brwWebBrowser_DownloadComplete()
+    {
+        try
 {;
-                Caption = brwWebBrowser.LocationName;
-                }
+        Caption = brwWebBrowser.LocationName;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void brwWebBrowser_NavigateComplete            {
-                ;
-                ;
-
-                Caption = brwWebBrowser.LocationName;
-                for(var CurrAddress = 0; CurrAddress < cboAddress.ListCount - 1; CurrAddress++)  {;
-                if ( cboAddress.List(CurrAddress) = brwWebBrowser.LocationURL )
+    public void brwWebBrowser_NavigateComplete    {
+        ;
+        ;
+        Caption = brwWebBrowser.LocationName;
+        for(var CurrAddress = 0; CurrAddress < cboAddress.ListCount - 1; CurrAddress++)  {;
+        if ( cboAddress.List(CurrAddress) = brwWebBrowser.LocationURL )
             {;
-                bFound = true;
-                Exit For;
-                };
-                } // CurrAddress;
-
-                DontNavigateNow = true;
-                if ( bFound )
+        bFound = true;
+        Exit For;
+        };
+        } // CurrAddress;
+        DontNavigateNow = true;
+        if ( bFound )
             {
  cboAddress.RemoveItem CurrAddress;
-                cboAddress.AddItem(brwWebBrowser.LocationURL, 0);
-                cboAddress.ListIndex = 0;
-                DontNavigateNow = false;
-            }
+        cboAddress.AddItem(brwWebBrowser.LocationURL, 0);
+        cboAddress.ListIndex = 0;
+        DontNavigateNow = false;
+    }
 
-            public void cboAddress_Click()
-            {
-                if ( DontNavigateNow )
+    public void cboAddress_Click()
+    {
+        if ( DontNavigateNow )
             {
  return;
-                timTimer.Enabled = true;
-                brwWebBrowser.Navigate cboAddress.Text;
-            }
+        timTimer.Enabled = true;
+        brwWebBrowser.Navigate cboAddress.Text;
+    }
 
-            public void cboAddress_KeyPress            {
-                try
+    public void cboAddress_KeyPress    {
+        try
 {;
-                if ( KeyAscii == vbKeyReturn )
+        if ( KeyAscii == vbKeyReturn )
             {
  cboAddress_Click;
-                }
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Resize()
-            {
-                cboAddress.Width = ScaleWidth - 100;
-                brwWebBrowser.Width = ScaleWidth - 100;
-                brwWebBrowser.Height = ScaleHeight - (picAddress.Top + picAddress.Height) - 100;
-            }
+    public void Form_Resize()
+    {
+        cboAddress.Width = ScaleWidth - 100;
+        brwWebBrowser.Width = ScaleWidth - 100;
+        brwWebBrowser.Height = ScaleHeight - (picAddress.Top + picAddress.Height) - 100;
+    }
 
-            public void Form_Terminate()
-            {
-                SaveSites;
-                Sites.this.Clear()false;
-                Sites = null;
-            }
+    public void Form_Terminate()
+    {
+        SaveSites;
+        Sites.this.Clear()false;
+        Sites = null;
+    }
 
-            public void timTimer_Timer()
-            {
-                if ( brwWebBrowser.Busy = false )
+    public void timTimer_Timer()
+    {
+        if ( brwWebBrowser.Busy = false )
             {;
-                timTimer.Enabled = false;
-                Caption = brwWebBrowser.LocationName;
-                }
+        timTimer.Enabled = false;
+        Caption = brwWebBrowser.LocationName;
+        }
             else
             {;
-                Caption = "Working...";
-                };
-            }
+        Caption = "Working...";
+        };
+    }
 
-            public void tbToolBar_ButtonClick            {
-                try
+    public void tbToolBar_ButtonClick    {
+        try
 {;
-                timTimer.Enabled = true;
-                switch Button.Key;
-                Case "Back":            brwWebBrowser.GoBack;
-                Case "Forward":         brwWebBrowser.GoForward;
-                Case "Refresh":         brwWebBrowser.Refresh;
-                Case "Home":            brwWebBrowser.GoHome;
-                Case "Search":          brwWebBrowser.GoSearch;
-                Case "Stop":            timTimer.Enabled = false;
-                brwWebBrowser.Stop;
-                Caption = brwWebBrowser.LocationName;
-                };
-                }
+        timTimer.Enabled = true;
+        switch Button.Key;
+        Case "Back":            brwWebBrowser.GoBack;
+        Case "Forward":         brwWebBrowser.GoForward;
+        Case "Refresh":         brwWebBrowser.Refresh;
+        Case "Home":            brwWebBrowser.GoHome;
+        Case "Search":          brwWebBrowser.GoSearch;
+        Case "Stop":            timTimer.Enabled = false;
+        brwWebBrowser.Stop;
+        Caption = brwWebBrowser.LocationName;
+        };
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void GotoSite            {
-                StartingAddress = sGetToken(Sites("1"), "|||");
-
-                if ( Len(StartingAddress) > 0 )
+    public void GotoSite    {
+        StartingAddress = sGetToken(Sites("1"), "|||");
+        if ( Len(StartingAddress) > 0 )
             {;
-                cboAddress.Text = StartingAddress;
-                cboAddress.AddItem(cboAddress.Text);
+        cboAddress.Text = StartingAddress;
+        cboAddress.AddItem(cboAddress.Text);
+        //      ' Try to navigate to the starting address;
+        timTimer.Enabled = true;
+        brwWebBrowser.Navigate StartingAddress;
+        };
+    }
 
-                //      ' Try to navigate to the starting address;
-                timTimer.Enabled = true;
-                brwWebBrowser.Navigate StartingAddress;
-                };
-            }
-
-            public void LoadSites()
-            {
-                if ( ! Sites Is null )
+    public void LoadSites()
+    {
+        if ( ! Sites Is null )
             {;
-                Sites.Clear;
-                Sites = null;
-                };
+        Sites.Clear;
+        Sites = null;
+        };
+        Sites = new CAssocArray();
 
-                Sites = new CAssocArray();
-
-
-                Sites.FieldDelimiter = "|||";
-                Sites.KeyValueDelimiter = "=";
-                Sites.ItemDelimiter = vbNewLine;
-
-                Sites.All = GetSetting("Slice And Dice", "Sandal", "AutoWeb Sites", sDefaults);
-
-                if ( Sites.Count = 0 )
+        Sites.FieldDelimiter = "|||";
+        Sites.KeyValueDelimiter = "=";
+        Sites.ItemDelimiter = vbNewLine;
+        Sites.All = GetSetting("Slice And Dice", "Sandal", "AutoWeb Sites", sDefaults);
+        if ( Sites.Count = 0 )
             {;
-                Sites.All = "0=Add(                                                                                                   a new site|||***ADD SITE***" + vbNewLine +)
+        Sites.All = "0=Add(                                                                                                   a new site|||***ADD SITE***" + vbNewLine +)
                    "1=http://www.vbcode.com|||VBCode.com||Desc of VBCode.com|||" + vbNewLine +
                    "2=http://www.planet-source-code.com|||Planet Source Code|||Desc of Planet Source Code|||" + vbNewLine;
-                };
+        };
 
-            }
+    }
 
-            public void SaveSites()
-            {
-                if ( ! Sites Is null )
+    public void SaveSites()
+    {
+        if ( ! Sites Is null )
             {;
-                SaveSetting "Slice And Dice", "Sandal", "AutoWeb Sites", Sites.All;
-                };
-            }
+        SaveSetting "Slice And Dice", "Sandal", "AutoWeb Sites", Sites.All;
+        };
+    }
 
-        }
+    }
     }

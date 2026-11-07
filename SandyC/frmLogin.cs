@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmLogin : System.Windows.Forms.Form
-        {
+    public class frmLogin : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.TextBox txtUserName5;
          public System.Windows.Forms.VB.TextBox txtPassword5;
          public System.Windows.Forms.VB.TextBox txtUserName4;
@@ -337,32 +337,32 @@ namespace MetX.SliceAndDice
         public bool LoginSucceeded;
 
 
-            public void cmdCancel_Click()
-            {
-                //    'set the global var to false;
-                //    'to denote a failed login;
-                LoginSucceeded = false;
-                this.Hide;
-            }
+    public void cmdCancel_Click()
+    {
+        //    'set the global var to false;
+        //    'to denote a failed login;
+        LoginSucceeded = false;
+        this.Hide;
+    }
 
-            public void cmdOK_Click()
-            {
-                //    'check for correct password;
-                if ( txtPassword = "password" )
+    public void cmdOK_Click()
+    {
+        //    'check for correct password;
+        if ( txtPassword = "password" )
             {;
-                //        'place code to here to pass the;
-                //        'success to the calling sub;
-                //        'setting a global var is the easiest;
-                LoginSucceeded = true;
-                this.Hide;
-                }
+        //        'place code to here to pass the;
+        //        'success to the calling sub;
+        //        'setting a global var is the easiest;
+        LoginSucceeded = true;
+        this.Hide;
+        }
             else
             {;
-                MsgBox "Invalid Password, try again!", , "Login";
-                txtPassword.SetFocus;
-                SendKeys "{Home}+{End}";
-                };
-            }
+        MsgBox "Invalid Password, try again!", , "Login";
+        txtPassword.SetFocus;
+        SendKeys "{Home}+{End}";
+        };
+    }
 
-        }
+    }
     }

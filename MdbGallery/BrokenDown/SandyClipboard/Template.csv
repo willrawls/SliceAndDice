@@ -1,0 +1,803 @@
+916,55,"Process Clipboard - Length of Text","Length of Text",,1,0,0,,"~~GetClipboard cbText
+~~MsgBox Clipboard contains %%Len::cbText%% charaters.
+~~CloseWindows
+",,,6/11/2000 17:35:59,8/18/2000 4:56:15,,1,14,
+917,55,"Process Clipboard - Replace a string and Alt-Tab back to app","Replace a string and Alt-Tab back to app",,0,0,0,,"~##~Include Basic Begin
+~##~Include Basic Aquire Clipboard Text
+~##~Include Basic Normalize
+~##~Include Basic Determine what to Find and Replace
+~~IgnoreBlanks
+  ~~Set s18Path=F:\Data\Programming 2000\SliceAndDice Output\Clipboard\
+  ~~Set s18File=String Replacements.s18
+  ~~Append strLog=\~\#\#\~PreChoose ____=Find____%%strFind%%____with____%%strRepl%%____on the clipboard____as run on____%%Now::Mmmm D, YYYY%%____at____%%Now::H:MM:SS am/pm%%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~Set strFind=%%strFind%%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~Set strRepl=%%strRepl%%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~'
+  ~~Append strLog=EOL
+  ~~Append strLog=\%\%Include::Process Clipboard - Replace a string and Alt-Tab back to app\%\%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~'
+  ~~Append strLog=EOL
+~##~Include Basic Record playback template
+  ~~Set ToFind=%%strFind%%
+  ~~Set ReplaceWith=%%strRepl%%
+  ~~Replace cbText
+~##~Include Basic Denormalize
+~##~Include Basic End",,,6/11/2000 17:55:23,8/18/2000 4:49:17,,0,47,
+918,55,"Process Clipboard - Basic Denormalize","Basic Denormalize",,1,0,0,,"  ~~Set ToFind=Ç
+  ~~Set ReplaceWith=
+  ~~Append ReplaceWith=EOL
+  ~~Replace cbText
+  ~~Set ToFind=ƒ
+  ~~String ReplaceWith 1 Chr(9)
+  ~~Replace cbText
+  ~~Set ToFind=û
+  ~~String ReplaceWith 1 Chr(10)
+  ~~Replace cbText
+  ~~Set ToFind=Ö
+  ~~String ReplaceWith 1 Chr(13)
+  ~~Replace cbText",,,6/11/2000 20:30:25,7/1/2000 5:47:34,,0,20,
+919,55,"Process Clipboard - Basic Aquire Clipboard Text","Basic Aquire Clipboard Text",,1,0,0,,"  ~~GetClipboard cbText
+  ~~Set beforeLen=%%Len::cbText%%",,,6/11/2000 20:32:01,6/30/2000 13:04:07,,0,6,
+920,55,"Process Clipboard - Basic Normalize","Basic Normalize",,1,0,0,,"  ~~Set ToFind=
+  ~~Append ToFind=EOL
+  ~~Set ReplaceWith=Ç
+  ~~Replace cbText
+  ~~String ToFind 1 Chr(9)
+  ~~Set ReplaceWith=ƒ
+  ~~Replace cbText",,,6/11/2000 20:32:37,7/1/2000 5:47:56,,0,12,
+921,55,"Process Clipboard - Basic Begin","Basic Begin",,1,0,0,,"~~IgnoreReadOnly
+  ~~_BB1_If %%Len::strFind%%=0
+    ~~Set strFind=Ç
+    ~~Set strRepl=<BR>Ç
+  ~~_BB1_EndIf",,,6/11/2000 20:33:59,8/18/2000 4:55:05,,0,10,
+922,55,"Process Clipboard - Basic Determine what to Find and Replace","Basic Determine what to Find and Replace",,1,0,0,,"~~Set strFind=%%What string do you want to find ?   Ç=128=EOL  û=150=Chr(10)  Ö=153=Chr(13)  ƒ=159=Chr(9)::@strFind%%
+~~Cancel %%Len::strFind%%=0
+~~Set strRepl=%%What do you want to replace that string with ?   Ç=128=EOL  û=150=Chr(10)  Ö=153=Chr(13)  ƒ=159=Chr(9)::<BR>Ç%%",,,6/11/2000 20:34:30,7/1/2000 5:47:43,,0,10,
+923,55,"Process Clipboard - Basic Record playback template","Basic Record playback template",,1,0,0,,"  ~~Set ToFind=\%\%
+  ~~String ReplaceWith 2 ""%""
+  ~~Replace strLog
+  ~~Set ToFind=\~\~
+  ~~String ReplaceWith 2 ""~""
+  ~~Replace strLog
+  ~~Set ToFind=\~\#\#\~
+  ~~Set ReplaceWith=~
+  ~~Append ReplaceWith=##
+  ~~Append ReplaceWith=~
+  ~~Replace strLog
+  ~~AppendToFile %%s18Path%%%%s18File%%,strLog
+~~'
+  ~~Set strLog=",,,6/11/2000 20:37:46,7/1/2000 5:48:06,,0,10,
+924,55,"Process Clipboard - Basic End","Basic End",,1,0,0,,"~~SetClipboard cbText
+~~SendKeys ^V",,,6/11/2000 20:42:08,8/18/2000 4:47:53,,0,15,
+925,55,"Process Clipboard - Wrap with XML","Wrap with XML",,0,0,0,,"~##~Include Basic Begin
+~##~Include Basic Aquire Clipboard Text
+~##~Include Basic Normalize
+~##~Include Basic Ask for an XML Tag
+  ~~Set outText=
+    ~~Append outText=strPreFix
+    ~~Append outText=cbText
+    ~~Append outText=strPostFix
+  ~~StrCopy cbText=outText
+~##~Include Basic Denormalize
+~##~Include Basic End",,,6/11/2000 20:49:09,8/18/2000 4:46:39,,1,16,
+926,55,"Process Clipboard - Move Modify Store","Move Modify Store",,1,0,0,,"~~Set Keep Going=1
+~~StartCoda
+~##~Include Move Modify Store, No loop
+~~Coda %%Keep Going%%
+~~'
+  ~~Cancel %%Len::mmsOut%%=0
+~~'
+  ~~Set ToFind=¡
+    ~~StrCopy ReplaceWith=EOL
+      ~~Replace mmsOut
+~~'
+  ~~Set ToFind=\~\~
+    ~~String ReplaceWith 2 ""~""
+      ~~Replace mmsOut
+~~'
+  ~~SetClipboard mmsOut
+  ~~SendKeys ^V",,,6/11/2000 21:55:17,6/14/2000 13:03:08,,0,23,
+927,55,"Process Clipboard - Scratch, XML Resume of WMR","Scratch, XML Resume of WMR",,1,0,0,,"~~Filename F:\Data\Programming 2000\SliceAndDice Output\XML\ResumeOfWilliamRawls.xml
+<?xml version=""1.0"" ?>
+<Resume>
+<Contact>
+	<Name>William Miller Rawls</Name>
+ 	<Home>
+		<Address>
+			<Line1>1425 San Pablo Avenue</Line1>
+			<City>Seaside</City>
+			<State>CA</State>
+			<ZipCode>93955</ZipCode>
+			<PlusFour>3935</PlusFour>
+		</Address>
+		<PhoneNumbers>
+			<PhoneNumber>
+				<Type>Residential</Type>
+				<AreaCode>831</AreaCode>
+				<Exchange>393</Exchange>
+				<LineNumber>9963</LineNumber>
+				<DSL Enabled/>
+				<AskFor>""Big Will"" or ""William Rawls""</AskFor>
+			</PhoneNumber>
+		</PhoneNumbers>
+	</Home>
+	<Business>
+		<Address>
+			<Line1>1425 San Pablo Avenue</Line1>
+			<City>Seaside</City>
+			<State>CA</State>
+			<ZipCode>93955</ZipCode>
+			<PlusFour>3935</PlusFour>
+		</Address>
+		<PhoneNumbers>
+			<PhoneNumber>
+				<Type>Residential</Type>
+				<AreaCode>831</AreaCode>
+				<Exchange>393</Exchange>
+				<LineNumber>9963</LineNumber>
+				<DSL Enabled/>
+				<AskFor>""Big Will"" or ""William Rawls""</AskFor>
+			</PhoneNumber>
+			<PhoneNumber>
+				<Type>Fax</Type>
+				<AreaCode>561</AreaCode>
+				<Exchange>325</Exchange>
+				<LineNumber>5977</LineNumber>
+				<Provider>eFax.com</Provider>
+				<Availability>24 hours a day</Availability>
+			</PhoneNumber>
+		</PhoneNumbers>
+	</Business>
+ 	<EmailAddresses>
+ 	 	<EmailAddress>
+ 	 	 	<Type>Primary</Type>
+ 	 	 	<MailTo>wrawls@firmsolutions.com</MailTo>
+ 	 	 	<Provider>redshift.com</Provider>
+			<Forwarded/>
+ 	 	</EmailAddress>
+ 	 	<EmailAddress>
+ 	 	 	<Type>Web</Type>
+ 	 	 	<MailTo>willrawls@hotmail.com</MailTo>
+ 	 	 	<Provider>hotmail.com</Provider>
+			<Nonforwarded/>
+ 	 	</EmailAddress>
+ 	 	<EmailAddress>
+ 	 	 	<Type>Backup 1</Type>
+ 	 	 	<MailTo>wrawls@redshift.com</MailTo>
+ 	 	 	<Provider>redshift.com</Provider>
+			<Forwarded/>
+ 	 	</EmailAddress>
+ 	 	<EmailAddress>
+ 	 	 	<Type>Backup 2</Type>
+ 	 	 	<MailTo>jon-tom@redshift.com</MailTo>
+ 	 	 	<Provider>redshift.com</Provider>
+			<Nonforwarded/>
+ 	 	</EmailAddress>
+	</Email>
+</Contact>
+
+<Objective>
+	<Statement>To obtain a telecommuting, contract to full time (6 month minimum) or full time position as a senior software engineer, software design consultant, or software development team leader.</Statement>
+	<Comments>
+		<Comment>Ideally, I would favor telecommuting from my home office.</Comment>
+		<Comment>Mentoring would be a key responsibility for contract or full-time.</Comment>
+	<Comments>
+</Objective>
+
+<Experiences>
+	<Experience>
+		<Employer>Greentree Systems</Employer>
+		<Position>Senior Software Engineer</Position>
+		<Location>Monterey, California</Location>
+		<Began>November 1999</Began>
+		<Ended>May 2000</Ended>
+		<Type>Full time employee</Type>
+		<Description>Designing, coding, debugging in a small satellite office environment. Primarily using Visual Basic 6 Enterprise, SQL Server 7.0, IIS, ASP, MTS, and Visual InterDev 6 to facilitate the conversion of 54 business objects into transactional MTS components for ""iGreentree"" a Human Resources web-based management system. The sudden and surprising success of my product, Slice and Dice forced Greentree and myself to terminate our relationship. This is why I am primarily looking for a mentoring or telecommuting position for the time being.  For information on ""Slice and Dice"" please visit: http://www.sliceanddice.com</Description>
+	</Experience>
+	<Experience>
+		<Employer>GTE</Employer>
+		<Position>Senior Software Engineer</Position>
+		<Location>Los Colinas, Texas</Location>
+		<Began>February 1999</Began>
+		<Ended>November 1999</Ended>
+		<Type>Contract through Adea Incorporated</Type>
+		<Description>Designing, coding, debugging in a large team environment. Primarily using Visual Basic 6 Enterprise, Oracle 7.3, IIS, ASP, MTS 2.0, and Visual InterDev 6 to develop GTE's new ""NetXpress"" system for INS, Sigma, and ADSL products and accounts both for internal and external use. The system had both a Visual Basic 6 GUI as well as a ASP web site and stores information in Oracle as well as their proprietary ""Arbor"" system of billing and fulfillment. My primary duty was designing, enhancing, maintaining, and testing backend objects used to connect the GUIs to the database through a highly scalable set of VB objects.</Description>
+	</Experience>
+	<Experience>
+		<Employer>GTE</Employer>
+		<Position>Senior Software Engineer</Position>
+		<Location>Los Colinas, Texas</Location>
+		<Began>February 1999</Began>
+		<Ended>November 1999</Ended>
+		<Type>Contract through Adea Incorporated</Type>
+		<Description>Designing, coding, debugging in a large team environment. Primarily using Visual Basic 6 Enterprise, Oracle 7.3, IIS, ASP, MTS 2.0, and Visual InterDev 6 to develop GTE's new ""NetXpress"" system for INS, Sigma, and ADSL products and accounts both for internal and external use. The system had both a Visual Basic 6 GUI as well as a ASP web site and stores information in Oracle as well as their proprietary ""Arbor"" system of billing and fulfillment. My primary duty was designing, enhancing, maintaining, and testing backend objects used to connect the GUIs to the database through a highly scalable set of VB objects.</Description>
+	</Experience>
+	<Experience>
+		<Employer>Sterling Commerce</Employer>
+	<Position>Senior Consultant / Software Engineer </Position>
+		<Location>Addison, Texas </Location>
+		<Began>August 1998</Began>
+		<Ended>February 1999 </Ended>
+		<Type>Contract through Adea, Incorporated</Type>
+		<Description>Designing, coding, debugging in a team environment. Primarily using Turbo Pascal 7, Visual Basic 5 and 6, Visual C++ 5, Access 2.0, Access 8.0, two custom scripting languages, and Delphi 3 to maintain a application suite consisting of over one million lines of code. I was the primary source code maintainer for the DOS and Windows clients and the DOS server. The application suite is used by 99 of the top 100 banks in America (over 450 banks total). During this contract I single-handedly wrote an extension to their DOS based server modem communications program, allowing non-modem based communication directly through a network. This network communication extended to both 16-bit Windows client and a new 32-bit next generation Internet Banking system currently in development.  </Description>
+	</Experience>
+	<Experience>
+		<Employer>Authur Andersen Technology Services</Employer>
+		<Position>Software Consultant and Engineer </Position>
+		<Location>Sarasota, Florida </Location>
+		<Began>August 1997</Began>
+		<Ended>December 1997 </Ended>
+		<Type>Contract through Computer Professional Staffing </Type>
+		<Description>Designing, coding, debugging in a team environment. Primarily using Visual Basic 5, Visual C++ 5, and Access 8 to create components for a soon to be released AATS product and a prototype for another product to be released mid to late next year. One of my many accomplishments was to create what I call a ""three dimensional associative array"" and the beginnings of ""Slice and Dice"", a Visual Basic add-in used to create complex object structures from relational databases (turnkey database persisted objects).</Description>
+	</Experience>
+	<Experience>
+		<Employer>Firm Solutions</Employer>
+		<Position>Owner / Lead Software Engineer </Position>
+		<Location>Seaside, California </Location>
+		<Began>September 1996</Began>
+		<Ended>Present </Ended>
+		<Type>Business </Type>
+		<Description>Designing, coding, debugging and all other aspects of the development cycle. Using Visual Basic 5.0, Visual C++ 1.52 and 4.0, Access 2 - 8 to create a programs and database applications for a various clients ranging from a local ISP, a city hall, private schools, and a local computer systems reseller. Created HTML File Walker and a Visual Basic add-in Slice and Dice. Web master for firmsolutions.com and callmarshall.com. One of my many accomplishments was to create an e-mail based remote database synchronization program allowing multiple users at multiple sites to send in (Access) database change requests to a central location via e-mail and then propagate those changes both to the local and central databases.</Description>
+	</Experience>
+	<Experience>
+		<Employer>QuadBase Software</Employer>
+		<Position>Lead Software Engineer </Position>
+		<Location>Columbus, GA </Location>
+		<Began>July 1995</Began>
+		<Ended>January 1996 </Ended>
+		<Type>Full time employee </Type>
+		<Description>Designing, coding, debugging and all other aspects of the development cycle. Primarily using Visual Basic 3.0 to create an insurance agency automation program. This product, named AgentCentral 3.0, works in a Windows 3.11, Workgroups, 95, and NT 3.51 environment. Many unique and innovative approaches were used in coding this 30,000 plus line program. Ran www.agentcentral.com allowing prospective agents to study and download a self-running demonstration of AgentCentral.</Description>
+	</Experience>
+	<Experience>
+		<Employer>United States Army</Employer>
+		<Position>O2 Computer Programmer </Position>
+		<Location>U.S. Army, Fort Benning, Georgia </Location>
+		<Began>October 1994</Began>
+		<Ended>June 1995 </Ended>
+		<Type>Contract through Computer Data Systems, Inc</Type>
+		<Description>Designing, coding, debugging, and all other aspects of the development cycle. Primarily using Visual Basic 3.0 and Visual C++ 1.51 in a Windows 3.11, Workgroups, and Windows NT environment on a Banyan Vines network connected to the Internet. The project involved creating a multi-user scheduling and resource allocation for the purposes of infantry scheduling at Army bases around the United States. During Beta testing, I became responsible for distributing the software via the Internet to other Army base locations. Also, beta testers were able to send bug reports via e-mail. OLE 2.01 automation, ODBC 2.0, and the Q&amp;E Clipper ODBC driver were used in creating the TATSS windows drag and drop, relational, and object-oriented GUI. Achieved the respect of my team and successfully integrated myself into the team.</Description>
+	</Experience>
+	<Experience>
+		<Employer>Larry S. Wolfe, CPA and CritiqueCo</Employer>
+		<Position>Senior Software Engineer</Position>
+		<Location>Tallahassee, Florida</Location>
+		<Began>October 1987</Began>
+		<Ended>October 1991</Ended>
+		<Type>Full-time Employee</Type>
+		<Description>CritiqueCo performs mystery shopping for many industries and reports on quality of products and service, cleanliness, and customer satisfaction. Designing, coding, and debugging, primarily using Turbo C / C++ in a MS-DOS environment. The projects involved creating several programs for the entry, business interpretation, and executive summary of mystery shopping information provided for various industries. Literally hundreds of different reports, graphs, and years of data were compiled to this end. While there I created ""SIMPLE"", an easy to process report generation language that was capable of processing years of data that had changing formats from month to month. This was my first job as a computer programmer and I successfully implemented and integrated several complete software solutions. </Description>
+	</Experience>
+</Experiences>
+
+<Education>
+	<Schools>
+		<School>
+			<Name>Florida State University</Name>
+			<Location>Tallahassee, Florida</Location>
+			<Degree>Left before 4th year to pursue career</Degree>
+			<Major>Computer Science</Major>
+			<Minor>Mathematics</Minor>
+		</School>
+		<School>
+			<Name>Tallahassee Community College</Name>
+			<Location>Tallahassee, Florida</Location>
+			<Degree>AA with a concentration in Data Processing</Degree>
+			<Major>Business Data Processing</Major>
+			<Minor>None</Minor>
+		</School>
+		<School>
+			<Name>Lively Vocational-Technical School</Name>
+			<Location>Tallahassee, Florida</Location>
+			<Degree>Certificate in Business Data Processing</Degree>
+			<Major>Business Data Processing</Major>
+			<Minor>Completed course in record time</Minor>
+		</School>
+	</Schools>
+</Education>
+
+<Relocation>
+	<Locations>
+		<Location>San Francisco, CA </Location>
+		<Location>San Jose, CA</Location>
+		<Location>Jacksonville, FL</Location>
+		<Location>Tallahassee, FL</Location>
+		<Location>Japan	(Have dual citizenship)</Location>
+		<Location>Middle East 	(Lived in Libya &amp; Saudi Arabia for 5 years)</Location>
+		<Location>Europe</Location>
+		<Location>Australia</Location>
+		<Location>Asia</Location>
+	</Locations>
+
+	<Comments>
+		<Comment>Relocation and Overseas Assignments. </Comment>
+		<Comment>Assignments in or around Monterey, CA would require no relocation. </Comment>
+		<Comment>I am favorable to local positions, contracts, and telecommuting opportunities.</Comment>
+		<Comment>I lived in Puerto Rico as a child after my parents left Japan where I was born. </Comment>
+		<Comment>From there, my father, a very talented mechanical engineer, was retained for several overseas assignments in Libya, Africa and Saudi Arabia.</Comment>
+		<Comment>In total, I spent the first 10 years of my life outside the USA. </Comment>
+		<Comment>I was exposed to a wide range of cultures, people, and customs. </Comment>
+		<Comment>Although over the years I was taught several foreign languages (Arabic, Spanish, French, Japanese) I speak only English. </Comment>
+		<Comment>My parents are US citizens by birth. </Comment>
+		<Comment>Since I was born in Japan, I hold a dual citizenship in the US and Japan. </Comment>
+		<Comment>I do not have a current passport.  </Comment>
+		<Comment>I feel that my experiences overseas, my extensive work history, and my considerable programming skills make me an ideal candidate for international assignments and full time employment in other countries.</Comment>
+		<Comment>Unless other arrangments can be made, full moving expenses &amp; (possible) advance required in advance or on terms depending on the area, time allotted to move, job start, etc; probably around $4,000 in the US.</Comment>
+		<Comment>Moderate travel is acceptable.</Comment>
+	</Comments>
+</Relocation>
+
+xxx
+
+<Comments>
+	<Comment>Male, 29 years old, unmarried</Comment>
+	<Comment>13 years of solid programming experience</Comment>
+	<Comment>17 total years programming</Comment>
+	<Comment>Fluent in 10 programming languages under four operating systems and various chip sets</Comment>
+	<Comment>Have never once had any complaints about the quality or quantity of my work</Comment>
+	<Comment>Singular drive to learn all things programming which keep me constantly ahead of the curve</Comment>
+	<Comment>Have held many other computer related jobs to round out my computer knowledge</Comment>
+	<Comment>Have developed programming techniques several years beyond current techniques</Comment>
+	<Comment>Worked in many different industries in practically every permutation of team and non-team development used over the last decade</Comment>
+	<Comment>Readily absorbs information quickly</Comment>
+	<Comment>Excellent interpersonal skills with a ready smile, gentle disposition, and always willing to listen</Comment>
+	<Comment>Strong sense of personal ethics and morals</Comment>
+	<Comment>Able to lead, follow, support, mentor, and encourage across racial, age, and skill levels</Comment>
+	<Comment>Able to work on several assignments at once</Comment>
+	<Comment>A self-starter capable of accomplishing tasks quickly and efficiently to speak to both existing and future business needs.</Comment>
+</Comments>
+
+<FrequentlyAskedQuestions>
+	<FrequentlyAskQuestion>
+		<Question>What is my Achilles' heel ?</Question>
+		<Answer>I have a real problem getting to work in the morning. Consequently, I require a flexible work schedule. This usually precludes me from taking a lead position. I am satisfied with a senior position.</Answer>
+	</FrequentlyAskQuestion>
+</FrequentlyAskedQuestions>
+
+</Resume>",,,6/11/2000 22:26:53,6/12/2000 23:34:27,,0,66,
+928,55,"Process Clipboard - Move Modify Store, No loop","Move Modify Store, No loop",,1,0,0,,"~~Choose Selection=Move;Modify;Store;Begin;End;Terminate=Cancel this operation
+  ~~Cancel %%Len::Selection%%=0
+~~_Terminate_If ""%%Selection%%""=""Terminate""
+  ~~Set Keep Going=0
+~~_Terminate_Else
+~~_testEnd_If ""%%Selection%%""=""End""
+  ~~Append mmsOut=\~\~'     ||¡
+  ~~Append mmsOut=\~\~'     ||     End¡
+  ~~Append mmsOut=\~\~'  |------|¡
+~~_testEnd_Else
+~~_Initialize_If ""%%Selection%%""=""Begin""
+  ~~Append mmsOut=\~\~'  |------|¡
+  ~~Append mmsOut=\~\~'     ||     Begin¡
+  ~~Append mmsOut=\~\~'     ||¡
+~~_Initialize_Else
+~~_Move_If ""%%Selection%%""=""Move""
+  ~~Append mmsOut=\~\~'     || >>¡
+  ~~Append mmsOut=\~\~'     || >>  Move¡
+  ~~Append mmsOut=\~\~'     || >>¡
+~~_Move_Else
+~~_Modify_If ""%%Selection%%""=""Modify""
+  ~~Append mmsOut=\~\~'     ||¡
+  ~~Append mmsOut=\~\~'  ~% || %~  Modify¡
+  ~~Append mmsOut=\~\~'     ||¡
+~~_Modify_Else
+~~_Store_If ""%%Selection%%""=""Store""
+  ~~Append mmsOut=\~\~'  << ||¡
+  ~~Append mmsOut=\~\~'  << ||     Store¡
+  ~~Append mmsOut=\~\~'  << ||¡
+~~_Store_Endif
+~~_Modify_Endif
+~~_Move_Endif
+~~_Initialize_EndIf
+~~_testEnd_EndIf
+~~_Terminate_EndIf
+~~'
+  ~~Cancel %%Len::mmsOut%%=0
+~~'
+  ~~Set ToFind=¡
+    ~~StrCopy ReplaceWith=EOL
+      ~~Replace mmsOut
+~~'
+  ~~Set ToFind=\~\~
+    ~~String ReplaceWith 2 ""~""
+      ~~Replace mmsOut
+~~'
+  ~~SetClipboard mmsOut
+  ~~SendKeys ^V",,,6/11/2000 22:44:27,6/14/2000 12:59:37,,0,26,
+929,55,"Process Clipboard - Basic Ask for an XML Tag","Basic Ask for an XML Tag",,1,0,0,,"~~Set strPrefix=%%What XML Tag do you want to wrap this with ?::@strPrefix%%
+~~Cancel %%Len::strPrefix%%=0
+~~Set strPostFix=</%%strPrefix%%>
+~~Set strPrefix=<%%strPrefix%%>",,,6/11/2000 23:30:51,6/30/2000 13:04:30,,0,4,
+932,52,"XML Classes - Ginsu - <ExperienceItem>","Ginsu - <ExperienceItem>",,0,0,0,,"~~If %%Len::xmlData%%=0
+  ~~Choose TypeOfJob=Contract;Full-time Employee;Owner
+    ~~Cancel %%Len::TypeOfJob%%=0
+  ~~Append xmlOut=ƒ<ExperienceItem>Çƒƒ<Employer>%%Employer%%</Employer>Çƒƒ<Position> </Position>Çƒƒ<Location>%%Location%%</Location>Çƒƒ<Began>%%Date Job Began%%</Began>Çƒƒ<Ended>%%Date Job Ended%%</Ended>Çƒƒ<Type>%%Type of Job%%</Type>Çƒƒ<Description>%%Full Job Description%%</Description>Çƒ</ExperienceItem>Ç
+~~Else
+  ~~Append xmlOut=ƒ<ExperienceItem>Çƒƒ<Employer>%%Token::xmlData,1,#x#m#l#%%</Employer>Çƒƒ<Position>%%Token::xmlData,2,#x#m#l#%%</Position>Çƒƒ<Location>%%Token::xmlData,3,#x#m#l#%%</Location>Çƒƒ<Began>%%Token::xmlData,4,#x#m#l#%%</Began>Çƒƒ<Ended>%%Token::xmlData,5,#x#m#l#%%</Ended>Çƒƒ<Type>%%Token::xmlData,6,#x#m#l#%%</Type>Çƒƒ<Description>%%After::xmlData,6,#x#m#l#%%</Description>Çƒ</ExperienceItem>Ç
+~~EndIf",,,6/11/2000 23:50:09,8/18/2000 4:58:56,,0,3,
+935,49,"XML - Basic XML Header","Basic XML Header",,1,0,0,,"<?xml version=""1.0"" ?>
+",,,6/12/2000 1:31:46,8/18/2000 11:42:46,,0,4,
+936,52,"XML Classes - Ginsu","Ginsu",,1,0,0,,"~~'
+  ~~If %%Len::xmlFields%%=0
+    ~~MsgBox SoftVar xmlFields (list of XML tags) must be set before running this template.
+  ~~EndIf
+  ~~If %%Len::xmlValues%%=0
+    ~~MsgBox SoftVar xmlValues (list of values to get shuffled into the list of tags) must be set before running this template.
+  ~~EndIf
+  ~~If %%Len::xmlWrapper%%=0
+    ~~MsgBox SoftVar xmlWrapper (XML Tag to wrap the entire item in) must be set before running this template.
+  ~~EndIf
+~~'
+  ~~StrCopy ItemDelimiter=;
+    ~~Parse XML Fields=xmlFields
+  ~~StrCopy ItemDelimiter=xmlValueDelimiter
+    ~~Parse XML Values=xmlValues
+~~'
+  ~~Set TAB=%%CHR::9%%
+~~'
+  ~~If ""%%xmlWrapper%%""<>""null""
+    ~~Set xmlOut=<%%xmlWrapper%%>
+    ~~Append xmlOut=EOL
+  ~~EndIf
+~~'
+  ~~StartCoda
+    ~~Set CurrField=%%NextItem::XML Fields%%
+    ~~_G1_If %%Len::CurrField%%=0
+      ~~Set ItemDelimiter=;
+      ~~Parse XMLFields=xmlFields
+      ~~Set CurrField=%%NextItem::XML Fields%%
+      ~~_G2_If ""%%xmlWrapper%%""<>""null""
+        ~~Append xmlOut=</%%xmlWrapper%%>
+          ~~Append xmlOut=EOL
+          ~~Append xmlOut=<%%xmlWrapper%%>
+          ~~Append xmlOut=EOL  
+      ~~_G2_EndIf
+    ~~_G1_EndIf
+    ~~Append xmlOut=TAB
+    ~~Append xmlOut=<%%CurrField%%>%%NextItem::XML Values%%</%%CurrField%%>
+    ~~Append xmlOut=EOL
+  ~~Coda %%Next Item in XML Values%%
+~~'
+  ~~Append xmlOut=</%%xmlWrapper%%>
+  ~~Append xmlOut=EOL
+~~'",,,6/12/2000 1:47:59,11/7/2000 23:08:25,,0,10,
+937,52,"XML Classes - Test Ginsu 1","Test Ginsu 1",,0,0,0,,"~~Set xmlFields=Employer;Position;Location;Began;Ended;Type;Description
+~~GetClipboard xmlValues
+~~Set xmlWrapper=ExperienceItem
+~~StrCopy xmlValueDelimiter=EOL
+~~'
+~##~Include Ginsu
+~~'
+~~GotoMessage
+%%xmlOut%%",,,6/12/2000 2:01:17,11/7/2000 23:08:39,,0,8,
+938,52,"XML Classes - Ginsu, 1=Wrapper, 2=Fields, 3+=Data","Ginsu, 1=Wrapper, 2=Fields, 3+=Data",,1,0,0,,"~~GetClipboard xmlValues
+  ~~Set xmlWrapper=%%Token::xmlValues,1,EOL%%
+  ~~Set xmlFields=%%Token::xmlValues,2,EOL%%
+  ~~Set xmlValues=%%Replace::xmlValues,EOL,$$$$$%%
+    ~~Set xmlValues=%%After::xmlValues,2,$$$$$%%
+  ~~Set ToFind=$$$$$
+    ~~StrCopy ReplaceWith=EOL
+    ~~Replace xmlValues
+~~'
+~##~Include Ginsu
+~~'
+~~SetClipboard xmlOut
+~~SendKeys ^V",,,6/12/2000 2:18:23,6/14/2000 13:02:22,,1,7,
+939,52,"XML Classes - Ginsu, no wrapper, 1=Fields, 2+=Data","Ginsu, no wrapper, 1=Fields, 2+=Data",,1,0,0,,"~~GetClipboard xmlValues
+  ~~Set xmlWrapper=null
+  ~~Set xmlFields=%%Token::xmlValues,2,EOL%%
+  ~~Set xmlValues=%%Replace::xmlValues,EOL,$$$$$%%
+    ~~Set xmlValues=%%After::xmlValues,2,$$$$$%%
+  ~~Set ToFind=$$$$$
+    ~~StrCopy ReplaceWith=EOL
+    ~~Replace xmlValues
+~~'
+~##~Include Ginsu
+~~'
+~~SetClipboard xmlOut
+~~SendKeys ^V",,,6/12/2000 2:29:10,6/14/2000 13:02:17,,1,5,
+940,55,"Process Clipboard - Scratch, Anything","Scratch, Anything",,1,0,0,,,,,6/12/2000 23:34:27,6/14/2000 12:59:28,,0,5,
+942,55,"Process Clipboard - Basic Variables","Basic Variables",,1,0,0,,"  ~~Set sadPath Base=F:\Data\Programming 2000
+  ~~Set sadPath Output=%%sadPath Base%%\SliceAndDice Output
+  ~~Set sadPath Clipboard=%%sadPath Output%%\Clipboard
+  ~~Set sadPath XML=%%sadPath Base%%\XML\SliceAndDice Output
+~~'
+  ~~Set Programmer Name=William M. Rawls
+  ~~Set Programmer Link=mailto:wrawls@firmsolutions.com
+~~'
+  ~~Set Company Name=Firm Solutions
+  ~~Set Company Link=http://www.firmsolutions.com
+~~'
+  ~~Set Project Name=Slice and Dice, Free and Open
+  ~~Set Project Link=http://www.sliceanddice.com
+~~'",,,6/13/2000 0:42:40,6/14/2000 12:58:34,,0,4,
+944,55,"Process Clipboard - Unix text to Windows text","Unix text to Windows text",,0,0,0,,"~~GetClipboard unixText
+~~'
+~~String CR 1 Chr(13)
+~~String LF 1 Chr(10)
+~~StrCopy CRLF=CR
+~~Append CRLF=LF
+~~'
+~~StrCopy ToFind=CR
+~~StrCopy ReplaceWith=CRLF
+~~Replace unixText
+~~'
+~~StrCopy ToFind=LF
+~~Replace unixText
+~~'
+~~SetClipboard unixText",,,6/13/2000 12:11:26,8/18/2000 4:46:10,,1,7,
+948,55,"Process Clipboard - Unix text to Windows w/Paste","Unix text to Windows w/Paste",,0,0,0,,"~~GetClipboard unixText
+~~'
+~~String CR 1 Chr(13)
+~~String LF 1 Chr(10)
+~~StrCopy CRLF=CR
+~~Append CRLF=LF
+~~'
+~~StrCopy ToFind=CR
+~~StrCopy ReplaceWith=CRLF
+~~Replace unixText
+~~'
+~~StrCopy ToFind=LF
+~~Replace unixText
+~~'
+~~SetClipboard unixText
+~~SendKeys ^V",,,8/18/2000 4:42:35,8/18/2000 4:45:57,,1,4,
+949,55,"Process Clipboard - Wrap with XML w/Log","Wrap with XML w/Log",,0,0,0,,"~##~Include Basic Begin
+~##~Include Basic Aquire Clipboard Text
+~##~Include Basic Normalize
+~##~Include Basic Ask for an XML Tag
+~~IgnoreBlanks
+  ~~Set s18PathF:\Data\Programming 2000\Outputs\SliceAndDice\Clipboard
+  ~~Set s18File=XML Tag Wrappings.s18
+  ~~Append strLog=\~\#\#\~PreChoose ____=Prefix with____%%strPrefix%%____Postfix with____%%strRepl%%____on the clipboard____as run on____%%Now::Mmmm D, YYYY%%____at____%%Now::H:MM:SS am/pm%%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~Set strPrefix=%%strPrefix%%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~Set strPostFix=%%strPostFix%%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~'
+  ~~Append strLog=EOL
+  ~~Append strLog=\%\%Include::Process Clipboard - Wrap with XML\%\%
+  ~~Append strLog=EOL
+  ~~Append strLog=\~\~'
+  ~~Append strLog=EOL
+~##~Include Basic Record playback template
+  ~~Set outText=
+    ~~Append outText=strPreFix
+    ~~Append outText=cbText
+    ~~Append outText=strPostFix
+  ~~StrCopy cbText=outText
+~##~Include Basic Denormalize
+~##~Include Basic End",,,8/18/2000 4:46:18,8/18/2000 4:46:20,,0,2,
+950,55,"Process Clipboard - Replace a String w/Paste","Replace a String w/Paste",,0,0,0,,"~##~Include Basic Begin
+~##~Include Basic Aquire Clipboard Text
+~##~Include Basic Normalize
+~##~Include Basic Determine what to Find and Replace
+  ~~Set ToFind=%%strFind%%
+  ~~Set ReplaceWith=%%strRepl%%
+  ~~Replace cbText
+~##~Include Basic Denormalize
+~~ShowMessage cbText",,,8/18/2000 4:47:37,8/18/2000 4:49:13,,1,5,
+951,55,"Process Clipboard - Replace a String","Replace a String",,0,0,0,,"~##~Include Basic Begin
+~##~Include Basic Aquire Clipboard Text
+~##~Include Basic Normalize
+~##~Include Basic Determine what to Find and Replace
+  ~~Set ToFind=%%strFind%%
+  ~~Set ReplaceWith=%%strRepl%%
+  ~~Replace cbText
+~##~Include Basic Denormalize
+~##~Include Basic End",,,8/18/2000 4:48:36,8/18/2000 4:49:22,,1,3,
+958,59,"Wrappers - <???>...<x>,<y>,<z>...</???>","<???>...<x>,<y>,<z>...</???>",,0,0,0,,"~~Set xmlFields=%%Enter a list of semi-colon delimited XML Fields you want to build::Employer;Position;Location;Began;Ended;Type;Description%%
+~~Set xmlWrapper=%%What XML tag should wrap those XML Fields ?::Testing%%
+~~_d1_If %%Decide::Get values from clipboard ?%%
+  ~~GetClipboard xmlValues
+~~_d1_Else
+  ~~Set FieldCount=%%TokenCount::xmlFields,;%%
+  ~~Set CurrField=0
+  ~~Set xmlValues=
+  ~~_fi_StartCoda
+    ~~Increment CurrField
+    ~~Set xmlFieldName=%%Token::xmlFields,CurrField,;%%
+~~'
+    ~~Set tBuf=\~\~Append xmlValues=\%\%Value of: %%xmlFieldName%%\%\%
+      ~~Set ToFind=\~\~
+        ~~String ReplaceWith 2 ""~""
+        ~~Replace tBuf
+      ~~Set ToFind=\%\%
+        ~~String ReplaceWith 2 ""%""
+        ~~Replace tBuf
+~~'
+%%tBuf%%
+~~'
+    ~~Set tBuf=
+    ~~Append xmlValues=EOL
+    ~~Decrement FieldCount
+  ~~_fi_Coda %%FieldCount%%
+  ~~Eval shortone=%%Len::xmlValues%%-1
+  ~~Set xmlValues=%%Left::xmlValues,shortone%%
+~~_d1_EndIf
+~~'
+~##~Include Ginsu
+~~'
+~~ShowMessage xmlOut",,,8/18/2000 11:36:29,8/18/2000 11:36:29,,0,1,
+959,59,"Wrappers - <ExperienceItem>","<ExperienceItem>",,1,0,0,,"~~Set xmlFields=Employer;Position;Location;Began;Ended;Type;Description
+~~GetClipboard xmlValues
+~~Set xmlWrapper=ExperienceItem
+~~'
+~##~Include Ginsu
+~~'
+~~ShowMessage xmlOut",,,8/18/2000 11:36:29,8/18/2000 11:36:29,,0,1,
+960,59,"Wrappers - Ginsu","Ginsu",,1,1,0,,"~~'
+  ~~If %%Len::xmlFields%%=0
+    ~~MsgBox SoftVar xmlFields (list of XML tags) must be set before running this template.
+  ~~EndIf
+  ~~If %%Len::xmlValues%%=0
+    ~~MsgBox SoftVar xmlValues (list of values to get shuffled into the list of tags) must be set before running this template.
+  ~~EndIf
+  ~~If %%Len::xmlWrapper%%=0
+    ~~MsgBox SoftVar xmlWrapper (XML Tag to wrap the entire item in) must be set before running this template.
+  ~~EndIf
+~~'
+  ~~StrCopy ItemDelimiter=;
+    ~~Parse XML Fields=xmlFields
+  ~~StrCopy ItemDelimiter=EOL
+    ~~Parse XML Values=xmlValues
+~~'
+  ~~Set TAB=%%CHR::9%%
+~~'
+  ~~If ""%%xmlWrapper%%""<>""null""
+    ~~Set xmlOut=<%%xmlWrapper%%>
+    ~~Append xmlOut=EOL
+  ~~EndIf
+~~'
+  ~~StartCoda
+    ~~Set CurrField=%%NextItem::XML Fields%%
+    ~~_G1_If %%Len::CurrField%%=0
+      ~~Set ItemDelimiter=;
+      ~~Parse XMLFields=xmlFields
+      ~~Set CurrField=%%NextItem::XML Fields%%
+      ~~_G2_If ""%%xmlWrapper%%""<>""null""
+        ~~Append xmlOut=</%%xmlWrapper%%>
+          ~~Append xmlOut=EOL
+          ~~Append xmlOut=<%%xmlWrapper%%>
+          ~~Append xmlOut=EOL  
+      ~~_G2_EndIf
+    ~~_G1_EndIf
+    ~~Append xmlOut=TAB
+    ~~Append xmlOut=<%%CurrField%%>%%NextItem::XML Values%%</%%CurrField%%>
+    ~~Append xmlOut=EOL
+  ~~Coda %%Next Item in XML Values%%
+~~'
+  ~~Append xmlOut=</%%xmlWrapper%%>
+  ~~Append xmlOut=EOL
+~~'",,,8/18/2000 11:36:29,8/18/2000 11:36:29,,0,1,
+961,59,"Wrappers - Ginsu, 1=Wrapper, 2=Fields, 3+=Data","Ginsu, 1=Wrapper, 2=Fields, 3+=Data",,1,0,0,,"~~GetClipboard xmlValues
+  ~~Set xmlWrapper=%%Token::xmlValues,1,EOL%%
+  ~~Set xmlFields=%%Token::xmlValues,2,EOL%%
+  ~~Set xmlValues=%%Replace::xmlValues,EOL,$$$$$%%
+    ~~Set xmlValues=%%After::xmlValues,2,$$$$$%%
+  ~~Set ToFind=$$$$$
+    ~~StrCopy ReplaceWith=EOL
+    ~~Replace xmlValues
+~~'
+~##~Include Ginsu
+~~'
+~~SetClipboard xmlOut
+~~SendKeys ^V",,,8/18/2000 11:36:29,8/18/2000 11:36:29,,1,1,
+962,59,"Wrappers - Ginsu, no wrapper, 1=Fields, 2+=Data","Ginsu, no wrapper, 1=Fields, 2+=Data",,1,0,0,,"~~GetClipboard xmlValues
+  ~~Set xmlWrapper=null
+  ~~Set xmlFields=%%Token::xmlValues,2,EOL%%
+  ~~Set xmlValues=%%Replace::xmlValues,EOL,$$$$$%%
+    ~~Set xmlValues=%%After::xmlValues,2,$$$$$%%
+  ~~Set ToFind=$$$$$
+    ~~StrCopy ReplaceWith=EOL
+    ~~Replace xmlValues
+~~'
+~##~Include Ginsu
+~~'
+~~GotoMessage xmlOut",,,8/18/2000 11:36:29,8/18/2000 11:36:29,,1,1,
+963,59,"Wrappers - Old <ExperienceItem>","Old <ExperienceItem>",,0,0,0,,"~~If %%Len::xmlData%%=0
+  ~~Choose TypeOfJob=Contract;Full-time Employee;Owner
+    ~~Cancel %%Len::TypeOfJob%%=0
+  ~~Append xmlOut=ƒ<ExperienceItem>Çƒƒ<Employer>%%Employer%%</Employer>Çƒƒ<Position> </Position>Çƒƒ<Location>%%Location%%</Location>Çƒƒ<Began>%%Date Job Began%%</Began>Çƒƒ<Ended>%%Date Job Ended%%</Ended>Çƒƒ<Type>%%Type of Job%%</Type>Çƒƒ<Description>%%Full Job Description%%</Description>Çƒ</ExperienceItem>Ç
+~~Else
+  ~~Append xmlOut=ƒ<ExperienceItem>Çƒƒ<Employer>%%Token::xmlData,1,#x#m#l#%%</Employer>Çƒƒ<Position>%%Token::xmlData,2,#x#m#l#%%</Position>Çƒƒ<Location>%%Token::xmlData,3,#x#m#l#%%</Location>Çƒƒ<Began>%%Token::xmlData,4,#x#m#l#%%</Began>Çƒƒ<Ended>%%Token::xmlData,5,#x#m#l#%%</Ended>Çƒƒ<Type>%%Token::xmlData,6,#x#m#l#%%</Type>Çƒƒ<Description>%%After::xmlData,6,#x#m#l#%%</Description>Çƒ</ExperienceItem>Ç
+~~EndIf",,,8/18/2000 11:36:29,8/18/2000 11:36:29,,0,1,
+964,52,"XML Classes - Test Ginsu 2","Test Ginsu 2",,0,0,0,,"  ~~Set xmlFields=Name;Start;Length;DataType
+  ~~Set xmlWrapper=Field
+  ~~String xmlValueDelimiter 1 "" ""
+~~'
+  ~~Append xmlPreValues=RecordType 2 String;
+  ~~Append xmlPreValues=TransactionCode 2 String;
+  ~~Append xmlPreValues=ProductSelection 2 String;
+  ~~Append xmlPreValues=EmployeeSSN 9 String;
+~~'
+  ~~Set ItemDelimiter=;
+  ~~Parse Value List=xmlPreValues
+  ~~Set CurrPreValue=%%NextItem::Value List%%
+  ~~Set NextStart=1
+  ~~StartCoda
+    ~~Set xmlValues=%%Token::CurrPreValue,1%%
+    ~~Append xmlValues=EOL
+    ~~Append xmlValues=%%NextStart%%
+    ~~Append xmlValues=EOL
+    ~~Append xmlValues=%%Token::CurrPreValue,2%%
+    ~~Append xmlValues=EOL
+    ~~Append xmlValues=%%Token::CurrPreValue,3%%
+    ~~Ginsu xmlOut
+    ~~Append Out=xmlOut
+    ~~Increment NextStart %%Token::CurrPreValue,2%%
+    ~~Set CurrPreValue=%%NextItem::Value List%%
+  ~~Coda %%Next Item in Value List%%=0
+~~'
+~~'
+  ~~GotoMessage
+%%Out%%",,,11/7/2000 23:03:41,11/7/2000 23:31:09,,0,21,
+965,52,"XML Classes - Test Ginsu 3","Test Ginsu 3",,0,0,0,,"~~Set Keep Going=1
+~~_BuildFieldList_StartCoda
+  ~~Set What is the next Field Name ?=
+  ~~Set What is the next Field Length ?=
+  ~~Set Field Name=
+  ~~Set Field Name=%%What is the next Field Name ?%%
+  ~~_tContinue_If %%Len::Field Name%%=0
+    ~~Set Keep Going=0
+  ~~_tContinue_Else
+    ~~Set Field Length=%%What is the next Field Length ?::2%%
+    ~~Set Field Type=%%Choose::String;Date;Currency;Number%%
+    ~~Append xmlPreValues=%%Field Name%% %%Field Length%% %%Field Type%%;
+  ~~_tContinue_EndIf
+~~_BuildFieldList_Coda %%Keep Going%%
+~~'
+  ~~Set xmlFields=Name;Start;Length;DataType
+  ~~Set xmlWrapper=Field
+  ~~String xmlValueDelimiter 1 "" ""
+~~'
+  ~~Set ItemDelimiter=;
+  ~~Parse Value List=xmlPreValues
+  ~~Set CurrPreValue=%%NextItem::Value List%%
+  ~~Set NextStart=1
+  ~~_BuildXmlValues_StartCoda
+    ~~Set xmlValues=%%Token::CurrPreValue,1%%
+    ~~Append xmlValues=EOL
+    ~~Append xmlValues=%%NextStart%%
+    ~~Append xmlValues=EOL
+    ~~Append xmlValues=%%Token::CurrPreValue,2%%
+    ~~Append xmlValues=EOL
+    ~~Append xmlValues=%%Token::CurrPreValue,3%%
+    ~~Ginsu xmlOut
+    ~~Append Out=xmlOut
+    ~~Increment NextStart %%Token::CurrPreValue,2%%
+    ~~Set CurrPreValue=%%NextItem::Value List%%
+  ~~_BuildXmlValues_Coda %%Next Item in Value List%%=0
+~~'
+~~'
+~~GotoNewFile C:\test.xml
+<Transmission>
+		<RecordFormats>
+			<RecordFormat>
+				<Name>Member</Name>
+				<Description></Description>
+				<Configuration>
+					<Fields>
+%%Out%%
+					</Fields>
+				</Configuration>
+			</RecordFormat>
+		</RecordFormats>
+</Transmission>
+~~Shell explorer c:\test.xml",,,11/7/2000 23:31:48,11/7/2000 23:47:08,,0,8,
+966,52,"XML Classes - Test","Test",,0,0,0,,"~~Set Keep Going=1
+~~_BuildFieldList_StartCoda
+  ~~Set What is the next Field Name ?=
+  ~~Set What is the next Field Length ?=
+  ~~Set Field Name=
+  ~~Set Field Name=%%What is the next Field Name ?%%
+  ~~_tContinue_If %%Len::Field Name%%=0
+    ~~Set Keep Going=0
+  ~~_tContinue_Else
+    ~~Set Field Length=%%What is the next Field Length ?::2%%
+    ~~Set Field Type=%%Choose::String;Date;Currency;Number%%
+    ~~Append xmlPreValues=%%Field Name%% %%Field Length%% %%Field Type%%;
+  ~~_tContinue_EndIf
+~~_BuildFieldList_Coda %%Keep Going%%",,,11/7/2000 23:37:30,11/7/2000 23:42:45,,0,9,

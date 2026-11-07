@@ -7,8 +7,12 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class Search2Form : System.Windows.Forms.Form
-        {
+    /// <summary>
+    ///   //  Initialize the file name.
+.
+    /// </summary>
+    public class Search2Form : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.CheckBox chkIncludeSubDirs;
          public System.Windows.Forms.VB.TextBox txtFilePattern;
          public System.Windows.Forms.VB.TextBox txtStartDir;
@@ -128,22 +132,22 @@ namespace MetX.SliceAndDice
         public string FileList;
 
 
-            public void Form_Load()
-            {
-                ;
-                sFilePath = App.Path;
-                sFilePath.Substring(sFilePath.Length - 1) <> "\" )
+    public void Form_Load()
+    {
+        ;
+        sFilePath = App.Path;
+        sFilePath.Substring(sFilePath.Length - 1) <> "\" )
             {
  sFilePath == sFilePath + "\";
-                txtStartDir.Text = sFilePath;
-            }
+        txtStartDir.Text = sFilePath;
+    }
 
-            public void cmdSearch_Click()
-            {
-                ;
-                FileList = GetFileList(txtStartDir.Text, txtFilePattern.Text);
-                Hide;
-            }
+    public void cmdSearch_Click()
+    {
+        ;
+        FileList = GetFileList(txtStartDir.Text, txtFilePattern.Text);
+        Hide;
+    }
 
-        }
+    }
     }

@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace MetX.SliceAndDice
 {
-        public class frmFieldType : System.Windows.Forms.Form
-        {
+    public class frmFieldType : System.Windows.Forms.Form
+    {
          public System.Windows.Forms.VB.TextBox FieldName;
          public System.Windows.Forms.VB.CommandButton cmdCancel;
          public System.Windows.Forms.VB.CommandButton cmdOkay;
@@ -150,129 +150,128 @@ namespace MetX.SliceAndDice
         public bool m_bCanceled;
 
 
-                public bool Canceled
-    {
-        get
+        public bool Canceled
         {
-        Canceled = m_bCanceled;
-        }
-
-    }
-
-
-                public DataTypeEnum dbFieldType
-    {
-        get
-        {
-        switch lstType;
-        Case "Text": dbFieldType = dbText;
-        Case "long Integer": dbFieldType = dbLong;
-        Case "Boolean": dbFieldType = dbBoolean;
-        Case "Currency": dbFieldType = dbCurrency;
-        Case "Date/Time": dbFieldType = dbDate;
-        Case "Double": dbFieldType = dbDouble;
-        Case "Integer": dbFieldType = dbInteger;
-        Case "Binary": dbFieldType = dbLongBinary;
-        Case "Memo": dbFieldType = dbMemo;
-        Case "Single": dbFieldType = dbSingle;
-        }
-
-    }
-
-
-                public int Length
-    {
-        get
-        {
-        if ( lstType = "Text" )
+            get
             {
-
-        Length = Val(txtLength);
-        }
-            else
-            {
-        Length = 0;
-        }
-
-    }
-
-
-
-            public void cmdCancel_Click()
-            {
-                m_bCanceled = true;
-                Hide;
+                return m_bCanceled;
             }
 
-            public void cmdOkay_Click()
-            {
-                FieldName = Trim$(FieldName);
+        }
 
-                if ( Len(FieldName) = 0 )
-            {;
-                MsgBox "Please enter a name before pressing 'OK'", vbInformation;
-                return;
+
+        public DataTypeEnum dbFieldType
+        {
+            get
+            {
+                switch lstType;
+                Case "Text": dbFieldType = dbText;
+                Case "long Integer": dbFieldType = dbLong;
+                Case "Boolean": dbFieldType = dbBoolean;
+                Case "Currency": dbFieldType = dbCurrency;
+                Case "Date/Time": dbFieldType = dbDate;
+                Case "Double": dbFieldType = dbDouble;
+                Case "Integer": dbFieldType = dbInteger;
+                Case "Binary": dbFieldType = dbLongBinary;
+                Case "Memo": dbFieldType = dbMemo;
+                Case "Single": dbFieldType = dbSingle;
+            }
+
+        }
+
+
+        public int Length
+        {
+            get
+            {
+                if ( lstType = "Text" )
+            {
+
+                return Val(txtLength);
                 }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+
+
+    public void cmdCancel_Click()
+    {
+        m_bCanceled = true;
+        Hide;
+    }
+
+    public void cmdOkay_Click()
+    {
+        FieldName = Trim$(FieldName);
+        if ( Len(FieldName) = 0 )
+            {;
+        MsgBox "Please enter a name before pressing 'OK'", vbInformation;
+        return;
+        }
             else
             {if ( lstType.ListIndex < 0 )
             {;
-                MsgBox "Please select a field type before pressing 'OK'", vbInformation;
-                return;
-            }
+        MsgBox "Please select a field type before pressing 'OK'", vbInformation;
+        return;
+    }
 
-            public void Form_Activate()
-            {
-                try
+    public void Form_Activate()
+    {
+        try
 {;
-                FieldName.SetFocus;
-                }
+        FieldName.SetFocus;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void Form_Load()
-            {
-                try
+    public void Form_Load()
+    {
+        try
 {;
-                if ( lstType.ListIndex = -1 )
+        if ( lstType.ListIndex = -1 )
             {;
-                lstType.ListIndex = 0;
-                }
+        lstType.ListIndex = 0;
+        }
         catch(Exception e)
         {
             // ON ERROR RESUME NEXT
         };
-            }
+    }
 
-            public void lstType_Click()
-            {
-                txtLength.Enabled = (lstType = "Text");
-            }
+    public void lstType_Click()
+    {
+        txtLength.Enabled = (lstType = "Text");
+    }
 
-            public void lstType_DblClick()
-            {
-                cmdOkay_Click;
-            }
+    public void lstType_DblClick()
+    {
+        cmdOkay_Click;
+    }
 
-            public void txtLength_Change()
-            {
-                if ( CStr(Val(txtLength)) <> txtLength )
+    public void txtLength_Change()
+    {
+        if ( CStr(Val(txtLength)) <> txtLength )
             {;
-                if ( Val(txtLength) < 1 )
+        if ( Val(txtLength) < 1 )
             {;
-                txtLength = "1";
-                }
+        txtLength = "1";
+        }
             else
             {if ( Val(txtLength) > 255 )
             {;
-                txtLength = "255";
-                }
+        txtLength = "255";
+        }
             else
             {;
-                txtLength = CStr(Val(txtLength));
-            }
+        txtLength = CStr(Val(txtLength));
+    }
 
-        }
+    }
     }
