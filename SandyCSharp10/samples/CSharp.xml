@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataroot>
+  <Category>
+    <CategoryID>1</CategoryID><CategoryName>CSharp</CategoryName>
+    <Template>
+      <TemplateID>1</TemplateID><CategoryID>1</CategoryID>
+      <TemplateName>CSharp - Public method</TemplateName><ShortTemplateName>Public method</ShortTemplateName>
+      <memoCodeAtCursor>public %%Return Type::void%% %%Method Name::Execute%%(%%Parameters::CancellationToken cancellationToken%%)
+{
+    %%Body::throw new NotImplementedException();%%
+}
+</memoCodeAtCursor>
+    </Template>
+    <Template>
+      <TemplateID>2</TemplateID><CategoryID>1</CategoryID>
+      <TemplateName>CSharp - Property</TemplateName><ShortTemplateName>Property</ShortTemplateName>
+      <memoCodeAtCursor>public %%Property Type::string%% %%Property Name::Name%% { get; set; }
+</memoCodeAtCursor>
+    </Template>
+    <Template>
+      <TemplateID>3</TemplateID><CategoryID>1</CategoryID>
+      <TemplateName>CSharp - Numbered comments</TemplateName><ShortTemplateName>Numbered comments</ShortTemplateName>
+      <memoCodeAtCursor>~~Set Count=%%Count::3%%
+~~Set Index=1
+~~StartCoda
+// Step %%Index%%
+~~Increment Index
+~~Decrement Count
+~~Coda Count
+</memoCodeAtCursor>
+    </Template>
+  </Category>
+</dataroot>

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Sandy.Core/Sandy.Core.csproj" />
+    <Project Path="src/Sandy.Cli/Sandy.Cli.csproj" />
+    <Project Path="src/Sandy.VisualStudio/Sandy.VisualStudio.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Sandy.Core.Tests/Sandy.Core.Tests.csproj" />
+  </Folder>
+</Solution>

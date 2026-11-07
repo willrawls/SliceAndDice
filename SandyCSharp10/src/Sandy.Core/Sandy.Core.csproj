@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net10.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MetX.Standard.Strings">
+      <HintPath>$(MetXStringsRoot)/$(TargetFramework)/MetX.Standard.Strings.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+  <Target Name="ValidateMetXStringsReference" BeforeTargets="ResolveAssemblyReferences" Condition="'$(TargetFramework)' != ''">
+    <Error Condition="!Exists('$(MetXStringsRoot)/$(TargetFramework)/MetX.Standard.Strings.dll')"
+           Text="MetX.Standard.Strings is missing for $(TargetFramework). Build the xlg library first or set -p:MetXStringsRoot=&quot;path/to/bin/Debug&quot;. Expected: $(MetXStringsRoot)/$(TargetFramework)/MetX.Standard.Strings.dll" />
+  </Target>
+</Project>

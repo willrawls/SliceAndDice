@@ -1,0 +1,106 @@
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace Sandy.Core;
+
+/// <summary>Small, deterministic expression evaluator; never executes C# or VB source.</summary>
+public static class SandyExpression
+{
+    public static string Evaluate(string expression, IDictionary<string, string> variables)
+        => new Parser(expression, variables).Parse();
+
+    internal static bool Truth(string value) => value.Length > 0 && value != "0" && !value.Equals("False", StringComparison.OrdinalIgnoreCase);
+    internal static string Format(double value) => value.ToString("G", CultureInfo.InvariantCulture);
+    internal static double Number(string value) => double.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
+
+    private sealed class Parser
+    {
+        private static readonly Regex Tokenizer = new(@"\G\s*(""(?:[^""]|"""")*""|'[^']*'|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|<>|<=|>=|[()+\-*/\\^<>=&]|[A-Za-z_][A-Za-z_0-9]*)", RegexOptions.Compiled);
+        private readonly List<string> tokens = new();
+        private readonly IDictionary<string, string> variables;
+        private int index;
+
+        public Parser(string text, IDictionary<string, string> variables)
+        {
+            this.variables = variables;
+            var offset = 0;
+            while (offset < text.Length && text.Substring(offset).Trim().Length > 0)
+            {
+                var match = Tokenizer.Match(text, offset);
+                if (!match.Success) throw new FormatException($"Invalid expression near '{text.Substring(offset)}'.");
+                tokens.Add(match.Groups[1].Value);
+                offset += match.Length;
+            }
+        }
+
+        public string Parse()
+        {
+            if (tokens.Count == 0) return "";
+            var result = Binary(0);
+            if (index != tokens.Count) throw new FormatException($"Unexpected expression token '{tokens[index]}'.");
+            return result;
+        }
+
+        private string Binary(int minimum)
+        {
+            var left = Unary();
+            while (index < tokens.Count && Precedence(tokens[index]) >= minimum)
+            {
+                var op = tokens[index++].ToUpperInvariant();
+                var right = Binary(Precedence(op) + (op == "^" ? 0 : 1));
+                left = Apply(op, left, right);
+            }
+            return left;
+        }
+
+        private string Unary()
+        {
+            if (index >= tokens.Count) throw new FormatException("Expression operand is missing.");
+            var token = tokens[index++];
+            if (token == "(")
+            {
+                var result = Binary(0);
+                if (index >= tokens.Count || tokens[index++] != ")") throw new FormatException("Missing closing parenthesis.");
+                return result;
+            }
+            if (token == "-") return Format(-Number(Unary()));
+            if (token == "+") return Format(Number(Unary()));
+            if (token.Equals("NOT", StringComparison.OrdinalIgnoreCase)) return Truth(Unary()) ? "0" : "1";
+            if (token.StartsWith("\"", StringComparison.Ordinal) || token.StartsWith("'", StringComparison.Ordinal))
+                return token.Substring(1, token.Length - 2).Replace("\"\"", "\"");
+            if (token.Equals("TRUE", StringComparison.OrdinalIgnoreCase)) return "1";
+            if (token.Equals("FALSE", StringComparison.OrdinalIgnoreCase)) return "0";
+            return variables.TryGetValue(token, out var value) ? value : token;
+        }
+
+        private static int Precedence(string op) => op.ToUpperInvariant() switch
+        {
+            "OR" => 0, "AND" => 1, "=" or "<>" or "<" or ">" or "<=" or ">=" => 2,
+            "&" or "+" or "-" => 3, "*" or "/" or "\\" or "MOD" => 4, "^" => 5, _ => -1
+        };
+
+        private static string Apply(string op, string left, string right)
+        {
+            if (op == "&") return left + right;
+            if (op == "AND") return Truth(left) && Truth(right) ? "1" : "0";
+            if (op == "OR") return Truth(left) || Truth(right) ? "1" : "0";
+            if (op == "=" || op == "<>" || op == "<" || op == ">" || op == "<=" || op == ">=")
+            {
+                var comparison = double.TryParse(left, NumberStyles.Float, CultureInfo.InvariantCulture, out var a)
+                    && double.TryParse(right, NumberStyles.Float, CultureInfo.InvariantCulture, out var b)
+                    ? a.CompareTo(b) : string.Compare(left, right, StringComparison.Ordinal);
+                return (op switch { "=" => comparison == 0, "<>" => comparison != 0, "<" => comparison < 0,
+                    ">" => comparison > 0, "<=" => comparison <= 0, _ => comparison >= 0 }) ? "1" : "0";
+            }
+            var x = Number(left);
+            var y = Number(right);
+            if ((op == "/" || op == "\\" || op == "MOD") && y == 0) throw new DivideByZeroException();
+            return Format(op switch
+            {
+                "+" => x + y, "-" => x - y, "*" => x * y, "/" => x / y,
+                "\\" => Math.Truncate(x / y), "MOD" => x % y, "^" => Math.Pow(x, y),
+                _ => throw new FormatException($"Unknown operator {op}.")
+            });
+        }
+    }
+}
