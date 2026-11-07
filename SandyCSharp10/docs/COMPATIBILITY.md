@@ -41,7 +41,7 @@ This version is a usable starting port, not a claim that every historical templa
 
 ## Next milestones
 
-1. Experimental-instance validation of browser, prompts, mutation rejection, insert and undo. Treat this as a release gate.
+1. Keep experimental-instance validation as a release gate. Browser, editing, save/reload, prompt defaults, insertion and undo have passed live checks; cancellation and concurrent-edit mutation rejection still need live coverage. See [the verification record](VISUAL-STUDIO-VERIFICATION.md).
 2. Roslyn host adapter and simulated workspace for multi-area and multi-document edit plans; include selection context and common navigation commands.
 3. Run a representative historical-template corpus with fixed inputs/host fixtures and expected results; generate a per-command and per-template coverage report. Existing tests verify imports and representative semantics, not complete corpus execution.
 4. Complete template/category management, command metadata/help and favorites. Add library revisions and import conflict handling before supporting merges.
@@ -52,7 +52,7 @@ This version is a usable starting port, not a claim that every historical templa
 
 Use a Visual Studio installation that provides the .NET 10 extension host. Keep tests in a dedicated experimental profile.
 
-1. Install the built VSIX into that profile and start it using `devenv.exe /RootSuffix SandyCSharp10`.
+1. Close the test IDE, then run `Deploy-Experimental.ps1 -Launch` to rebuild, deploy and launch the `SandyCSharp10` profile with the native SDK tooling.
 2. Open Sandy through Extensions. Load the included C# library and confirm three templates appear.
 3. Preview Numbered comments: expect three numbered comment lines. Provide overrides and verify that they affect output.
 4. Edit a template, update it, save a library copy, reload the copy and verify code/revision retention. Confirm locked historical templates reject updates.
@@ -69,6 +69,12 @@ Do not equate a successful build or VSIX installation with these UI checks passi
 - Regression suite: run against both Core targets. The suite verifies the loaded assembly's TargetFrameworkAttribute so the Standard run cannot silently use the net10.0 assembly.
 - Historical imports: seven XML libraries roundtrip every category/template field; one original VB6 Public Function template is executed with fixed inputs.
 - Package contents: inspected the VSIX manifest, net10.0 runtime requirement, Core assembly and bundled sample library.
-- Visual Studio UI: **not verified**. A quiet install into the dedicated `SandyCSharp10` experimental profile stalled and eventually exited with code **1015**, without the requested diagnostic log. When cleanup was attempted, the installer processes had already exited. The cause is undetermined; no claim of successful installation, UI loading, insertion or undo is made.
+- Initial Visual Studio UI attempt: not verified at that point. The quiet installer exited with code **1015**. Later investigation found the diagnostic log in `%TEMP%`: `RequiresInstallerException` with a multiple-target error. The verified development solution is native SDK deployment through `Deploy-Experimental.ps1`; see the updated [live verification record](VISUAL-STUDIO-VERIFICATION.md).
 
 MetX integration extends verification to all three Core targets. Regression checks assert the actual framework metadata of both Core and MetX, cover token/substring edge cases, compare copied DLL hashes with the local inputs and inspect the packaged .NET 10 dependency. See [integration details](METX-INTEGRATION.md).
+
+## Live Visual Studio verification, 2026-11-07
+
+The extension was deployed into the isolated VS 2026 profile and exercised through its actual UI. An edited Property template survived copy export and reload. Its default prompts and insertion preview ran inside the IDE, the generated text replaced the selected document range, and one Ctrl+Z restored the complete original file. SHA-256 comparison after saving confirmed byte-for-byte equality, including the original mixed line endings. No insertion/undo defect was found in this scenario.
+
+This is a focused smoke test, not proof of every manual case above. [Full steps, expected output and evidence](VISUAL-STUDIO-VERIFICATION.md).

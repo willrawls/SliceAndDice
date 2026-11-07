@@ -35,6 +35,6 @@ try {
     finally { $archive.Dispose() }
     Write-Host 'Verified matching MetX references for all three targets and .NET 10 MetX assembly inside the VSIX.'
     Write-Host "Verified build and engine tests. VSIX: $vsix"
-    Write-Host 'Visual Studio installation, Remote UI, insertion and undo still require the experimental-instance smoke test in docs/COMPATIBILITY.md.'
+    Write-Host 'Live IDE checks are separate: see docs/VISUAL-STUDIO-VERIFICATION.md for recorded results and docs/COMPATIBILITY.md for rerun steps.'
 }
 finally { Pop-Location }

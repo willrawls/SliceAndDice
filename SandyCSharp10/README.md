@@ -9,7 +9,7 @@ A new C# implementation alongside the preserved VB6 sources. Behavioral referenc
 | `Sandy.Core` | `netstandard2.0;netstandard2.1;net10.0` | Library model, XML/CSV import, template editing, interpreter, managed Sandal contract |
 | `Sandy.Cli` | `net10.0` | Library listing, command usage audit, conversion, execution preview |
 | `Sandy.VisualStudio` | `net10.0-windows8.0` | Out-of-process VisualStudio.Extensibility VSIX and Remote UI tool window |
-| `Sandy.Core.Tests` | `net10.0` | Regression suite runnable against either Core assembly |
+| `Sandy.Core.Tests` | `net10.0` | Regression suite runnable against each Core assembly |
 
 The .NET 10 extension requires a Visual Studio installation with a .NET 10 extensibility host. The generated SDK manifest has a 17.14 API minimum; this does **not** mean every VS2022 installation can host the extension. There is no .NET Framework dependency in the new projects.
 
@@ -33,7 +33,15 @@ src/Sandy.VisualStudio/bin/Release/net10.0-windows8.0/Sandy.VisualStudio.vsix
 
 ## Use the extension
 
-1. Install the VSIX in a compatible experimental Visual Studio instance. Prefer an isolated profile during development.
+From the repository root, deploy with the native Visual Studio SDK tools and launch the isolated profile:
+
+```powershell
+& '.\SandyCSharp10\Deploy-Experimental.ps1' -Launch
+```
+
+Close that experimental IDE before redeploying. This is the verified development deployment route; the SDK target needs Visual Studio's `MSBuild.exe`, rather than `dotnet build`. The script discovers the installed VS 2026 instance and targets only the `SandyCSharp10` profile. See the [live verification record](docs/VISUAL-STUDIO-VERIFICATION.md) for the installer diagnosis and measured results.
+
+1. Start the deployed experimental Visual Studio instance.
 2. Choose **Extensions > Slice and Dice — Sandy**.
 3. Load the included C# library, or enter the full path to a historical `MdbGallery/BrokenDown/<library>/Category.xml` file.
 4. Search and select a template. Inspect or edit its cursor, declarations, bottom and file areas. **Update selected template** commits edits in memory and increments the revision when content changes. Locked templates reject updates.
@@ -42,6 +50,8 @@ src/Sandy.VisualStudio/bin/Release/net10.0-windows8.0/Sandy.VisualStudio.vsix
 7. **Save a library copy** writes committed library contents under `%LOCALAPPDATA%/SandyCSharp10/Libraries` with a unique filename. Source libraries are not overwritten. Editor drafts survive template switching within a loaded library; loading a library resets those drafts. Use Update and Save Copy before loading another library.
 
 The first extension host applies **cursor-only editor output**. Other areas and destinations can be evaluated and inspected, but insertion rejects them as a whole. This avoids silently placing declarations, generated files or clipboard output at the cursor. Language-aware placement, external effects and project-wide editing are next milestones.
+
+Live checks have verified template editing, saving/reloading the edited library, prompt defaults, selected-range replacement, and a single Undo restoring the original document byte-for-byte. These checks do not establish full legacy-command parity.
 
 ## Use the CLI
 
