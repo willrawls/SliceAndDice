@@ -1,0 +1,85 @@
+{
+  "Version": "0.4.0.0",
+  "Date": "2026-11-07",
+  "Build": {
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "Tests": {
+    "Passed": 95,
+    "Failed": 0,
+    "Skipped": 0
+  },
+  "BlazorWebView": {
+    "Workbench": true,
+    "Forms": [
+      "DataViewForm1",
+      "frmAutoWebURLEntry",
+      "frmBrowser",
+      "frmCommandHelp",
+      "frmDBClassGen",
+      "frmFieldType",
+      "frmFileList",
+      "frmFindReplace",
+      "frmListSelect",
+      "frmLogin",
+      "frmODBCClassGen",
+      "frmODBCFieldType",
+      "frmOptions",
+      "frmProgress",
+      "frmRegister",
+      "frmSplash",
+      "frmTest",
+      "frmVB5AddInTool",
+      "ShellMain",
+      "TestCrypt"
+    ],
+    "DraftSwitching": true,
+    "SaveReload": true,
+    "RepeatedPrompts": true,
+    "ChoicePrompt": true,
+    "LibraryMutation": true,
+    "DatabaseGeneration": true,
+    "NativeShellRegistration": true,
+    "LegacyObfuscation": true,
+    "CommandReference": true
+  },
+  "GeneratedRepositories": {
+    "SqliteCrudAndCascade": true,
+    "AllThreeDialectsCompile": true,
+    "AccessAndSqlServerLive": false
+  },
+  "LiveVisualStudio": {
+    "EditorContextCommand": true,
+    "Profile": "regular",
+    "CursorInsertion": true,
+    "SelfEditingSelectionUpdated": true,
+    "InstalledBuildHashesMatch": true,
+    "Instance": "8d3778d5",
+    "SelfEditingLeavesEditorUnchanged": true,
+    "SingleUndoRestoresOriginalBytes": true,
+    "SelfEditingCreatesNewLibrary": true,
+    "Installed": true,
+    "SelfEditingFileJournal": true,
+    "FixtureSha256": "EB4C009455FB034C23E652235509328FD17541C29881DFEF58D79D0FFEE8C798",
+    "InstalledHashes": {
+      "Sandy.VisualStudio.dll": "368714552F516318E1EDE066A6E71ECB103101331903AF58B2FD9F583894BB2A",
+      "Sandy.Core.dll": "48F077A77B8FBBDE6212636E0117014C8FC7A35ADAB9CC3967596290D457DB0A",
+      "Desktop/Sandy.Desktop.dll": "B65695BFC6100798D67D2D4C5764AD12F59A44CDBDB942B3F761262B652A3BC3",
+      "Desktop/Sandy.Blazor.dll": "7CF00471EF3BE58DDEEEEC20F507CF7611482E2A7DC2ABFDDB77B78E9B963B3B"
+    },
+    "ToolWindowShortcut": true
+  },
+  "OriginalSourceHashesUnchanged": 163,
+  "SyntheticCorpusProbe": {
+    "Evaluated": 287,
+    "Note": "Synthetic fixture probe only. Successful evaluation does not establish legacy parity, correct output or live host behavior. No effects were committed.",
+    "Fixture": "Every prompt receives 1; missing external files and project dependencies are intentional. Counts do not establish parity.",
+    "Failures": {
+      "NeedsFixtureOrCompatibilityWork": 129,
+      "CancelledOrTimeLimit": 3
+    },
+    "Total": 419
+  },
+  "FullLegacyParity": false
+}

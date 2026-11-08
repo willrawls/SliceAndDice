@@ -32,6 +32,7 @@ internal sealed class TemplateInterpreter
         private int expansions;
         private int outputCharacters;
         private int inlineIncludeDepth;
+        private LibraryMutation? libraryMutation;
         private bool ignoreBlanks;
         private bool endsWithNewLine;
         private OutputDestination destination;
@@ -58,8 +59,8 @@ internal sealed class TemplateInterpreter
                 try
                 {
                     var source = template.Code(area);
-                    options.Host?.BeginArea(area);
                     if (source.Length == 0) continue;
+                    options.Host?.BeginArea(area);
                     destination = area == CodeArea.File ? OutputDestination.FileAppend : OutputDestination.Editor;
                     target = area == CodeArea.File ? await ExpandAsync(template["Filename"]).ConfigureAwait(false) : "";
                     if (area == CodeArea.File && target.Length == 0) throw new InvalidOperationException("File area requires Filename.");
@@ -74,6 +75,7 @@ internal sealed class TemplateInterpreter
                 catch (Exception ex) { throw Error(ex.Message); }
             }
             result.Variables = new Dictionary<string, string>(variables, StringComparer.OrdinalIgnoreCase);
+            result.LibraryMutation=libraryMutation;
             return result;
         }
 
@@ -206,6 +208,12 @@ internal sealed class TemplateInterpreter
                 if (options.Host != null && LegacyEditor.Commands.Contains(command)) Flush();
                 switch (command)
                 {
+                    case "GOTOSANDYTEMPLATE":
+                        (libraryMutation??=new(library,template)).Select(parameters);break;
+                    case "SETCODEAREA":case "SETCODEAREATEXT":case "SETSOFTCODEAREA":
+                        var codeChange=Assignment(parameters);(libraryMutation??=new(library,template)).SetCode(codeChange.Key,Value(codeChange.Value));break;
+                    case "CHOOSE":case "DECIDE":case "YESNO":case "YESNOCANCEL":case "ASKUSER":
+                        var choice=Assignment(parameters);variables[choice.Key]=await ChooseAsync(command,Value(choice.Value)).ConfigureAwait(false);break;
                     case "FOREACHCONTROL": case "FOREACHCONTROLBYFRAME":
                         Flush();
                         if(options.Host is not LegacyEditor controlEditor)throw Error("Control iteration needs a form editor host.");
@@ -378,7 +386,8 @@ internal sealed class TemplateInterpreter
                 var name = separator < 0 ? phrase : phrase.Substring(0, separator);
                 var argument = separator < 0 ? "" : phrase.Substring(separator + 2);
                 string? replacement;
-                if (name.ToUpperInvariant() is "CHOOSE" or "DECIDE" or "YESNO" or "YESNOCANCEL" or "ASKUSER" or "CHOOSEFILE" or "PICKFILE" or "GETPATHANDFILE" or "CHOOSEDATABASE" or "CHOOSEDB" or "PICKDATABASE" or "PICKDB" or "GETDBPATHANDFILE" or "CHOOSEDIR" or "CHOOSEDIRECTORY" or "PICKDIR" or "PICKDIRECTORY" or "GETPATH" or "BROWSEFORFOLDER" or "CHOOSEFOLDER" or "BROWSEFORDIR" or "BROWSEFORDIRECTORY" or "CHOOSECOLOR" or "PICKCOLOR")
+                if(name.ToUpperInvariant() is "CHOOSE" or "DECIDE" or "YESNO" or "YESNOCANCEL" or "ASKUSER")replacement=await ChooseAsync(name,Value(argument)).ConfigureAwait(false);
+                else if (name.ToUpperInvariant() is "CHOOSEFILE" or "PICKFILE" or "GETPATHANDFILE" or "CHOOSEDATABASE" or "CHOOSEDB" or "PICKDATABASE" or "PICKDB" or "GETDBPATHANDFILE" or "CHOOSEDIR" or "CHOOSEDIRECTORY" or "PICKDIR" or "PICKDIRECTORY" or "GETPATH" or "BROWSEFORFOLDER" or "CHOOSEFOLDER" or "BROWSEFORDIR" or "BROWSEFORDIRECTORY" or "CHOOSECOLOR" or "PICKCOLOR")
                 {
                     if(options.PromptAsync == null) throw Error("An interactive host is required for " + name);
                     replacement = await options.PromptAsync(new PromptRequest(name + ": " + Value(argument), name.Equals("CHOOSE",StringComparison.OrdinalIgnoreCase)?Stored("Choose Default"):""),cancellation).ConfigureAwait(false);
@@ -404,6 +413,19 @@ internal sealed class TemplateInterpreter
                 if(name.Equals("INCLUDE",StringComparison.OrdinalIgnoreCase))return text;
                 if (text.Length > options.MaxOutputCharacters) throw Error("Expanded line size limit exceeded.");
             }
+        }
+        private async Task<string> ChooseAsync(string name,string argument)
+        {
+            var decision=!name.Equals("CHOOSE",StringComparison.OrdinalIgnoreCase);var delimiter=Stored("Choose Delimiter");if(delimiter.Length==0)delimiter=";";
+            var choices=decision?new[]{"Yes","No"}:argument.Split(delimiter,StringSplitOptions.None);
+            if(!decision&&choices.Length<2)return argument;
+            var fallback=decision?"Yes":Stored("Choose Default");if(!choices.Contains(fallback,StringComparer.OrdinalIgnoreCase))fallback=choices[0];
+            var answer=await (options.PromptAsync??throw Error("An interactive host is required for "+name))(new PromptRequest(decision?argument:"Choose an item",fallback,choices),cancellation).ConfigureAwait(false);
+            if(answer==null)throw new OperationCanceledException(cancellation);
+            if(decision&&answer is "1" or "0")return answer;
+            if(int.TryParse(answer,out var index)&&index>=1&&index<=choices.Length)answer=choices[index-1];
+            var selected=choices.FirstOrDefault(c=>c.Equals(answer,StringComparison.OrdinalIgnoreCase))??throw new FormatException("Choose one of the listed values.");
+            return decision?(selected=="Yes"?"1":"0"):selected;
         }
 
         private bool TryInline(string name, string parameters, out string result)

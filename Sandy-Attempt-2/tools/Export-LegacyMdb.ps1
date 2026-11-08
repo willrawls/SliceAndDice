@@ -66,10 +66,10 @@ try {
     $writer.WriteStartElement('dataroot')
     foreach ($category in $categoryList) {
         $writer.WriteStartElement('Category')
-        foreach ($key in $category.Keys) { $writer.WriteElementString($key, $category[$key]) }
+        foreach ($key in $category.Keys) { $writer.WriteElementString([Xml.XmlConvert]::EncodeLocalName($key), $category[$key]) }
         foreach ($template in $templateList | Where-Object { $_['CategoryID'] -eq $category['CategoryID'] }) {
             $writer.WriteStartElement('Template')
-            foreach ($key in $template.Keys) { $writer.WriteElementString($key, $template[$key]) }
+            foreach ($key in $template.Keys) { $writer.WriteElementString([Xml.XmlConvert]::EncodeLocalName($key), $template[$key]) }
             $writer.WriteEndElement()
         }
         $writer.WriteEndElement()

@@ -19,7 +19,8 @@ internal static class Program
         var app = new Application();
         var registrations = new ServiceCollection();
         registrations.AddWpfBlazorWebView();
-        using var services = registrations.AddSingleton<Workspace>().AddSingleton<IDesktopServices, DesktopServices>().BuildServiceProvider();
+        var desktop=new DesktopServices(smoke==null?null:Path.Combine(smoke,"preferences.json"));
+        using var services = registrations.AddSingleton<Workspace>().AddSingleton<IDesktopServices>(desktop).BuildServiceProvider();
         var state = services.GetRequiredService<Workspace>();
         var filename = args.FirstOrDefault(x => File.Exists(x)) ?? Path.Combine(AppContext.BaseDirectory, "Libraries", "SliceAndDice.xml");
         try { state.Load(services.GetRequiredService<IDesktopServices>().ReadLibrary(filename), filename); }
@@ -27,8 +28,11 @@ internal static class Program
         var view = new BlazorWebView { HostPage = "wwwroot/index.html", Services = services };
         view.RootComponents.Add(new RootComponent { Selector = "#app", ComponentType = typeof(Workbench) });
         var window = new Window { Title = "Sandy — Blazor workspace", Width = 1360, Height = 900, MinWidth = 850, MinHeight = 600, Content = view };
+        using var shell=new DesktopShell(window,state);desktop.ShellConfiguration=options=>window.Dispatcher.Invoke(()=>shell.Apply(options));
+        window.SourceInitialized+=(_,_)=>{try{var options=desktop.ReadPreference("shell") is {} json?System.Text.Json.JsonSerializer.Deserialize<Sandy.Core.ShellOptions>(json)??new():new();shell.Initialize(options);}catch(Exception e){state.Status="Shell settings: "+e.Message;}};
         window.Closing += (_, e) =>
         {
+            if(smoke==null&&shell.HideOnClose(e))return;
             if (smoke == null && state.IsDirty && MessageBox.Show(window, "Discard unsaved library changes?", "Sandy", MessageBoxButton.YesNo) != MessageBoxResult.Yes) e.Cancel = true;
         };
         view.BlazorWebViewInitializing += (_, e) => e.UserDataFolder = smoke == null
@@ -40,7 +44,7 @@ internal static class Program
             window.Left = -20000; window.Top = -20000; window.ShowInTaskbar = false;
             view.BlazorWebViewInitialized += async (_, e) =>
             {
-                try { await HybridSmoke.RunAsync(e.WebView.CoreWebView2, state, smoke); app.Shutdown(0); }
+                try { await HybridSmoke.RunAsync(e.WebView.CoreWebView2, state, smoke,()=>{try{shell.Apply(new(true,true,7,0x7A));if(!shell.TrayRegistered||!shell.HotkeyRegistered)throw new InvalidOperationException("Native shell registration failed.");}finally{shell.Apply(new());}}); app.Shutdown(0); }
                 catch (Exception ex) { File.WriteAllText(Path.Combine(smoke, "error.txt"), ex.ToString()); app.Shutdown(1); }
             };
             _ = TimeoutAsync();

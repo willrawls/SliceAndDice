@@ -1,0 +1,9 @@
+@inject IDesktopServices Desktop
+<div class="legacy-fields"><label><input type="checkbox" @bind="tray" />Keep Sandy in the system tray when the window closes</label><label><input type="checkbox" @bind="hotkey" />Enable global shortcut to show Sandy</label>
+<div><label><input type="checkbox" @bind="control" />Ctrl</label><label><input type="checkbox" @bind="alt" />Alt</label><label><input type="checkbox" @bind="shift" />Shift</label></div><label>Key<select @bind="key">@foreach(var item in Keys){<option value="@item.Key">@item.Value</option>}</select></label><button @onclick="Apply">Apply shell settings</button><p>The tray menu includes your favorite templates and an Exit command. Settings are local to this computer.</p><p role="status">@status</p></div>
+@code {
+    private bool tray,hotkey,control=true,alt=true,shift;private uint key=0x53;private string status="";
+    private static readonly Dictionary<uint,string> Keys=Enumerable.Range('A',26).Select(n=>new KeyValuePair<uint,string>((uint)n,((char)n).ToString())).Concat(Enumerable.Range(1,12).Select(n=>new KeyValuePair<uint,string>((uint)(0x6F+n),"F"+n))).ToDictionary();
+    protected override void OnInitialized(){try{if(Desktop.ReadPreference("shell") is {} json){var o=System.Text.Json.JsonSerializer.Deserialize<ShellOptions>(json)!;tray=o.Tray;hotkey=o.GlobalHotkey;control=(o.Modifiers&2)!=0;alt=(o.Modifiers&1)!=0;shift=(o.Modifiers&4)!=0;key=o.VirtualKey;}}catch(Exception e){status=e.Message;}}
+    private void Apply(){try{Desktop.ConfigureShell(new(tray,hotkey,(control?2U:0)|(alt?1U:0)|(shift?4U:0),key));status="Applied desktop shell settings.";}catch(Exception e){status=e.Message;}}
+}

@@ -1,0 +1,51 @@
+@inject Workspace State
+@inject IDesktopServices Desktop
+<div class="generator legacy-fields">
+<div class="generator-actions"><button @onclick="Open">Open Access schema</button><button @onclick="Load">Load design</button><button @onclick="SaveDesign">Save design</button><button @onclick="NewTable">+ Table</button></div>
+@if(Odbc){<label>ODBC connection string<input type="password" autocomplete="off" @bind="connection" /></label><button @onclick="Connect">Read ODBC schema</button>}
+<label>Table<select @bind="table">@foreach(var item in Design.Tables){<option value="@item.Name">@(item.Favorite?"★ ":"")@item.Name</option>}</select></label>
+@if(Current is {} current){
+<div><label><input type="checkbox" @bind="current.Marked" />Marked for generation</label><label><input type="checkbox" @bind="current.Favorite" />Favorite</label><button @onclick="Rename">Rename table</button><button @onclick="Remove">Remove table</button><button @onclick="AddField">+ Field</button></div>
+<div class="schema-grid"><table><thead><tr><th>Field</th><th>Type</th><th>Length</th><th>Null</th><th>Key</th><th>Auto</th><th></th></tr></thead><tbody>
+@foreach(var field in current.Fields){<tr><td><input aria-label="Field name" value="@field.Name" @onchange="e=>RenameField(field,e)" /></td><td><select @bind="field.DaoType">@foreach(var type in Types){<option value="@type.Key">@type.Value</option>}</select></td><td><input type="number" min="0" max="65535" @bind="field.Length" /></td><td><input type="checkbox" disabled="@field.PrimaryKey" @bind="field.Nullable" /></td><td><input type="checkbox" checked="@field.PrimaryKey" @onchange="e=>SetKey(field,e.Value is true)" /></td><td><input type="checkbox" @bind="field.AutoNumber" /></td><td><button @onclick="()=>RemoveField(field)">Remove</button></td></tr>}
+</tbody></table></div>
+<details><summary>Relationships</summary><label>Parent table<select @bind="parent"><option value="">Select…</option>@foreach(var item in Design.Tables){<option>@item.Name</option>}</select></label><label>Parent key<input @bind="parentField" /></label><label>Child field in @current.Name<input @bind="childField" /></label><label><input type="checkbox" @bind="cascadeDelete" />Cascade delete</label><label><input type="checkbox" @bind="cascadeUpdate" />Cascade update</label><button @onclick="Relate">Add relationship</button>
+@foreach(var relation in Design.Relations){<p>@relation.ParentTable.@relation.ParentField → @relation.ChildTable.@relation.ChildField <button @onclick="()=>Design.Relations.Remove(relation)">Remove</button></p>}
+</details>}
+<details><summary>Generation rules</summary><label><input type="checkbox" @bind="addKey" />Add primary key</label><label><input type="checkbox" @bind="autoNumber" />AutoNumber primary keys</label><label><input type="checkbox" @bind="dateCreated" />Add DateCreated</label><label><input type="checkbox" @bind="dateModified" />Add DateModified</label><button @onclick="Rules">Apply rules to marked tables</button></details>
+<label>Namespace<input @bind="nameSpace" /></label><label>SQL dialect<select @bind="dialect">@foreach(var value in Enum.GetValues<SqlDialect>()){<option>@value</option>}</select></label><label>Generate<select @bind="scope"><option>Marked</option><option>Branch</option><option>Entire database</option><option>Favorites</option></select></label>
+<label><input type="checkbox" @bind="repositories" />Generate asynchronous CRUD repositories</label><button class="primary" @onclick="Generate">Generate model, collection, repository and schema</button>
+<details><summary>Generate through Sandy library templates</summary><label>Template category<select @bind="templateCategory"><option value="">Select…</option>@foreach(var category in State.Library.Categories.Where(c=>c.Templates.Any(t=>t["ShortTemplateName"].StartsWith("Collection",StringComparison.OrdinalIgnoreCase)))){<option>@category.Name</option>}</select></label><label><input type="checkbox" @bind="wrapper" />Generate database wrapper</label><button @onclick="GenerateTemplates" disabled="@generating">@(generating?"Generating…":"Run legacy generation templates")</button></details>
+<label>Generated file<select @bind="file">@foreach(var name in files.Keys){<option>@name</option>}</select></label><textarea class="generated-code" rows="14" readonly value="@files.GetValueOrDefault(file, string.Empty)"></textarea><button @onclick="SaveAll" disabled="@(files.Count==0)">Save generated files</button><p role="status">@status</p>
+</div>
+@code {
+    [Parameter]public bool Odbc{get;set;}
+    [Parameter]public Func<string,string,Task<string?>>? PromptUser{get;set;}
+    private DatabaseDesign Design=>State.DatabaseDesign;
+    private DatabaseTable? Current=>Design.Tables.FirstOrDefault(t=>t.Name==table);
+    private string table="",nameSpace="Generated",scope="Marked",file="",status="",connection="",parent="",parentField="",childField="";
+    private bool addKey=true,autoNumber=true,dateCreated,dateModified,cascadeDelete,cascadeUpdate,repositories=true;
+    private bool wrapper,generating;private string templateCategory="";
+    private SqlDialect dialect=SqlDialect.Access;
+    private IReadOnlyDictionary<string,string> files=new Dictionary<string,string>();
+    private static readonly Dictionary<int,string> Types=new(){{1,"Boolean"},{2,"Byte"},{3,"Integer"},{4,"Long"},{5,"Currency"},{6,"Single"},{7,"Double"},{8,"DateTime"},{9,"Binary"},{10,"Text"},{12,"Memo"},{15,"Guid"},{16,"BigInt"},{20,"Decimal"}};
+    protected override void OnInitialized(){table=Design.Tables.FirstOrDefault()?.Name??"";}
+    private void Guard(Action action){try{action();}catch(Exception e){status=e.Message;}}
+    private void Open()=>Guard(()=>{var path=Desktop.PickFile("Access database|*.mdb;*.accdb|All files|*.*");if(path!=null){State.DatabaseDesign=DatabaseDesign.FromSchema(Desktop.ReadSchema(path));table=Design.Tables.FirstOrDefault()?.Name??"";status="Schema imported as an editable design. The database is unchanged.";}});
+    private void Connect()=>Guard(()=>{State.DatabaseDesign=DatabaseDesign.FromSchema(Desktop.ReadOdbcSchema(connection));table=Design.Tables.FirstOrDefault()?.Name??"";status="ODBC schema imported into the working design.";});
+    private void Load()=>Guard(()=>{var path=Desktop.PickFile("Sandy schema design|*.json");if(path!=null){State.DatabaseDesign=DatabaseDesign.FromJson(File.ReadAllText(path));table=Design.Tables.FirstOrDefault()?.Name??"";}});
+    private void SaveDesign()=>Guard(()=>{var json=Design.ToJson();var path=Desktop.SaveText("database.sandy-schema.json");if(path!=null)File.WriteAllText(path,json,new System.Text.UTF8Encoding(false));});
+    private async Task NewTable(){if(PromptUser==null)return;var name=await PromptUser("Table name","");if(name!=null)Guard(()=>{table=Design.AddTable(name).Name;});}
+    private async Task Rename(){if(Current==null||PromptUser==null)return;var current=Current;var name=await PromptUser("Rename table",table);if(name!=null)Guard(()=>{Design.RenameTable(current,name);table=current.Name;});}
+    private void Remove(){if(Current is {} current){Design.RemoveTable(current);table=Design.Tables.FirstOrDefault()?.Name??"";}}
+    private void AddField(){if(Current is {} current){var name="Field";for(var n=1;current.Fields.Any(f=>f.Name==name);n++)name="Field"+n;current.Fields.Add(new(){Name=name});}}
+    private void RenameField(DatabaseField field,ChangeEventArgs e)=>Guard(()=>Design.RenameField(Current!,field,e.Value?.ToString()??""));
+    private void SetKey(DatabaseField field,bool enabled){if(Current==null)return;foreach(var item in Current.Fields){item.PrimaryKey=ReferenceEquals(item,field)&&enabled;if(!item.PrimaryKey)item.AutoNumber=false;}if(enabled)field.Nullable=false;}
+    private void RemoveField(DatabaseField field){if(Current is {} current){current.Fields.Remove(field);Design.Relations.RemoveAll(r=>r.ParentTable==table&&r.ParentField==field.Name||r.ChildTable==table&&r.ChildField==field.Name);}}
+    private void Rules()=>Guard(()=>{Design.ApplyRules(addKey,autoNumber,dateCreated,dateModified);status="Applied generation rules to marked tables.";});
+    private void Relate()=>Guard(()=>{var relation=new DatabaseRelation(parent,parentField,table,childField,cascadeDelete,cascadeUpdate);Design.Relations.Add(relation);try{Design.Validate();}catch{Design.Relations.Remove(relation);throw;}});
+    private IReadOnlyList<DatabaseTable> SelectedTables()=>scope switch{"Branch"=>Design.Branch(table),"Entire database"=>Design.Tables,"Favorites"=>Design.Tables.Where(t=>t.Favorite).ToArray(),_=>Design.Tables.Where(t=>t.Marked).ToArray()};
+    private void Generate()=>Guard(()=>{var selected=SelectedTables();if(selected.Count==0)throw new InvalidOperationException("Select tables to generate.");files=RepositoryGenerator.GenerateSet(Design,nameSpace,dialect,selected,repositories);file=files.Keys.First();status=$"Generated {files.Count} files from {selected.Count} tables.";});
+    private async Task GenerateTemplates(){if(generating)return;generating=true;try{if(templateCategory.Length==0)throw new InvalidOperationException("Select a template category.");files=await LegacyDatabaseGenerator.GenerateAsync(Design,State.Library,templateCategory,SelectedTables(),wrapper,prompt:PromptUser==null?null:(p,_)=>PromptUser(p.Name,p.Default));file=files.Keys.FirstOrDefault()??"";status=$"Generated {files.Count} files through library templates.";}catch(Exception e){status=e.Message;}finally{generating=false;}}
+    private async Task SaveAll(){var directory=Desktop.PickFolder();if(directory==null||PromptUser==null)return;if(!string.Equals(await PromptUser($"Write {files.Count} generated files into {directory}? Existing files receive journal backups. Type yes to apply.","yes"),"yes",StringComparison.OrdinalIgnoreCase))return;Guard(()=>{var commit=new FileCommit(directory);foreach(var item in files)commit.AddEffect(new("FileOverwrite",item.Key,item.Value));commit.Commit();status="Saved generated files. Backups: "+commit.JournalPath;});}
+}

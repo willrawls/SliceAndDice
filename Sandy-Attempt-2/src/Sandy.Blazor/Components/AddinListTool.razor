@@ -1,0 +1,8 @@
+@inject IDesktopServices Desktop
+<div class="legacy-fields"><p>This tool edits the VB5 vbaddin.ini list for an already installed COM add-in. Sandy Attempt 2 uses its separate Visual Studio extension.</p><label>Add-in list path<input @bind="path" /></label><button @onclick="Browse">Choose INI file</button><label>COM object name<input @bind="objectName" /></label><div><button @onclick="()=>Prepare(false)">Add entry</button><button @onclick="()=>Prepare(true)">Remove entry</button></div><textarea rows="10" readonly value="@preview"></textarea><button @onclick="Save" disabled="@(original==null)">Apply displayed INI changes</button><p role="status">@status</p></div>
+@code {
+    private string path="",objectName="SliceAndDice.Wizard",preview="",status="";private string? original,plannedPath;
+    private void Browse(){var picked=Desktop.PickFile("VB add-in list|*.ini|All files|*.*");if(picked!=null){path=picked;original=null;}}
+    private void Prepare(bool remove){try{plannedPath=Path.GetFullPath(path);original=TextFiles.Read(plannedPath);preview=LegacyAddinList.Update(original,objectName,remove);status="Review the updated list before applying. A byte backup is created.";}catch(Exception e){original=null;status=e.Message;}}
+    private void Save(){try{if(original==null||plannedPath==null)return;var commit=new FileCommit(Path.GetDirectoryName(plannedPath)!);commit.AddDocument(new(plannedPath,original){Text=preview});commit.Commit();original=null;status="Applied list changes. Backup: "+commit.JournalPath;}catch(Exception e){status=e.Message;}}
+}

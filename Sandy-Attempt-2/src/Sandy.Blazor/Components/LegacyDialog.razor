@@ -1,12 +1,25 @@
 @inject IDesktopServices Desktop
-@if (Definition.ClassName == "frmFindReplace")
+@implements IDisposable
+@if (Definition.ClassName == "frmVB5AddInTool")
+{ <AddinListTool /> }
+else if (Definition.ClassName == "frmListSelect")
+{ <ListSelection OnClose="OnClose" /> }
+else if (Definition.ClassName == "frmTest")
+{ <KeyboardTester /> }
+else if (Definition.ClassName is "frmRegister" or "frmSplash")
+{ <AboutSandy Registration="@(Definition.ClassName=="frmRegister")" OnClose="OnClose" /> }
+else if (Definition.ClassName == "ShellMain")
+{ <ShellSettings /> }
+else if (Definition.ClassName == "frmFindReplace")
 { <LibrarySearch OnClose="OnClose" /> }
 else if (Definition.ClassName == "DataViewForm1")
 { <LibraryData /> }
 else if (Definition.ClassName == "frmCommandHelp")
 { <CommandHelp /> }
-else if (Definition.ClassName is "frmDBClassGen" or "frmODBCClassGen" or "frmOptions")
-{ <CodeGenerator Header="@(Definition.ClassName == "frmOptions")" Odbc="@(Definition.ClassName == "frmODBCClassGen")" /> }
+else if (Definition.ClassName is "frmDBClassGen" or "frmODBCClassGen")
+{ <DatabaseDesigner Odbc="@(Definition.ClassName == "frmODBCClassGen")" PromptUser="PromptUser" /> }
+else if (Definition.ClassName == "frmOptions")
+{ <CodeGenerator Header="true" /> }
 else if (Definition.ClassName is "frmFieldType" or "frmODBCFieldType")
 {
     <div class="legacy-fields field-dialog">
@@ -16,17 +29,8 @@ else if (Definition.ClassName is "frmFieldType" or "frmODBCFieldType")
         <div class="dialog-actions"><button @onclick='() => Act("cmdCancel")'>Cancel</button><button class="primary" @onclick='() => Act("cmdOkay")'>OK</button></div>
     </div>
 }
-else if (Definition.ClassName == "frmBrowser")
-{
-    <div class="legacy-fields"><label>Address<input @bind='values["cboAddress"]' @bind:event="oninput" /></label><button class="primary" @onclick='() => Act("OpenBrowser")'>Open in browser</button></div>
-}
-else if (Definition.ClassName == "frmAutoWebURLEntry")
-{
-    <div class="legacy-fields"><label>URL<input @bind='values["txtURL"]' @bind:event="oninput" /></label><label>Alternate URL<input @bind='values["txtAltURL"]' @bind:event="oninput" /></label><label>Object to activate<input @bind='values["txtObjectToActivate"]' @bind:event="oninput" /></label>
-        <label>POST fields<select size="5" @bind="selectedPost">@foreach (var item in postFields) { <option>@item</option> }</select></label>
-        <div class="dialog-actions"><button @onclick='() => Act("cmdAdd")'>Add field</button><button @onclick='() => Act("cmdRemove")'>Remove field</button><button @onclick='() => Act("cmdCancel")'>Cancel</button><button class="primary" @onclick='() => Act("cmdOkay")'>OK</button></div>
-    </div>
-}
+else if (Definition.ClassName is "frmBrowser" or "frmAutoWebURLEntry")
+{ <WebWorkspace /> }
 else
 { <div class="legacy-fields"><LegacyFields Definition="Definition" Values="values" OnAction="Act" /></div> }
 <p role="status" class="dialog-status">@status</p>
@@ -44,8 +48,14 @@ else
         if (lastForm == Definition.ClassName) return;
         lastForm = Definition.ClassName; values.Clear(); postFields.Clear(); status = "";
         foreach (var n in Definition.Descendants) values[n.Key] = n.Get("Text", n.Items.FirstOrDefault() ?? "");
+        try{if(Desktop.ReadPreference("dialog:"+Definition.ClassName) is {} saved){var previous=System.Text.Json.JsonSerializer.Deserialize<Dictionary<string,string>>(saved);if(previous!=null)foreach(var item in previous)if(values.ContainsKey(item.Key)&&!Definition.Descendants.Any(n=>n.Key==item.Key&&n.Get("PasswordChar").Length>0))values[item.Key]=item.Value;}}catch(Exception e){status="Could not load dialog preferences: "+e.Message;}
         if (Definition.ClassName == "frmCommandHelp") { values["txtSyntax"] = "%%Name::Default%% · ~~Set Name=Value"; values["txtLongDescription"] = "Inline commands: " + string.Join(", ", Engine.InlineCommands); }
         if (Definition.ClassName == "frmFileList") values["txtStartDir"] = Environment.CurrentDirectory;
+    }
+    public void Dispose()
+    {
+        var saved=values.Where(p=>!Definition.Descendants.Any(n=>n.Key==p.Key&&n.Get("PasswordChar").Length>0)).ToDictionary(p=>p.Key,p=>p.Value);
+        try{Desktop.WritePreference("dialog:"+Definition.ClassName,System.Text.Json.JsonSerializer.Serialize(saved));}catch(Exception e){status="Could not save dialog preferences: "+e.Message;}
     }
     private async Task Act(string action)
     {

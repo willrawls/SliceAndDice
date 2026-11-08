@@ -1,0 +1,2 @@
+<div class="legacy-fields"><p>Focus the area below to inspect keyboard events. Use ShellMain to configure the global show-window shortcut.</p><div class="key-test" tabindex="0" @onkeydown:preventDefault @onkeydown="Key">Click here and press a key</div><output>@pressed</output></div>
+@code{private string pressed="";private void Key(KeyboardEventArgs e){pressed=(e.CtrlKey?"Ctrl+":"")+(e.AltKey?"Alt+":"")+(e.ShiftKey?"Shift+":"")+e.Key;}}

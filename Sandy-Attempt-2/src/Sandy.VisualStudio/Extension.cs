@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Extensibility.Shell;
 using Microsoft.VisualStudio.Extensibility.ToolWindows;
 using Microsoft.VisualStudio.Extensibility.UI;
 using Microsoft.VisualStudio.RpcContracts.RemoteUI;
+using Microsoft.VisualStudio.RpcContracts.Documents;
 
 namespace Sandy.VisualStudio;
 
@@ -22,7 +23,7 @@ public sealed class SandyExtension : Microsoft.VisualStudio.Extensibility.Extens
 [VisualStudioContribution]
 public sealed class OpenCommand : Command
 {
-    public override CommandConfiguration CommandConfiguration => new("%Sandy2.Open%") { Placements = [CommandPlacement.KnownPlacements.ExtensionsMenu] };
+    public override CommandConfiguration CommandConfiguration => new("%Sandy2.Open%") { Placements = [CommandPlacement.KnownPlacements.ExtensionsMenu],Shortcuts=[new(ModifierKey.ControlShiftLeftAlt,Key.S)] };
     public override Task ExecuteCommandAsync(IClientContext context, CancellationToken cancellationToken) => Extensibility.Shell().ShowToolWindowAsync<SandyWindow>(true, cancellationToken);
 }
 
@@ -31,7 +32,8 @@ public sealed class InsertCommand(Workspace workspace) : Command
 {
     public override CommandConfiguration CommandConfiguration => new("%Sandy2.Insert%")
     {
-        Placements = [CommandPlacement.KnownPlacements.ExtensionsMenu]
+        Placements = [CommandPlacement.KnownPlacements.ExtensionsMenu,CommandPlacement.VsctParent(new Guid("D309F791-903F-11D0-9EFC-00A0C911004F"),0x01C0,0x0600)],
+        Shortcuts=[new(ModifierKey.ControlShiftLeftAlt,Key.I)]
     };
     public override async Task ExecuteCommandAsync(IClientContext context, CancellationToken cancellationToken)
     {
@@ -57,13 +59,27 @@ public sealed class InsertCommand(Workspace workspace) : Command
                 RegistryReader = Sandy.Windows.WindowsEffects.ReadSetting,
                 ClipboardReader = Sandy.Windows.WindowsEffects.ReadClipboard,
                 FetchAsync = Core.WebContent.FetchAsync,
+                PathReader = Core.LegacyFileSystem.Enumerate,
                 DirectoryReader = pattern => string.Join(";", Directory.GetFileSystemEntries(Path.GetDirectoryName(pattern) is {Length:>0} dir ? dir : Path.GetDirectoryName(documentPath)!, Path.GetFileName(pattern))),
                 AskAsync = async (question, fallback, ct) => await Extensibility.Shell().ShowPromptAsync(question, new InputPromptOptions { DefaultText = fallback, Title = template.Name }, ct)
             };
             if(Core.LegacyEditor.FindProject(documentPath) is {} project)editor.AttachProject(project,snapshots.TryGetValue(project,out var projectSnapshot)?projectSnapshot.Text.CopyToString():Core.TextFiles.Read(project));
             foreach(var snapshot in snapshots.Where(s=>!s.Key.Equals(documentPath,StringComparison.OrdinalIgnoreCase)))
                 editor.Documents.TryAdd(snapshot.Key,new Core.PlannedDocument(snapshot.Key,snapshot.Value.Text.CopyToString()));
-            var result = await workspace.EvaluateAsync((p, ct) => Extensibility.Shell().ShowPromptAsync(p.Name, new InputPromptOptions { DefaultText = p.Default, Title = template.Name }, ct), cancellationToken, editor);
+            var result = await workspace.EvaluateAsync((p, ct) => Extensibility.Shell().ShowPromptAsync(p.Name+(p.Choices==null?"":"\n"+string.Join("\n",p.Choices.Select((choice,index)=>(index+1)+". "+choice))), new InputPromptOptions { DefaultText = p.Default, Title = template.Name }, ct), cancellationToken, editor);
+            Core.Library? revisedLibrary=null;string? libraryOutput=null;
+            if(result.LibraryMutation is {} libraryMutation)
+            {
+                revisedLibrary=workspace.PrepareMutation(libraryMutation);
+                if(libraryMutation.HasChanges)
+                {
+                    libraryOutput=await Extensibility.Shell().ShowPromptAsync("Save the edited Sandy library as a new XML working copy",new InputPromptOptions{DefaultText=Path.Combine(editor.WorkspaceRoot.Length>0?editor.WorkspaceRoot:Path.GetDirectoryName(documentPath)!,"Sandy-library-"+Guid.NewGuid().ToString("N")+".xml")},cancellationToken);
+                    if(libraryOutput==null)return;
+                    libraryOutput=Path.GetFullPath(libraryOutput);
+                    if(File.Exists(libraryOutput)||snapshots.ContainsKey(libraryOutput))throw new InvalidOperationException("Choose a new library filename.");
+                    editor.Documents.Add(libraryOutput,new(libraryOutput,""){Text=revisedLibrary.Serialize()});
+                }
+            }
             Sandy.Windows.WindowsEffects.Validate(editor.Effects);
             var changed = editor.Documents.Values.Where(d => d.Changed).ToArray();
             var files = new Core.FileCommit(editor.WorkspaceRoot.Length>0?editor.WorkspaceRoot:Path.GetDirectoryName(documentPath)!);
@@ -87,9 +103,16 @@ public sealed class InsertCommand(Workspace workspace) : Command
                 }
             }
             catch { files.Rollback(); throw; }
+            if(revisedLibrary!=null)workspace.AcceptMutation(revisedLibrary,result.LibraryMutation!,libraryOutput);
             workspace.Status = "Applied " + changed.Length + " document plan(s). File backups: " + (files.JournalPath ?? "none");
-            foreach (var effect in editor.Effects.Where(e => !Sandy.Windows.WindowsEffects.IsFile(e))) Sandy.Windows.WindowsEffects.Apply(effect);
-            foreach (var effect in editor.Effects.Where(e => e.Kind == "Message")) await Extensibility.Shell().ShowPromptAsync(effect.Value, PromptOptions.OK, cancellationToken);
+            var appliedActions=Core.DeferredActions.Apply(editor.Effects.Where(e=>!Sandy.Windows.WindowsEffects.IsFile(e)),Sandy.Windows.WindowsEffects.Apply);
+            foreach (var effect in appliedActions.Where(e => e.Kind == "Message")) await Extensibility.Shell().ShowPromptAsync(effect.Value, PromptOptions.OK, cancellationToken);
+            foreach(var effect in editor.Effects.Where(e=>e.Kind is "EditorClose" or "EditorCloseAll"))
+            {
+                var openDocuments=await Extensibility.Documents().GetOpenDocumentsAsync(cancellationToken);
+                foreach(var open in openDocuments.Where(d=>effect.Kind=="EditorCloseAll"?d.Moniker.IsFile:d.Moniker.IsFile&&d.Moniker.LocalPath.Equals(effect.Target,StringComparison.OrdinalIgnoreCase)))
+                    await open.CloseAsync(SaveDocumentOption.PromptSave,Extensibility,cancellationToken);
+            }
         }
         catch (OperationCanceledException) { workspace.Status = "Cancelled."; }
         catch (Exception ex) { workspace.Status = ex.Message; await Extensibility.Shell().ShowPromptAsync(ex.Message, PromptOptions.ErrorConfirm, cancellationToken); }

@@ -15,6 +15,11 @@ public sealed class Workspace : NotifyPropertyChangedObject
     private Library? library;
     internal SemaphoreSlim Gate { get; } = new(1, 1);
     internal Template? CurrentTemplate => library?.Templates.SingleOrDefault(x => x["TemplateID"] == Selected?.Id);
+    internal Library PrepareMutation(LibraryMutation mutation)=>mutation.Commit(library??throw new InvalidOperationException("Load a library."));
+    internal void AcceptMutation(Library revised,LibraryMutation mutation,string? output)
+    {
+        library=revised;if(output!=null)LibraryPath=output;Refresh();Selected=Templates.Single(t=>t.Id==mutation.Selected.Id);
+    }
     public Workspace()
     {
         LoadCommand = new AsyncCommand(async (_, ct) => await GuardAsync(async () => { var loaded = Library.Load(LibraryPath); library = loaded; Selected = null; Refresh(); Status = $"Loaded {loaded.Templates.Count()} templates."; await Task.CompletedTask; }, ct));

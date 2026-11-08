@@ -10,9 +10,13 @@ public interface IDesktopServices
     IReadOnlyDictionary<string, string[]> ReadSchema(string path) => throw new NotSupportedException("Database schema inspection is not available in this host.");
     string? PickFile(string filter) => OpenLibrary();
     string? SaveText(string suggestedName) => SaveCopy();
+    string? PickFolder() => null;
     IReadOnlyDictionary<string,string[]> ReadOdbcSchema(string connectionString) => throw new NotSupportedException("ODBC is not available in this host.");
     string? ReadSetting(string key) => null;
     string ReadClipboard() => "";
+    string? ReadPreference(string key) => null;
+    void WritePreference(string key,string value) { }
+    void ConfigureShell(ShellOptions options) => throw new NotSupportedException("Desktop shell integration is unavailable in this host.");
     void ApplyPlan(LegacyEditor plan) => throw new NotSupportedException("This host cannot apply execution plans.");
 }
 
@@ -36,16 +40,24 @@ public sealed class Draft
 
 public sealed class Workspace
 {
+    public event Action? Changed;
     private readonly Dictionary<Template, Draft> drafts = [];
     private bool modelDirty;
+    private readonly List<string> navigation=[];private int navigationIndex=-1;private bool navigating;
+    public bool CanBack=>navigationIndex>0;
+    public bool CanForward=>navigationIndex>=0&&navigationIndex<navigation.Count-1;
     public Library Library { get; private set; } = new();
+    public DatabaseDesign DatabaseDesign { get; set; } = new();
     public Template? Selected { get; private set; }
     public Category? SelectedCategory { get; private set; }
     public Draft? Current => Selected == null ? null : drafts[Selected];
     public string? SourcePath { get; private set; }
     public bool IsDirty => modelDirty || drafts.Any(x => !x.Value.Matches(x.Key));
     public string Variables { get; set; } = "";
+    public string LastChoice { get; set; } = "";
     public string Filter { get; set; } = "";
+    public bool FavoritesOnly { get; set; }
+    public bool IsFavorite(Template template)=>drafts.TryGetValue(template,out var d)?d.Favorite:template.Flag("Favorite");
     public string Preview { get; private set; } = "";
     public string EditorPath { get; set; } = Path.Combine(Environment.CurrentDirectory, "SandyPreview.cs");
     public string EditorText { get; set; } = "";
@@ -57,7 +69,7 @@ public sealed class Workspace
     public void Load(Library library, string? path)
     {
         library.Validate(); Library = library; SourcePath = path == null ? null : Path.GetFullPath(path);
-        drafts.Clear(); Selected = null; SelectedCategory = library.Categories.FirstOrDefault(); modelDirty = false; Preview = "";
+        drafts.Clear(); navigation.Clear();navigationIndex=-1;Selected = null; SelectedCategory = library.Categories.FirstOrDefault(); modelDirty = false; Preview = ""; PreviewPlan=null;
         if (library.Templates.FirstOrDefault() is { } first) Select(first);
         Status = $"{library.Categories.Count} categories · {library.Templates.Count()} templates";
     }
@@ -66,9 +78,26 @@ public sealed class Workspace
         if (!Library.Templates.Contains(template)) throw new InvalidOperationException("Template belongs to another library.");
         Selected = template; SelectedCategory = Library.Categories.Single(c => c.Templates.Contains(template));
         drafts.TryAdd(template, Draft.From(template));
+        if(!navigating&&(navigationIndex<0||navigation[navigationIndex]!=template.Id)) { if(navigationIndex+1<navigation.Count)navigation.RemoveRange(navigationIndex+1,navigation.Count-navigationIndex-1);navigation.Add(template.Id);if(navigation.Count>100)navigation.RemoveAt(0);navigationIndex=navigation.Count-1; }
+        Changed?.Invoke();
     }
     private static string NextId(IEnumerable<string> ids) => checked(ids.Select(x => int.TryParse(x, out var n) ? n : 0).DefaultIfEmpty().Max() + 1).ToString();
     public void NewLibrary() => Load(new Library(), null);
+    public void Navigate(int direction)
+    {
+        if(direction is not (-1 or 1))throw new ArgumentOutOfRangeException(nameof(direction));
+        for(var index=navigationIndex+direction;index>=0&&index<navigation.Count;index+=direction)if(Library.Templates.FirstOrDefault(t=>t.Id==navigation[index]) is {} template){navigationIndex=index;navigating=true;try{Select(template);}finally{navigating=false;}return;}
+    }
+    public void MoveTemplate(string templateId,string categoryId)
+    {
+        var t=Library.Templates.Single(t=>t.Id==templateId);var destination=Library.Categories.Single(c=>c.Fields["CategoryID"]==categoryId);var source=Library.Categories.Single(c=>c.Templates.Contains(t));
+        if(source==destination)return;if(t.Locked||drafts.TryGetValue(t,out var draft)&&draft.Locked)throw new InvalidOperationException("Unlock the template before moving it.");
+        var revision=checked(int.Parse(t["RevisionCount"].Length==0?"0":t["RevisionCount"])+1);
+        source.Templates.Remove(t);destination.Templates.Add(t);t["CategoryID"]=categoryId;t["RevisionCount"]=revision.ToString();
+        if(t.Name.StartsWith(source.Name+" - ",StringComparison.OrdinalIgnoreCase))t["TemplateName"]=destination.Name+t.Name[source.Name.Length..];
+        if(drafts.TryGetValue(t,out draft)&&draft.Name.StartsWith(source.Name+" - ",StringComparison.OrdinalIgnoreCase))draft.Name=destination.Name+draft.Name[source.Name.Length..];
+        Select(t);modelDirty=true;
+    }
     public void AddCategory(string name)
     {
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Enter a category name.");
@@ -160,6 +189,15 @@ public sealed class Workspace
     {
         if (SourcePath != null && string.Equals(Path.GetFullPath(path), SourcePath, StringComparison.OrdinalIgnoreCase)) throw new InvalidOperationException("Choose a new filename to preserve the imported source.");
         // Validate and apply every draft to a separate model before writing or committing.
+        var copy = Snapshot();
+        copy.Save(path);
+        var selectedId = Selected?["TemplateID"];
+        Load(copy, path);
+        if (copy.Templates.FirstOrDefault(t => t["TemplateID"] == selectedId) is { } selected) Select(selected);
+        Status = "Saved working copy: " + path;
+    }
+    public Library Snapshot()
+    {
         var copy = new Library();
         copy.AuxiliaryRecords.AddRange(Library.AuxiliaryRecords.Select(e=>new System.Xml.Linq.XElement(e)));
         foreach (var category in Library.Categories)
@@ -173,17 +211,25 @@ public sealed class Workspace
             }
             copy.Categories.Add(c);
         }
-        copy.Save(path);
-        var selectedId = Selected?["TemplateID"];
-        Load(copy, path);
-        if (copy.Templates.FirstOrDefault(t => t["TemplateID"] == selectedId) is { } selected) Select(selected);
-        Status = "Saved working copy: " + path;
+        return copy;
+    }
+    public void ApplyPatch(LibraryPatch patch){var selected=Selected?.Id;var result=patch.Apply(Snapshot());var path=SourcePath;Load(result,path);modelDirty=true;if(result.Templates.FirstOrDefault(t=>t.Id==selected) is {} t)Select(t);Status="Applied patch to working library. Save a copy to keep it.";}
+    public void Import(Library incoming)
+    {
+        incoming.Validate();var result=Snapshot();
+        foreach(var category in incoming.Categories)
+        {
+            var matches=result.Categories.Where(c=>c.Name.Equals(category.Name,StringComparison.OrdinalIgnoreCase)).ToArray();if(matches.Length>1)throw new InvalidDataException("Ambiguous destination category: "+category.Name);
+            var destination=matches.FirstOrDefault();if(destination==null){destination=new();foreach(var p in category.Fields)destination.Fields[p.Key]=p.Value;destination.Fields["CategoryID"]=NextId(result.Categories.Select(c=>c.Fields["CategoryID"]));result.Categories.Add(destination);}
+            foreach(var original in category.Templates){var template=new Template();foreach(var p in original.Fields)template[p.Key]=p.Value;template["TemplateID"]=NextId(result.Templates.Select(t=>t.Id));template["CategoryID"]=destination.Fields["CategoryID"];destination.Templates.Add(template);}
+        }
+        var path=SourcePath;Load(result,path);modelDirty=true;Status="Imported templates into the working library. Save a copy to keep them.";
     }
     public void DeleteSelected()
     {
         if (Selected == null) return;
         if (Selected.Locked || Selected.Flag("Undeletable") || Current is { Locked:true } or { Undeletable:true }) throw new InvalidOperationException("Template is locked or undeletable.");
-        var template = Selected; SelectedCategory!.Templates.Remove(template); drafts.Remove(template); Selected = null; modelDirty = true;
+        var template = Selected; Library.Categories.Single(c=>c.Templates.Contains(template)).Templates.Remove(template); drafts.Remove(template); Selected = null; modelDirty = true;
         if (Library.Templates.FirstOrDefault() is { } first) Select(first);
     }
     public async Task PreviewAsync(Func<Prompt, CancellationToken, Task<string?>>? prompt = null, CancellationToken cancellation = default, IDesktopServices? services = null)
@@ -203,6 +249,7 @@ public sealed class Workspace
             var editor = new LegacyEditor(Path.GetFullPath(EditorPath), EditorText, Cursor, SelectionLength) {
                 FileReader = TextFiles.Read,
                 FetchAsync = WebContent.FetchAsync,
+                PathReader = LegacyFileSystem.Enumerate,
                 RegistryReader = services == null ? null : services.ReadSetting,
                 ClipboardReader = services == null ? null : services.ReadClipboard,
                 DirectoryReader = pattern => string.Join(";", Directory.GetFileSystemEntries(Path.GetDirectoryName(pattern) is {Length:>0} dir ? dir : Path.GetDirectoryName(EditorPath)!, Path.GetFileName(pattern))),
@@ -213,15 +260,30 @@ public sealed class Workspace
             Preview = string.Join("\r\n\r\n", editor.Documents.Values.Where(d => d.Changed).Select(d => $"[Document] {d.Path}\r\n{d.Text}")
                 .Concat(editor.Effects.Select(e => $"[{e.Kind}] {e.Target}\r\n{e.Value}")));
             if (Preview.Length == 0) Preview = string.Join("\r\n\r\n", result.Outputs.Select(o => $"[{o.Area}] {o.Target}\r\n{o.Text}"));
+            if(result.LibraryMutation is {} mutation)Preview+="\r\n[Library selection] "+mutation.Selected.Name+"\r\n"+string.Join("\r\n",mutation.Working.Templates.Where(t=>mutation.ChangedTemplateIds.Contains(t.Id)).Select(t=>"[Library template] "+t.Name+"\r\n"+string.Join("\r\n",Enum.GetValues<CodeArea>().Select(a=>"["+a+"]\r\n"+t.Code(a)))));
             PreviewPlan = editor; Status = "Preview complete. No output was applied.";
         }
         finally { IsBusy = false; }
     }
     public void CompleteApplication(LegacyEditor plan)
     {
-        if(!ReferenceEquals(PreviewPlan,plan))throw new InvalidOperationException("Preview plan was replaced.");
+        PreflightApplication(plan);
+        if(plan.LibraryMutation is {} mutation)
+        {
+            var savedDrafts=drafts.ToDictionary(p=>p.Key.Id,p=>p.Value);Library=mutation.Commit(Library);drafts.Clear();
+            foreach(var template in Library.Templates)if(!mutation.ChangedTemplateIds.Contains(template.Id)&&savedDrafts.TryGetValue(template.Id,out var draft))drafts[template]=draft;
+            Select(Library.Templates.Single(t=>t.Id==mutation.Selected.Id));modelDirty|=mutation.HasChanges;
+        }
         EditorText=plan.Documents.Values.First().Text;Cursor=Math.Min(Cursor,EditorText.Length);SelectionLength=0;PreviewPlan=null;
         Status="Applied plan. File backups are in .sandy-history beside the project/source file.";
+    }
+    public void PreflightApplication(LegacyEditor plan)
+    {
+        if(!ReferenceEquals(PreviewPlan,plan))throw new InvalidOperationException("Preview plan was replaced.");
+        if(plan.LibraryMutation is not {} mutation)return;
+        mutation.Commit(Library);
+        foreach(var pair in drafts.Where(p=>mutation.ChangedTemplateIds.Contains(p.Key.Id)))
+            if(!pair.Value.Matches(pair.Key))throw new InvalidOperationException("Update or save the affected draft before applying library changes: "+pair.Key.Name);
     }
 }
 public sealed record SearchHit(Template Template,CodeArea Area,int Offset,string Text);

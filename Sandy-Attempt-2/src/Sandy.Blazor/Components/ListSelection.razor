@@ -1,0 +1,7 @@
+@inject Workspace State
+<div class="legacy-fields"><label>Choices (one per line)<textarea rows="6" @bind="choices" @bind:event="oninput"></textarea></label><label>Choose<select size="8" @bind="selected">@foreach(var value in choices.Replace("\r\n","\n").Split('\n').Where(v=>v.Length>0)){<option>@value</option>}</select></label><div class="dialog-actions"><button @onclick="()=>OnClose.InvokeAsync()">Cancel</button><button @onclick="Accept">OK</button></div><p role="status">@status</p></div>
+@code {
+    [Parameter]public EventCallback OnClose{get;set;}
+    private string choices="",selected="",status="";
+    private async Task Accept(){if(!choices.Replace("\r\n","\n").Split('\n').Contains(selected)||selected.Length==0){status="Choose an item.";return;}State.Status="Selected: "+selected;State.LastChoice=selected;await OnClose.InvokeAsync();}
+}

@@ -6,19 +6,21 @@
     <header><div class="brand"><span class="brand-mark">S/</span><div><strong>Sandy</strong><small>Slice and Dice · Template workspace</small></div></div><span class="library-label">@(State.SourcePath == null ? "New library" : System.IO.Path.GetFileName(State.SourcePath)) @(State.IsDirty ? "• Unsaved" : "")</span></header>
     <nav class="toolbar" aria-label="Library actions">
         <button @onclick="Open">Open library</button><button @onclick="New">New library</button><button id="save-copy" @onclick="Save">Save copy</button>
+        <button @onclick="()=>State.Navigate(-1)" disabled="@(!State.CanBack)">Back</button><button @onclick="()=>State.Navigate(1)" disabled="@(!State.CanForward)">Forward</button>
+        <select @key="transferVersion" aria-label="Library transfer" value="" @onchange="Transfer"><option value="">Import / export…</option><option value="import">Import templates</option><option value="export">Export selected template</option><option value="delta">Generate delta patch</option><option value="patch">Apply delta patch</option></select>
         <span class="divider"></span><button @onclick="NewCategory">+ Category</button><button @onclick="NewTemplate">+ Template</button>
         <button @onclick="RenameCategory" disabled="@(State.SelectedCategory==null)">Rename category</button><button @onclick="DeleteCategory" disabled="@(State.SelectedCategory==null)">Delete category</button><button @onclick="Duplicate" disabled="@(State.Selected==null)">Duplicate</button>
         <button @onclick="Update" disabled="@(State.Selected == null)">Update template</button><button class="primary" id="preview-button" @onclick="Preview" disabled="@(State.Selected == null || State.IsBusy)">@(State.IsBusy ? "Evaluating…" : "Preview")</button>
-        <select id="form-selector" aria-label="Tools and dialogs" value="" @onchange="OpenForm"><option value="">Tools and dialogs…</option>@foreach (var form in FormCatalog.All) { <option value="@form.ClassName">@form.ClassName — @form.Caption</option> }</select>
+        <select id="form-selector" aria-label="Tools and dialogs" value="@(activeForm?.ClassName??"")" @onchange="OpenForm"><option value="">Tools and dialogs…</option>@foreach (var form in FormCatalog.All) { <option value="@form.ClassName">@form.ClassName — @form.Caption</option> }</select>
     </nav>
     <div class="workspace-grid">
-        <aside><div class="sidebar-heading"><strong>LIBRARY</strong><span>@State.Library.Templates.Count()</span></div><input id="template-filter" aria-label="Filter templates" placeholder="Filter templates…" @bind="State.Filter" @bind:event="oninput" />
+        <aside><div class="sidebar-heading"><strong>LIBRARY</strong><span>@State.Library.Templates.Count()</span></div><input id="template-filter" aria-label="Filter templates" placeholder="Filter templates…" @bind="State.Filter" @bind:event="oninput" /><label><input type="checkbox" @bind="State.FavoritesOnly" />Favorites only</label>
             <div class="template-tree">@foreach (var category in State.Library.Categories)
             {
-                var templates = category.Templates.Where(t => t.Name.Contains(State.Filter, StringComparison.OrdinalIgnoreCase)).ToArray();
+                var templates = category.Templates.Where(t => t.Name.Contains(State.Filter, StringComparison.OrdinalIgnoreCase)&&(!State.FavoritesOnly||State.IsFavorite(t))).ToArray();
                 if (templates.Length == 0 && State.Filter.Length > 0) { continue; }
-                <details open><summary @onclick="()=>State.SelectCategory(category)">@category.Name <span>@templates.Length</span></summary>@foreach (var template in templates)
-                { <button class="template @(State.Selected == template ? "selected" : "")" data-template-id="@template["TemplateID"]" @onclick="() => State.Select(template)">@(template.Flag("Favorite") ? "★ " : "")@template["ShortTemplateName"]</button> }</details>
+                <details open @ondragover:preventDefault @ondrop="()=>Drop(category)"><summary @onclick="()=>State.SelectCategory(category)">@category.Name <span>@templates.Length</span></summary>@foreach (var template in templates)
+                { <button draggable="true" @ondragstart="()=>draggedTemplate=template.Id" @oncontextmenu:preventDefault @oncontextmenu="e=>Context(template,e)" class="template @(State.Selected == template ? "selected" : "")" data-template-id="@template["TemplateID"]" @onclick="() => State.Select(template)">@(State.IsFavorite(template) ? "★ " : "")@template["ShortTemplateName"]</button> }</details>
             }</div>
         </aside>
         <main>
@@ -50,10 +52,11 @@
     </div>
     <footer role="status">@State.Status</footer>
 </div>
+@if(contextTemplate!=null){<div class="template-context" style="@($"left:{contextX}px;top:{contextY}px")"><button @onclick="ContextPreview">Preview</button><button @onclick="ContextDuplicate">Duplicate</button><button @onclick="ContextFavorite">Toggle favorite</button><button @onclick="()=>contextTemplate=null">Close</button></div>}
 @if (activeForm != null)
 { <div class="overlay"><section class="dialog tool-dialog" role="dialog" aria-modal="true" aria-label="@activeForm.Caption"><div class="dialog-heading"><h2>@activeForm.Caption</h2><button aria-label="Close dialog" @onclick="() => activeForm = null">✕</button></div><LegacyDialog Definition="activeForm" OnClose="() => activeForm = null" PromptUser="AskInput" /></section></div> }
 @if (question != null)
-{ <div class="overlay"><section class="dialog prompt-dialog" role="dialog" aria-modal="true" aria-label="@question"><h2>@question</h2>@if (!confirmOnly) { <input id="prompt-input" aria-label="Response" @bind="answer" @bind:event="oninput" @onkeydown="PromptKey" autofocus /> }<div class="dialog-actions"><button @onclick="() => Complete(null)">Cancel</button><button class="primary" id="prompt-accept" @onclick="() => Complete(answer)">@(confirmOnly ? "Continue" : "OK")</button></div></section></div> }
+{ <div class="overlay"><section class="dialog prompt-dialog" role="dialog" aria-modal="true" aria-label="@question"><h2>@question</h2>@if (!confirmOnly) { @if(questionChoices is {Length:>0}){<select id="prompt-input" aria-label="Response" @bind="answer">@foreach(var choice in questionChoices){<option>@choice</option>}</select>}else{<input id="prompt-input" aria-label="Response" @bind="answer" @bind:event="oninput" @onkeydown="PromptKey" autofocus />} }<div class="dialog-actions"><button @onclick="() => Complete(null)">Cancel</button><button class="primary" id="prompt-accept" @onclick="() => Complete(answer)">@(confirmOnly ? "Continue" : "OK")</button></div></section></div> }
 
 @code {
     private bool ready, findVisible, matchCase = true;
@@ -62,17 +65,21 @@
     private FormDefinition? activeForm;
     private string? question;
     private bool confirmOnly;
+    private string[]? questionChoices;
+    private int transferVersion;
+    private string? draggedTemplate;private Template? contextTemplate;private double contextX,contextY;
     private TaskCompletionSource<string?>? pending;
     private Task<string?> AskInput(string title, string value) => Ask(title, value);
     private CodeArea? Area => tab switch { "At cursor" => CodeArea.Cursor, "Declarations" => CodeArea.Declarations, "At bottom" => CodeArea.Bottom, "To file" => CodeArea.File, _ => null };
     private static string AreaTitle(CodeArea area) => area switch { CodeArea.Cursor => "Code at cursor", CodeArea.Declarations => "Declarations", CodeArea.Bottom => "Code at bottom", _ => "Code to file" };
-    protected override void OnInitialized() { ready = true; }
-    private async Task<string?> Ask(string title, string value = "", bool confirm = false)
+    protected override void OnInitialized() { ready = true; State.Changed+=StateChanged; }
+    private void StateChanged(){_ = InvokeAsync(StateHasChanged);}
+    private async Task<string?> Ask(string title, string value = "", bool confirm = false,string[]? choices=null)
     {
         Task<string?> response = Task.FromResult<string?>(null);
         await InvokeAsync(() => {
             if (pending != null) throw new InvalidOperationException("Another dialog is already open.");
-            question = title; answer = value; confirmOnly = confirm;
+            question = title; answer = value; confirmOnly = confirm;questionChoices=choices;
             pending = new(TaskCreationOptions.RunContinuationsAsynchronously); response = pending.Task; StateHasChanged();
         });
         return await response;
@@ -88,12 +95,30 @@
     private Task RenameCategory() => Guard(async () => { var name = await Ask("Rename category",State.SelectedCategory?.Name??""); if(name!=null)State.RenameCategory(name); });
     private Task DeleteCategory() => Guard(async () => { if(await Ask("Delete category and all its templates?",confirm:true)!=null)State.DeleteCategory(); });
     private Task Duplicate() => Guard(() => {State.DuplicateTemplate();return Task.CompletedTask;});
+    private void Context(Template template,MouseEventArgs e){contextTemplate=template;contextX=e.ClientX;contextY=e.ClientY;}
+    private Task ContextPreview(){State.Select(contextTemplate!);contextTemplate=null;return Preview();}
+    private Task ContextDuplicate(){State.Select(contextTemplate!);contextTemplate=null;return Duplicate();}
+    private void ContextFavorite(){State.Select(contextTemplate!);State.Current!.Favorite=!State.Current.Favorite;contextTemplate=null;}
+    private Task Drop(Category category)=>Guard(()=>{if(draggedTemplate!=null)State.MoveTemplate(draggedTemplate,category.Fields["CategoryID"]);draggedTemplate=null;return Task.CompletedTask;});
+    private Task Transfer(ChangeEventArgs e)=>Guard(async()=>{
+        transferVersion++;
+        switch(e.Value?.ToString()) {
+            case "import":var incoming=Desktop.OpenLibrary();if(incoming!=null)State.Import(Desktop.ReadLibrary(incoming));break;
+            case "export":
+                if(State.Selected==null)throw new InvalidOperationException("Select a template.");
+                var snapshot=State.Snapshot();var selected=snapshot.Templates.Single(t=>t.Id==State.Selected.Id);var category=snapshot.Categories.Single(c=>c.Templates.Contains(selected));category.Templates.RemoveAll(t=>t!=selected);snapshot.Categories.RemoveAll(c=>c!=category);
+                var exported=Desktop.SaveText("Sandy-template.xml");if(exported!=null)snapshot.Save(exported);break;
+            case "delta":var baseline=Desktop.OpenLibrary();if(baseline==null)return;var patch=LibraryPatch.Create(Desktop.ReadLibrary(baseline),State.Snapshot());var destination=Desktop.SaveText("Sandy.patch.json");if(destination!=null)File.WriteAllText(destination,patch.ToJson(),new System.Text.UTF8Encoding(false));break;
+            case "patch":var source=Desktop.PickFile("Sandy delta patch|*.json");if(source==null)return;var pendingPatch=LibraryPatch.FromJson(File.ReadAllText(source));if(await Ask($"Apply patch with {pendingPatch.Templates.Count} template changes to the working library?",confirm:true)!=null)State.ApplyPatch(pendingPatch);break;
+        }
+    });
     private Task NewTemplate() => Guard(async () => { var name = await Ask("Template name"); if (name != null) State.AddTemplate(name); });
     private Task Update() => Guard(() => { State.Update(); return Task.CompletedTask; });
-    private Task Preview() => Guard(async () => { await State.PreviewAsync((p, _) => Ask(p.Name, p.Default), services: Desktop); tab = "Preview"; });
+    private Task Preview() => Guard(async () => { await State.PreviewAsync((p, _) => Ask(p.Name, p.Default,choices:p.Choices), services: Desktop); tab = "Preview"; });
     private Task ApplyPreview() => Guard(async () => {
         if(State.PreviewPlan is not {} plan)return;
         if(await Ask("Apply the displayed document and external changes?", confirm:true)==null)return;
+        State.PreflightApplication(plan);
         Desktop.ApplyPlan(plan);
         State.CompleteApplication(plan);
     });
@@ -101,5 +126,5 @@
     private Task Delete() => Guard(async () => { if (await Ask("Delete this template from the working library?", confirm: true) != null) State.DeleteSelected(); });
     private void ReplaceAll() { if (find.Length != 0 && Area is { } area && State.Current is { Locked: false } d) d.Code[area] = d.Code[area].Replace(find, replace, matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase); }
     private void OpenForm(ChangeEventArgs e) { var name = e.Value?.ToString(); if (name == "frmMain") { activeForm = null; return; } activeForm = FormCatalog.All.SingleOrDefault(x => x.ClassName == name); }
-    public void Dispose() { pending?.TrySetCanceled(); }
+    public void Dispose() { State.Changed-=StateChanged;pending?.TrySetCanceled(); }
 }

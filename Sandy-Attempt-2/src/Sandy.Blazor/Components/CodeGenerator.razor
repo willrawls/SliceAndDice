@@ -1,7 +1,8 @@
 @inject IDesktopServices Desktop
 <div class="generator legacy-fields">
     @if (Header)
-    { <button @onclick="PickHeader">Open C/C++ header</button><label>Header source<textarea rows="8" @bind="header" @bind:event="oninput"></textarea></label><button class="primary" @onclick="GenerateHeader">Generate C# declarations</button> }
+    { <button @onclick="PickHeader">Open C/C++ header</button><label><input type="checkbox" @bind="includes" @bind:after="ReloadHeader" />Read local includes</label><label>Header source<textarea rows="8" @bind="header" @bind:event="oninput"></textarea></label><button @onclick="Inspect">Inspect declarations</button><button class="primary" @onclick="GenerateHeader">Generate C# declarations</button>
+    @if(inspection!=null){<div class="schema-grid"><table><thead><tr><th>Kind</th><th>Name</th><th>Declaration</th></tr></thead><tbody>@foreach(var entry in inspection.Entries){<tr><td>@entry.Kind</td><td>@entry.Name</td><td><pre>@entry.Declaration</pre></td></tr>}</tbody></table></div>} }
     else
     {
         @if (Odbc) { <label>ODBC connection string<input type="password" autocomplete="off" @bind="connection" /></label><button @onclick="Connect">Read schema</button> }
@@ -18,8 +19,11 @@
     [Parameter] public bool Odbc { get; set; }
     private string header="",output="",status="",table="",nameSpace="Generated",connection="";
     private IReadOnlyDictionary<string,string[]> schema=new Dictionary<string,string[]>();
+    private bool includes;private string? headerPath;private HeaderInspectionResult? inspection;
     private void Guard(Action action) {try{action();}catch(Exception e){status=e.Message;}}
-    private void PickHeader()=>Guard(()=> {var file=Desktop.PickFile("C/C++ headers|*.h;*.hpp|All files|*.*");if(file!=null)header=File.ReadAllText(file,System.Text.Encoding.UTF8);});
+    private void PickHeader()=>Guard(()=> {var file=Desktop.PickFile("C/C++ headers|*.h;*.hpp|All files|*.*");if(file!=null){headerPath=file;inspection=HeaderInspection.Read(file,includes);header=inspection.Source;status=string.Join(Environment.NewLine,inspection.Diagnostics);}});
+    private void Inspect()=>Guard(()=>{inspection=HeaderInspection.Inspect(header);status=string.Join(Environment.NewLine,inspection.Diagnostics);});
+    private void ReloadHeader()=>Guard(()=>{if(headerPath!=null){inspection=HeaderInspection.Read(headerPath,includes);header=inspection.Source;status=string.Join(Environment.NewLine,inspection.Diagnostics);}});
     private void PickDatabase()=>Guard(()=>{var file=Desktop.PickFile("Access database|*.mdb;*.accdb|All files|*.*");if(file!=null){schema=Desktop.ReadSchema(file);table=schema.Keys.FirstOrDefault()??"";status=$"Read {schema.Count} tables.";}});
     private void Connect()=>Guard(()=>{schema=Desktop.ReadOdbcSchema(connection);table=schema.Keys.FirstOrDefault()??"";status=$"Read {schema.Count} tables.";});
     private void GenerateHeader()=>Guard(()=>{var generated=HeaderGenerator.Generate(header);output=generated.Code;status=generated.Diagnostics.Count==0?"Generated declarations.":string.Join(Environment.NewLine,generated.Diagnostics);});

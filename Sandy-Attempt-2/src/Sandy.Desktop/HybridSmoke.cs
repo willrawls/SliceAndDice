@@ -5,7 +5,7 @@ using Sandy.Blazor;
 namespace Sandy.Desktop;
 internal static class HybridSmoke
 {
-    public static async Task RunAsync(CoreWebView2 webview, Workspace state, string directory)
+    public static async Task RunAsync(CoreWebView2 webview, Workspace state, string directory,Action? verifyNativeShell=null)
     {
         await webview.CallDevToolsProtocolMethodAsync("Runtime.enable", "{}");
         webview.GetDevToolsProtocolEventReceiver("Runtime.exceptionThrown").DevToolsProtocolEventReceived += (_, e) => File.AppendAllText(Path.Combine(directory, "javascript-errors.txt"), e.ParameterObjectAsJson + Environment.NewLine);
@@ -37,7 +37,22 @@ internal static class HybridSmoke
         await WaitFor("document.querySelector('.prompt-dialog h2')?.textContent === 'Second'");
         await webview.ExecuteScriptAsync("document.getElementById('prompt-accept').click()");
         await WaitFor("document.getElementById('output-preview')?.value.includes('one|two') === true");
+        state.Current.Code[Sandy.Core.CodeArea.Cursor]="%%Choose::One;Two%%";
+        await webview.ExecuteScriptAsync("document.getElementById('preview-button').click()");
+        await WaitFor("document.querySelectorAll('select#prompt-input option').length === 2");
+        await webview.ExecuteScriptAsync("var choice=document.getElementById('prompt-input');choice.value='Two';choice.dispatchEvent(new Event('change',{bubbles:true}));document.getElementById('prompt-accept').click()");
+        await WaitFor("document.getElementById('output-preview')?.value.includes('Two') === true");
+        state.Current.Code[Sandy.Core.CodeArea.Cursor]="~~GotoSandyTemplate Smoke - Created\r\n~~SetCodeArea Cursor=Created by macro";
+        await webview.ExecuteScriptAsync("document.getElementById('preview-button').click()");
+        await WaitFor("document.getElementById('output-preview')?.value.includes('[Library template] Smoke - Created') === true");
+        await webview.ExecuteScriptAsync("[...document.querySelectorAll('button')].find(b=>b.textContent==='Apply this plan').click()");
+        await WaitFor("document.querySelector('.prompt-dialog') !== null");
+        await webview.ExecuteScriptAsync("document.getElementById('prompt-accept').click()");
+        await WaitFor("document.getElementById('template-name').value === 'Smoke - Created'");
+        var originalPath=state.SourcePath!;state.Load(Sandy.Core.Library.Load(originalPath),originalPath);
+        await WaitFor("document.querySelectorAll('.template').length === 419");
         state.Current.Code[Sandy.Core.CodeArea.Cursor]="Blazor smoke draft";
+        var table=state.DatabaseDesign.AddTable("Products");table.Fields.Add(new(){Name="Name",DaoType=10,Length=100,Nullable=false});state.DatabaseDesign.ApplyRules(true,true,true,true);
         var rendered = new List<string>();
         foreach (var form in FormCatalog.All.Where(f => f.ClassName != "frmMain"))
         {
@@ -49,12 +64,20 @@ internal static class HybridSmoke
                 await WaitFor("document.getElementById('txtOut').value === 'EN* DBEBBC'");
             }
             if(form.ClassName=="frmCommandHelp")await WaitFor("document.querySelectorAll('.command-help option').length > 100");
+            if(form.ClassName=="frmDBClassGen")
+            {
+                await webview.ExecuteScriptAsync("[...document.querySelectorAll('.tool-dialog button')].find(b=>b.textContent==='Generate model, collection, repository and schema').click()");
+                await WaitFor("document.querySelector('.tool-dialog textarea.generated-code')?.value.includes('class Products') === true");
+                await webview.ExecuteScriptAsync("var generated=[...document.querySelectorAll('.tool-dialog select')].find(s=>[...s.options].some(o=>o.value==='ProductsRepository.cs'));generated.value='ProductsRepository.cs';generated.dispatchEvent(new Event('change',{bubbles:true}))");
+                await WaitFor("document.querySelector('.tool-dialog textarea.generated-code')?.value.includes('InsertAsync') === true");
+            }
             await using (var stream = File.Create(Path.Combine(directory, form.ClassName + ".png"))) await webview.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, stream);
             rendered.Add(form.ClassName);
             await webview.ExecuteScriptAsync("document.querySelector('[aria-label=\"Close dialog\"]').click()");
             await WaitFor("document.querySelector('.tool-dialog') === null");
         }
         state.Save(Path.Combine(directory, "smoke-working-copy.xml"));
-        File.WriteAllText(Path.Combine(directory, "results.json"), JsonSerializer.Serialize(new { Workbench = true, Forms = rendered, DraftSwitching = true, SaveReload = true, RepeatedPrompts = true, LegacyObfuscation = true, CommandReference = true }, new JsonSerializerOptions { WriteIndented = true }));
+        verifyNativeShell?.Invoke();
+        File.WriteAllText(Path.Combine(directory, "results.json"), JsonSerializer.Serialize(new { Workbench = true, Forms = rendered, DraftSwitching = true, SaveReload = true, RepeatedPrompts = true, ChoicePrompt=true,LibraryMutation=true,DatabaseGeneration=true,NativeShellRegistration=verifyNativeShell!=null,LegacyObfuscation = true, CommandReference = true }, new JsonSerializerOptions { WriteIndented = true }));
     }
 }

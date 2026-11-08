@@ -3,8 +3,17 @@ using Microsoft.Win32;
 using Sandy.Blazor;
 using Sandy.Core;
 namespace Sandy.Desktop;
-internal sealed class DesktopServices : IDesktopServices
+internal sealed class DesktopServices(string? profilePath=null) : IDesktopServices
 {
+    private readonly ProfileStore profile=new(profilePath??System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"SandyAttempt2","preferences.json"));
+    public string? ReadPreference(string key)=>profile.Read(key);
+    public void WritePreference(string key,string value)=>profile.Write(key,value);
+    internal Action<ShellOptions>? ShellConfiguration { get; set; }
+    public void ConfigureShell(ShellOptions options)
+    {
+        (ShellConfiguration??throw new NotSupportedException("The desktop shell is not initialized."))(options);
+        profile.Write("shell",System.Text.Json.JsonSerializer.Serialize(options));
+    }
     public string? OpenLibrary()
     {
         var dialog = new OpenFileDialog { Filter = "Sandy libraries|*.xml;*.mdb|All files|*.*" };
@@ -29,8 +38,7 @@ internal sealed class DesktopServices : IDesktopServices
             files.AddEffect(effect);
         }
         files.Commit();
-        foreach(var effect in plan.Effects.Where(e=>!Sandy.Windows.WindowsEffects.IsFile(e))) {
-            Sandy.Windows.WindowsEffects.Apply(effect);
+        foreach(var effect in DeferredActions.Apply(plan.Effects.Where(e=>!Sandy.Windows.WindowsEffects.IsFile(e)),Sandy.Windows.WindowsEffects.Apply)) {
             if(effect.Kind=="Message")System.Windows.MessageBox.Show(effect.Value,"Sandy");
         }
     }
@@ -55,7 +63,8 @@ internal sealed class DesktopServices : IDesktopServices
         return result;
     }
     public string? PickFile(string filter) { var dialog=new OpenFileDialog { Filter=filter }; return dialog.ShowDialog()==true?dialog.FileName:null; }
-    public string? SaveText(string suggestedName) { var dialog=new SaveFileDialog { FileName=suggestedName, Filter="Generated source|*.cs|All files|*.*", OverwritePrompt=true };return dialog.ShowDialog()==true?dialog.FileName:null; }
+    public string? PickFolder() { var dialog=new OpenFolderDialog { Title="Choose output folder" };return dialog.ShowDialog()==true?dialog.FolderName:null; }
+    public string? SaveText(string suggestedName) { var extension=System.IO.Path.GetExtension(suggestedName);var dialog=new SaveFileDialog { FileName=suggestedName, Filter="Output file|*"+extension+"|All files|*.*", OverwritePrompt=true };return dialog.ShowDialog()==true?dialog.FileName:null; }
     public void OpenUrl(string url)
     {
         if (!Uri.TryCreate(url, UriKind.Absolute, out var uri) || uri.Scheme is not ("http" or "https")) throw new ArgumentException("Enter an HTTP or HTTPS address.");

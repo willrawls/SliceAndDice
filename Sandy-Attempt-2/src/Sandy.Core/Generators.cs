@@ -45,7 +45,7 @@ public static class HeaderGenerator
     public static GeneratedCode Generate(string header)
     {
         var notes=new List<string>();var b=new StringBuilder("using System;\r\nusing System.Runtime.InteropServices;\r\n\r\n");
-        header=Regex.Replace(header,@"/\*.*?\*/|//[^\r\n]*","",RegexOptions.Singleline);
+        header=HeaderInspection.StripComments(header);
         var defines=Regex.Matches(header,@"(?m)^\s*#define\s+(\w+)\s+([^\r\n]+)");
         if(defines.Count>0)
         {
@@ -53,6 +53,13 @@ public static class HeaderGenerator
             foreach(Match m in defines)
             {
                 var value=m.Groups[2].Value.Trim();var kind=value.StartsWith('"')?"string":Regex.IsMatch(value,@"^-?(?:0x[0-9A-Fa-f]+|\d+)$")?"int":"";
+                if(kind.Length==0&&Regex.IsMatch(value,@"^[\d\s()+*/%<>&|^~xXa-fA-FuUlL-]+$")) {
+                    var expression=SyntaxFactory.ParseExpression(value);if(!expression.ContainsDiagnostics)kind=value.EndsWith("UL",StringComparison.OrdinalIgnoreCase)?"ulong":value.EndsWith('U')||value.EndsWith('u')?"uint":value.EndsWith('L')||value.EndsWith('l')?"long":"int";
+                }
+                if(kind is "int" or "uint" or "long" or "ulong") {
+                    var literals=SyntaxFactory.ParseExpression(value).DescendantNodesAndSelf().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax>().Select(n=>n.Token.Value).ToArray();
+                    if(literals.Any(v=>v is ulong))kind="ulong";else if(literals.Any(v=>v is long))kind="long";else if(literals.Any(v=>v is uint))kind="uint";
+                }
                 if(kind.Length==0){notes.Add("Unconverted macro: "+m.Groups[1].Value);continue;}
                 b.Append("    public const ").Append(kind).Append(' ').Append(DatabaseGenerator.Identifier(m.Groups[1].Value)).Append(" = ").Append(value).Append(";\r\n");
             }
@@ -62,7 +69,10 @@ public static class HeaderGenerator
         {
             var name=m.Groups[4].Value.Length>0?m.Groups[4].Value:m.Groups[2].Value;if(name.Length==0){notes.Add("Anonymous declaration needs a name.");continue;}
             if(m.Groups[1].Value=="enum") { b.Append("public enum ").Append(DatabaseGenerator.Identifier(name)).Append("\r\n{\r\n").Append(m.Groups[3].Value.Trim()).Append("\r\n}\r\n\r\n");continue; }
-            var union=m.Groups[1].Value=="union";b.Append("[StructLayout(LayoutKind.").Append(union?"Explicit":"Sequential").Append(")]\r\npublic struct ").Append(DatabaseGenerator.Identifier(name)).Append("\r\n{\r\n");
+            var union=m.Groups[1].Value=="union";var pack=0;var packs=new Stack<int>();
+            foreach(Match pragma in Regex.Matches(header[..m.Index],@"#\s*pragma\s+pack\s*\(([^)]*)\)")) { var setting=pragma.Groups[1].Value.Trim();if(setting.StartsWith("push",StringComparison.OrdinalIgnoreCase)){packs.Push(pack);var pieces=setting.Split(',');if(int.TryParse(pieces.Last().Trim(),out var size))pack=size;}else if(setting.Equals("pop",StringComparison.OrdinalIgnoreCase))pack=packs.Count>0?packs.Pop():0;else if(int.TryParse(setting,out var size))pack=size; }
+            if(pack is not (0 or 1 or 2 or 4 or 8 or 16 or 32 or 64 or 128)){notes.Add(name+": unsupported packing "+pack);pack=0;}
+            b.Append("[StructLayout(LayoutKind.").Append(union?"Explicit":"Sequential").Append(pack>0?", Pack = "+pack:"").Append(")]\r\npublic struct ").Append(DatabaseGenerator.Identifier(name)).Append("\r\n{\r\n");
             foreach(var declaration in m.Groups[3].Value.Split(';',StringSplitOptions.RemoveEmptyEntries))
             {
                 if(string.IsNullOrWhiteSpace(declaration))continue;
@@ -71,7 +81,8 @@ public static class HeaderGenerator
                 var nativeType=Regex.Replace(field.Groups[1].Value.Trim(),@"\s+"," ");
                 if(!Types.TryGetValue(nativeType,out var type)){if(nativeType.Contains('*'))type="IntPtr";else{notes.Add(name+": unknown native type "+nativeType);continue;}}
                 if(union)b.Append("    [FieldOffset(0)]\r\n");
-                if(field.Groups[3].Success){b.Append("    [MarshalAs(UnmanagedType.ByValArray, SizeConst = ").Append(field.Groups[3].Value).Append(")]\r\n");type+="[]";}
+                if(type=="bool"&&!field.Groups[3].Success)b.Append("    [MarshalAs(UnmanagedType.I1)]\r\n");
+                if(field.Groups[3].Success){b.Append("    [MarshalAs(UnmanagedType.ByValArray, ").Append(type=="bool"?"ArraySubType = UnmanagedType.I1, ":"").Append("SizeConst = ").Append(field.Groups[3].Value).Append(")]\r\n");type+="[]";}
                 b.Append("    public ").Append(type).Append(' ').Append(DatabaseGenerator.Identifier(field.Groups[2].Value)).Append(";\r\n");
             }
             b.Append("}\r\n\r\n");

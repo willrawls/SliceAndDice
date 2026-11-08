@@ -12,7 +12,7 @@ internal static class WindowsEffects
     internal static void Validate(IEnumerable<ExternalEffect> effects)
     {
         foreach(var effect in effects)
-            if(!IsFile(effect) && effect.Kind is not ("Message" or "Clipboard" or "Setting" or "DeleteSetting" or "Process" or "Activate" or "SendKeys" or "Pause" or "WaitForFile"))
+            if(!IsFile(effect) && effect.Kind is not ("Message" or "Clipboard" or "Setting" or "DeleteSetting" or "Process" or "Activate" or "SendKeys" or "Pause" or "WaitForFile" or "EditorClose" or "EditorCloseAll"))
                 throw new NotSupportedException("This host cannot apply " + effect.Kind + ": " + effect.Target);
     }
     internal static string? ReadSetting(string name)
@@ -26,7 +26,7 @@ internal static class WindowsEffects
         var slash=name.LastIndexOf('/');if(slash<1)throw new FormatException("Setting requires section/key.");
         return(name[..slash].Replace('/','\\'),name[(slash+1)..]);
     }
-    internal static void Apply(ExternalEffect effect)
+    internal static string? Apply(ExternalEffect effect)
     {
         switch(effect.Kind)
         {
@@ -39,8 +39,8 @@ internal static class WindowsEffects
                 var (removeSection,removeKey)=SettingPath(effect.Target);
                 using(var registry=Registry.CurrentUser.OpenSubKey(@"Software\VB and VBA Program Settings\Slice and Dice\"+removeSection,true))registry?.DeleteValue(removeKey,false);
                 break;
-            case "Process": Microsoft.VisualBasic.Interaction.Shell(effect.Target,Microsoft.VisualBasic.AppWinStyle.NormalFocus);break;
-            case "Activate": Microsoft.VisualBasic.Interaction.AppActivate(effect.Target);break;
+            case "Process": return Microsoft.VisualBasic.Interaction.Shell(effect.Target,Microsoft.VisualBasic.AppWinStyle.NormalFocus).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            case "Activate": if(int.TryParse(effect.Target,out var processId))Microsoft.VisualBasic.Interaction.AppActivate(processId);else Microsoft.VisualBasic.Interaction.AppActivate(effect.Target);break;
             case "SendKeys":
                 OnSta(()=> {
                     var type=Type.GetTypeFromProgID("WScript.Shell")??throw new NotSupportedException("Windows Script Host is unavailable.");
@@ -51,8 +51,11 @@ internal static class WindowsEffects
             // These two commands were no-ops in Sandy/sadFile.cls. Keep that behavior.
             case "Pause":case "WaitForFile":break;
             case "Message":break;
+            // No native IDE code windows exist in the standalone host. The VSIX handles these itself.
+            case "EditorClose":case "EditorCloseAll":break;
             default:if(!IsFile(effect))throw new NotSupportedException("Unknown effect: "+effect.Kind);break;
         }
+        return null;
     }
     private static void OnSta(Action action)
     {

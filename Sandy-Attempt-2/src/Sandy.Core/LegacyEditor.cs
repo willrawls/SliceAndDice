@@ -5,6 +5,7 @@ namespace Sandy.Core;
 /// <summary>A virtual editor. Every command changes a plan, never the live IDE or filesystem.</summary>
 public sealed partial class LegacyEditor : ILegacyHost
 {
+    public LibraryMutation? LibraryMutation { get; internal set; }
     public static readonly HashSet<string> Commands = new(StringComparer.OrdinalIgnoreCase)
     {
         "GOTOMODULE","GOTOCLASS","GOTOFORM","GOTOPROJECT","GOTOPROC","GOTOPROCEND","PROCTOP","PROCEND",
@@ -167,7 +168,9 @@ public sealed partial class LegacyEditor : ILegacyHost
             case "DELETEPROC":case "COPYPROC":case "CUTPROC":var member=Procedure(words.FirstOrDefault()??"");Clipboard=Active.Text[member.Start..member.End];if(command!="COPYPROC"){Replace(member.Start,member.End-member.Start,"");Position=member.Start;}return true;
             case "GETCLIPBOARDTEXT":case "GETCLIPBOARD":case "GETCLIP":vars[parameters.Length==0?"Clipboard":parameters]=Effects.Any(e=>e.Kind=="Clipboard")?Clipboard:ClipboardReader?.Invoke()??Clipboard;return true;
             case "SETCLIPBOARDTEXT":case "SETCLIPBOARD":case "SETCLIP":Clipboard=Value(parameters);Effects.Add(new("Clipboard","",Clipboard));return true;
-            case "IGNOREREADONLY":case "WATCHREADONLY":case "CLOSE":case "CLOSECODE":case "CLOSEWINDOW":case "HIDE":case "HIDECODE":case "HIDEWINDOW":case "CLOSEALL":case "CLOSEWINDOWS":case "CLOSEALLWINDOWS":return true;
+            case "IGNOREREADONLY":case "IGNOREREAD":case "WATCHREADONLY":return true;
+            case "CLOSE":case "CLOSECODE":case "CLOSEWINDOW":case "HIDE":case "HIDECODE":case "HIDEWINDOW":Effects.Add(new("EditorClose",ActivePath));return true;
+            case "CLOSEALL":case "CLOSEWINDOWS":case "CLOSEALLWINDOWS":Effects.Add(new("EditorCloseAll",""));return true;
             default:return await ExecuteSupplementAsync(command,parameters,vars,ct);
         }
     }

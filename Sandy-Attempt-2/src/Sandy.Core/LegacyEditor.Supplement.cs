@@ -11,6 +11,8 @@ public sealed partial class LegacyEditor
     private readonly Dictionary<string,byte[]> plannedBinaryFiles=new(StringComparer.OrdinalIgnoreCase);
     public Func<Uri,CancellationToken,Task<byte[]>>? FetchAsync { get; set; }
     private Queue<string>? openFileLines;
+    private Queue<string> matchedFiles=new();
+    public Func<string,bool,IReadOnlyList<string>>? PathReader { get; set; }
     private readonly Dictionary<string,string?> plannedSettings=new(StringComparer.OrdinalIgnoreCase);
     private string? ReadSetting(string name)=>plannedSettings.TryGetValue(name,out var value)?value:RegistryReader?.Invoke(name);
     private string ReadFile(string path)
@@ -21,7 +23,7 @@ public sealed partial class LegacyEditor
     private void RecordEffect(ExternalEffect effect)
     {
         if(effect.Kind=="FileOverwrite") { if(effect.Data!=null)plannedBinaryFiles[PathName(effect.Target)]=effect.Data;else {plannedBinaryFiles.Remove(PathName(effect.Target));plannedFiles[PathName(effect.Target)]=effect.Value;} }
-        else if(effect.Kind=="FileAppend" && (FileReader!=null || plannedFiles.ContainsKey(PathName(effect.Target)))) { string old;try{old=ReadFile(effect.Target);}catch(FileNotFoundException){old="";}catch(DirectoryNotFoundException){old="";} plannedFiles[PathName(effect.Target)]=old+effect.Value; }
+        else if(effect.Kind=="FileAppend" && (FileReader!=null || plannedFiles.ContainsKey(PathName(effect.Target)) || plannedBinaryFiles.ContainsKey(PathName(effect.Target)))) { string old;try{old=ReadFile(effect.Target);}catch(FileNotFoundException){old="";}catch(DirectoryNotFoundException){old="";}plannedBinaryFiles.Remove(PathName(effect.Target)); plannedFiles[PathName(effect.Target)]=old+effect.Value; }
         else if(effect.Kind=="DeleteFile")plannedFiles[PathName(effect.Target)]=null;
         Effects.Add(effect);
     }
@@ -55,7 +57,8 @@ public sealed partial class LegacyEditor
                 RecordEffect(new("FileOverwrite",PathName(Value(key)),Data:download));return true;
             case "CHANGEDRIVE":case "DRIVE":case "CHDRIVE":case "CHANGEDIRECTORY":case "CHANGEDIR":case "CHDIR":case "CD":directory=Arg(0);return true;
             case "FILECONTENTS":case "GETFILE":case "FILETOSOFTVAR":case "FILETOVAR":vars[key]=ReadFile(Value(expression));return true;
-            case "OPENFORINPUT":case "OPENFILE":openFileLines=new Queue<string>(ReadFile(Arg(0)).Replace("\r\n","\n").TrimEnd('\n').Split('\n'));return true;
+            case "OPENFORINPUT":case "OPENFILE":
+                openFileLines=new();using(var reader=new StringReader(ReadFile(Arg(0))))while(reader.ReadLine() is {} fileLine)openFileLines.Enqueue(fileLine);return true;
             case "OPENFOROUTPUT":RecordEffect(new("FileOverwrite",PathName(Arg(0)),""));return true;
             case "LINEINPUTFROMFILE":case "READLINEFROMFILE":case "READFILELINE":case "FILEREADLINE":if(openFileLines==null||openFileLines.Count==0)throw new EndOfStreamException();vars[Arg(0)]=openFileLines.Dequeue();return true;
             case "CLOSEFILE":openFileLines=null;return true;
@@ -69,8 +72,9 @@ public sealed partial class LegacyEditor
             case "DELETEFILE":case "DELFILE":case "DEL":case "KILL":plannedBinaryFiles.Remove(PathName(Arg(0)));RecordEffect(new("DeleteFile",PathName(Arg(0))));return true;
             case "CREATEFOLDER":case "CREATEDIRECTORY":case "MAKEDIR":case "MKDIR":case "MD":Effects.Add(new("CreateDirectory",PathName(Arg(0))));return true;
             case "DELETEFOLDER":case "DELETEDIRECTORY":case "DELDIR":case "DELETEDIR":Effects.Add(new("DeleteDirectory",PathName(Arg(0))));return true;
-            case "RENAME":case "REN":case "RENAMEFILE":Effects.Add(new("Rename",PathName(Arg(0)),PathName(Arg(1))));return true;
-            case "RUNPROGRAM":case "SHELL":case "EXECUTE":Effects.Add(new("Process",Arg(0),Arg(1)));vars["SHELLID"]="planned";return true;
+            case "RENAME":case "REN":case "RENAMEFILE":
+                var renamed=ReadFile(Arg(0));plannedFiles[PathName(Arg(1))]=renamed;plannedFiles[PathName(Arg(0))]=null;plannedBinaryFiles.Remove(PathName(Arg(0)));Effects.Add(new("Rename",PathName(Arg(0)),PathName(Arg(1))));return true;
+            case "RUNPROGRAM":case "SHELL":case "EXECUTE":var processToken="<pending process id "+Effects.Count+">";Effects.Add(new("Process",Arg(0),ResultToken:processToken));vars["SHELLID"]=processToken;return true;
             case "ACTIVATE":case "APPACTIVATE":case "ACTIVATEAPPLICATION":case "SWITCHTOAPP":Effects.Add(new("Activate",Arg(0)));return true;
             case "SENDKEYS":case "SENDKEYSWITHPAUSE":case "SENDKEYSANDWAIT":case "SENDKEYSANDPAUSE":case "SENDKEYSWITHWAIT":Effects.Add(new("SendKeys",Arg(0)));return true;
             case "SAVESETTING":case "SAVEREGISTRYSETTING":case "SETREGKEY":plannedSettings[Arg(0)+"/"+Arg(1)]=Arg(2);Effects.Add(new("Setting",Arg(0)+"/"+Arg(1),Arg(2)));return true;
@@ -106,12 +110,14 @@ public sealed partial class LegacyEditor
                 if(!defaults.TryGetValue(kind,out var props))defaults[kind]=props=new(StringComparer.OrdinalIgnoreCase);props[pair[0]]=pair[1];return true;
             case "RESETDEFAULTS":defaults.Clear();return true;
             case "ADDCONTROL":
-                var pieces=parameters.Split(' ',2,StringSplitOptions.RemoveEmptyEntries);if(pieces.Length!=2)throw new FormatException("AddControl requires a control type and name.");
-                SelectedControl=pieces[1];Controls[SelectedControl]=defaults.TryGetValue(pieces[0],out var d)?new(d,StringComparer.OrdinalIgnoreCase):new(StringComparer.OrdinalIgnoreCase);
-                Controls[SelectedControl]["$Type"]=pieces[0];UpdateDesigner();return true;
+                RequireDesigner();var pieces=parameters.Split(' ',StringSplitOptions.RemoveEmptyEntries);if(pieces.Length is <2 or >3)throw new FormatException("AddControl requires Type Name [ParentControl].");
+                if(Controls.ContainsKey(pieces[1]))throw new InvalidOperationException("Control already exists: "+pieces[1]);
+                var created=defaults.TryGetValue(pieces[0],out var d)?new Dictionary<string,string>(d,StringComparer.OrdinalIgnoreCase):new(StringComparer.OrdinalIgnoreCase);
+                created["$Type"]=pieces[0];created["$Parent"]=pieces.ElementAtOrDefault(2)??"";
+                Active.Text=VbDesigner.Add(Active.Text,pieces[0],pieces[1],created,PropertyLiteral);LoadDesigner();SelectedControl=pieces[1];Position=Math.Min(Position,Active.Text.Length);return true;
             case "SELECTCONTROL":if(!Controls.ContainsKey(parameters))throw new InvalidOperationException("Control not found: "+parameters);SelectedControl=parameters;return true;
-            case "SETPROPERTY":if(!Controls.TryGetValue(SelectedControl,out var control))throw new InvalidOperationException("Select a control first.");control[key]=Value(expression);UpdateDesigner();return true;
-            case "SETFORMPROPERTY":case "FORMPROPERTY":FormProperties[key]=Value(expression);UpdateDesigner();return true;
+            case "SETPROPERTY":if(!Controls.ContainsKey(SelectedControl))throw new InvalidOperationException("Select a control first.");SetDesignerProperty(SelectedControl,key,Value(expression));return true;
+            case "SETFORMPROPERTY":case "FORMPROPERTY":SetDesignerProperty(null,key,Value(expression));return true;
             case "PROCATTR":
                 var procedure=Procedure();var attribute=parameters.Split(' ',2);if(attribute.Length!=2)throw new FormatException("ProcAttr requires an attribute and value.");
                 var attr=attribute[0].ToUpperInvariant() switch{"ID"=>"VB_UserMemId","HIDDEN"=>"VB_MemberFlags","DESC"=>"VB_Description",_=>throw new NotSupportedException("Unknown procedure attribute.")};
@@ -131,54 +137,27 @@ public sealed partial class LegacyEditor
         if(value.StartsWith('"') || Regex.IsMatch(value,@"^(?:-?\d+(?:\.\d+)?|&H[0-9A-F]+&?|True|False)$",RegexOptions.IgnoreCase))return value;
         return "\""+value.Replace("\"","\"\"")+"\"";
     }
-    private void LoadDesigner()
-    {
-        Controls.Clear(); FormProperties.Clear(); SelectedControl="";
-        if(!ActivePath.EndsWith(".frm",StringComparison.OrdinalIgnoreCase))return;
-        var stack=new Stack<Dictionary<string,string>>();
-        foreach(var line in Active.Text.Replace("\r\n","\n").Split('\n'))
-        {
-            var begin=Regex.Match(line,@"^\s*Begin (?<type>\S+) (?<name>\w+)\s*$",RegexOptions.IgnoreCase);
-            if(begin.Success)
-            {
-                var properties=stack.Count==0?FormProperties:new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
-                if(stack.Count>0){properties["$Type"]=begin.Groups["type"].Value;properties["$Parent"]=Controls.FirstOrDefault(c=>ReferenceEquals(c.Value,stack.Peek())).Key??"";Controls[begin.Groups["name"].Value]=properties;}
-                stack.Push(properties);continue;
-            }
-            if(line.Trim().Equals("End",StringComparison.OrdinalIgnoreCase)){if(stack.Count>0)stack.Pop();continue;}
-            var property=Regex.Match(line,@"^\s*(\w+)\s*=\s*(.*?)\s*$");
-            if(stack.Count>0&&property.Success)stack.Peek()[property.Groups[1].Value]=property.Groups[2].Value;
-        }
-    }
-    private void UpdateDesigner()
+    private void RequireDesigner()
     {
         if(!ActivePath.EndsWith(".frm",StringComparison.OrdinalIgnoreCase))throw new NotSupportedException("VB6 control definitions require a .frm document. They cannot be applied to a C#/Blazor designer.");
-        var root=Regex.Match(Active.Text,@"(?im)^Begin VB.Form \w+[^\r\n]*\r?\n");
-        if(!root.Success)throw new InvalidDataException("The document has no VB6 form definition.");
-        foreach(var pair in FormProperties)SetProperty(root.Index+root.Length,"   ",pair.Key,pair.Value);
-        foreach(var item in Controls)
-        {
-            var start=Regex.Match(Active.Text,@"(?im)^(?<indent> +)Begin \S+ "+Regex.Escape(item.Key)+@"\s*\r?$");
-            if(!start.Success)
-            {
-                var rootEnd=Regex.Match(Active.Text,@"(?m)^End\r?$");if(!rootEnd.Success)throw new InvalidDataException("The form definition is not closed.");
-                var block=new StringBuilder("   Begin "+item.Value["$Type"]+" "+item.Key+"\r\n");
-                foreach(var pair in item.Value.Where(x=>!x.Key.StartsWith('$')))block.Append("      ").Append(pair.Key).Append(" = ").Append(PropertyLiteral(pair.Value)).Append("\r\n");
-                block.Append("   End\r\n");Replace(rootEnd.Index,0,block.ToString());
-            }
-            else foreach(var pair in item.Value.Where(x=>!x.Key.StartsWith('$')))SetProperty(start.Index+start.Length,start.Groups["indent"].Value+"   ",pair.Key,pair.Value);
-        }
-        Position=Math.Min(Position,Active.Text.Length);
     }
-    private void SetProperty(int afterBegin,string indent,string key,string value)
+    private void LoadDesigner()
     {
-        var closing=Regex.Match(Active.Text[afterBegin..],@"(?m)^"+Regex.Escape(indent.Length>=3?indent[..^3]:"")+@"End\r?$");
-        var end=closing.Success?afterBegin+closing.Index:Active.Text.Length;
-        var pattern=@"(?m)^"+Regex.Escape(indent+key)+@"\s*=.*\r?$";
-        var existing=Regex.Match(Active.Text[afterBegin..end],pattern);
-        var line=indent+key+" = "+PropertyLiteral(value);
-        if(existing.Success)Replace(afterBegin+existing.Index,existing.Length,line);
-        else Replace(afterBegin,0,"\r\n"+line+"\r\n");
+        Controls.Clear();FormProperties.Clear();SelectedControl="";
+        if(!ActivePath.EndsWith(".frm",StringComparison.OrdinalIgnoreCase)||Active.Text.Length==0)return;
+        var root=VbDesigner.Parse(Active.Text);foreach(var p in VbDesigner.Properties(root))FormProperties[p.Key]=p.Value;
+        foreach(var block in VbDesigner.Controls(root))
+        {
+            var properties=VbDesigner.Properties(block);properties["$Type"]=block.Type;properties["$Name"]=block.Name;properties["$Parent"]=block.Parent==root?"":block.Parent?.Key??"";
+            Controls.Add(block.Key,properties);
+        }
+    }
+    private void SetDesignerProperty(string? control,string key,string value)
+    {
+        RequireDesigner();var selected=SelectedControl;Active.Text=VbDesigner.Set(Active.Text,control,key,PropertyLiteral(value));LoadDesigner();
+        if(control!=null&&key.Equals("Name",StringComparison.OrdinalIgnoreCase))selected=value+(selected.Contains('(')?selected[selected.IndexOf('(')..]:"");
+        else if(control!=null&&key.Equals("Index",StringComparison.OrdinalIgnoreCase))selected=selected.Split('(')[0]+"("+value+")";
+        SelectedControl=selected;Position=Math.Min(Position,Active.Text.Length);
     }
     internal IEnumerable<string> ExpandControlBlocks(IReadOnlyList<string> lines,bool byFrame)
     {
@@ -217,7 +196,13 @@ public sealed partial class LegacyEditor
             case "GETSETTING":case "GETREGISTRYSETTING":case "GETREGKEY":var parts=parameters.Split(',').Select(p=>Var(vars,p.Trim(),p.Trim())).ToArray();value=ReadSetting(string.Join("/",parts.Take(2)))??parts.ElementAtOrDefault(2)??"";return true;
             case "TESTEOF":case "EOF":case "ENDOFFILE":case "ISENDOFFILE":case "TESTENDOFFILE":value=openFileLines?.Count==0?"True":"False";return true;
             case "FILEEXISTS":case "EXISTENCE":case "DOESFILEEXIST":try{ReadFile(Var(vars,parameters,parameters));value="1";}catch(FileNotFoundException){value="0";}catch(DirectoryNotFoundException){value="0";}return true;
-            case "LISTFILES":case "FILES":case "ENUMFILES":case "LISTDIRS":case "LISTDIRECTORIES":case "DIRECTORIES":case "DIRS":case "ENUMDIRS":case "MATCHFILE":case "DIR":case "FINDFIRST":case "FIRSTFILE":value=DirectoryReader?.Invoke(parameters)??"";return true;
+            case "MATCHNEXTFILE":case "FINDNEXT":case "NEXTFILE":value=matchedFiles.Count>0?matchedFiles.Dequeue():"";return true;
+            case "LISTFILES":case "FILES":case "ENUMFILES":case "LISTDIRS":case "LISTDIRECTORIES":case "DIRECTORIES":case "DIRS":case "ENUMDIRS":case "MATCHFILE":case "DIR":case "FINDFIRST":case "FIRSTFILE":
+                var fileArgs=parameters.Split(',').Select(p=>Var(vars,p.Trim(),p.Trim())).ToArray();var match=command is "MATCHFILE" or "DIR" or "FINDFIRST" or "FIRSTFILE";
+                var dirs=command is "LISTDIRS" or "LISTDIRECTORIES" or "DIRECTORIES" or "DIRS" or "ENUMDIRS"||match&&fileArgs.ElementAtOrDefault(1)?.Equals("DIRECTORY",StringComparison.OrdinalIgnoreCase)==true;
+                var pattern=match?PathName(fileArgs[0]):Path.Combine(PathName(fileArgs.ElementAtOrDefault(0) is {Length:>0} path?path:"."),fileArgs.ElementAtOrDefault(1) is {Length:>0} mask?mask:"*");
+                var names=(PathReader?.Invoke(pattern,dirs)??(DirectoryReader?.Invoke(pattern)??"").Split(';',StringSplitOptions.RemoveEmptyEntries)).Select(Path.GetFileName).Select(n=>n!).OrderBy(n=>n,StringComparer.OrdinalIgnoreCase).ToArray();
+                if(match){matchedFiles=new(names);value=matchedFiles.Count>0?matchedFiles.Dequeue():"";}else value=string.Join(";",names)+(names.Length>0?";":"");return true;
             case "MANGLE":value=LegacyStrings.Mangle(Var(vars,parameters,parameters));return true;
             default:return false;
         }

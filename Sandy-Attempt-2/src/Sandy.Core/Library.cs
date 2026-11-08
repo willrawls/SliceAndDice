@@ -32,6 +32,23 @@ public sealed class Category
 
 public sealed class Library
 {
+    public Library Clone()
+    {
+        var copy=new Library();copy.AuxiliaryRecords.AddRange(AuxiliaryRecords.Select(e=>new XElement(e)));
+        foreach(var category in Categories){var c=new Category();foreach(var p in category.Fields)c.Fields[p.Key]=p.Value;foreach(var t in category.Templates){var clone=new Template();foreach(var p in t.Fields)clone[p.Key]=p.Value;c.Templates.Add(clone);}copy.Categories.Add(c);}
+        return copy;
+    }
+    public string Serialize()
+    {
+        Validate();var builder=new System.Text.StringBuilder();
+        using(var writer=XmlWriter.Create(builder,new XmlWriterSettings{OmitXmlDeclaration=true,Indent=true,NewLineHandling=NewLineHandling.Entitize}))Document().Save(writer);
+        return builder.ToString();
+    }
+    private XDocument Document()
+    {
+        var root=new XElement("dataroot",Categories.Select(c=>new XElement("Category",c.Fields.Select(p=>new XElement(XmlConvert.EncodeLocalName(p.Key),p.Value)),c.Templates.Select(t=>new XElement("Template",t.Fields.Select(p=>new XElement(XmlConvert.EncodeLocalName(p.Key),p.Value)))))));
+        root.Add(AuxiliaryRecords.Select(e=>new XElement(e)));return new(root);
+    }
     public List<Category> Categories { get; } = [];
     public List<XElement> AuxiliaryRecords { get; } = [];
     public IEnumerable<Template> Templates => Categories.SelectMany(x => x.Templates);
@@ -46,11 +63,11 @@ public sealed class Library
         foreach (var element in root.Elements().Where(x => x.Name.LocalName == "Category"))
         {
             var category = new Category();
-            foreach (var field in element.Elements().Where(x => x.Name.LocalName != "Template")) category.Fields.Add(field.Name.LocalName, field.Value);
+            foreach (var field in element.Elements().Where(x => x.Name.LocalName != "Template")) category.Fields.Add(XmlConvert.DecodeName(field.Name.LocalName), field.Value);
             foreach (var item in element.Elements().Where(x => x.Name.LocalName == "Template"))
             {
                 var template = new Template();
-                foreach (var field in item.Elements()) template.Fields.Add(field.Name.LocalName, field.Value);
+                foreach (var field in item.Elements()) template.Fields.Add(XmlConvert.DecodeName(field.Name.LocalName), field.Value);
                 category.Templates.Add(template);
             }
             result.Categories.Add(category);
@@ -76,15 +93,13 @@ public sealed class Library
     public void Save(string filename)
     {
         Validate();
-        var root = new XElement("dataroot", Categories.Select(c => new XElement("Category",
-            c.Fields.Select(x => new XElement(x.Key, x.Value)), c.Templates.Select(t => new XElement("Template", t.Fields.Select(x => new XElement(x.Key, x.Value)))))));
-        root.Add(AuxiliaryRecords.Select(e=>new XElement(e)));
+        var document = Document();
         // Complete the new document before replacing an existing working copy.
         var temporary = filename + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {
             using (var writer = XmlWriter.Create(temporary, new XmlWriterSettings { Indent = true, NewLineHandling = NewLineHandling.Entitize, Encoding = new System.Text.UTF8Encoding(false) }))
-                new XDocument(root).Save(writer);
+                document.Save(writer);
             System.IO.File.Move(temporary, filename, true);
         }
         finally { if (System.IO.File.Exists(temporary)) System.IO.File.Delete(temporary); }

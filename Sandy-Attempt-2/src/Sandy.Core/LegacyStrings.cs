@@ -33,7 +33,7 @@ public interface ILegacyHost
     void Write(CodeArea area, OutputDestination destination, string target, string text);
 }
 
-public sealed record ExternalEffect(string Kind, string Target, string Value = "", byte[]? Data = null);
+public sealed record ExternalEffect(string Kind, string Target, string Value = "", byte[]? Data = null, string? ResultToken = null);
 public sealed class PlannedDocument(string path, string original)
 {
     public string Path { get; } = path;

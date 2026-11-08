@@ -1,0 +1,19 @@
+@inject IDesktopServices Desktop
+@implements IDisposable
+<div class="legacy-fields web-workspace">
+<label>Address<input @bind="url" @bind:event="oninput" disabled="@busy" /></label><label>Alternate address<input @bind="alternate" disabled="@busy" /></label>
+<div><button @onclick="()=>Request(false)" disabled="@busy">GET</button><button @onclick="()=>Request(true)" disabled="@busy">POST fields</button><button @onclick="()=>pending?.Cancel()" disabled="@(!busy)">Cancel request</button><button @onclick="UseAlternate" disabled="@(busy||alternate.Length==0)">Use alternate</button><button @onclick="OpenBrowser">Open in browser</button></div>
+<label>POST fields (Name=Value, one per line)<textarea rows="5" @bind="fields" disabled="@busy"></textarea></label>
+<label>Request history<select value="" @onchange="SelectHistory"><option value="">Choose a previous address…</option>@foreach(var item in history){<option value="@item">@item</option>}</select></label>
+<p role="status">@status</p><textarea rows="14" class="generated-code" readonly value="@response?.Text"></textarea><button @onclick="SaveResponse" disabled="@(response==null)">Save response</button>
+</div>
+@code {
+    private string url="https://",alternate="",fields="",status="";private bool busy;private WebResponse? response;private CancellationTokenSource? pending;private List<string> history=[];
+    protected override void OnInitialized(){try{if(Desktop.ReadPreference("web-history") is {} saved)history=System.Text.Json.JsonSerializer.Deserialize<List<string>>(saved)??[];}catch(Exception e){status=e.Message;}}
+    private async Task Request(bool post){if(busy)return;busy=true;pending=new();try{response=await WebAutomation.RequestAsync(url,post,post?WebAutomation.ParseFields(fields):[],pending.Token);status=$"HTTP {response.Status} · {response.ContentType} · {response.Body.Length} bytes";url=response.Url;history.Remove(url);history.Insert(0,url);history=history.Take(100).ToList();Desktop.WritePreference("web-history",System.Text.Json.JsonSerializer.Serialize(history));}catch(OperationCanceledException){status="Request cancelled.";}catch(Exception e){status=e.Message;}finally{pending.Dispose();pending=null;busy=false;}}
+    private void SelectHistory(ChangeEventArgs e){if(e.Value?.ToString() is {Length:>0} value)url=value;}
+    private void UseAlternate(){(url,alternate)=(alternate,url);}
+    private void OpenBrowser(){try{Desktop.OpenUrl(url);}catch(Exception e){status=e.Message;}}
+    private void SaveResponse(){try{if(response==null)return;var file=Desktop.SaveText(response.ContentType.Contains("html",StringComparison.OrdinalIgnoreCase)?"response.html":"response.bin");if(file!=null)File.WriteAllBytes(file,response.Body);}catch(Exception e){status=e.Message;}}
+    public void Dispose(){pending?.Cancel();}
+}

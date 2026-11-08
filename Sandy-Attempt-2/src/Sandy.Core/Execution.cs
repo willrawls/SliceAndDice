@@ -2,9 +2,10 @@ namespace Sandy.Core;
 
 public sealed class PromptRequest
 {
-    public PromptRequest(string name, string defaultValue) { Name = name; DefaultValue = defaultValue; }
+    public PromptRequest(string name, string defaultValue,string[]? choices=null) { Name = name; DefaultValue = defaultValue; Choices=choices; }
     public string Name { get; }
     public string DefaultValue { get; }
+    public string[]? Choices { get; }
 }
 
 public enum OutputDestination { Editor, FileAppend, FileOverwrite, Clipboard, Message, Variable, Keyboard }
@@ -42,6 +43,7 @@ public interface ISandyCommandProvider
 
 public sealed class ExecutionResult
 {
+    public LibraryMutation? LibraryMutation { get; internal set; }
     public IList<OutputBlock> Outputs { get; } = new List<OutputBlock>();
     public IDictionary<string, string> Variables { get; internal set; } = new Dictionary<string, string>();
 }

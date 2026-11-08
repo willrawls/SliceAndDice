@@ -11,7 +11,7 @@ try {
     dotnet "src/Sandy.Desktop/bin/$Configuration/net10.0-windows10.0.17763.0/Sandy.Desktop.dll" --smoke-ui artifacts/blazor-verification
     if ($LASTEXITCODE -ne 0) { throw 'Form smoke test failed.' }
     $renders = Get-Content artifacts/blazor-verification/results.json -Raw | ConvertFrom-Json
-    if (-not $renders.Workbench -or @($renders.Forms).Count -ne 20 -or -not $renders.DraftSwitching -or -not $renders.SaveReload -or -not $renders.RepeatedPrompts -or -not $renders.LegacyObfuscation -or -not $renders.CommandReference) { throw 'Blazor workspace/dialog checks failed.' }
+    if (-not $renders.Workbench -or @($renders.Forms).Count -ne 20 -or -not $renders.DraftSwitching -or -not $renders.SaveReload -or -not $renders.RepeatedPrompts -or -not $renders.ChoicePrompt -or -not $renders.LibraryMutation -or -not $renders.DatabaseGeneration -or -not $renders.NativeShellRegistration -or -not $renders.LegacyObfuscation -or -not $renders.CommandReference) { throw 'Blazor workspace/dialog checks failed.' }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $package = [IO.Compression.ZipFile]::OpenRead((Join-Path $PSScriptRoot "src/Sandy.VisualStudio/bin/$Configuration/net10.0-windows10.0.17763.0/Sandy.VisualStudio.vsix"))
     try {
