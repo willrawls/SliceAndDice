@@ -1,0 +1,107 @@
+using System.Xml;
+using System.Xml.Linq;
+
+namespace Sandy.Core;
+
+public enum CodeArea { Declarations, Cursor, Bottom, File }
+
+public sealed class Template
+{
+    public Dictionary<string, string> Fields { get; } = new(StringComparer.OrdinalIgnoreCase);
+    public string this[string field] { get => Fields.GetValueOrDefault(field, ""); set => Fields[field] = value; }
+    public string Name => this["TemplateName"];
+    public bool Locked => Flag("Locked");
+    public bool Flag(string field) => this[field] is "1" or "-1" || this[field].Equals("true", StringComparison.OrdinalIgnoreCase);
+    public static string CodeField(CodeArea area) => area switch
+    {
+        CodeArea.Declarations => "memoCodeAtTop", CodeArea.Cursor => "memoCodeAtCursor",
+        CodeArea.Bottom => "memoCodeAtBottom", _ => "memoCodeToFile"
+    };
+    public string Code(CodeArea area) => this[CodeField(area)];
+    public override string ToString() => Name;
+}
+
+public sealed class Category
+{
+    public Dictionary<string, string> Fields { get; } = new(StringComparer.OrdinalIgnoreCase);
+    public string Name => Fields.GetValueOrDefault("CategoryName", "");
+    public List<Template> Templates { get; } = [];
+    public override string ToString() => Name;
+}
+
+public sealed class Library
+{
+    public List<Category> Categories { get; } = [];
+    public IEnumerable<Template> Templates => Categories.SelectMany(x => x.Templates);
+
+    public static Library Load(string filename)
+    {
+        using var reader = XmlReader.Create(filename, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null });
+        var root = XDocument.Load(reader).Root ?? throw new InvalidDataException("Missing XML root.");
+        if (root.Name.LocalName != "dataroot") throw new InvalidDataException("Choose an Access Category.xml export, not a COM type-library XML file.");
+        var result = new Library();
+        foreach (var element in root.Elements().Where(x => x.Name.LocalName == "Category"))
+        {
+            var category = new Category();
+            foreach (var field in element.Elements().Where(x => x.Name.LocalName != "Template")) category.Fields.Add(field.Name.LocalName, field.Value);
+            foreach (var item in element.Elements().Where(x => x.Name.LocalName == "Template"))
+            {
+                var template = new Template();
+                foreach (var field in item.Elements()) template.Fields.Add(field.Name.LocalName, field.Value);
+                category.Templates.Add(template);
+            }
+            result.Categories.Add(category);
+        }
+        result.Validate();
+        return result;
+    }
+
+    public void Validate()
+    {
+        var categoryIds = new HashSet<string>();
+        var templateIds = new HashSet<string>();
+        foreach (var category in Categories)
+        {
+            var id = category.Fields.GetValueOrDefault("CategoryID", "");
+            if (id.Length == 0 || !categoryIds.Add(id)) throw new InvalidDataException("Missing or duplicate CategoryID: " + id);
+            foreach (var template in category.Templates)
+                if (template["CategoryID"] != id || template["TemplateID"].Length == 0 || !templateIds.Add(template["TemplateID"]))
+                    throw new InvalidDataException("Invalid template identity: " + template.Name);
+        }
+    }
+
+    public void Save(string filename)
+    {
+        Validate();
+        var root = new XElement("dataroot", Categories.Select(c => new XElement("Category",
+            c.Fields.Select(x => new XElement(x.Key, x.Value)), c.Templates.Select(t => new XElement("Template", t.Fields.Select(x => new XElement(x.Key, x.Value)))))));
+        // Complete the new document before replacing an existing working copy.
+        var temporary = filename + "." + Guid.NewGuid().ToString("N") + ".tmp";
+        try
+        {
+            using (var writer = XmlWriter.Create(temporary, new XmlWriterSettings { Indent = true, NewLineHandling = NewLineHandling.Entitize, Encoding = new System.Text.UTF8Encoding(false) }))
+                new XDocument(root).Save(writer);
+            System.IO.File.Move(temporary, filename, true);
+        }
+        finally { if (System.IO.File.Exists(temporary)) System.IO.File.Delete(temporary); }
+    }
+
+    public Template Find(string name)
+    {
+        var found = Templates.Where(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToArray();
+        if (found.Length == 0) found = Templates.Where(t => t["ShortTemplateName"].Equals(name, StringComparison.OrdinalIgnoreCase)).ToArray();
+        return found.Length == 1 ? found[0] : throw new InvalidOperationException("Missing or ambiguous template: " + name);
+    }
+
+    public void Update(Template template, IReadOnlyDictionary<CodeArea, string> code, string filename)
+    {
+        if (!Templates.Contains(template)) throw new InvalidOperationException("Template belongs to another library.");
+        if (code.All(x => template.Code(x.Key) == x.Value) && template["Filename"] == filename) return;
+        if (template.Locked) throw new InvalidOperationException("The template is locked.");
+        var revision = checked(int.Parse(template["RevisionCount"].Length == 0 ? "0" : template["RevisionCount"], System.Globalization.CultureInfo.InvariantCulture) + 1);
+        foreach (var entry in code) template[Template.CodeField(entry.Key)] = entry.Value;
+        template["Filename"] = filename;
+        template["RevisionCount"] = revision.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        template["DateModified"] = DateTime.Now.ToString("O");
+    }
+}

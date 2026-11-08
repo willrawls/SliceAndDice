@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Sandy.Core/Sandy.Core.csproj" />
+    <EmbeddedResource Include="Forms/catalog.json" />
+    <Content Include="../../tools/Export-LegacyMdb.ps1" Link="Export-LegacyMdb.ps1" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../Libraries/*.xml" Link="Libraries/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataroot>
+  <Category>
+    <CategoryID>1</CategoryID><CategoryName>CSharp</CategoryName>
+    <Template>
+      <TemplateID>1</TemplateID><CategoryID>1</CategoryID><TemplateName>CSharp - Property</TemplateName><ShortTemplateName>Property</ShortTemplateName><RevisionCount>1</RevisionCount>
+      <memoCodeAtCursor>public %%Type::string%% %%Name::Title%% { get; set; }</memoCodeAtCursor>
+    </Template>
+    <Template>
+      <TemplateID>2</TemplateID><CategoryID>1</CategoryID><TemplateName>CSharp - Class</TemplateName><ShortTemplateName>Class</ShortTemplateName><RevisionCount>1</RevisionCount>
+      <memoCodeAtCursor>public sealed class %%Name::Example%%
+{
+    public %%Name%%()
+    {
+    }
+}</memoCodeAtCursor>
+    </Template>
+  </Category>
+</dataroot>

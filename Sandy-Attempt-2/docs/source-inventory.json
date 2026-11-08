@@ -1,0 +1,755 @@
+{
+  "forms": 21,
+  "missingProjectReferences": [
+    {
+      "project": "Sandy/MyFirstCommandSet.vbp",
+      "reference": "CommandSetDLL.cls"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "Form1.frm"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "CCategory.cls"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "CCategorys.cls"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "CSliceAndDice.cls"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "CTemplate.cls"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "CTemplates.cls"
+    },
+    {
+      "project": "Sandy/Project1.vbp",
+      "reference": "basGeneral.bas"
+    },
+    {
+      "project": "Sandy/sadAutoWebVBCodeDotCom.vbp",
+      "reference": "frmAutoWebBrowser.frm"
+    },
+    {
+      "project": "Sandy/sadKTEval.vbp",
+      "reference": "Evaluator.cls"
+    },
+    {
+      "project": "Sandy/sadSoftCodeWmr.vbp",
+      "reference": "frmMessage.frm"
+    },
+    {
+      "project": "Sandy/sadWebVBCode.vbp",
+      "reference": "frmAutoWebBrowser.frm"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CAssoc.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CSliceAndDice.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CCategorys.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CCategory.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CTemplates.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CTemplate.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CSadCommand.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CSadCommands.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CSadAddin.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CInsertionInfo.cls"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "basGeneral.bas"
+    },
+    {
+      "project": "Sandy/SliceAndDice.vbp",
+      "reference": "CRegHotKey.cls"
+    }
+  ],
+  "sources": [
+    {
+      "path": "Sandy/CAssocArray.cls",
+      "sha256": "0f31217a5fd8bb093e45bec59886492084a23e30818aedaa31492a2f584f84dc"
+    },
+    {
+      "path": "Sandy/CAssocArrays.cls",
+      "sha256": "ef89e6c6c3d6796ba8d9b8a71c6ff0b1dfd4cf33a26d7165b7dba9aad2601649"
+    },
+    {
+      "path": "Sandy/CAssocItem.cls",
+      "sha256": "5febe6decf3397c443471e6e1e0a2ac79f3cabc3549063641001c85e363ff909"
+    },
+    {
+      "path": "Sandy/Converter/VB2C_src.zip",
+      "sha256": "194a54f15e9bda559b6ea667288c6e7264227f7d80e3b9be2c21953d329717de"
+    },
+    {
+      "path": "Sandy/DataView/CAssocArray.cls",
+      "sha256": "0f31217a5fd8bb093e45bec59886492084a23e30818aedaa31492a2f584f84dc"
+    },
+    {
+      "path": "Sandy/DataView/CAssocArrays.cls",
+      "sha256": "ef89e6c6c3d6796ba8d9b8a71c6ff0b1dfd4cf33a26d7165b7dba9aad2601649"
+    },
+    {
+      "path": "Sandy/DataView/CAssocItem.cls",
+      "sha256": "5febe6decf3397c443471e6e1e0a2ac79f3cabc3549063641001c85e363ff909"
+    },
+    {
+      "path": "Sandy/DataView/DataView.ctl",
+      "sha256": "1eddc05d9ac4978be8f6fdb0fd60cbb5d1c782d78f74bd76ce5e3594de7a9a18"
+    },
+    {
+      "path": "Sandy/DataView/FirmSolutionsDV.exp",
+      "sha256": "015cfb9ec4e04ee8c49810d36a9399f778f7532612ac6fd1c4b1488f484f803d"
+    },
+    {
+      "path": "Sandy/DataView/FirmSolutionsDV.lib",
+      "sha256": "eb483ba7652c33f08df8f989add17d6d88c1764c643135dfc1b6c8114c73f41d"
+    },
+    {
+      "path": "Sandy/DataView/FirmSolutionsDV.oca",
+      "sha256": "bd60898fad5c43cb4df2399c2271d6c12c113712389e1870de7a7784a0693623"
+    },
+    {
+      "path": "Sandy/DataView/FirmSolutionsDV.ocx",
+      "sha256": "ddc631c13513ac49a7c5f45afa5d4d3b07b6546f440515663c8b912a667569cb"
+    },
+    {
+      "path": "Sandy/DataView/FirmSolutionsDV.vbp",
+      "sha256": "b1a7b996cc48e4de6548b991c9e7f1d4c0808d5da1579930a1a6e90ae270eb88"
+    },
+    {
+      "path": "Sandy/DataView/FirmSolutionsDV.vbw",
+      "sha256": "26fca0b5d466e91149a914fa5ad189723d554afec3f1e969f6cb796a13aa499d"
+    },
+    {
+      "path": "Sandy/DataView/Form1.frm",
+      "sha256": "4c4dabda8953aefb422081f3efb38834bf2d2052942d804d1391dde301cd91f0"
+    },
+    {
+      "path": "Sandy/DataView/Form1.frx",
+      "sha256": "6a242f0c48f511bf59a8d73a5ff7e3ab00e38336953d6b53f57bd56fe3bcd8ab"
+    },
+    {
+      "path": "Sandy/DataView/Group1.vbg",
+      "sha256": "29c559242abf86b75e22bcfe2c0969441109ec075212491117a1b7a420c9ded9"
+    },
+    {
+      "path": "Sandy/DataView/modGeneral.bas",
+      "sha256": "c403a13e6fd590cb9bd5a17e3ea58242f8b059f3bf9dc185cb69c5d082d3e03f"
+    },
+    {
+      "path": "Sandy/DataView/Project1.vbp",
+      "sha256": "b73f06e58a42a14998a3b2cba8a5a212b651746d4068e823313d4d0d7f158c10"
+    },
+    {
+      "path": "Sandy/DataView/Project1.vbw",
+      "sha256": "f7b8e5b68d4de7cb6f0150deefdc452cdaf3e3190d9f2e7380067589630c7519"
+    },
+    {
+      "path": "Sandy/frmAutoWebURLEntry.frm",
+      "sha256": "35671cd700613bdc3cea284436e5a335e00b00a5f43478f0b065abd0a57ee238"
+    },
+    {
+      "path": "Sandy/frmAutoWebURLEntry.frx",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "Sandy/frmBrowser.frm",
+      "sha256": "f0bc1aab4f5ad97a261c7567151fa705e417a55861b149bd56a6e1d386052926"
+    },
+    {
+      "path": "Sandy/frmBrowser.frx",
+      "sha256": "4f5c001cc573aa139c5e14b259958090ef5a7017e36a46ba19269899a9850d2b"
+    },
+    {
+      "path": "Sandy/frmCommandHelp.frm",
+      "sha256": "450e4edd3fcc7a01fe892eb1f2a15bc026e2a6057d8d56c127f938973acbf107"
+    },
+    {
+      "path": "Sandy/frmCommandHelp.frx",
+      "sha256": "bfc4e765892d9750829401dbcbfc694fc14d0e81ddee1a469e1ba85f83a81d63"
+    },
+    {
+      "path": "Sandy/frmDBClassGen.frm",
+      "sha256": "f2809e7324ae90160cf32d98b669db2d2857b5ab90f6dc4de9c81b1ab794e1ab"
+    },
+    {
+      "path": "Sandy/frmDBClassGen.frx",
+      "sha256": "13d9019c439e4995d8cbf1d75c75f316c33338c7abdbd8898b2f02418d4e6808"
+    },
+    {
+      "path": "Sandy/frmFieldType.frm",
+      "sha256": "bd555e5b8229ae83fde158a4aa962c2d639b371b2cf824fac25a5da52ab08d6c"
+    },
+    {
+      "path": "Sandy/frmFieldType.frx",
+      "sha256": "01b6ce87aa7da68a54868582b515506dd90f66d6c7558f9beef0f11ca2ceae23"
+    },
+    {
+      "path": "Sandy/frmFileList.frm",
+      "sha256": "fddda583064244aa5bc0dfdcc9717ec17bebe24c1562646ecde05128bbfeefe2"
+    },
+    {
+      "path": "Sandy/frmFindReplace.frm",
+      "sha256": "e13c8034eb2d8a40c598accb7978f5cdd3c397852fea3f3a33d6faac2284b8ee"
+    },
+    {
+      "path": "Sandy/frmFindReplace.frx",
+      "sha256": "b52c930c557932db4894846f4617a462ab240cb7d252502afd09e6ec918ed673"
+    },
+    {
+      "path": "Sandy/frmListSelect.frm",
+      "sha256": "30b6b01571c16ee0ea569df0d6670703f75e92cc0669f1aa289768b07ee8e558"
+    },
+    {
+      "path": "Sandy/frmListSelect.frx",
+      "sha256": "453b61a59b30296ab3f016a0f04d5b3247ae3149401b85078a37b627630fc247"
+    },
+    {
+      "path": "Sandy/frmLogin.frm",
+      "sha256": "86681653d8b0b8d94493d2c513a2161462ee3df9da4d96f1eef9018006082207"
+    },
+    {
+      "path": "Sandy/frmMain.frm",
+      "sha256": "ccf63a6fc5c83becd1d41d86e06e565872cd866e13b8666a0eea7fe21a95e144"
+    },
+    {
+      "path": "Sandy/frmMain.frx",
+      "sha256": "9bc66fd66a8a903aaad7e25645b2306afa92626e6eea320f5a1f0db042a02d67"
+    },
+    {
+      "path": "Sandy/frmODBCClassGen.frm",
+      "sha256": "f063e9e812dfc06d61b1c51d4ae960a145231a38b6fdba36e790199511947ff9"
+    },
+    {
+      "path": "Sandy/frmODBCClassGen.frx",
+      "sha256": "70ba2a0109009f2bd20548c78893843b641a27028ad642a7fc6a582406763edd"
+    },
+    {
+      "path": "Sandy/frmODBCFieldType.frm",
+      "sha256": "a89b5218343aef79892d6871df4fdfdfb5b68bd172f6629a0d1c1f467cdaea67"
+    },
+    {
+      "path": "Sandy/frmODBCFieldType.frx",
+      "sha256": "01b6ce87aa7da68a54868582b515506dd90f66d6c7558f9beef0f11ca2ceae23"
+    },
+    {
+      "path": "Sandy/frmOptions.frm",
+      "sha256": "509467a89ccb50dba9cdf949c42f67b384174e7755bcc26cf5d2097088938389"
+    },
+    {
+      "path": "Sandy/frmOptions.frx",
+      "sha256": "ba05262ccc72791c4fd799ae0db97e8aa5cbaee34e1484cbf136c7caddec1f11"
+    },
+    {
+      "path": "Sandy/frmProgress.frm",
+      "sha256": "8b1a2ec8177b41d4218ba01162fadbf4bb53c0e989bb53b02ee129f90caa655a"
+    },
+    {
+      "path": "Sandy/frmProgress.frx",
+      "sha256": "bfc4e765892d9750829401dbcbfc694fc14d0e81ddee1a469e1ba85f83a81d63"
+    },
+    {
+      "path": "Sandy/frmRegister.frm",
+      "sha256": "f6c92d138afb34b8d1a8b84ae40fe6442169b55920774c7f05afa9173935e3ee"
+    },
+    {
+      "path": "Sandy/frmSplash.frm",
+      "sha256": "d24fa8a9e8eb691dd951f481da57016524e48702b43d1952affcb4200ab21329"
+    },
+    {
+      "path": "Sandy/frmSplash.frx",
+      "sha256": "1add8b7d4863dabcaa4e08ba1f2b6fc2141a249d2c4731dc3c55ed4a67405cb8"
+    },
+    {
+      "path": "Sandy/frmTest.frm",
+      "sha256": "7c85e67812cda73d82b1a50c9439b428ea6f48e94cadd36b377b66329c972521"
+    },
+    {
+      "path": "Sandy/frmTest.frx",
+      "sha256": "2e342191987aeef51b030b7e10364dfe74c9bc5851640feb503ce1a99dd971cb"
+    },
+    {
+      "path": "Sandy/frmVB5AddInTool.frm",
+      "sha256": "72c694ac2d597c383c8275f87937009323438580715b601c14d0ba20f473c54e"
+    },
+    {
+      "path": "Sandy/frmVB5AddInTool.frx",
+      "sha256": "bb6af98db51ae09b4f686ce51aa95bcccd2b43526e1b0f817b5fd41e818b4b05"
+    },
+    {
+      "path": "Sandy/FSListBar.bmp",
+      "sha256": "bfaedd109951a0256085de45e139938a363d41ad6a7ce2988f1350414de35d0a"
+    },
+    {
+      "path": "Sandy/FSListBar.ctl",
+      "sha256": "16456a1fe3d614564595c2df35821b2b9d67bebb9d447e02912731803dfa627b"
+    },
+    {
+      "path": "Sandy/FSListBar.ctx",
+      "sha256": "60963d02a89d7aa798712d35c1d08be4363e850279d480999c021bb4e1e2e2c0"
+    },
+    {
+      "path": "Sandy/fslogo.bmp",
+      "sha256": "db153be4167fc734299133f98ae305129d0dbb94238388d37115c639fcee0449"
+    },
+    {
+      "path": "Sandy/fslogo.gif",
+      "sha256": "0588faaeea3c273016bdaf3a5358e81be1adf77386df33e8437f7ae5a48d9b53"
+    },
+    {
+      "path": "Sandy/fslogo.jpg",
+      "sha256": "a8c8ebe1ea999d92907c61ad50a0160af22c4e19d849300667365e450d45efcd"
+    },
+    {
+      "path": "Sandy/fslogo_51077110.gif",
+      "sha256": "8662aa7635517bb61bfdb51c181ace13d40fb3c40200af00841096e28fcc0ef4"
+    },
+    {
+      "path": "Sandy/fslogo_54767110.gif",
+      "sha256": "d0f9f8857110a1b95f02bb22437293e3b41aa87e6515ca7fcf2a0e168393a9b4"
+    },
+    {
+      "path": "Sandy/fslogo_5730.gif",
+      "sha256": "e2ddd5dbaa8d5b1e20065cb6fff4be96583a5007a0dd0b2d2ef21a43838537ff"
+    },
+    {
+      "path": "Sandy/fslogo_5953.gif",
+      "sha256": "acb609b411a834a0a7ae115f44c36a69a3df90ed03c7e81793775e34c7cac0dd"
+    },
+    {
+      "path": "Sandy/fslogo_blurred.gif",
+      "sha256": "fdca725937f2b2309cec69e380623a3e5ca4e4e03f54fda7356af5f367ac77b7"
+    },
+    {
+      "path": "Sandy/fslogobw.bmp",
+      "sha256": "db153be4167fc734299133f98ae305129d0dbb94238388d37115c639fcee0449"
+    },
+    {
+      "path": "Sandy/fslogoinverted.gif",
+      "sha256": "7175db8a9c2fa1a218ffb6595a03ee5cde13815a3c455f331ae43494e1aa8c74"
+    },
+    {
+      "path": "Sandy/ISandyEnv.cls",
+      "sha256": "5853b3191fbb3bc1ec33127ff84e13300e4a181f31cf0fde9a8381582bef8ed4"
+    },
+    {
+      "path": "Sandy/ISandyIDE.cls",
+      "sha256": "409ed22af2a04dc7147b99d697857d7fdb75c9d6aeb8d9a770543df98ca360dc"
+    },
+    {
+      "path": "Sandy/ktevalNewCommands.cls",
+      "sha256": "401a9f63f61a55c731450476c12f017b4ed00db5a7248abff441ba2c27c93c7b"
+    },
+    {
+      "path": "Sandy/modAutoWebExceptionHandler.bas",
+      "sha256": "3b90a98dcf8f5a9aeca9493d26648a319d062f4b290e9555ee3553b8174ad448"
+    },
+    {
+      "path": "Sandy/modAutoWebGeneral.bas",
+      "sha256": "5ec16fa94e8f7fbda963a935a86e0bc61e1f2cde32a91e7e98bbf57232ab089c"
+    },
+    {
+      "path": "Sandy/modCrypt.bas",
+      "sha256": "9378ace2d644d8a2733b01807c8fd9473028bba061ecd1ffef7692065df4ed32"
+    },
+    {
+      "path": "Sandy/modGeneral2.bas",
+      "sha256": "c403a13e6fd590cb9bd5a17e3ea58242f8b059f3bf9dc185cb69c5d082d3e03f"
+    },
+    {
+      "path": "Sandy/modGeneralsadsoftcodewmr.bas",
+      "sha256": "2f19b4e739569c38649c04cc5479dd9ada0b2bf6cf29302bb96a0857f345ff82"
+    },
+    {
+      "path": "Sandy/modVB5AddInTool.bas",
+      "sha256": "4217abbeb6842de099f1a653e615677a2726ad6488c17c59c94819a4d43eda3d"
+    },
+    {
+      "path": "Sandy/MSSCCPRJ.SCC",
+      "sha256": "348f5391a44b12b59f402f0081b06ab3a370e597d91eee2480fa4b164a6c550f"
+    },
+    {
+      "path": "Sandy/MyFirst.cls",
+      "sha256": "8b8314251f3369f3d2015ee03695c16e0020d2f06fe1f83d80a1999eb0d7ecaa"
+    },
+    {
+      "path": "Sandy/MyFirstCommandSet.vbp",
+      "sha256": "237f9ccfabcb7fcda854e8d358ce9adbc91759a9e5bd06ce6501deaa2faf9a4c"
+    },
+    {
+      "path": "Sandy/MyFirstSadAddin.vbp",
+      "sha256": "47ec5dfe8f5b3f8e1280b5906e782b78a28867605b712a305065426ed7249468"
+    },
+    {
+      "path": "Sandy/NewCommands.cls",
+      "sha256": "77ddb61e3b25d9133d959b95fbbbb750a2c9c2a9324d7af28e6ca2aa34e76e61"
+    },
+    {
+      "path": "Sandy/NewCommands2.cls",
+      "sha256": "f081c4a11b7e422312fd5e2992359871b2f810e3668b66ab0445b8ef685022b6"
+    },
+    {
+      "path": "Sandy/On the new templates circa 03292000.txt",
+      "sha256": "a455bdfbd60fb95436d371d626529fbc316eebf7f839827d0e2c4191aab71789"
+    },
+    {
+      "path": "Sandy/Project1.vbp",
+      "sha256": "17e28844bb78612b5410e183ad46f7c87904ea3f9ba92e70daa8e3d82c421739"
+    },
+    {
+      "path": "Sandy/Read Me for VBCodeDotCom stuff.txt",
+      "sha256": "c7ae9682e2788b473ecc90743cd1533ad57ea619eab4116b640dad6b8644674d"
+    },
+    {
+      "path": "Sandy/Registry.bas",
+      "sha256": "de1c81511de332c6efc967e3a08e0dbb2eeb2086fc811bafd6767a62121aacfc"
+    },
+    {
+      "path": "Sandy/Report an Issue or Suggetion.url",
+      "sha256": "2d483420d7b305c0ea33660cdecb4728ef7db4b99330486049fca3bb04551d53"
+    },
+    {
+      "path": "Sandy/sadAddin.dll",
+      "sha256": "622d4cf300e328c92ca945cc1d8a32b0e81dd0974bfc8d21abafd999fa388089"
+    },
+    {
+      "path": "Sandy/sadAddin.txt",
+      "sha256": "4d2548f1e6ff96d0bb32f39212e2000abfcfbaa8adc5a03ad216210b9c6eea78"
+    },
+    {
+      "path": "Sandy/sadAddin.vbp",
+      "sha256": "40c5b494535c98e9c074eab04f339ff2f89ab1e59b00094bd9c7f33529817f44"
+    },
+    {
+      "path": "Sandy/sadAddin.vbw",
+      "sha256": "3a4e41dcbed322ad86bf11e2b0984d022cf119d9c9495292866bcad54ae075ee"
+    },
+    {
+      "path": "Sandy/sadAutoWebVBCodeDotCom.vbp",
+      "sha256": "35ccbd270a64a9b27275190ced6a80a78c2b6d47ed1b3083b978bea6d11741b6"
+    },
+    {
+      "path": "Sandy/sadAutoWebVBCodeDotCom.vbw",
+      "sha256": "25e23ea6c6b6f6d74f9e5f61beee2ac9f875ff9e39495ffc33b496ddbc129a2f"
+    },
+    {
+      "path": "Sandy/sadCoreWmr.vbp",
+      "sha256": "841354b5adfcdaac15274b554a92b8150ea155a7b8c5a4642236b5ffd50cca3c"
+    },
+    {
+      "path": "Sandy/sadCoreWmr1NewCommands.cls",
+      "sha256": "eede9727eb94af8cd0fce0d221405a5dc8508e43ad90556c174468e8c53f430b"
+    },
+    {
+      "path": "Sandy/sadCVBCodeDotComNewCommands.cls",
+      "sha256": "b8985f2310af48db57dd806ca1dc98772f281acba8944cd3a4aa8cf4448d6c72"
+    },
+    {
+      "path": "Sandy/sadErrors.log",
+      "sha256": "1ddfd75a4fa331abfe264d56f02fd199b0e4070b40a1df6888100c7d4a6f9800"
+    },
+    {
+      "path": "Sandy/sadFile.cls",
+      "sha256": "3c4fc050adfc51dc3246bcb8fe014a3b4c70b2cd55a4d01c3b38e0e3e9c92f99"
+    },
+    {
+      "path": "Sandy/sadFile.dll",
+      "sha256": "8176bc842fe688f5eea3e3b4d044002536c8aaa9b3b4f953a2f56d1f2d3924f7"
+    },
+    {
+      "path": "Sandy/sadFile.txt",
+      "sha256": "d98fa79295f32db0ed5f6b39890aeb3677e29d57c46e3dfeefd07e5005a843c5"
+    },
+    {
+      "path": "Sandy/sadFile.vbp",
+      "sha256": "796297be93766baab8f3d560b04e228b85be8ca6816345225972d904a80680a7"
+    },
+    {
+      "path": "Sandy/sadFile.vbw",
+      "sha256": "3a4e41dcbed322ad86bf11e2b0984d022cf119d9c9495292866bcad54ae075ee"
+    },
+    {
+      "path": "Sandy/sadFile.xml",
+      "sha256": "c59a44862347c0fc075c8d3e7f4365a71be4217674849d4dd979959292be1d71"
+    },
+    {
+      "path": "Sandy/sadKTEval.dll",
+      "sha256": "08e020fc666d6611e8b4d6e3bc8ed38badee84a9b917f9df2ba826a786fdc5c8"
+    },
+    {
+      "path": "Sandy/sadKTEval.vbp",
+      "sha256": "509d033497e900a270beff1c913278c144c513a86412761e1db0e6f5608d1f57"
+    },
+    {
+      "path": "Sandy/sadMyFirstAddin.txt",
+      "sha256": "da6b8f25c583f0abaa39d1921f3e5a963d3a81ed762e76dabd2d3ab528024e46"
+    },
+    {
+      "path": "Sandy/sadMyFirstAddin.vbp",
+      "sha256": "36fff3e31746720cb9e58988a89450808a6adb420aa4f623344f62c56879f3e2"
+    },
+    {
+      "path": "Sandy/sadProcessHeader.bas",
+      "sha256": "c2c43c56a20eee1b5b7f4ae4a5faef4cdc7b153ff77c7e04fcd856d7d10300c4"
+    },
+    {
+      "path": "Sandy/sadProcessHeader.cls",
+      "sha256": "6789f73dd0e1247a4a85f37ea7b6f089e4d98d478e6ec0c0b7aad32b448e93c4"
+    },
+    {
+      "path": "Sandy/sadProcessHeader.dll",
+      "sha256": "7717f64dadb3f0219d7a20b35bbec33f49f1bf4a0faa0f3ff67e26f94a2c1b65"
+    },
+    {
+      "path": "Sandy/sadProcessHeader.vbp",
+      "sha256": "03788ef0020d502df2cd940c2b01f77bf58b8dc7113f3426b660b83e04f31355"
+    },
+    {
+      "path": "Sandy/sadProcessHeader.vbw",
+      "sha256": "fa062e5210c501085d9fa9e8a0134aa641612143380ecb19de7c9310c8ff87e4"
+    },
+    {
+      "path": "Sandy/sadReference.html",
+      "sha256": "858e579377796ad0db8b77397f049e543548b21aefbad37ad12e2b5a85f00862"
+    },
+    {
+      "path": "Sandy/sadRegister.bas",
+      "sha256": "f8526f1a2e35da771642d101b3e13ed076b561cdd8a67c3b5a5f5b9aef803eba"
+    },
+    {
+      "path": "Sandy/sadRegister.cls",
+      "sha256": "df51aaccbe6e15020bf873f0ed2a13b82b0d00ab7381bd56164fe152c6c75842"
+    },
+    {
+      "path": "Sandy/sadRegister.vbp",
+      "sha256": "851fd2b0f9b6704520967df0c18750fb1588430672390b0a0550818a7fdfc183"
+    },
+    {
+      "path": "Sandy/sadRegister.vbw",
+      "sha256": "0cd1c8bc493d649b34d2a14cc9d62c5f4772927ff2067ba0c92875dc666911fe"
+    },
+    {
+      "path": "Sandy/sadSoftCodeWmr.cls",
+      "sha256": "4736493217eab213257ca3637d08a7891b3ea318f51d24dde0ffdcb1bd7ece87"
+    },
+    {
+      "path": "Sandy/sadSoftCodeWmr.dll",
+      "sha256": "91ceb99199425eb2b6c1daf36df4269a74d4d863d4b93fb4f611991977df5b25"
+    },
+    {
+      "path": "Sandy/sadSoftCodeWmr.vbp",
+      "sha256": "7c86ca59d4b07025e30191104bebc49f88bfcf96eda45a5b2d0c9481a93926aa"
+    },
+    {
+      "path": "Sandy/sadSoftCodeWmr.vbw",
+      "sha256": "a22cf1c194d097a55a3e10feb042535fd2c391bd6c28f1d6f0f3df55deca94cf"
+    },
+    {
+      "path": "Sandy/sadvb5ev.exe",
+      "sha256": "425317928956ec9b35257eba0c3b27449889ea499a602f95f8de6f96d4fea91e"
+    },
+    {
+      "path": "Sandy/sadvb6ev.exe",
+      "sha256": "b1b30586205b59b553d46387675d78991bf1ef1b3e657666b858f8546264f280"
+    },
+    {
+      "path": "Sandy/sadVBCodeDotCom.cls",
+      "sha256": "71af37e5e0b73eedfcd13b961d3df55db6bdd228c5a18e3a759fc827508165a6"
+    },
+    {
+      "path": "Sandy/sadVBCodeDotCom.dll",
+      "sha256": "e129922dc7a72d23325797b0edd89180946d2d5a4a76926cc60aedb6e2a83d5d"
+    },
+    {
+      "path": "Sandy/sadVBCodeDotCom.vbp",
+      "sha256": "5205431363ea0c1007422e09cae2600bce32a6448553724c0657ebabb5ef2e70"
+    },
+    {
+      "path": "Sandy/sadWebVBCode.vbp",
+      "sha256": "05b27343a44a9f65e498c7f1e0e9ee35e0c7139a2c70ec6bfe95451755303d76"
+    },
+    {
+      "path": "Sandy/Sandy - CurrentSet.vbg",
+      "sha256": "318d2f716cde5ba86ca7415c9bca345e8621ac4fb55614b7522fc9408268953c"
+    },
+    {
+      "path": "Sandy/SandyCF-Home.mdb",
+      "sha256": "be84122975db033d6e52d278b938a55df95c214bff7b61700e3b8bf6c2908422"
+    },
+    {
+      "path": "Sandy/SandyClipboard.mdb",
+      "sha256": "861a514a2ae8bab36ebdee695ac5675fee652d9e8269b074347210cd7d227124"
+    },
+    {
+      "path": "Sandy/SandyColdFusion.mdb",
+      "sha256": "8e6fbeb10dbcf90c78dfc042e43dca2d1fb13f1ac1705cb3d5267616b8d41578"
+    },
+    {
+      "path": "Sandy/SandyRevisions.txt",
+      "sha256": "394c59ae132d4c3e15efb749749479d4ec66e8b96a0422da504a0edb35c485a7"
+    },
+    {
+      "path": "Sandy/SandyShell.exe",
+      "sha256": "32cddcd4d3126c0796ff1a6e707e1104e0c700bf1dcaf28cee9d28d1fbfcff57"
+    },
+    {
+      "path": "Sandy/SandyShell.vbg",
+      "sha256": "f1977935b7b4060b5722c57d161dd784dac2bb0d4761eb5cb567689518266512"
+    },
+    {
+      "path": "Sandy/SandyShell.vbp",
+      "sha256": "2ad89003f38de91f84cea9c9f3b7c95b2dc258d6842968af570f428cca16fac3"
+    },
+    {
+      "path": "Sandy/Secure Purchasing.url",
+      "sha256": "168ffd546997a1285194938df786b31cfb5b97dc9c9ed5f75abc1bc9da92c54b"
+    },
+    {
+      "path": "Sandy/ShellMain.frm",
+      "sha256": "d3d72943b3f5fee60279ac20d3712e8b17d38b6c8cd5b8314cf1f482e1221045"
+    },
+    {
+      "path": "Sandy/ShellMain.frx",
+      "sha256": "5aaaf5ecd7c9ee0dd629d362dbb73df5f0ba67be36dfdd277c047143345beeb2"
+    },
+    {
+      "path": "Sandy/SliceAndDice-1.mdb",
+      "sha256": "bc994e70cc61d0a041efe5d3c42a7b33cdb367cdb72954e76b2fce56bec642da"
+    },
+    {
+      "path": "Sandy/SliceAndDice.dll",
+      "sha256": "b2f2ea7caf5eaeb89118ff4cabf383a101c6b8b16eecc110fb00bf9e8c3ffca9"
+    },
+    {
+      "path": "Sandy/SliceAndDice.ico",
+      "sha256": "dec7cd1c2a43265c6a41bd51e65b56c7dbbee0b6130d773c0657261123da1981"
+    },
+    {
+      "path": "Sandy/SliceAndDice.mdb",
+      "sha256": "6b4e7c3581e7686076bae79020cedcda7264d6201bae7e4c35077649566cb923"
+    },
+    {
+      "path": "Sandy/SliceAndDice.vbp",
+      "sha256": "43248f06f82fe4ab37de1ef0a02ddddfd1968339b0270d62aaa079e2fc9f1267"
+    },
+    {
+      "path": "Sandy/SliceAndDice.vbw",
+      "sha256": "482ae85dbbc7d41f04f8ff1a0ac041f1813d917219529160118888df5911e01e"
+    },
+    {
+      "path": "Sandy/SliceAndDice.xml",
+      "sha256": "c79058a685ab92d432bb3634eb0a346ddbef86620f5c8bd930f86d79966e72a6"
+    },
+    {
+      "path": "Sandy/SliceAndDiceNew.mdb",
+      "sha256": "acd47e699ab00f529caa6d5b377a5a7c2802a2064902b588878fb231392d193b"
+    },
+    {
+      "path": "Sandy/sndsrc/Bookshelf.mdb",
+      "sha256": "a2cd9273fc4a49bf760a83299d4afe66fd19b7e0896ee7313c09380660f116f8"
+    },
+    {
+      "path": "Sandy/sndsrc/sadAddin.txt",
+      "sha256": "4d2548f1e6ff96d0bb32f39212e2000abfcfbaa8adc5a03ad216210b9c6eea78"
+    },
+    {
+      "path": "Sandy/sndsrc/sadFile.txt",
+      "sha256": "d98fa79295f32db0ed5f6b39890aeb3677e29d57c46e3dfeefd07e5005a843c5"
+    },
+    {
+      "path": "Sandy/sndsrc/sadReference.html",
+      "sha256": "858e579377796ad0db8b77397f049e543548b21aefbad37ad12e2b5a85f00862"
+    },
+    {
+      "path": "Sandy/sndsrc/SandyClipboard.mdb",
+      "sha256": "861a514a2ae8bab36ebdee695ac5675fee652d9e8269b074347210cd7d227124"
+    },
+    {
+      "path": "Sandy/sndsrc/SliceAndDice.mdb",
+      "sha256": "890bd94bf812f1e68dbf7b9e05f9f5afc2e7048499724c2a31d9ed0e590f4df2"
+    },
+    {
+      "path": "Sandy/sndsrc.zip",
+      "sha256": "d0fb653d82a1e21a31d8fb4ff3330798d2aab29ddc2ef10da99b5c11d2502970"
+    },
+    {
+      "path": "Sandy/SSubTmr.dll",
+      "sha256": "96b5986f8fab04cf7bed4d34cd80fb3bf044004e6ecfd20e4611d84cda210e66"
+    },
+    {
+      "path": "Sandy/SysTray.oca",
+      "sha256": "585ce3752b06624892eaf74a69371eceb2dd43688daff78fc22cbf9201aaad7a"
+    },
+    {
+      "path": "Sandy/SysTray.ocx",
+      "sha256": "91a14fefec4a9d3ea2e65094d0397d53ee53e4925f0bfc84f118befe27093b39"
+    },
+    {
+      "path": "Sandy/TestCrypt.frm",
+      "sha256": "7edc40a237f8c944229076898c2d71fd05a486aa9a663c85ee5e69ca67279682"
+    },
+    {
+      "path": "Sandy/TestCrypt.frx",
+      "sha256": "3785d2eb3bb943604d84e78f5073d18640cbe886a68439735818ff37605899e6"
+    },
+    {
+      "path": "Sandy/TestCrypt.vbp",
+      "sha256": "63b3e7c15e8e6c286c66e6e2130dba7618d093b4e352e7c7d21780f1b7bf0944"
+    },
+    {
+      "path": "Sandy/uiAddInWindow.vbd",
+      "sha256": "c6081daec8db130548b7a847dcb7bba489b7bbb9ebabc9994d46c82796261cad"
+    },
+    {
+      "path": "Sandy/UNINST0.000",
+      "sha256": "a91e633490a57aecfd61889003e8f5fa777c2db71ab60ae4ba7480eb83c83747"
+    },
+    {
+      "path": "Sandy/UNINST1.000",
+      "sha256": "61d4c759a9ab87938f935efae29806a8b4926e951d8e18af56c1d793772450b8"
+    },
+    {
+      "path": "Sandy/VB5AddInTool.VBP",
+      "sha256": "13c60652effd87fab568c4aa039933c55ddab8afeb6e00837cbca89bbe467a0b"
+    },
+    {
+      "path": "Sandy/Wizard.cls",
+      "sha256": "c9f5e261f2da0a0fbd8cf2dfd7abcadfb6a455f4641802f326bd96310b6c8aa9"
+    }
+  ]
+}

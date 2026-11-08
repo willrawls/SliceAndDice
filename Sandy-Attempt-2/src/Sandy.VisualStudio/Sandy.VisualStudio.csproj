@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows8.0</TargetFramework><NeutralLanguage>en-US</NeutralLanguage><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Sandy.Core/Sandy.Core.csproj" />
+    <ProjectReference Include="../Sandy.Desktop/Sandy.Desktop.csproj" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.14.40608" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Build" Version="17.14.40608" PrivateAssets="all" />
+    <PackageReference Include="MessagePack" Version="2.5.307" />
+    <EmbeddedResource Include="SandyView.xaml" />
+    <Page Remove="SandyView.xaml" />
+    <Content Include="../../Libraries/*.xml" Link="Libraries/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="IncludeDesktopForms" BeforeTargets="AssignTargetPaths" DependsOnTargets="ResolveProjectReferences">
+    <ItemGroup>
+      <Content Include="../Sandy.Desktop/bin/$(Configuration)/net10.0-windows/*.*">
+        <Link>Desktop/%(Filename)%(Extension)</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <IncludeInVSIX>true</IncludeInVSIX>
+      </Content>
+    </ItemGroup>
+  </Target>
+</Project>
