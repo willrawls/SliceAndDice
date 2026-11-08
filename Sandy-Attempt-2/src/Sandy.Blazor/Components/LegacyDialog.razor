@@ -1,0 +1,91 @@
+@inject IDesktopServices Desktop
+@if (Definition.ClassName is "frmFieldType" or "frmODBCFieldType")
+{
+    <div class="legacy-fields field-dialog">
+        <label>Field name<input id="FieldName" @bind='values["FieldName"]' @bind:event="oninput" /></label>
+        <label>Field type<select id="lstType" @bind='values["lstType"]'>@foreach (var type in Definition.Descendants.Single(x => x.Name == "lstType").Items) { <option>@type</option> }</select></label>
+        <label>Text length<input id="txtLength" type="number" min="1" max="255" disabled="@(values["lstType"] != "Text")" @bind='values["txtLength"]' /></label>
+        <div class="dialog-actions"><button @onclick='() => Act("cmdCancel")'>Cancel</button><button class="primary" @onclick='() => Act("cmdOkay")'>OK</button></div>
+    </div>
+}
+else if (Definition.ClassName == "frmBrowser")
+{
+    <div class="legacy-fields"><label>Address<input @bind='values["cboAddress"]' @bind:event="oninput" /></label><button class="primary" @onclick='() => Act("OpenBrowser")'>Open in browser</button></div>
+}
+else if (Definition.ClassName == "frmAutoWebURLEntry")
+{
+    <div class="legacy-fields"><label>URL<input @bind='values["txtURL"]' @bind:event="oninput" /></label><label>Alternate URL<input @bind='values["txtAltURL"]' @bind:event="oninput" /></label><label>Object to activate<input @bind='values["txtObjectToActivate"]' @bind:event="oninput" /></label>
+        <label>POST fields<select size="5" @bind="selectedPost">@foreach (var item in postFields) { <option>@item</option> }</select></label>
+        <div class="dialog-actions"><button @onclick='() => Act("cmdAdd")'>Add field</button><button @onclick='() => Act("cmdRemove")'>Remove field</button><button @onclick='() => Act("cmdCancel")'>Cancel</button><button class="primary" @onclick='() => Act("cmdOkay")'>OK</button></div>
+    </div>
+}
+else
+{ <div class="legacy-fields"><LegacyFields Definition="Definition" Values="values" OnAction="Act" /></div> }
+<p role="status" class="dialog-status">@status</p>
+@code {
+    [Parameter, EditorRequired] public FormDefinition Definition { get; set; } = null!;
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public Func<string, string, Task<string?>>? PromptUser { get; set; }
+    private readonly Dictionary<string, string> values = [];
+    private string status = "";
+    private string lastForm = "";
+    private readonly List<string> postFields = [];
+    private string selectedPost = "";
+    protected override void OnParametersSet()
+    {
+        if (lastForm == Definition.ClassName) return;
+        lastForm = Definition.ClassName; values.Clear(); postFields.Clear(); status = "";
+        foreach (var n in Definition.Descendants) values[n.Key] = n.Get("Text", n.Items.FirstOrDefault() ?? "");
+        if (Definition.ClassName == "frmCommandHelp") { values["txtSyntax"] = "%%Name::Default%% · ~~Set Name=Value"; values["txtLongDescription"] = "Inline commands: " + string.Join(", ", Engine.InlineCommands); }
+        if (Definition.ClassName == "frmFileList") values["txtStartDir"] = Environment.CurrentDirectory;
+    }
+    private async Task Act(string action)
+    {
+        try
+        {
+            if (action is "cmdCancel" or "cmdDone" or "mnuExit" or "mnuFileExit") { await OnClose.InvokeAsync(); return; }
+            if (Definition.ClassName is "frmFieldType" or "frmODBCFieldType" && action == "cmdOkay")
+            {
+                if (string.IsNullOrWhiteSpace(values.GetValueOrDefault("FieldName"))) throw new InvalidOperationException("Enter a field name.");
+                if (values.GetValueOrDefault("lstType") == "Text" && (!int.TryParse(values.GetValueOrDefault("txtLength"), out var length) || length is < 1 or > 255)) throw new InvalidOperationException("Length must be between 1 and 255.");
+                await OnClose.InvokeAsync(); return;
+            }
+            if (Definition.ClassName == "frmFileList" && action == "cmdSearch")
+            {
+                var files = Directory.EnumerateFiles(values["txtStartDir"], string.IsNullOrWhiteSpace(values["txtFilePattern"]) ? "*.*" : values["txtFilePattern"], new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true, AttributesToSkip = FileAttributes.ReparsePoint }).Take(10000);
+                status = string.Join(Environment.NewLine, files); return;
+            }
+            if (Definition.ClassName == "frmLogin" && action == "cmdOK") { await OnClose.InvokeAsync(); return; }
+            if (Definition.ClassName == "frmBrowser" && action == "OpenBrowser") { Desktop.OpenUrl(values["cboAddress"]); return; }
+            if (Definition.ClassName == "ShellMain" && action == "mnuMainWindow") { await OnClose.InvokeAsync(); return; }
+            if (Definition.ClassName is "frmDBClassGen" or "frmODBCClassGen")
+            {
+                if (action == "cmdAddCategory")
+                {
+                    var file = Desktop.OpenLibrary(); if (file == null) return;
+                    values["tvwTables"] = string.Join(Environment.NewLine, Desktop.ReadSchema(file).Select(x => x.Key + Environment.NewLine + string.Join(Environment.NewLine, x.Value.Select(f => "    " + f)))); return;
+                }
+                if (action == "cmdDeleteCategory") { values["tvwTables"] = ""; return; }
+            }
+            if (Definition.ClassName == "frmOptions" && action == "cmdPickFile")
+            {
+                var file = Desktop.OpenLibrary(); if (file == null) return;
+                var matches = System.Text.RegularExpressions.Regex.Matches(File.ReadAllText(file), @"(?m)^\s*(?:typedef\s+)?(?:struct|class|enum)\s+(\w+)");
+                values["tvwHierarchy"] = string.Join(Environment.NewLine, matches.Select(m => m.Groups[1].Value)); return;
+            }
+            if (Definition.ClassName == "frmAutoWebURLEntry" && action == "cmdAdd")
+            {
+                if (PromptUser == null) return;
+                var field = await PromptUser("POST field (Name=Value)", ""); if (!string.IsNullOrWhiteSpace(field)) { postFields.Add(field); selectedPost = field; } return;
+            }
+            if (Definition.ClassName == "frmAutoWebURLEntry" && action == "cmdRemove") { postFields.Remove(selectedPost); selectedPost = postFields.FirstOrDefault() ?? ""; return; }
+            if (Definition.ClassName == "frmAutoWebURLEntry" && action == "cmdOkay")
+            {
+                if (!Uri.TryCreate(values["txtURL"], UriKind.Absolute, out var uri) || uri.Scheme is not ("http" or "https")) throw new InvalidOperationException("Enter an HTTP or HTTPS address.");
+                await OnClose.InvokeAsync(); return;
+            }
+            status = "This legacy action still needs migration: " + Definition.ClassName + "." + action;
+        }
+        catch (Exception e) { status = e.Message; }
+    }
+}

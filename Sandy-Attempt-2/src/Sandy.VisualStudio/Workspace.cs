@@ -10,7 +10,7 @@ namespace Sandy.VisualStudio;
 public sealed class Workspace : NotifyPropertyChangedObject
 {
     private string path = Path.Combine(Path.GetDirectoryName(typeof(Workspace).Assembly.Location)!, "Libraries", "SliceAndDice.xml");
-    private string filter = "", variables = "", preview = "", status = "Load a Category.xml export. Use the desktop forms to import MDB libraries and save an XML working copy.";
+    private string filter = "", variables = "", preview = "", status = "Load a Category.xml export. Open the Blazor workspace to edit templates, import MDB libraries and save a working copy.";
     private TemplateRow? selected;
     private Library? library;
     internal SemaphoreSlim Gate { get; } = new(1, 1);

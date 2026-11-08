@@ -1,5 +1,9 @@
 # Port status
 
+The active GUI is Blazor Hybrid. The original 21 form definitions are represented by the main Razor workspace and 20 auxiliary Razor dialogs. Previous WinForms classes remain excluded reference code. Migration preserves the inventory, not every legacy handler.
+
+Blazor verification covers real WebView2 rendering, input binding, template switching, save/reload and opening all dialogs. Shared-state regressions additionally cover save failure atomicity, rename revisions and source overwrite rejection.
+
 ## Implemented
 
 - Fresh .NET 10 library model and Category.xml reader/writer preserving all imported field names and values, including unrecognized fields and CRLF content.
@@ -21,10 +25,10 @@
 
 Unimplemented button/menu actions show a port-status message. Several auxiliary forms therefore represent preserved layouts rather than complete working tools. The generated catalog lists every source event handler to support the remaining migration; an existing form is not a claim that all its handlers were translated.
 
-The 24 missing project references are listed in `source-inventory.json`. The source includes historical broken names (for example `CAssoc.cls` versus `CAssocItem.cls`) and absent model/helper classes. ShellMain and frmMain share a VB_Name; file identity keeps them separate in this port. DataView/Form1 is named DataViewForm1.
+The 24 missing project references are listed in `source-inventory.json`; authorized archive candidates are listed separately in `archive-matches.json`. The source includes historical broken names (for example `CAssoc.cls` versus `CAssocItem.cls`) and absent model/helper classes. ShellMain and frmMain share a VB_Name; file identity keeps them separate in this port. DataView/Form1 is named DataViewForm1.
 
 ## Verification boundaries
 
-Core regressions cover variables/defaults/cancellation, unsupported commands, bounded recursion, separate output areas, locks, revision overflow, unchanged revisions, XML fidelity, duplicate IDs and DTD rejection. The form smoke runner constructs, shows and renders every form. It does not establish full UI interaction parity. The VSIX is compiled and its ZIP contents checked; live deployment, editor insertion and Undo are unverified for attempt 2.
+Core regressions cover variables/defaults/cancellation, unsupported commands, bounded recursion, separate output areas, locks, revision overflow, unchanged revisions, XML fidelity, duplicate IDs and DTD rejection. The hybrid smoke runner opens the workspace and every auxiliary dialog inside WebView2. It does not establish full UI interaction parity. The VSIX is compiled and its ZIP contents checked; live deployment, editor insertion and Undo are unverified for attempt 2.
 
 The main MDB exported successfully: 25 categories, 419 templates. An attempted export of SandyCF-Home.mdb was rejected for orphan template 97. No orphan was dropped or reassigned, and that auxiliary library was not bundled.

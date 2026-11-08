@@ -7,7 +7,7 @@
       <TextBox Text="{Binding LibraryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
       <StackPanel Orientation="Horizontal" Margin="0,8,0,8">
         <Button Content="Load library" Command="{Binding LoadCommand}" Padding="10,5"/>
-        <Button Content="Open desktop forms" Command="{Binding DesktopCommand}" Padding="10,5" Margin="8,0,0,0"/>
+        <Button Content="Open Blazor workspace" Command="{Binding DesktopCommand}" Padding="10,5" Margin="8,0,0,0"/>
         <Button Content="Preview defaults" Command="{Binding PreviewCommand}" Padding="10,5" Margin="8,0,0,0"/>
       </StackPanel>
     </StackPanel>

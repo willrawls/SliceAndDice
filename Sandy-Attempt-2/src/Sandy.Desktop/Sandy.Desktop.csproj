@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <OutputType>WinExe</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework><OutputType>WinExe</OutputType><UseWPF>true</UseWPF><RootNamespace>Sandy.Desktop</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../Sandy.Core/Sandy.Core.csproj" />
-    <EmbeddedResource Include="Forms/catalog.json" />
+    <ProjectReference Include="../Sandy.Blazor/Sandy.Blazor.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="10.0.100" />
+    <Compile Remove="Forms/**/*.cs" />
     <Content Include="../../tools/Export-LegacyMdb.ps1" Link="Export-LegacyMdb.ps1" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../Libraries/*.xml" Link="Libraries/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Update="wwwroot/**/*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

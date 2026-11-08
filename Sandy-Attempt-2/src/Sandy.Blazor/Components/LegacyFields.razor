@@ -1,0 +1,28 @@
+@foreach (var node in Definition.Children)
+{
+    var kind = node.Type.Split('.').Last();
+    @if (kind is "Frame" or "PictureBox") { <fieldset><legend>@node.Caption</legend><LegacyFields Definition="node" Values="Values" OnAction="OnAction" /></fieldset> }
+    else if (kind is "TextBox" or "ComboBox" or "ListBox")
+    {
+        <label class="legacy-field">@Label(node)
+        @if (kind is "ComboBox" or "ListBox") { <select id="@node.Key" value="@Value(node)" @onchange="e => Values[node.Key] = e.Value?.ToString() ?? string.Empty">@foreach (var item in node.Items) { <option>@item</option> }</select> }
+        else if (node.Flag("MultiLine")) { <textarea id="@node.Key" rows="5" value="@Value(node)" @oninput="e => Values[node.Key] = e.Value?.ToString() ?? string.Empty"></textarea> }
+        else { <input id="@node.Key" type="@(node.Get("PasswordChar").Length > 0 ? "password" : "text")" value="@Value(node)" @oninput="e => Values[node.Key] = e.Value?.ToString() ?? string.Empty" /> }
+        </label>
+    }
+    else if (kind is "CheckBox" or "OptionButton") { <label class="check-field"><input id="@node.Key" type="@(kind == "OptionButton" ? "radio" : "checkbox")" name="@(kind == "OptionButton" ? node.Name : node.Key)" checked="@(Values.GetValueOrDefault(node.Key, node.Flag("Value") ? "1" : "0") == "1")" @onchange="e => SetChecked(node, e)" />@node.Caption</label> }
+    else if (kind == "CommandButton") { <button @onclick="() => OnAction.InvokeAsync(node.Key)">@node.Caption</button> }
+    else if (kind == "Menu") { <details class="legacy-menu"><summary>@node.Caption</summary><LegacyFields Definition="node" Values="Values" OnAction="OnAction" />@if (node.Children.Count == 0) { <button @onclick="() => OnAction.InvokeAsync(node.Key)">@node.Caption</button> }</details> }
+    else if (kind == "Label") { <p class="legacy-label">@node.Caption</p> }
+    else if (kind == "ProgressBar") { <progress></progress> }
+    else if (kind is "TreeView" or "ListView" or "FSListBar" or "DataView") { <div class="data-panel" id="@node.Key"><pre>@Values.GetValueOrDefault(node.Key, "No items selected.")</pre></div> }
+    else if (kind is "Image" && node.Get("PictureBase64").Length > 0) { <img class="legacy-image" alt="" src="@("data:image/bmp;base64," + node.Get("PictureBase64"))" /> }
+}
+@code {
+    [Parameter, EditorRequired] public FormDefinition Definition { get; set; } = null!;
+    [Parameter, EditorRequired] public Dictionary<string, string> Values { get; set; } = null!;
+    [Parameter] public EventCallback<string> OnAction { get; set; }
+    private void SetChecked(FormDefinition n, ChangeEventArgs e) => Values[n.Key] = e.Value is true ? "1" : "0";
+    private string Value(FormDefinition n) => Values.GetValueOrDefault(n.Key, n.Get("Text", n.Items.FirstOrDefault() ?? ""));
+    private static string Label(FormDefinition n) => n.Get("ToolTipText", n.Name.Replace("txt", "").Replace("cbo", "").Replace("lst", ""));
+}

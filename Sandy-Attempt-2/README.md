@@ -1,8 +1,6 @@
-# Sandy — Attempt 2
+# Sandy — Attempt 2 · Blazor Hybrid
 
-Fresh C# / .NET 10 recreation based on **`../Sandy`**, with a Windows Forms application and a Visual Studio extension. Attempt 1 is preserved in `../SandyCSharp10`; this solution does not reference it.
-
-**This is a working partial port, not full legacy behavior parity.** All 21 form layouts are represented, including DataView's `Form1`, the standalone shell and the add-in tool. Unported actions report their status; unsupported SoftCommands stop evaluation with context. See [port status](docs/PORT-STATUS.md).
+The desktop GUI is now **Blazor Hybrid on .NET 10**: Razor components and CSS inside a minimal WPF/BlazorWebView shell. WPF only hosts the window and native file dialogs. No WinForms code is compiled into the application.
 
 ## Run
 
@@ -10,34 +8,44 @@ Fresh C# / .NET 10 recreation based on **`../Sandy`**, with a Windows Forms appl
 dotnet run --project '.\Sandy-Attempt-2\src\Sandy.Desktop' -c Release
 ```
 
-The desktop loads the bundled library exported directly from `Sandy/SliceAndDice.mdb`: **25 categories, 419 templates**. The MDB remains unchanged. `Libraries/Examples.xml` contains two separately authored C# examples.
+Requires Windows 10 version 1809 or later, .NET 10 desktop and ASP.NET Core runtimes (included with the development SDK), and Microsoft Edge WebView2 Runtime. The first launch creates a WebView profile under `%LOCALAPPDATA%/SandyAttempt2/WebView2`. The app runs locally; no web server or cloud account is required.
 
-The toolbar opens/imports libraries, creates categories and templates, updates templates, saves an XML copy, previews output, searches/replaces text, and opens every form. Drafts survive template switching. Preview uses those drafts; Save copy applies all drafts. The original library path cannot be overwritten. Locked templates reject code edits; the template options tab can unlock the working copy.
+## Structure
 
-All four code areas are retained. Preview never writes generated files or applies registry, clipboard or IDE effects. MDB reads use DAO; Access 97 databases fall back to 32-bit DAO 3.6 in an isolated Windows PowerShell process. This requires DAO 3.6 to be installed; no COM components are registered by the app. The fallback invokes only the bundled read-only export script, with execution policy set for that child process only.
+| Project | Responsibility |
+| --- | --- |
+| Sandy.Core | Library model, XML persistence, template interpreter |
+| Sandy.Blazor | Reusable Razor workspace/dialogs and editing state; native operations behind IDesktopServices |
+| Sandy.Desktop | WPF window hosting BlazorWebView, native file dialogs, read-only MDB import |
+| Sandy.VisualStudio | Native Remote UI tool window and checked editor insertion; launches the bundled Blazor workspace |
+| Sandy.Tests | Core, draft/persistence, and Razor rendering regressions |
 
-## Build and check
+The workspace has category/template browsing and filtering, four code areas, variables, prompted preview, find/replace, lock/favorite/undeletable options, template/category creation, and deletion. Per-template drafts survive navigation. Update commits the current draft in memory; Save copy validates and saves every draft atomically. Source files cannot be overwritten by Save copy. Ctrl+S opens Save copy; Tab inserts indentation in the code editor.
+
+All **21 original forms** are represented: the main form becomes the workspace, and the other 20 are available under Tools and dialogs. Several auxiliary dialogs still have unfinished legacy actions, explicitly reported when invoked. This GUI migration does not establish full interpreter or legacy-handler parity. See [port status](docs/PORT-STATUS.md).
+
+The bundled library was exported directly from `Sandy/SliceAndDice.mdb`: **25 categories, 419 templates**. Original fields and line endings are retained. Read-only MDB import supports Access 97 through an isolated 32-bit DAO 3.6 PowerShell helper when DAO is installed. Examples.xml contains separately authored C# examples.
+
+## Verify
 
 ```powershell
 & '.\Sandy-Attempt-2\Verify.ps1'
 ```
 
-Open `Sandy.slnx` in Visual Studio, or build with `dotnet build .\Sandy-Attempt-2\Sandy.slnx -c Release -m:1`. `Verify.ps1` builds, runs regression tests, renders all forms, and checks that the VSIX contains the desktop payload and original library export. Form snapshots go to the ignored `artifacts/form-previews` folder. Snapshot creation is not full interaction or visual verification.
+This builds the solution and VSIX, runs the regression suite, exercises the actual WebView2 UI (DOM binding, draft switching, save/reload and all 20 dialogs), saves screenshots under the ignored `artifacts/blazor-verification` folder, and checks the packaged desktop payload including web assets and WebView2Loader. Rendering a dialog does not prove all its legacy actions are implemented.
 
 ## Visual Studio
 
-The VSIX is at `src/Sandy.VisualStudio/bin/Release/net10.0-windows8.0/Sandy.VisualStudio.vsix`. It has a distinct extension identity, `WilliamRawls.Sandy.Attempt2`, and targets a .NET 10 extensibility host. Experimental deployment uses the `SandyAttempt2` profile:
+The VSIX is at `src/Sandy.VisualStudio/bin/Release/net10.0-windows10.0.17763.0/Sandy.VisualStudio.vsix`. Extension identity remains `WilliamRawls.Sandy.Attempt2`.
 
 ```powershell
 & '.\Sandy-Attempt-2\Deploy-Experimental.ps1' -Launch
 ```
 
-Deployment and live IDE behavior have **not** been verified for this attempt. Build/package verification does not establish host compatibility.
+The extension requires Visual Studio with a .NET 10 extensibility host. Experimental profile: SandyAttempt2. Choose Extensions > Sandy — Attempt 2, then Open Blazor workspace for editing. Save an XML copy and reload that path in the extension before insertion. The VSIX launches the separate desktop workspace; it does not embed Blazor inside the IDE tool window. Insertion remains cursor-only, prompted and version-checked. Live IDE deployment/insertion are unverified for this attempt.
 
-Choose **Extensions > Sandy — Attempt 2**, load a library, select a template and preview. **Open desktop forms** launches the bundled desktop app with the current library. After saving edits to a working copy, enter that XML path and reload in the extension. Select the target editor and choose **Extensions > Insert Sandy Template — Attempt 2**. Missing values prompt with defaults; one version-checked edit replaces the selection after confirmation. Insertion currently accepts cursor-only output; templates with other code areas are rejected as a whole.
+## Sources
 
-## Source fidelity
+Primary behavioral source: `../Sandy`. The previous WinForms implementation remains in `src/Sandy.Desktop/Forms` as an excluded reference; only its generated catalog is embedded by Sandy.Blazor. `tools/inventory.py` regenerates this catalog and the source SHA-256 inventory without modifying the original sources.
 
-`tools/inventory.py` reads only `Sandy`, captures every form/control/property and source handler name, decodes FRX strings/lists/pictures, and emits SHA-256 records for every source file. Running it regenerates `Forms.g.cs`, `catalog.json` and `docs/source-inventory.json`.
-
-The source's project files contain 24 unresolved references. No missing behavior has been silently substituted from another legacy snapshot. The `Sandy` folder is the behavioral reference for this attempt.
+Matching archived classes may supplement missing Sandy files with the user's authorization. [Archive sources](docs/ARCHIVE-SOURCES.md) records the evidence and version boundaries; `docs/archive-matches.json` lists candidates. Attempt 1 remains untouched in `../SandyCSharp10`.

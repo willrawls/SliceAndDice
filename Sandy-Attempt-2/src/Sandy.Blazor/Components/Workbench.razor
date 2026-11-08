@@ -1,0 +1,84 @@
+@inject Workspace State
+@inject IDesktopServices Desktop
+@implements IDisposable
+
+<div class="workbench" data-ready="@ready.ToString().ToLowerInvariant()" inert="@(activeForm != null || question != null)">
+    <header><div class="brand"><span class="brand-mark">S/</span><div><strong>Sandy</strong><small>Slice and Dice · Template workspace</small></div></div><span class="library-label">@(State.SourcePath == null ? "New library" : System.IO.Path.GetFileName(State.SourcePath)) @(State.IsDirty ? "• Unsaved" : "")</span></header>
+    <nav class="toolbar" aria-label="Library actions">
+        <button @onclick="Open">Open library</button><button @onclick="New">New library</button><button id="save-copy" @onclick="Save">Save copy</button>
+        <span class="divider"></span><button @onclick="NewCategory">+ Category</button><button @onclick="NewTemplate">+ Template</button>
+        <button @onclick="Update" disabled="@(State.Selected == null)">Update template</button><button class="primary" id="preview-button" @onclick="Preview" disabled="@(State.Selected == null || State.IsBusy)">@(State.IsBusy ? "Evaluating…" : "Preview")</button>
+        <select id="form-selector" aria-label="Tools and dialogs" value="" @onchange="OpenForm"><option value="">Tools and dialogs…</option>@foreach (var form in FormCatalog.All) { <option value="@form.ClassName">@form.ClassName — @form.Caption</option> }</select>
+    </nav>
+    <div class="workspace-grid">
+        <aside><div class="sidebar-heading"><strong>LIBRARY</strong><span>@State.Library.Templates.Count()</span></div><input id="template-filter" aria-label="Filter templates" placeholder="Filter templates…" @bind="State.Filter" @bind:event="oninput" />
+            <div class="template-tree">@foreach (var category in State.Library.Categories)
+            {
+                var templates = category.Templates.Where(t => t.Name.Contains(State.Filter, StringComparison.OrdinalIgnoreCase)).ToArray();
+                if (templates.Length == 0 && State.Filter.Length > 0) { continue; }
+                <details open><summary>@category.Name <span>@templates.Length</span></summary>@foreach (var template in templates)
+                { <button class="template @(State.Selected == template ? "selected" : "")" data-template-id="@template["TemplateID"]" @onclick="() => State.Select(template)">@(template.Flag("Favorite") ? "★ " : "")@template["ShortTemplateName"]</button> }</details>
+            }</div>
+        </aside>
+        <main>
+            @if (State.Current is { } draft)
+            {
+                <div class="template-heading"><label>Template name<input id="template-name" @bind="draft.Name" @bind:event="oninput" readonly="@draft.Locked" /></label><label>Short name<input @bind="draft.ShortName" @bind:event="oninput" readonly="@draft.Locked" /></label></div>
+                <div class="tabs" role="tablist">@foreach (var item in tabs) { <button role="tab" aria-selected="@(tab == item)" class="@(tab == item ? "active" : "")" @onclick="() => tab = item">@item</button> }</div>
+                <section class="editor-pane">
+                    @if (Area is { } area)
+                    {
+                        @if (area == CodeArea.File) { <label class="filename">Output filename<input @bind="draft.Filename" @bind:event="oninput" readonly="@draft.Locked" /></label> }
+                        <div class="editor-caption"><span>@AreaTitle(area)</span><button @onclick="() => findVisible = !findVisible">Find / replace</button></div>
+                        @if (findVisible) { <div class="find-bar"><input aria-label="Find text" placeholder="Find" @bind="find"/><input aria-label="Replacement text" placeholder="Replace with" @bind="replace"/><label><input type="checkbox" @bind="matchCase"/>Match case</label><button @onclick="ReplaceAll" disabled="@draft.Locked">Replace all</button></div> }
+                        <textarea @key="(State.Selected, area)" id="code-editor" class="code-editor" aria-label="@AreaTitle(area)" spellcheck="false" readonly="@draft.Locked" @bind="draft.Code[area]" @bind:event="oninput"></textarea>
+                    }
+                    else if (tab == "SoftVariables") { <p>One Name=Value per line. Preview prompts for missing values.</p><textarea id="variables-editor" class="code-editor" aria-label="SoftVariables" @bind="State.Variables" @bind:event="oninput"></textarea> }
+                    else if (tab == "Preview") { <div class="editor-caption">Generated output · preview only</div><textarea id="output-preview" class="code-editor" aria-label="Generated output" readonly value="@State.Preview"></textarea> }
+                    else { <div class="options"><label><input type="checkbox" @bind="draft.Locked"/> Locked</label><label><input type="checkbox" @bind="draft.Favorite"/> Favorite</label><label><input type="checkbox" @bind="draft.Undeletable"/> Undeletable</label><p>Revision @State.Selected!["RevisionCount"]. Changes are kept as drafts until Update or Save copy.</p><button class="danger" @onclick="Delete">Delete template</button></div> }
+                </section>
+            }
+            else { <div class="empty"><h1>Your template workspace</h1><p>Open a library, or create a category and your first template.</p><button class="primary" @onclick="Open">Open library</button></div> }
+        </main>
+    </div>
+    <footer role="status">@State.Status</footer>
+</div>
+@if (activeForm != null)
+{ <div class="overlay"><section class="dialog tool-dialog" role="dialog" aria-modal="true" aria-label="@activeForm.Caption"><div class="dialog-heading"><h2>@activeForm.Caption</h2><button aria-label="Close dialog" @onclick="() => activeForm = null">✕</button></div><LegacyDialog Definition="activeForm" OnClose="() => activeForm = null" PromptUser="AskInput" /></section></div> }
+@if (question != null)
+{ <div class="overlay"><section class="dialog prompt-dialog" role="dialog" aria-modal="true" aria-label="@question"><h2>@question</h2>@if (!confirmOnly) { <input id="prompt-input" aria-label="Response" @bind="answer" @bind:event="oninput" @onkeydown="PromptKey" autofocus /> }<div class="dialog-actions"><button @onclick="() => Complete(null)">Cancel</button><button class="primary" id="prompt-accept" @onclick="() => Complete(answer)">@(confirmOnly ? "Continue" : "OK")</button></div></section></div> }
+
+@code {
+    private bool ready, findVisible, matchCase = true;
+    private string tab = "At cursor", find = "", replace = "", answer = "";
+    private static readonly string[] tabs = ["At cursor", "Declarations", "At bottom", "To file", "SoftVariables", "Preview", "Options"];
+    private FormDefinition? activeForm;
+    private string? question;
+    private bool confirmOnly;
+    private TaskCompletionSource<string?>? pending;
+    private Task<string?> AskInput(string title, string value) => Ask(title, value);
+    private CodeArea? Area => tab switch { "At cursor" => CodeArea.Cursor, "Declarations" => CodeArea.Declarations, "At bottom" => CodeArea.Bottom, "To file" => CodeArea.File, _ => null };
+    private static string AreaTitle(CodeArea area) => area switch { CodeArea.Cursor => "Code at cursor", CodeArea.Declarations => "Declarations", CodeArea.Bottom => "Code at bottom", _ => "Code to file" };
+    protected override void OnInitialized() { ready = true; }
+    private async Task<string?> Ask(string title, string value = "", bool confirm = false)
+    {
+        if (pending != null) throw new InvalidOperationException("Another dialog is already open.");
+        question = title; answer = value; confirmOnly = confirm; pending = new(TaskCreationOptions.RunContinuationsAsynchronously); StateHasChanged();
+        return await pending.Task;
+    }
+    private void Complete(string? result) { var completion = pending; pending = null; question = null; completion?.TrySetResult(result); }
+    private void PromptKey(KeyboardEventArgs e) { if (e.Key == "Enter") Complete(answer); else if (e.Key == "Escape") Complete(null); }
+    private async Task Guard(Func<Task> action) { try { await action(); } catch (OperationCanceledException) { State.Status = "Cancelled."; } catch (Exception e) { State.Status = e.Message; } }
+    private async Task<bool> MayDiscard() => !State.IsDirty || await Ask("Discard unsaved library changes?", confirm: true) != null;
+    private Task Open() => Guard(async () => { if (!await MayDiscard()) return; var path = Desktop.OpenLibrary(); if (path != null) State.Load(Desktop.ReadLibrary(path), path); });
+    private Task New() => Guard(async () => { if (await MayDiscard()) State.NewLibrary(); });
+    private Task Save() => Guard(() => { var path = Desktop.SaveCopy(); if (path != null) State.Save(path); return Task.CompletedTask; });
+    private Task NewCategory() => Guard(async () => { var name = await Ask("Category name"); if (name != null) State.AddCategory(name); });
+    private Task NewTemplate() => Guard(async () => { var name = await Ask("Template name"); if (name != null) State.AddTemplate(name); });
+    private Task Update() => Guard(() => { State.Update(); return Task.CompletedTask; });
+    private Task Preview() => Guard(async () => { await State.PreviewAsync((p, _) => Ask(p.Name, p.Default)); tab = "Preview"; });
+    private Task Delete() => Guard(async () => { if (await Ask("Delete this template from the working library?", confirm: true) != null) State.DeleteSelected(); });
+    private void ReplaceAll() { if (find.Length != 0 && Area is { } area && State.Current is { Locked: false } d) d.Code[area] = d.Code[area].Replace(find, replace, matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase); }
+    private void OpenForm(ChangeEventArgs e) { var name = e.Value?.ToString(); if (name == "frmMain") { activeForm = null; return; } activeForm = FormCatalog.All.SingleOrDefault(x => x.ClassName == name); }
+    public void Dispose() { pending?.TrySetCanceled(); }
+}

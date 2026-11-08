@@ -1,0 +1,175 @@
+[
+  {
+    "reference": "CommandSetDLL.cls",
+    "candidates": [
+      "Archive/sad2/CommandSetDLL.cls",
+      "Archive/Sandy2/CommandSetDLL.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CommandSetDLL.cls",
+    "sha256": "88ae405d7a7614fba3237210c99d06ed9a6f1169c6c455eed5bfd6401224b450",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "Form1.frm",
+    "candidates": [
+      "Archive/sad2/sadSqlSp/Form1.frm",
+      "Archive/sad2/sadSqlSp/History/Form1.frm",
+      "Archive/sad2/sadSqlSp/History/Original/Form1.frm",
+      "Archive/HTML File Walker/Form1.frm"
+    ],
+    "status": "ambiguous generic filename; no selected supplement"
+  },
+  {
+    "reference": "CCategory.cls",
+    "candidates": [
+      "Archive/sad2/CCategory.cls",
+      "Archive/Sandy2/CCategory.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CCategory.cls",
+    "sha256": "e50659a4ec51fcb57bf804da65f1804fac56ea8097880c1e737b7ddf8129c835",
+    "status": "reviewed supplemental model evidence; later snapshot, see ARCHIVE-SOURCES.md"
+  },
+  {
+    "reference": "CCategorys.cls",
+    "candidates": [
+      "Archive/sad2/CCategorys.cls",
+      "Archive/Sandy2/CCategorys.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CCategorys.cls",
+    "sha256": "2fef3307491e81f535ae1f5f3e42f38ca69cbfa3862ce01859e395e4690b3509",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "CSliceAndDice.cls",
+    "candidates": [
+      "Archive/sad2/CSliceAndDice.cls",
+      "Archive/Sandy2/CSliceAndDice.cls",
+      "Archive/sandyLatest09102000/CSliceAndDice.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CSliceAndDice.cls",
+    "sha256": "c1ebc7b88531ffbd41244669bf814dc930b59bd85b360c970950c755e2428186",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "CTemplate.cls",
+    "candidates": [
+      "Archive/sad2/CTemplate.cls",
+      "Archive/Sandy2/CTemplate.cls",
+      "Archive/sandyLatest09102000/CTemplate.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CTemplate.cls",
+    "sha256": "51be9776fb79cbff7afefd6e4f43c14a5dab47f35a6778f22a0b3a6a2f06c7b9",
+    "status": "reviewed supplemental model evidence; later snapshot, see ARCHIVE-SOURCES.md"
+  },
+  {
+    "reference": "CTemplates.cls",
+    "candidates": [
+      "Archive/sad2/CTemplates.cls",
+      "Archive/Sandy2/CTemplates.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CTemplates.cls",
+    "sha256": "f9a394c991d949829e9d32b7a01b9e56734b42aef0d69820027dc020790d8518",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "basGeneral.bas",
+    "candidates": [
+      "Archive/sad2/basGeneral.bas",
+      "Archive/Sandy2/basGeneral.bas",
+      "Archive/sandyLatest09102000/basGeneral.bas"
+    ],
+    "behavioralSupplement": "Archive/sad2/basGeneral.bas",
+    "sha256": "46bb06973826eac966dd9302472665c80bdf2460f88c6bdb1d6a0ad03f02102a",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "frmAutoWebBrowser.frm",
+    "candidates": [
+      "Archive/sad2/frmAutoWebBrowser.frm",
+      "Archive/Sandy2/frmAutoWebBrowser.frm"
+    ],
+    "behavioralSupplement": "Archive/sad2/frmAutoWebBrowser.frm",
+    "sha256": "14a25c61804b8027e612215b56746a4256786f999ea91ef174d90ba3dce6f213",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "Evaluator.cls",
+    "candidates": [
+      "Archive/sad2/Evaluator.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/Evaluator.cls",
+    "sha256": "396e8a7c97ac09843566e816cfdec453311625cb9f9dc6fedcec8ffa6cd25e98",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "frmMessage.frm",
+    "candidates": [
+      "Archive/sad2/frmMessage.frm"
+    ],
+    "behavioralSupplement": "Archive/sad2/frmMessage.frm",
+    "sha256": "44494cd37e13d7eeeedaac3b61e37041e403cb104565ea4ec07a65117270b6d3",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "CAssoc.cls",
+    "candidates": [
+      "Archive/sad2/CAssoc.cls",
+      "Archive/Sandy2/CAssoc.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CAssoc.cls",
+    "sha256": "83a4068e86d135d36922147ea6dccd24ec2629b4263a6e8f8edeb7d3257591a2",
+    "status": "reviewed supplemental model evidence; later snapshot, see ARCHIVE-SOURCES.md"
+  },
+  {
+    "reference": "CSadCommand.cls",
+    "candidates": [
+      "Archive/sad2/CSadCommand.cls",
+      "Archive/Sandy2/CSadCommand.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CSadCommand.cls",
+    "sha256": "ffe81ea0c6ea06906c196d2af574d58dff06d319ae79629a29e7a1ce6e1ec359",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "CSadCommands.cls",
+    "candidates": [
+      "Archive/sad2/CSadCommands.cls",
+      "Archive/Sandy2/CSadCommands.cls",
+      "Archive/Sandy2/FilesFromWork/CSadCommands.cls",
+      "Archive/sandyLatest09102000/CSadCommands.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CSadCommands.cls",
+    "sha256": "e4594c02f9028ae6fc3f518ebc5770889ba4c81a1f85ab9a83087eb496317d19",
+    "status": "reviewed supplemental model evidence; later snapshot, see ARCHIVE-SOURCES.md"
+  },
+  {
+    "reference": "CSadAddin.cls",
+    "candidates": [
+      "Archive/sad2/CSadAddin.cls",
+      "Archive/Sandy2/CSadAddin.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CSadAddin.cls",
+    "sha256": "bee30c46cf67c1537846a6271bfec22d4b1183ea23cb62083369a09d4361cd7b",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  },
+  {
+    "reference": "CInsertionInfo.cls",
+    "candidates": [
+      "Archive/sad2/CInsertionInfo.cls",
+      "Archive/Sandy2/CInsertionInfo.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CInsertionInfo.cls",
+    "sha256": "42f211db2b3819e6ced4fee9f92e9a6a10f541bcc1c60af143b2b03a143b9d03",
+    "status": "reviewed supplemental model evidence; later snapshot, see ARCHIVE-SOURCES.md"
+  },
+  {
+    "reference": "CRegHotKey.cls",
+    "candidates": [
+      "Archive/sad2/CRegHotKey.cls",
+      "Archive/Sandy2/CRegHotKey.cls"
+    ],
+    "behavioralSupplement": "Archive/sad2/CRegHotKey.cls",
+    "sha256": "76216aa5da4584dd3267aa468a72b8f9a420599c37fca1fbdf06dd2137f2aa1e",
+    "status": "candidate; later snapshot, verify behavior against Sandy before porting"
+  }
+]
