@@ -73,6 +73,20 @@ internal static class AccessLibrary
                     ?? throw new InvalidDataException("Orphan template: " + template.Name);
                 category.Templates.Add(template); templates.MoveNext();
             }
+            dynamic tableDefs=database.TableDefs;
+            try {
+                for(var i=0;i<(int)tableDefs.Count;i++) {
+                    dynamic table=tableDefs.Item(i);
+                    try {
+                        string name=table.Name;if(name.StartsWith("MSys",StringComparison.OrdinalIgnoreCase)||name is "Category" or "Template")continue;
+                        dynamic rows=database.OpenRecordset("SELECT * FROM ["+name.Replace("]","]]")+"]",4);
+                        try { while(!rows.EOF) { var record=new System.Xml.Linq.XElement(System.Xml.XmlConvert.EncodeLocalName(name));foreach(var pair in Fields(rows))record.Add(new System.Xml.Linq.XElement(System.Xml.XmlConvert.EncodeLocalName(pair.Key),pair.Value));result.AuxiliaryRecords.Add(record);rows.MoveNext(); } }
+                        finally{rows.Close();Release(rows);}
+                    }
+                    finally{Release(table);}
+                }
+            }
+            finally{Release(tableDefs);}
             result.Validate(); return result;
         }
         finally
@@ -84,6 +98,22 @@ internal static class AccessLibrary
         }
     }
     public static Dictionary<string, string[]> Schema(string filename)
+    {
+        try { return SchemaNative(filename); }
+        catch (COMException ex) when (ex.HResult is unchecked((int)0x800A0BE1) or unchecked((int)0x80040154))
+        {
+            var output = Path.Combine(Path.GetTempPath(),"Sandy-schema-"+Guid.NewGuid().ToString("N")+".json");
+            try
+            {
+                var start = new System.Diagnostics.ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows),"SysWOW64","WindowsPowerShell","v1.0","powershell.exe")) { UseShellExecute=false, CreateNoWindow=true, WindowStyle=System.Diagnostics.ProcessWindowStyle.Hidden, RedirectStandardError=true };
+                foreach(var arg in new[]{"-NoProfile","-NonInteractive","-ExecutionPolicy","Bypass","-File",Path.Combine(AppContext.BaseDirectory,"Export-LegacyMdb.ps1"),"-InputFile",Path.GetFullPath(filename),"-OutputFile",output,"-SchemaOnly"})start.ArgumentList.Add(arg);
+                using var process=System.Diagnostics.Process.Start(start)!;var error=process.StandardError.ReadToEnd();process.WaitForExit();if(process.ExitCode!=0)throw new InvalidOperationException("Legacy schema read failed: "+error,ex);
+                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string,string[]>>(File.ReadAllText(output))!;
+            }
+            finally { if(File.Exists(output))File.Delete(output); }
+        }
+    }
+    private static Dictionary<string, string[]> SchemaNative(string filename)
     {
         dynamic engine = CreateEngine(); dynamic? database = null, tables = null;
         try

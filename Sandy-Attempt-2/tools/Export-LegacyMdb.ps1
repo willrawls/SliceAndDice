@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory)][string]$InputFile,
-    [Parameter(Mandatory)][string]$OutputFile
+    [Parameter(Mandatory)][string]$OutputFile,
+    [switch]$SchemaOnly
 )
 $ErrorActionPreference = 'Stop'
 $sourceFile = [IO.Path]::GetFullPath($InputFile)
@@ -15,6 +16,23 @@ $writer = $null
 try {
     $engine = New-Object -ComObject DAO.DBEngine.36
     $database = $engine.OpenDatabase($sourceFile, $false, $true)
+    if ($SchemaOnly) {
+        $schema = [ordered]@{}
+        foreach ($table in $database.TableDefs) {
+            try {
+                if ($table.Name -like 'MSys*') { continue }
+                $names = [Collections.Generic.List[string]]::new()
+                foreach ($field in $table.Fields) {
+                    try { $names.Add("$($field.Name) : DAO $($field.Type) ($($field.Size))") }
+                    finally { [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($field) }
+                }
+                $schema[$table.Name] = [string[]]$names.ToArray()
+            }
+            finally { [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($table) }
+        }
+        [IO.File]::WriteAllText($targetFile, ($schema | ConvertTo-Json -Depth 5), [Text.UTF8Encoding]::new($false))
+        return
+    }
     $categoryRows = $database.OpenRecordset('SELECT * FROM [Category]', 4)
     $templateRows = $database.OpenRecordset('SELECT * FROM [Template]', 4)
     $categoryList = [Collections.Generic.List[object]]::new()
@@ -55,6 +73,23 @@ try {
             $writer.WriteEndElement()
         }
         $writer.WriteEndElement()
+    }
+    foreach ($table in $database.TableDefs) {
+        try {
+            if ($table.Name -like 'MSys*' -or $table.Name -in @('Category','Template')) { continue }
+            $rows = $database.OpenRecordset(('SELECT * FROM [' + $table.Name.Replace(']',']]') + ']'), 4)
+            try {
+                while (-not $rows.EOF) {
+                    $writer.WriteStartElement([Xml.XmlConvert]::EncodeLocalName($table.Name))
+                    $fields = Read-Fields $rows
+                    foreach ($key in $fields.Keys) { $writer.WriteElementString([Xml.XmlConvert]::EncodeLocalName($key), $fields[$key]) }
+                    $writer.WriteEndElement()
+                    $rows.MoveNext()
+                }
+            }
+            finally { $rows.Close(); [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($rows) }
+        }
+        finally { [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($table) }
     }
     $writer.WriteEndElement()
     $writer.WriteEndDocument()

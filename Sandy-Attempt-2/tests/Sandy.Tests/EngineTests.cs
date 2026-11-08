@@ -4,6 +4,12 @@ namespace Sandy.Tests;
 
 public sealed class EngineTests
 {
+    [Fact] public void UnknownRootRecordsSurviveLibraryRoundTrip()
+    {
+        var(library,_)=Fixture("Text");library.AuxiliaryRecords.Add(System.Xml.Linq.XElement.Parse("<SystemInfo><Setting>value</Setting></SystemInfo>"));
+        var path=Path.Combine(Path.GetTempPath(),Guid.NewGuid()+".xml");
+        try{library.Save(path);Assert.Equal("value",Library.Load(path).AuxiliaryRecords.Single().Element("Setting")!.Value);}finally{File.Delete(path);}
+    }
     private static (Library Library, Template Template) Fixture(string code)
     {
         var library = new Library(); var category = new Category(); category.Fields["CategoryID"] = "1"; category.Fields["CategoryName"] = "Test";
@@ -37,18 +43,18 @@ public sealed class EngineTests
     [Fact] public async Task UnknownCommandsAreRejectedWithContext()
     {
         var (library, template) = Fixture("Hello\n~~RegistryWrite Dangerous");
-        var error = await Assert.ThrowsAsync<NotSupportedException>(() => new Engine().EvaluateAsync(library, template));
-        Assert.Contains("Test - One, Cursor, line 2", error.Message);
+        var error = await Assert.ThrowsAsync<SandyExecutionException>(() => new Engine().EvaluateAsync(library, template));
+        Assert.Contains("Test - One [Cursor, line 2]", error.Message);
     }
     [Fact] public async Task RecursiveVariablesAreBounded()
     {
         var (library, template) = Fixture("%%A%%");
-        await Assert.ThrowsAsync<InvalidOperationException>(() => new Engine().EvaluateAsync(library, template, new Dictionary<string, string> { ["A"] = "%%A%%" }));
+        await Assert.ThrowsAsync<SandyExecutionException>(() => new Engine().EvaluateAsync(library, template, new Dictionary<string, string> { ["A"] = "%%A%%" }));
     }
     [Fact] public async Task RecursiveIncludesAreBounded()
     {
         var (library, template) = Fixture("~##~Include 2,One");
-        await Assert.ThrowsAsync<InvalidOperationException>(() => new Engine().EvaluateAsync(library, template));
+        await Assert.ThrowsAsync<SandyExecutionException>(() => new Engine().EvaluateAsync(library, template));
     }
     [Fact] public async Task SeparateAreasNeverMixAndFileOutputDoesNotWrite()
     {

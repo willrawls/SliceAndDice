@@ -1,5 +1,13 @@
 @inject IDesktopServices Desktop
-@if (Definition.ClassName is "frmFieldType" or "frmODBCFieldType")
+@if (Definition.ClassName == "frmFindReplace")
+{ <LibrarySearch OnClose="OnClose" /> }
+else if (Definition.ClassName == "DataViewForm1")
+{ <LibraryData /> }
+else if (Definition.ClassName == "frmCommandHelp")
+{ <CommandHelp /> }
+else if (Definition.ClassName is "frmDBClassGen" or "frmODBCClassGen" or "frmOptions")
+{ <CodeGenerator Header="@(Definition.ClassName == "frmOptions")" Odbc="@(Definition.ClassName == "frmODBCClassGen")" /> }
+else if (Definition.ClassName is "frmFieldType" or "frmODBCFieldType")
 {
     <div class="legacy-fields field-dialog">
         <label>Field name<input id="FieldName" @bind='values["FieldName"]' @bind:event="oninput" /></label>
@@ -56,6 +64,8 @@ else
                 status = string.Join(Environment.NewLine, files); return;
             }
             if (Definition.ClassName == "frmLogin" && action == "cmdOK") { await OnClose.InvokeAsync(); return; }
+            if (Definition.ClassName == "TestCrypt" && action == "cmdEncrypt") { values["txtOut"]=LegacyObfuscation.Encrypt(values["txtIn"]);return; }
+            if (Definition.ClassName == "TestCrypt" && action == "cmdDecrypt") { values["txtDec"]=LegacyObfuscation.Decrypt(values["txtOut"]);return; }
             if (Definition.ClassName == "frmBrowser" && action == "OpenBrowser") { Desktop.OpenUrl(values["cboAddress"]); return; }
             if (Definition.ClassName == "ShellMain" && action == "mnuMainWindow") { await OnClose.InvokeAsync(); return; }
             if (Definition.ClassName is "frmDBClassGen" or "frmODBCClassGen")

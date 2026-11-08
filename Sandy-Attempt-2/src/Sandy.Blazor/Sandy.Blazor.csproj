@@ -4,5 +4,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="../Sandy.Core/Sandy.Core.csproj" />
     <EmbeddedResource Include="../Sandy.Desktop/Forms/catalog.json" Link="catalog.json" />
+    <EmbeddedResource Include="../../../Sandy/sadAddin.txt" Link="Reference/sadAddin.txt" />
+    <EmbeddedResource Include="../../../Sandy/sadFile.txt" Link="Reference/sadFile.txt" />
   </ItemGroup>
 </Project>

@@ -43,7 +43,7 @@ public sealed class Workspace : NotifyPropertyChangedObject
         Templates.Clear(); if (library == null) return;
         foreach (var t in library.Templates.Where(t => t.Name.Contains(Filter, StringComparison.OrdinalIgnoreCase))) Templates.Add(new() { Id = t["TemplateID"], Name = t.Name });
     }
-    internal Task<Evaluation> EvaluateAsync(Func<Prompt, CancellationToken, Task<string?>>? prompt, CancellationToken cancellation)
+    internal Task<Evaluation> EvaluateAsync(Func<Prompt, CancellationToken, Task<string?>>? prompt, CancellationToken cancellation, ILegacyHost? host = null)
     {
         var template = CurrentTemplate ?? throw new InvalidOperationException("Select a template.");
         var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -52,7 +52,7 @@ public sealed class Workspace : NotifyPropertyChangedObject
             var equal = line.IndexOf('='); if (equal < 1) throw new FormatException("SoftVariables must be Name=Value, one per line.");
             values[line[..equal].Trim()] = line[(equal + 1)..];
         }
-        return new Engine().EvaluateAsync(library!, template, values, prompt, cancellation);
+        return new Engine().EvaluateAsync(library!, template, values, prompt, cancellation, host);
     }
     private async Task GuardAsync(Func<Task> action, CancellationToken ct)
     {

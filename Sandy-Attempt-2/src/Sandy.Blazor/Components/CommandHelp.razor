@@ -1,0 +1,20 @@
+<div class="legacy-fields command-help"><input aria-label="Search SoftCommands" placeholder="Search commands, aliases, descriptions…" @bind="filter" @bind:event="oninput" />
+<div class="command-help-grid"><select size="14" aria-label="SoftCommands" @bind="selected">@foreach(var entry in Entries) { <option value="@entry.Name">@entry.Kind · @entry.Name</option> }</select>
+@if(Current is {} command)
+{ <article><h3>@command.Name</h3><p>@command.Summary</p><p>Aliases: @command.Aliases</p><h4>Syntax</h4><pre>@command.Syntax</pre><p>@command.Details</p><h4>Examples</h4><pre>@command.Examples</pre><small>Legacy reference: @command.Source</small></article> }
+</div></div>
+@code {
+    private string filter="",selected="";
+    private static readonly IReadOnlyList<CommandReference> Commands=Load();
+    private IEnumerable<CommandReference> Entries=>Commands.Where(c=>(c.Name+" "+c.Aliases+" "+c.Summary).Contains(filter,StringComparison.OrdinalIgnoreCase));
+    private CommandReference? Current=>Commands.FirstOrDefault(c=>c.Name==selected)??Entries.FirstOrDefault();
+    private static IReadOnlyList<CommandReference> Load()
+    {
+        var commands=new List<CommandReference>();var assembly=typeof(FormCatalog).Assembly;
+        foreach(var file in new[]{"sadAddin.txt","sadFile.txt"})
+        {
+            var resource=assembly.GetManifestResourceNames().Single(x=>x.EndsWith("."+file,StringComparison.Ordinal));using var stream=assembly.GetManifestResourceStream(resource)!;using var reader=new StreamReader(stream,System.Text.Encoding.Latin1);commands.AddRange(CommandReference.Parse(reader.ReadToEnd(),"Sandy/"+file));
+        }
+        return commands.OrderBy(c=>c.Name).ToArray();
+    }
+}

@@ -1,0 +1,76 @@
+{
+  "Version": "0.3.0.0",
+  "Date": "2026-11-07",
+  "Build": {
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "Tests": {
+    "Passed": 61,
+    "Failed": 0,
+    "Skipped": 0
+  },
+  "BlazorWebView": {
+    "Workbench": true,
+    "Forms": [
+      "DataViewForm1",
+      "frmAutoWebURLEntry",
+      "frmBrowser",
+      "frmCommandHelp",
+      "frmDBClassGen",
+      "frmFieldType",
+      "frmFileList",
+      "frmFindReplace",
+      "frmListSelect",
+      "frmLogin",
+      "frmODBCClassGen",
+      "frmODBCFieldType",
+      "frmOptions",
+      "frmProgress",
+      "frmRegister",
+      "frmSplash",
+      "frmTest",
+      "frmVB5AddInTool",
+      "ShellMain",
+      "TestCrypt"
+    ],
+    "DraftSwitching": true,
+    "SaveReload": true,
+    "RepeatedPrompts": true,
+    "LegacyObfuscation": true,
+    "CommandReference": true
+  },
+  "LiveVisualStudio": {
+    "installedProfile": "SandyAttempt2",
+    "cursorInsertion": true,
+    "oneUndoRestoresOriginalBytes": true,
+    "sha256": "eb4c009455fb034c23e652235509328fd17541c29881dfef58d79d0ffee8c798",
+    "multiAreaInsertion": true,
+    "multiAreaSingleUndoRestoresOriginalBytes": true,
+    "generatedFile": true,
+    "fileJournal": true,
+    "generatedFileLeavesEditorUnchanged": true,
+    "cancelDoesNotWrite": true,
+    "version": "0.3.0.0",
+    "version03CursorInsertion": true,
+    "version03SingleUndoExact": true,
+    "normalProfileInstalled": true,
+    "installedBuildHashesMatch": true,
+    "normalProfileEnabled": true,
+    "normalProfileCommandsRegistered": true,
+    "normalProfileInsertion": true,
+    "normalProfileSingleUndoRestoresExactBytes": true
+  },
+  "OriginalSourceHashesUnchanged": 163,
+  "SyntheticCorpusProbe": {
+    "Note": "Synthetic fixture probe only. Successful evaluation does not establish legacy parity, correct output or live host behavior. No effects were committed.",
+    "Evaluated": 319,
+    "Total": 419,
+    "Failures": {
+      "NeedsFixtureOrCompatibilityWork": 92,
+      "CancelledOrTimeLimit": 6,
+      "UnsupportedCommand": 2
+    }
+  },
+  "FullLegacyParity": false
+}

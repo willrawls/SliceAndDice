@@ -8,6 +8,23 @@ using Sandy.Core;
 namespace Sandy.Tests;
 public sealed class WorkspaceTests
 {
+    [Fact] public void SearchReplacementAcrossLibraryIsAtomicWhenLockedTemplateMatches()
+    {
+        var state=Create();var one=state.Library.Templates.First();state.Current!.Code[CodeArea.Cursor]="original";state.Current.Locked=true;
+        Assert.Throws<InvalidOperationException>(()=>state.Search("original","changed",replace:true));
+        state.Select(one);Assert.Equal("original",state.Current!.Code[CodeArea.Cursor]);
+    }
+    [Fact] public void CategoryDeletionHonorsUndeletableAndDuplicationKeepsDraft()
+    {
+        var state=Create();state.Current!.Code[CodeArea.Cursor]="draft";state.DuplicateTemplate();Assert.Equal("draft",state.Current!.Code[CodeArea.Cursor]);
+        state.Selected!["Undeletable"]="-1";Assert.Throws<InvalidOperationException>(state.DeleteCategory);Assert.Equal(3,state.Library.Templates.Count());
+    }
+    [Fact] public async Task PreviewEvaluatesUnsavedDraftAndDoesNotChangeCommittedTemplate()
+    {
+        var state=Create();state.Current!.Code[CodeArea.Cursor]="%%First::one%%|%%Second::two%%";var prompts=new List<string>();
+        await state.PreviewAsync((p,_)=>{prompts.Add(p.Name);return Task.FromResult<string?>(p.Default);});
+        Assert.Equal(new[]{"First","Second"},prompts);Assert.Contains("one|two",state.Preview);Assert.Equal("",state.Selected!.Code(CodeArea.Cursor));Assert.NotNull(state.PreviewPlan);
+    }
     private static Workspace Create()
     {
         var state = new Workspace(); state.NewLibrary(); state.AddCategory("Test"); state.AddTemplate("One"); state.Current!.Code[CodeArea.Cursor] = "original"; state.Update(); state.AddTemplate("Two"); return state;

@@ -1,0 +1,28 @@
+@inject IDesktopServices Desktop
+<div class="generator legacy-fields">
+    @if (Header)
+    { <button @onclick="PickHeader">Open C/C++ header</button><label>Header source<textarea rows="8" @bind="header" @bind:event="oninput"></textarea></label><button class="primary" @onclick="GenerateHeader">Generate C# declarations</button> }
+    else
+    {
+        @if (Odbc) { <label>ODBC connection string<input type="password" autocomplete="off" @bind="connection" /></label><button @onclick="Connect">Read schema</button> }
+        else { <button @onclick="PickDatabase">Open Access database</button> }
+        <label>Table<select @bind="table">@foreach(var name in schema.Keys) { <option>@name</option> }</select></label>
+        <label>Namespace<input @bind="nameSpace" /></label><button class="primary" @onclick="GenerateModel" disabled="@(table.Length==0)">Generate model</button>
+        @if(schema.TryGetValue(table,out var fields)) { <pre>@string.Join(Environment.NewLine,fields)</pre> }
+    }
+    <label>Generated C#<textarea class="generated-code" rows="12" readonly value="@output"></textarea></label>
+    <button @onclick="Save" disabled="@(output.Length==0)">Save generated source</button><p role="status">@status</p>
+</div>
+@code {
+    [Parameter] public bool Header { get; set; }
+    [Parameter] public bool Odbc { get; set; }
+    private string header="",output="",status="",table="",nameSpace="Generated",connection="";
+    private IReadOnlyDictionary<string,string[]> schema=new Dictionary<string,string[]>();
+    private void Guard(Action action) {try{action();}catch(Exception e){status=e.Message;}}
+    private void PickHeader()=>Guard(()=> {var file=Desktop.PickFile("C/C++ headers|*.h;*.hpp|All files|*.*");if(file!=null)header=File.ReadAllText(file,System.Text.Encoding.UTF8);});
+    private void PickDatabase()=>Guard(()=>{var file=Desktop.PickFile("Access database|*.mdb;*.accdb|All files|*.*");if(file!=null){schema=Desktop.ReadSchema(file);table=schema.Keys.FirstOrDefault()??"";status=$"Read {schema.Count} tables.";}});
+    private void Connect()=>Guard(()=>{schema=Desktop.ReadOdbcSchema(connection);table=schema.Keys.FirstOrDefault()??"";status=$"Read {schema.Count} tables.";});
+    private void GenerateHeader()=>Guard(()=>{var generated=HeaderGenerator.Generate(header);output=generated.Code;status=generated.Diagnostics.Count==0?"Generated declarations.":string.Join(Environment.NewLine,generated.Diagnostics);});
+    private void GenerateModel()=>Guard(()=>{output=DatabaseGenerator.Generate(table,DatabaseGenerator.ParseDaoFields(schema[table]),nameSpace);status="Generated model for "+table;});
+    private void Save()=>Guard(()=>{var file=Desktop.SaveText(Header?"NativeDeclarations.cs":DatabaseGenerator.Identifier(table)+".cs");if(file!=null){File.WriteAllText(file,output,new System.Text.UTF8Encoding(false));status="Saved "+file;}});
+}

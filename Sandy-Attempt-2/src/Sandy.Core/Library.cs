@@ -10,6 +10,7 @@ public sealed class Template
     public Dictionary<string, string> Fields { get; } = new(StringComparer.OrdinalIgnoreCase);
     public string this[string field] { get => Fields.GetValueOrDefault(field, ""); set => Fields[field] = value; }
     public string Name => this["TemplateName"];
+    public string Id => this["TemplateID"];
     public bool Locked => Flag("Locked");
     public bool Flag(string field) => this[field] is "1" or "-1" || this[field].Equals("true", StringComparison.OrdinalIgnoreCase);
     public static string CodeField(CodeArea area) => area switch
@@ -32,6 +33,7 @@ public sealed class Category
 public sealed class Library
 {
     public List<Category> Categories { get; } = [];
+    public List<XElement> AuxiliaryRecords { get; } = [];
     public IEnumerable<Template> Templates => Categories.SelectMany(x => x.Templates);
 
     public static Library Load(string filename)
@@ -40,6 +42,7 @@ public sealed class Library
         var root = XDocument.Load(reader).Root ?? throw new InvalidDataException("Missing XML root.");
         if (root.Name.LocalName != "dataroot") throw new InvalidDataException("Choose an Access Category.xml export, not a COM type-library XML file.");
         var result = new Library();
+        result.AuxiliaryRecords.AddRange(root.Elements().Where(e=>e.Name.LocalName!="Category").Select(e=>new XElement(e)));
         foreach (var element in root.Elements().Where(x => x.Name.LocalName == "Category"))
         {
             var category = new Category();
@@ -75,6 +78,7 @@ public sealed class Library
         Validate();
         var root = new XElement("dataroot", Categories.Select(c => new XElement("Category",
             c.Fields.Select(x => new XElement(x.Key, x.Value)), c.Templates.Select(t => new XElement("Template", t.Fields.Select(x => new XElement(x.Key, x.Value)))))));
+        root.Add(AuxiliaryRecords.Select(e=>new XElement(e)));
         // Complete the new document before replacing an existing working copy.
         var temporary = filename + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
@@ -86,10 +90,13 @@ public sealed class Library
         finally { if (System.IO.File.Exists(temporary)) System.IO.File.Delete(temporary); }
     }
 
-    public Template Find(string name)
+    public string CategoryOf(Template template) => Categories.Single(c => c.Templates.Contains(template) ||
+        template["CategoryID"].Length > 0 && c.Fields.GetValueOrDefault("CategoryID") == template["CategoryID"]).Name;
+
+    public Template Find(string name, string? currentCategory = null)
     {
         var found = Templates.Where(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToArray();
-        if (found.Length == 0) found = Templates.Where(t => t["ShortTemplateName"].Equals(name, StringComparison.OrdinalIgnoreCase)).ToArray();
+        if (found.Length == 0) found = Categories.Where(c => currentCategory == null || c.Name.Equals(currentCategory, StringComparison.OrdinalIgnoreCase)).SelectMany(c => c.Templates).Where(t => t["ShortTemplateName"].Equals(name, StringComparison.OrdinalIgnoreCase)).ToArray();
         return found.Length == 1 ? found[0] : throw new InvalidOperationException("Missing or ambiguous template: " + name);
     }
 

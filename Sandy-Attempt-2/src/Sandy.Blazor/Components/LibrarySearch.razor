@@ -1,0 +1,16 @@
+@inject Workspace State
+<div class="legacy-fields">
+<label>Find<input @bind="find" /></label><label>Replace with<input @bind="replacement" /></label>
+<label>Scope<select @bind="scope"><option>Template</option><option>Category</option><option>Library</option></select></label>
+<label><input type="checkbox" @bind="matchCase" />Match case</label><label><input type="checkbox" @bind="wholeWord" />Whole word</label><label><input type="checkbox" @bind="pattern" />Regular expression</label>
+<div><button @onclick="()=>Run(false)">Find all</button><button @onclick="()=>Run(true)">Replace all</button></div>
+<p role="status">@status</p><div class="search-results">@foreach(var hit in hits.Take(200)){<button @onclick="()=>Select(hit)">@hit.Template.Name · @hit.Area · @hit.Offset</button>}</div>
+</div>
+@code {
+    [Parameter] public EventCallback OnClose {get;set;}
+    private string find="",replacement="",scope="Template",status="";
+    private bool matchCase,wholeWord,pattern;
+    private IReadOnlyList<SearchHit> hits=[];
+    private void Run(bool replace){try{hits=State.Search(find,replacement,scope,matchCase,wholeWord,pattern,replace);status=State.Status;}catch(Exception e){status=e.Message;}}
+    private async Task Select(SearchHit hit){State.Select(hit.Template);State.Status=$"Match in {hit.Area} at offset {hit.Offset}.";await OnClose.InvokeAsync();}
+}

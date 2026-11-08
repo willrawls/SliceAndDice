@@ -1,0 +1,5 @@
+@inject Workspace State
+<div class="legacy-fields"><label>Filter rows<input @bind="filter" @bind:event="oninput" /></label><div class="library-data"><table><thead><tr><th>Template</th><th>Field</th><th>Value</th></tr></thead><tbody>
+@foreach(var template in State.Library.Templates.Where(t=>t.Name.Contains(filter,StringComparison.OrdinalIgnoreCase))){@foreach(var field in template.Fields){<tr><td>@template.Name</td><td>@field.Key</td><td><pre>@field.Value</pre></td></tr>}}
+</tbody></table></div></div>
+@code { private string filter=""; }
